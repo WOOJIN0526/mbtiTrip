@@ -1,0 +1,47 @@
+### **Git Workflow 설명**
+
+1. **Main Branch**
+    - 운영 환경에 반영될 코드를 관리하는 메인 브랜치입니다. 안정적인 코드만을 반영합니다.
+2. **Develop Branch**
+    - sync fork를 하는 브런치 입니다.
+    - 작업을 시작하기전 dev 브런치를 항상 sync fork하셔야 합니다.
+    - 개발 중인 기능들을 통합하는 브랜치입니다. 팀원들이 작업한 코드는 확인후 여기에 다시 병합합니다
+3 **feature Branch**
+    - pull request를 보내는 브런치 입니다,
+    - 각자 작업한 파일은 정해진 시간에 이 브런치로 pull request를 보내시면 됩니다.
+4. **병합 및 버전 업데이트**
+    - 개발 작업이 회의 후 일정 수준의 구현이 완료되었다고 판단되면, Develop Branch를 Main Branch로 병합합니다.
+    - 병합 후에는 Main Branch에서 새로운 버전을 태깅하여 버전을 올립니다. 이는 **`git tag`** 명령어를 사용하여 수행할 수 있습니다.
+    - 새로운 버전이 태깅된 후에는 해당 버전을 운영 환경에 배포합니다.
+    - 
+
+이러한 Workflow를 따르면 팀원 간의 협업이 원활해지고, 프로젝트의 품질을 유지할 수 있습니다. 언제든지 궁금한 점이 있으시면 문의해주세요.
+
+작업순서
+1. 팀원 각 개인의gitHub의 fork된 리파지토리에서 sync fork로 dev 브런치에서 업데이트를 진행합니다.
+2. sync가 완료되면 스프링에서 pull로 sync된 개인의 리파지토리에서 파일을 업데이트 합니다.
+3. 작업에 들어가기전 각 작업할 파일의이름을 카톡으로 공유하여 작업영역이 겹치지 않도록 합니다.
+4. 정해진 시간 내에 스프링에서 프로젝트 우클릭->Team->Commit
+   Unstaged Changes에서 파일 확인후 Staged Changes로 옮김
+-> 여러 파일을 작업한 경우 한파일씩 커밋하면서 메세지를 작성합니다.
+5. 태그 작업날짜 이름 ex)Feat 0305 최우진 
+태그:
+- Feat : 새 기능 추가, 백단 작업 혹은 js로 기능 추가시
+- Fix :기능의 수정, 메소드명 변경시에도
+-Design : html css등 UI단의 변경시
+-Rename : 파일명 수정 html,css js,java등의 파일이름 자체
+-Remove : 파일 삭제시
+   순으로 커밋 메시지 작성후 커및
+
+6. Push HEAD버튼을 눌러서 gitHub으로 push
+7. 개인의 gitHub으로 이동후 pull requests -> new pull request
+8. pull request의 제목: 날짜 이름
+ 내용 :  작업한 내용의 요약 및 작업한 파일 제목.확장자
+ex) 0305 최우진
+Feat 메인 페이지 아이콘 애니메이션 추가 main.js
+Feat 게시글 페이지 html작성 post.html
+Feat 서비스단 메서드 추가 public List<User> getUser  UserService.java
+Fix : 작업하던 코드를 이어서 작성 public List<User> getUser메서드 수정 UserService.java
+design 화면 배치및 디자인 변경 login.html login.css
+Rename 파일 이름 수정 gunchimController.java -> GunchimController.java
+Remove 파일 삭제 gunChimController.java
