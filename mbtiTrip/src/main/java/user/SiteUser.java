@@ -15,7 +15,7 @@ public class SiteUser {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer user_id;
+	private Integer user_id; //유저 아이디
 	
 	@Column(unique = true) //중복허용 x
 	private String username;
