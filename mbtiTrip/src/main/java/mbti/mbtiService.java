@@ -20,9 +20,16 @@ public class mbtiService {
 	 * mbti 데이터는 미리 설정해두고, 땡겨와서 User에 넣는 방식으로 수정할 예정
 	 */
 	
-	public void setUserMbti(SiteUser User, String mbti ) {
+	public void setUserMbti(SiteUser User, String mbti) {
 		SiteUser user = new SiteUser();
-		user.setMbti(mbti);
+		user.setMbti(mbtiRepo.findByMbti(mbti));
 		this.userRepo.save(user);
+	}
+
+	//3월 8일 mbti 세팅용 메소드 작성자 : 신성진	
+	public void createMbti(String mbti) {
+		mbti mt = new mbti();
+		mt.setMbti(mt);
+		mbtiRepo.save(mt);
 	}
 }

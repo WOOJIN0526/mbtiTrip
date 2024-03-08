@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
-/*3월 8일 작업자 신성진 */
 
 @Getter
 @Setter
