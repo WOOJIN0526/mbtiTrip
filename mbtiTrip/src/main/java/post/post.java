@@ -27,6 +27,9 @@ public class post {
 	@Column(unique = true)
 	private Integer post_category_id;
 	
+	@Column(unique = true)
+	private String mbti;
+	
 	@ManyToOne
 	private user.SiteUser author;
 	
