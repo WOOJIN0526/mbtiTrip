@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
+import mbti.mbti;
 
 @Getter
 @Setter
@@ -27,8 +28,8 @@ public class post {
 	@Column(unique = true)
 	private Integer post_category_id;
 	
-	@Column(unique = true)
-	private String mbti;
+	@Column
+	private mbti mbti;
 	
 	@ManyToOne
 	private user.SiteUser author;
@@ -49,3 +50,4 @@ public class post {
 	
 	private LocalDateTime modifyDate;
 }
+// 몇몇 속성은 어디서 쓰일지 모르지만 일단 집어넣어둠 0308 김현석 수정
