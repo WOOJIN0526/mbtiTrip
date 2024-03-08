@@ -2,7 +2,6 @@ package post;
 
 import java.time.LocalDateTime;
 
-import com.example.test.SiteUser;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
