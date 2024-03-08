@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
+import mbti.mbti;
 
 @Getter
 @Setter
@@ -30,7 +31,7 @@ public class post_question {
 	private String content; // 내용
 	
 	@Column(length=4)
-	private String mbti; //mbti
+	private mbti mbti; //mbti
 	
 	private LocalDateTime createDate; // 작성일자
 	
@@ -42,3 +43,4 @@ public class post_question {
 	
 	private LocalDateTime modifyDate;
 }
+// 질문 엔티티
