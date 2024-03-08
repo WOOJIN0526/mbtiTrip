@@ -1,51 +1,44 @@
 package post;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-public class post {
+public class post_question {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer user_id; 
+	private Integer user_id;
 	
-	@Column(unique = true) //중복허용 x
-	private String username;
+	@Column(length = 100)
+	private String subject; // 제목
+
+	@Column(columnDefinition = "TEXT")
+	private String content; // 내용
 	
-	@Column(unique = true)
-	private Integer post_category_id;
+	@Column(length=4)
+	private String mbti; //mbti
 	
-	@Column(unique = true)
-	private String mbti;
+	private LocalDateTime createDate; // 작성일자
+	
+	@OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+	private List<post_answer> answerList;
 	
 	@ManyToOne
 	private user.SiteUser author;
-	
-	private String title;
-	
-	private String views;
-	
-	private String contents;
-	
-	private String answerList;
-	
-	private String suggestion;
-	
-	private String unsuggestion;
-	
-	private LocalDateTime createDate;
 	
 	private LocalDateTime modifyDate;
 }

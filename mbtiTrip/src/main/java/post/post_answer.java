@@ -2,7 +2,6 @@ package post;
 
 import java.time.LocalDateTime;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,37 +14,22 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class post {
+public class post_answer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer user_id; 
+	private Integer user_id;
 	
-	@Column(unique = true) //중복허용 x
-	private String username;
+	@Column(columnDefinition = "TEXT")
+	private String content;
 	
-	@Column(unique = true)
-	private Integer post_category_id;
-	
-	@Column(unique = true)
-	private String mbti;
+	private LocalDateTime createDate;
+
+	@ManyToOne  
+	private post_question question; 
 	
 	@ManyToOne
 	private user.SiteUser author;
-	
-	private String title;
-	
-	private String views;
-	
-	private String contents;
-	
-	private String answerList;
-	
-	private String suggestion;
-	
-	private String unsuggestion;
-	
-	private LocalDateTime createDate;
 	
 	private LocalDateTime modifyDate;
 }
