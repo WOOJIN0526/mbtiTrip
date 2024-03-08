@@ -33,7 +33,6 @@ public class post_answer_service {
 	}
 
 	public void modify(post_answer answer, String content) {
-		// TODO Auto-generated method stub
 		answer.setContent(content);
 		answer.setModifyDate(LocalDateTime.now());
 		this.answerRepository.save(answer);
