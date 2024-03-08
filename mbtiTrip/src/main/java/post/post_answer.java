@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
+import mbti.mbti;
 
 @Getter
 @Setter
@@ -19,6 +20,9 @@ public class post_answer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer user_id;
+	
+	@Column
+	private mbti mbti;
 	
 	@Column(columnDefinition = "TEXT")
 	private String content;

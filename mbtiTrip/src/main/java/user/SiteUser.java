@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
+import mbti.mbti;
 
 @Getter
 @Setter
@@ -22,8 +23,8 @@ public class SiteUser {
 	
 	private String password;
 	
-	@Column(unique = true)
-	private String mbti;
+	@Column
+	private mbti mbti;
 	
 	@Column(unique = true)
 	private String PNumber;
