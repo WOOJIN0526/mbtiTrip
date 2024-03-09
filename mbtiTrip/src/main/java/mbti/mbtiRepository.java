@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface mbtiRepository extends JpaRepository<mbti, Integer>{
 
-	Optional<mbti> findByMbti(String mbti);
+	mbti findByMbti(String mbti);
 }
