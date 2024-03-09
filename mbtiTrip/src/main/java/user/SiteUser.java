@@ -26,6 +26,9 @@ public class SiteUser {
 	@Column
 	private mbti mbti;
 	
+	@Column
+	private String mileage;
+	
 	@Column(unique = true)
 	private String PNumber;
 	

@@ -31,11 +31,12 @@ public class post_question_service {
 		return oq.get();
 	}
 	
-	public void create(String subject, String content, user.SiteUser author, mbti mbti) {
+	public void create(String subject, String content, user.SiteUser author, mbti mbti, Integer views) {
 		post_question q1 = new post_question();
 		q1.setSubject(subject);
 		q1.setContent(content);
 		q1.setAuthor(author);
+		q1.setViews(views);
 		q1.setMbti(mbti);
 		q1.setCreateDate(LocalDateTime.now());
 		this.qR.save(q1);
