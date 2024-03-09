@@ -25,6 +25,7 @@ public class mbtiService {
 		user.setMbti(mbtiRepo.findByMbti(mbti));
 		this.userRepo.save(user);
 	}
+	//테스트용 주석
 
 	//3월 8일 mbti 세팅용 메소드 작성자 : 신성진	
 	public void createMbti(String mbti) {
