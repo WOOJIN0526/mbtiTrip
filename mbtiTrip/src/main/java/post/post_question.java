@@ -33,14 +33,17 @@ public class post_question {
 	@Column(length=4)
 	private mbti mbti; //mbti
 	
+	@Column
+	private Integer views; //조회수
+	
 	private LocalDateTime createDate; // 작성일자
 	
 	@OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
 	private List<post_answer> answerList;
 	
 	@ManyToOne
-	private user.SiteUser author;
+	private user.SiteUser author; //작성자
 	
-	private LocalDateTime modifyDate;
+	private LocalDateTime modifyDate;//수정일자
 }
 // 질문 엔티티
