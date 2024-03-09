@@ -33,7 +33,7 @@ public class UserController {
 		}
 		
 		
-		this.userService.create(userCreateForm.getUsername(), userCreateForm.getEmail(), userCreateForm.getPassword1(), userCreateForm.getMbti());
+		this.userService.create(userCreateForm.getUsername(), userCreateForm.getEmail(), userCreateForm.getPassword1(), userCreateForm.getMbti(), userCreateForm.getPNumber());
 		return "redirect:/";
 	}
 	
