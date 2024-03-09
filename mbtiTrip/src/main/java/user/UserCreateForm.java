@@ -21,6 +21,9 @@ public class UserCreateForm { //회원가입 폼 작성
 	@NotEmpty(message = "비밀번호 확인은 필수입니다")
 	private String password2;
 	
+	@NotEmpty(message = "휴대폰 번호는 필수입니다")
+	private String PNumber;
+	
 	@NotEmpty(message = "이메일은 필수입니다")
 	@Email
 	private String email;
