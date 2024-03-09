@@ -21,9 +21,6 @@ public class post_answer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer user_id;
 	
-	@Column
-	private mbti mbti;
-	
 	@Column(columnDefinition = "TEXT")
 	private String content;
 	
@@ -33,7 +30,7 @@ public class post_answer {
 	private post_question question; 
 	
 	@ManyToOne
-	private user.SiteUser author;
+	private user.SiteUser author; //작성자
 	
 	private LocalDateTime modifyDate;
 }
