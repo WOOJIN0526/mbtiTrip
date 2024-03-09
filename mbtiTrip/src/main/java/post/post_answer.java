@@ -1,10 +1,13 @@
-package user;
+package post;
+
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 import mbti.mbti;
@@ -12,26 +15,25 @@ import mbti.mbti;
 @Getter
 @Setter
 @Entity
-public class SiteUser {
+public class post_answer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer user_id; //유저 아이디
-	
-	@Column(unique = true) //중복허용 x
-	private String username;
-	
-	private String password;
+	private Integer user_id;
 	
 	@Column
 	private mbti mbti;
 	
-	@Column(unique = true)
-	private String PNumber;
+	@Column(columnDefinition = "TEXT")
+	private String content;
 	
-	@Column(unique = true)
-	private String email;
+	private LocalDateTime createDate;
+
+	@ManyToOne  
+	private post_question question; 
 	
+	@ManyToOne
+	private user.SiteUser author;
 	
-	
+	private LocalDateTime modifyDate;
 }
