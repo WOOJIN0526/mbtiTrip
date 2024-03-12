@@ -1,4 +1,4 @@
-package post;
+package Trip;
 
 import java.time.LocalDateTime;
 
@@ -7,32 +7,29 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
-import mbti.mbti;
 
 @Getter
 @Setter
 @Entity
-public class post_answer {
+public class trip {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer user_id;
-	
-	@Column(columnDefinition = "TEXT")
-	private String content;
+	private Integer trip_id;
 	
 	@Column
-	private LocalDateTime createDate;
-
-	@ManyToOne  
-	private post_question question; 
+	private String userName;
 	
-	@ManyToOne
-	private user.SiteUser author; //작성자
+	@Column(length = 100)
+	private String tripTitle; 
+	
+	@Column
+	private LocalDateTime updateDate;
 	
 	@Column
 	private LocalDateTime modifyDate;
+	
+	
 }
