@@ -37,9 +37,6 @@ public class post_question {
 	@Column(length=4)
 	private mbti mbti; //mbti
 	
-	@Column
-	private Integer views; //조회수
-	
 	private LocalDateTime createDate; // 작성일자
 	
 	@OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
@@ -53,4 +50,3 @@ public class post_question {
 
 }
 // 질문 엔티티
-// 조회수 속성 추가 0312 김현석
