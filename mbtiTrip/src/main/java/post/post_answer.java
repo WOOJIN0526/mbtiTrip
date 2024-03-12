@@ -24,6 +24,7 @@ public class post_answer {
 	@Column(columnDefinition = "TEXT")
 	private String content;
 	
+	@Column
 	private LocalDateTime createDate;
 
 	@ManyToOne  
@@ -32,5 +33,6 @@ public class post_answer {
 	@ManyToOne
 	private user.SiteUser author; //작성자
 	
+	@Column
 	private LocalDateTime modifyDate;
 }
