@@ -28,6 +28,7 @@ public class UserCreateForm { //회원가입 폼 작성
 	@Email
 	private String email;
 	
+	@Size(min = 4, max= 4)
 	@NotEmpty(message = "mbti는 필수입니다")
 	private mbti mbti;
 }

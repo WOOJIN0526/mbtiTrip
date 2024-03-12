@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
 
 
@@ -28,6 +29,7 @@ public class post_controller {
 	private post_question_service questionService;
 	@Autowired
 	private user.UserService userService;
+	
 	
 	@GetMapping("/")
 	public String list(Model model,
@@ -66,8 +68,7 @@ public class post_controller {
 		user.SiteUser siteUser = this.userService.getUser(principal.getName());
 		this.questionService.create(questionForm.getSubject(), 
 									questionForm.getContent(),
-									siteUser,
-									questionForm.getMbti());
+									siteUser, questionForm.getMbti());
 		return "redirect:/";
 		
 	}
@@ -139,6 +140,10 @@ public class post_controller {
 		this.questionService.delete(question);
 		return "redirect:/";
 	}
+	
+	
+	
 }
 // 포스트 컨트롤러 포스트맵핑, 겟맵핑, 리다이렉트 부분 url 필요
 // 0308 김현석
+

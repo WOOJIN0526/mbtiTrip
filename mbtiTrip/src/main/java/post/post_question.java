@@ -3,6 +3,7 @@ package post;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import groovy.transform.builder.Builder;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,15 +27,15 @@ public class post_question {
 	
 	@Column(length = 100)
 	private String subject; // 제목
+	
+	@Column
+	private String post_category; //카테고리
 
 	@Column(columnDefinition = "TEXT")
 	private String content; // 내용
 	
 	@Column(length=4)
 	private mbti mbti; //mbti
-	
-	@Column
-	private Integer views; //조회수
 	
 	private LocalDateTime createDate; // 작성일자
 	
@@ -45,5 +46,7 @@ public class post_question {
 	private user.SiteUser author; //작성자
 	
 	private LocalDateTime modifyDate;//수정일자
+	
+
 }
 // 질문 엔티티

@@ -17,7 +17,6 @@ public class post_answer_service {
 	public void create(post_question q, String content, user.SiteUser author) {
 		post_answer a = new post_answer();
 		a.setContent(content);
-		System.out.println(a.getContent());
 		a.setCreateDate(LocalDateTime.now());
 		a.setQuestion(q);
 		a.setAuthor(author);
