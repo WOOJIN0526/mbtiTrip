@@ -1,4 +1,4 @@
-package POST;
+package com.example.test.POST;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
