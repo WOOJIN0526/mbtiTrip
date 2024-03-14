@@ -30,7 +30,7 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	compileOnly 'org.projectlombok:lombok' 
     annotationProcessor 'org.projectlombok:lombok' 
-    runtimeOnly 'com.h2database:h2'
+    
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -41,7 +41,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation' 
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
 	implementation "org.springframework.boot:spring-boot-starter-log4j2";    // Spring Boot Log4j2
-
+	
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
+    runtimeOnly 'mysql:mysql-connector-java:8.0.26'
+	
+	
+	
 }
 tasks.named('bootBuildImage') {
 	builder = 'paketobuildpacks/builder-jammy-base:latest'

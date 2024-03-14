@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="login_form.css">
+</head>
+<body>
+    <!-- login head -->
+    
+    
+    <!-- login main -->
+    <div class="main">
+        <div class="totLoginPage" id="totLoginPage">
+            <form class="login-form">
+                <div class="logo">
+                    <p>로고들어감</p>
+                </div>
+                <!-- login_information -->
+                <fieldset id = login>
+                    <input type="textbox" id="id" name="id" placeholder="ID" required><br>
+                    <input type="password" id="pwd" name="password" placeholder="Password" required>
+                </fieldset>
+                <br>
+                <!--login_and_sign_btn-->
+                <input type="button" id="login-btn" value="로그인">   
+                <input type="button" id="sign_up_btn" value="회원가입" onClick="location.href='sign_up.html'">         
+            </form>
+                <a id= "lostIdAndLostPassword" href="">아이디/비밀번호 찾기</a><br>
+                <!-- <a id= "lostIdAndLostPassword" href="">SNS 아이디로 로그인</a>               -->
+        </div>
+    </div>
+    <script src="login_from.js"></script>
+</body>
+</html>
