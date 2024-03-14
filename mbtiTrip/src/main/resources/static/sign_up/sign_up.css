@@ -1,0 +1,72 @@
+*{
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+ 
+
+/* main */
+
+.main{
+    width: 95% 95%;
+    height: 100vh;
+    /* background:url(masaaki-komori-_SbeCWYjwCQ-unsplash.jpg); */
+    background-color: #FFD8E4;
+    text-align: center;
+    background-repeat:no-repeat;
+    background-position: top center;
+    background-size: cover;
+    display: grid;
+}
+
+
+.totLoginPage {
+    margin: auto;
+    width: 18.75em;
+    background-color: #EEEFF1;
+    border-radius: 0.3em;    
+    text-align: center;
+    padding: 1.25em;
+}
+
+.logo p{
+    font-size: 1.5em;
+    text-align: center;
+    padding: 0.6em;
+    line-height : 1em;
+}
+
+#sign_up_btn {
+    background-color: #FFD8E4;
+    margin-bottom: 1.8em;
+    color: #9B9B9B;
+}
+
+/* .phone {
+    display: flex;
+    justify-content: space-between;
+    line-height: 35px;
+    padding: 0.55em;
+} */
+
+input {
+    width: 90%;
+    padding: 0.6em;
+    box-sizing: border-box;
+    border-radius: 0.3em;
+    margin-bottom: 0.6em;
+}
+
+select{
+    width: 90%;
+    padding: 0.6em;
+    box-sizing: border-box;
+    border-radius: 0.3em;
+    margin-bottom: 0.6em;
+}
+
+a {
+    text-decoration: none;
+    font-size: 1em;
+    line-height : 2em;
+}
