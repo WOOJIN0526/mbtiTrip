@@ -1,6 +1,10 @@
 package com.example.test.User;
 
 import java.time.LocalDateTime;
+import java.util.Map;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,5 +38,14 @@ public class UserCart {
 	//UserCartAdventrud
 	
 	private LocalDateTime updateDate;
+	
+	
+	@Autowired
+	SqlSessionTemplate sqlSessiontemplate;
+	
+	public int insert(Map<String, Object> user) {
+		int result = sqlSessiontemplate.insert("userCart.insert", user);
+		return result;
+	};
 }
 
