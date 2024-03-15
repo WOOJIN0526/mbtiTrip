@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,7 +23,9 @@ public class Answer {
 	@Column(name="Post_ID")
 	private Integer Post_id;
 	
+	
 	@Column(columnDefinition = "TEXT")
+	@NotEmpty(message = "내용은 필수항목입니다.")
 	private String content;
 	
 	@ManyToOne
