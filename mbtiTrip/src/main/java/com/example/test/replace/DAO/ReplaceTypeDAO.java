@@ -22,7 +22,7 @@ public class ReplaceTypeDAO {
 		return result;
 	}
 	
-
+  
 //	@Id
 //	@GeneratedValue
 //	@Column(name = "RE_TypeID")

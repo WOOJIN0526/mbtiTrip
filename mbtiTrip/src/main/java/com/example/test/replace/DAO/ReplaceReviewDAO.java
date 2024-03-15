@@ -25,7 +25,7 @@ public class ReplaceReviewDAO {
 	}
 	
 	
-//	@Id
+//	@Id 
 //	@GeneratedValue
 //	@Column(name = "Reivew_ID")
 //	private Integer id;

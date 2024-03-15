@@ -27,19 +27,5 @@ public class User_Cart_ReplaceDAO {
 		return result;
 	}
 	
-	
-//	@Id
-//	@GeneratedValue
-//	@Column(name = "UCRE_ID")
-//	private Integer id;
-//
-//	@OneToMany(mappedBy = "replace")
-//	@Column(name = "Replace_ID")
-//	private Integer replaceID;
-//	
-//	@Column(name = "UserCart_ID")
-//	private Integer userCartID;
-//	
-//	
-//	private LocalDateTime updateDate;
+
 }

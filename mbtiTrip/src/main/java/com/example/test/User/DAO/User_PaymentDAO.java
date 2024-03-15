@@ -26,22 +26,7 @@ public class User_PaymentDAO {
 		return result;
 	};
 	
-//	@Id
-//	@GeneratedValue
-//	@Column(name = "UserPayment_ID")
-//	private Integer id;
-//	
-//	@OneToMany(mappedBy = "Cart")
-//	@Column(name = "UserCart_ID")
-//	private Integer userCartID;
-//
-//	private String Card_info;
-//	
-//	private String Card_Num;
-//	
-//	private Integer price;
-//	
-//	private LocalDateTime paymentTime;
+
 	
 }
 

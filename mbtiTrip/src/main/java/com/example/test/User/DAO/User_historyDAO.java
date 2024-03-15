@@ -28,26 +28,5 @@ public class User_historyDAO {
 	}
 	
 	
-//	@Id
-//	@GeneratedValue
-//	@Column(name = "UserHistory_ID")
-//	private Integer id;
-//	
-//	
-//	@Column(name = "Replace_ID")
-//	private Integer replaceID;
-//	
-//	@Column(name = "Rc_ID")
-//	private Integer replaceCategoryID;
-//	
-//	@Column(name = "Adventure_ID")
-//	private Integer adventureID;
-//	
-//	@Column(name = "Post_ID")
-//	private Integer postID;
-//	
-//	@Column(name = "Post_Category_ID")
-//	private Integer postCategoryID;
-//	
-//	private LocalDateTime updateDate;
+
 }

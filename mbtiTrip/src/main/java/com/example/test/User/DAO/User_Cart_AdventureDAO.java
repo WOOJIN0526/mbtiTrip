@@ -1,4 +1,4 @@
-package com.example.test.User;
+package com.example.test.User.;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -25,19 +25,7 @@ public class User_Cart_AdventureDAO {
 		int result = this.sqlSessiontemplate.insert("userCartAdventure.insert",userCartAdventure);
 		return result;
 	}
-//	@Id
-//	@GeneratedValue
-//	@Column(name = "UCAD_ID")
-//	private Integer id;
-//	
-//	@Column(name ="Adventure_ID")
-//	private Integer adventureID;
-//	
-//	@Column(name = "UserCart_ID")
-//	private Integer userCartID;
-//	
-//	
-//	private LocalDateTime updateDate;
+
 	
 	
 }

@@ -21,7 +21,7 @@ public class MbtiDAO {
 		int result = this.sqlSessiontemplate.insert("mbti.insert",mbti);
 		return result;
 	}
-	
+	 
 //	@Id
 //	@GeneratedValue
 //	@Column(name = "Mbti_ID")

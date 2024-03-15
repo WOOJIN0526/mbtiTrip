@@ -20,7 +20,7 @@ public class ReplaceCategoryDAO {
 		int result = this.sqlSessiontemplate.insert("replaceCategory.insert",replaceCategory);
 		return result;
 	}
-	
+	  
 	
 //	@Id
 //	@GeneratedValue

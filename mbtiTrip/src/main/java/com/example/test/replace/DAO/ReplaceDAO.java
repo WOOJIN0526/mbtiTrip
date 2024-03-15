@@ -26,8 +26,8 @@ public class ReplaceDAO {
 		return result;
 	}
 	
-	
-//	@Id
+	 
+//	@Id 
 //	@GeneratedValue
 //	@Column(name = "Replace_ID")
 //	private Integer id;
