@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,6 +28,7 @@ public class Post {
 	@Column(name= "USER_KEY")
 	private Integer User_id;
 	
+	@NotEmpty(message="제목은 필수입니다.")
 	@Column(length = 100)
 	private String title;
 	
@@ -39,6 +41,7 @@ public class Post {
 	@Column
 	private Integer views;
 	
+	@NotEmpty(message="내용은 필수입니다.")
 	@Column(columnDefinition = "TEXT")
 	private String content;
 	
