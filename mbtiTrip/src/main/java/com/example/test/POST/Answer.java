@@ -1,4 +1,4 @@
-package POST;
+package com.example.test.POST;
 
 import java.time.LocalDateTime;
 

@@ -1,4 +1,4 @@
-package POST;
+package com.example.test.POST;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -45,8 +45,6 @@ public class Post {
 	@Column
 	private String suggestion;
 	
-	@Column
-	private String unsuggestion;
 	
 	@OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
 	private List<Answer> answerList;
