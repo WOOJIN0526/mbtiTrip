@@ -1,4 +1,4 @@
-package Adventure;
+package com.example.test.Adventure;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

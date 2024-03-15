@@ -1,4 +1,4 @@
-package Adventure;
+package com.example.test.Adventure;
 
 import java.time.LocalDateTime;
 
