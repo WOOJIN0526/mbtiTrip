@@ -25,22 +25,5 @@ public class ReplaceReviewDAO {
 	}
 	
 	
-//	@Id 
-//	@GeneratedValue
-//	@Column(name = "Reivew_ID")
-//	private Integer id;
-//	
-//	@ManyToOne
-//	@Column(name = "Replace_ID")
-//	private Integer replaceID;
-//	
-//	@NotNull
-//	private Integer rating;
-//	
-//	@NotNull
-//	private String content;
-//
-//	private LocalDateTime updateDate;
-//
-//	private LocalDateTime modifyDate;
+
 }

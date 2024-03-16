@@ -1,4 +1,4 @@
-package com.example.test.User;
+package com.example.test.User.DAO;
 
 import java.util.Map;
 
@@ -16,6 +16,7 @@ public class UserDAO {
 		int result = this.sqlSessiontemplate.insert("user.insert", user);
 		return result;
 	};
+	
 //	
 //	@Id @GeneratedValue
 //	@Column(name = "User_ID")

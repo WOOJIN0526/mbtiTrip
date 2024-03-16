@@ -10,14 +10,13 @@ import lombok.Setter;
 public class UserCartDTO {
 
 
-	private Integer id;  //PK
+	private Integer UserCartID;  //PK
 	
 	private String author;  //Fk
 	
 	private Integer price;
 	
-	
-	private String ucreID; //FK
+	private Integer ucreID; //FK
 	//UserCartRePlace
 	
 	private String ucadID;  //FK

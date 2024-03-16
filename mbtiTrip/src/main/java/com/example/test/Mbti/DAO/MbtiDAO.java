@@ -22,13 +22,5 @@ public class MbtiDAO {
 		return result;
 	}
 	 
-//	@Id
-//	@GeneratedValue
-//	@Column(name = "Mbti_ID")
-//	private Integer id;
-//	
-//	@Column(unique = true)
-//	private String mbti;
-//	
-//	private String mbti_ex;
+
 }
