@@ -22,13 +22,6 @@ public class ReplaceTypeDAO {
 		return result;
 	}
 	
-  
-//	@Id
-//	@GeneratedValue
-//	@Column(name = "RE_TypeID")
-//	private Integer id;
-//	
-//	
-//	private String Replace_Type_name;
+
 //	
 }

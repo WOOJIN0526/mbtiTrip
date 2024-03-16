@@ -9,13 +9,13 @@ import lombok.Setter;
 @Setter
 public class UserCartReplaceDTO {
 
-	private Integer id;
+	private Integer UserCartReplaceID; //pk
 
 
-	private Integer replaceID;
+	private Integer replaceID; //fk
 	
 
-	private Integer userCartID;
+	private Integer userCartID; //fk
 	
 	
 	private LocalDateTime updateDate;

@@ -21,13 +21,6 @@ public class ReplaceCategoryDAO {
 		return result;
 	}
 	  
-	
-//	@Id
-//	@GeneratedValue
-//	@Column(name = "Rc_ID")
-//	private Integer id;
-//	
-//	private String Replace_Category;
-//	//분위기 등
+
 	
 }

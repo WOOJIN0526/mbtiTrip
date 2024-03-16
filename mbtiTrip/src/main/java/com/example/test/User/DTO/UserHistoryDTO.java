@@ -9,15 +9,17 @@ import lombok.Setter;
 @Setter
 public class UserHistoryDTO {
 	
-	private String replace;
+	private Integer UserHitoryID; //pk
 	
-	private String replaceCategory;
+	private Integer replace;   //fk
 	
-	private String adventure;
+	private Integer replaceCategory;   //fk
 	
-	private String postID;
+	private Integer adventure;  //fk
 	
-	private String postCategory;
+	private Integer postID;  //fk
+	
+	private Integer postCategory;  //fk
 	
 	private LocalDateTime updateDate;
 }
