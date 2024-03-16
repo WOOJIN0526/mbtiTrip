@@ -10,7 +10,7 @@ import lombok.Setter;
 public class UserCartAdventureDTO {
 
 
-	private Integer id;
+	private Integer userCartAdventureID;
 
 	private Integer adventureID;
 	
