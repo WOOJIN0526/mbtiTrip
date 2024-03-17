@@ -1,4 +1,4 @@
-package com.example.test.Adventure;
+package com.example.test.Adventure.DTO;
 
 import java.time.LocalDateTime;
 
@@ -11,23 +11,17 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity
-public class Adventure_Review {
+public class Adventure_ReviewDTO {
 
-	@Id @GeneratedValue
-	@Column(name="Adventure_Review_Key")
+	
 	private Integer ar_id;
 	
-	@Column(name="Adventure_ID")
 	private Integer adventure_id;
 	
-	@Column
 	private long ar_rating;
 	
-	@Column
 	private String userName;
 	
-	@Column
 	private LocalDateTime ar_UpdateDate;
 	
 	
