@@ -1,4 +1,4 @@
-package com.example.test.City;
+package com.example.test.CityDTO;
 
 import lombok.Getter;
 import lombok.Setter;

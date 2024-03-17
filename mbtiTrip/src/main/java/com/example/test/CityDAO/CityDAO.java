@@ -1,4 +1,4 @@
-package com.example.test.City;
+package com.example.test.CityDAO;
 
 import java.util.Map;
 
