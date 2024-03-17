@@ -12,7 +12,7 @@ public class UserCartDTO {
 
 	private Integer UserCartID;  //PK
 	
-	private String author;  //Fk
+	private String userID;  //Fk
 	
 	private Integer price;
 	

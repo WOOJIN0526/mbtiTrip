@@ -8,27 +8,29 @@ import lombok.Setter;
 public class ReplaceDTO {
 
 
-	private Integer id;    //pk
+	private Integer replaceID;    //pk
 	
-	private Integer replaceCategoryId;   //fk
+	private Integer replaceCategoryID;   //fk
 	
 	private Integer mbtiID;    //fk
 
 	private Integer cityID;    //fk
 	
-	private Integer Post_Category_ID;    //fk
+	private Integer postCategoryID;    //fk
+	
+	private Integer replaceType;  //fk
 	 
-	private String R_name;
+	private String replaceName;
 	
-	private String R_location;
+	private String replaceLocation;
 	
-	private Integer R_price;
+	private Integer replacePrice;
 
-	private String R_content;
+	private String replaceContents;
 	
-	private String R_tel;
+	private String tel;
 	
-	private String R_admin;
+	private String replaceAdmin;
 	
 	private Integer R_rating_avg;
 	

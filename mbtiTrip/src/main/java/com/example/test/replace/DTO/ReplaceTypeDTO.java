@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 public class ReplaceTypeDTO {
 
-	private Integer id;   //pk
+	private Integer replaceTypeID;   //pk
 	
-	private String Replace_Type_name;
+	private String replaceTypename;
 	
 }
