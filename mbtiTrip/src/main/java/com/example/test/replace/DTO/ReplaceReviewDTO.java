@@ -10,7 +10,9 @@ import lombok.Setter;
 @Setter
 public class ReplaceReviewDTO {
 
-	private Integer id;
+	private Integer replaceReivewID;
+	
+	private Integer userID;
 	
 	private String userName;
 

@@ -11,15 +11,15 @@ public class UserHistoryDTO {
 	
 	private Integer UserHitoryID; //pk
 	
-	private Integer replace;   //fk
+	private Integer replaceID;   //fk
 	
 	private Integer replaceCategory;   //fk
-	
-	private Integer adventure;  //fk
+
+	private Integer adventureID;  //fk
 	
 	private Integer postID;  //fk
 	
-	private Integer postCategory;  //fk
+	private Integer postCategoryID;  //fk
 	
 	private LocalDateTime updateDate;
 }

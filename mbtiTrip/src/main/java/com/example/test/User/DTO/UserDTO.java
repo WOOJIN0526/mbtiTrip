@@ -7,7 +7,9 @@ import lombok.Setter;
 @Setter
 public class UserDTO {
 	
-	private String userName; //pk
+	private String userID;  //p
+	
+	private String userName; 
 	
 	private String mbti;   //FK
 	

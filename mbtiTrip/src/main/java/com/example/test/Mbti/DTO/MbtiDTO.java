@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class MbtiDTO {
 
-	private Integer id;
+	private Integer MbtiID;
 	
 	private String mbti;
 	
