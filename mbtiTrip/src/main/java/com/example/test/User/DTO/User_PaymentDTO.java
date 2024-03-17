@@ -9,13 +9,13 @@ import lombok.Setter;
 @Setter
 public class User_PaymentDTO {
 	
-	private Integer userPaymentID;  //pk
+	private Integer userpaymentID;  //pk
 	
 	private Integer userCartID;   //fk
 
-	private String CardInfo;   
+	private String cardInfo;   
 	
-	private String CardNum;   
+	private String cardNum;   
 	
 	private Integer price;
 	
