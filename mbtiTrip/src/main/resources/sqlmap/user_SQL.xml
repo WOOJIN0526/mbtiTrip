@@ -4,9 +4,9 @@
 <insert id="insert" parameterType="hashMap" useGeneratedKeys="true" keyProperty="user_id">  
     <![CDATA[
     insert into user
-    (title, category, price) 
+    (userName, mbtiID, password, PhoneNumber, mail) 
     values
-    (#{title}, #{category}, #{price})
+    (#{userName}, #{mbti}, #{password}, #{PhoneNumber}, #{mail})
     ]]>
 </insert>
 </mapper>
