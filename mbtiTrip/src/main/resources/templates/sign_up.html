@@ -4,29 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="sign_up.css">
+    <link rel="stylesheet" href="static/sign_up/sign_up.css">
 </head>
 <body>
     <!-- loginAndSign main -->
     <div class="main">
         <div class="totLoginPage" id="totLoginPage">
-            <form class="sign_up_form" name="sign_up_form">
+            <form class="sign_up_form"  method="post" action="/sign_up">
                 <div class="logo">
                     <p>로고</p>
                 </div>
                 <!-- sign_up_information -->
                 <fieldset  id = sign_up>
-                    <input type="text"  name="name" id="name" placeholder="이름" required><br>
-                    <input type="textbox" name="id" id="id" placeholder="아이디" required><br>
-                    <input type="password" name="password" id="pwd" placeholder="비밀번호" required><br>
-                    <input type="password" name="password_check" id="pwd_2" placeholder="비밀번호 확인" required><br>                  
-                    <input type="email" id="email"  placeholder="이메일" required> <br>
+                    <input class="disActive" type="text"  name="userName" id="name" placeholder="이름" required><br>
+                    <input type="textbox" name="userID" id="id" placeholder="아이디" required><br>
+                    <input class="disActive" type="password" name="password" id="pwd" placeholder="비밀번호" required><br>
+                    <input class="disActive" type="password" id="pwd_2" placeholder="비밀번호 확인" required><br>                  
+                    <input class="disActive" type="email" name="mail" id="email"  placeholder="이메일" required> <br>
                         <!-- <span class="email_button">
                             <button id="btn" type="button">이메일 인증받기</button><br>
                         </span> -->                   
-                    <input type="text"  name="phone" id="phone" placeholder="휴대전화번호 '-'빼고 숫자만 입력" required><br>
+                    <input class="disActive" type="text"  name="PhoneNumber" id="phone" placeholder="휴대전화번호 '-'빼고 숫자만 입력" required><br>
 
-                    <select id="mbti" name="mbti" onchange="mt(this)">
+                    <select class="disActive" id="mbti" name="mbti">
                         <option>당신의 MBTI는?</option>
                         <option value="ISTJ">ISTJ</option>
                         <option value="ISFJ">ISFJ</option>
@@ -46,20 +46,20 @@
                         <option value="ENTJ">ENTJ</option>
                     </select>
                     <br> 
-                    <select id="gender" name="gender" onchange="ex(this)">
+                    <!-- <select class="disActive" id="gender" name="gender" onchange="ex(this)">
                         <option>성별을 선택해 주세요</option>
                         <option value="여">여</option>
                         <option value="남">남</option>
-                    </select><br>                    
+                    </select><br>                     -->
                 </fieldset>
                 <br>
                 <!--login_and_sign_btn-->   
-                <input type="submit" id="sign_up_btn" value="회원가입">           
+                <input class="disActive" type="submit" id="sign_up_btn" value="회원가입">           
             </form>
                 <a id= "lostIdAndLostPassword" href="">아이디/비밀번호 찾기</a><br>
                 <!-- <a id= "SNS_Login" href="">SNS 아이디로 로그인</a>                -->
         </div>
     </div>
-    <script src="sign_up.js"></script>
+    <script src="static/sign_up/sign_up.js"></script>
 </body>
 </html>

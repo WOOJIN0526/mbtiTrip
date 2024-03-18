@@ -6,7 +6,9 @@
  
 
 /* main */
-
+.disActive{
+    display: none;
+}
 .main{
     width: 95% 95%;
     height: 100vh;
@@ -27,6 +29,7 @@
     border-radius: 0.3em;    
     text-align: center;
     padding: 1.25em;
+    
 }
 
 .logo p{
@@ -69,4 +72,10 @@ a {
     text-decoration: none;
     font-size: 1em;
     line-height : 2em;
+}
+#sign_up_btn:hover{
+    color: black;
+}
+.error{
+    color: red;
 }
