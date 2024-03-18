@@ -9,9 +9,9 @@ import lombok.Setter;
 @Setter
 public class AnswerDTO {
 
-	private Integer answer_id;
+	private Integer answerID;
 	
-	private Integer Post_id;
+	private Integer postID;
 	
 	private String content;
 	
@@ -25,7 +25,7 @@ public class AnswerDTO {
 	
 	
 	
-	private LocalDateTime answer_updateDate;
+	private LocalDateTime updateDate;
 	
-	private LocalDateTime answer_modifiDate;
+	private LocalDateTime modifiDate;
 }

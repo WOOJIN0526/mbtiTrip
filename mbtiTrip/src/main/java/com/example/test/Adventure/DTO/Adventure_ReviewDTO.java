@@ -14,15 +14,15 @@ import lombok.Setter;
 public class Adventure_ReviewDTO {
 
 	
-	private Integer ar_id;
+	private Integer adventureReviewID;
 	
-	private Integer adventure_id;
+	private Integer adventureID;
 	
-	private long ar_rating;
+	private double rating;
 	
 	private String userName;
 	
-	private LocalDateTime ar_UpdateDate;
+	private LocalDateTime updatedate;
 	
 	
 	

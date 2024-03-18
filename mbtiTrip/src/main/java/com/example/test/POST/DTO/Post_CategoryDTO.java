@@ -10,8 +10,8 @@ import lombok.Setter;
 public class Post_CategoryDTO {
 
 	
-	private Integer PC_Key;
+	private Integer postCategoryID;
 	
-	private String category;
+	private String postCategory;
 	
 }

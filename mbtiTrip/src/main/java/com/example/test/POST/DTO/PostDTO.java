@@ -17,11 +17,11 @@ import lombok.Setter;
 @Setter
 public class PostDTO {
 
-	private Integer Post_id;
+	private Integer postID;
 	
-	private Integer PC_Key;
+	private Integer postCategoryID;
 	
-	private Integer User_id;
+	private Integer userId;
 	
 	private String title;
 	
@@ -35,7 +35,7 @@ public class PostDTO {
 	
 	private LocalDateTime modifyDate;
 	
-	private Integer answerList;
+	
 	
 	
 }

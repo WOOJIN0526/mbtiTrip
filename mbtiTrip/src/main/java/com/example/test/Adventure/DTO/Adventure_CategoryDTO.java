@@ -10,7 +10,7 @@ import lombok.Setter;
 public class Adventure_CategoryDTO {
 
 	
-	private Integer AC_id;
+	private Integer adventureCategoryID;
 	
-	private String ACategory;
+	private String adventureCategory;
 }
