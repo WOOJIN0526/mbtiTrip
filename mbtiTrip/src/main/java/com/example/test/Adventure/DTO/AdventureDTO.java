@@ -11,30 +11,30 @@ import lombok.Setter;
 public class AdventureDTO {
 
 	
-	private Integer adventure_id;
+	private Integer adventureID;
 	
-	private Integer AR_id;
+	private Integer adventureCategoryID;
 	
-	private Integer mbtikey;
+	private Integer mbtiID;
 	
-	private Integer City_id;
+	private Integer cityID;
 	
-	private Integer PC_Key;
+	private Integer postCategoryID;
 	
-	private Integer Type_RE_id;
+	private Integer adventureTypeId;
 	
-	private String A_Location;
+	private String adventureLocation;
 	
-	private String A_Name;
+	private String adventureName;
 	
-	private long A_price;
+	private Integer adventurePrice;
 	
-	private String A_Content;
+	private String adventureContent;
 	
-	private String A_Tel;
+	private String tel;
 	
-	private String A_Admin;
+	private String adventureAdmin;
 	
-	private double A_Rating;
+	private double ratringAvg;
 	
 }
