@@ -110,6 +110,7 @@ body {
     padding: 10px;
     background-color: #f9f9f9;
     border-radius: 5px;
+    height  :2.5rem
 }
 
 .info-grid li:nth-child(odd) {
