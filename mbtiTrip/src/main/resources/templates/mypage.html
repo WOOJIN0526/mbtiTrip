@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>마이페이지</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="../static/mypage/myPage.css">
+</head>
+<body>
+    <div class="menu">
+        <i class="fa-solid fa-bars"></i>
+    </div  >
+    <div class="menuNode">
+        <ul>
+            <li class="node"><a href="">개인정보 수정</a></li>
+            <li class="node"><a href="">위시 리스트</a></li>
+        </ul>
+    </div>
+<div class="container">
+    <div class="profile">
+        <img src="profile-pic.jpg" alt="프로필 사진">
+        <h2>사용자 이름</h2>
+       
+    </div>
+    
+    <div class="section">
+        <h3>내 정보</h3>
+        <div class="info-grid">
+            <ul>
+                <li>이름</li>
+                <li>생년월일</li>
+                <li>전화번호</li>
+                <li>이메일</li>
+                <li>등급</li>
+            </ul>
+            <ul>
+                <li>사용자 이름</li>
+                <li>1990년 01월 01일</li>
+                <li>010-1234-5678</li>
+                <li>user@example.com</li>
+                <li>Gold</li>
+            </ul>
+        </div>
+    </div>
+    <div class="activity-summary">
+        <h3>활동 요약</h3>
+        <p>최근에 작성한 글: <span th:text="${recentPostsCount}">0</span>개</p>
+        <p>받은 좋아요 수: <span th:text="${likesCount}">0</span>개</p>
+        <p>받은 댓글 수: <span th:text="${commentsCount}">0</span>개</p>
+    </div>
+    <div class="activity-summary">
+        <h3>활동 요약</h3>
+        <p>최근에 작성한 글: 10개</p>
+        <p>받은 좋아요 수: 50개</p>
+        <p>받은 댓글 수: 20개</p>
+    </div>
+    <!-- <div class="section">
+        <h3>비밀번호 변경</h3>
+        <form action="#">
+            <label for="current-password">현재 비밀번호:</label>
+            <input type="password" id="current-password" name="current-password"><br>
+            <label for="new-password">새로운 비밀번호:</label>
+            <input type="password" id="new-password" name="new-password"><br>
+            <label for="confirm-password">비밀번호 확인:</label>
+            <input type="password" id="confirm-password" name="confirm-password"><br>
+            <button type="submit">변경</button>
+        </form>
+    </div> -->
+
+    <!-- <div class="section">
+        <h3>내가 작성한 글 목록</h3>
+        <ul>
+            <li>글 제목 1 <span class="edit-btn">편집</span></li>
+            <li>글 제목 2 <span class="edit-btn">편집</span></li>
+            <li>글 제목 3 <span class="edit-btn">편집</span></li>
+            
+        </ul>
+    </div> -->
+    <script src="../static/mypage/mypage.js"></script>
+</body>
+</html>

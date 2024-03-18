@@ -9,7 +9,7 @@
   transition: transform 0.5s ease;
 }
 body{
-  
+  overflow-x: hidden;
 }
 .top-bar {
   background: #ffffff;
@@ -126,7 +126,7 @@ body{
 }
 .profile.disActive {
   transform: translate(60rem, 0rem);
-  display: none;
+ 
 }
 .profileBox{
   

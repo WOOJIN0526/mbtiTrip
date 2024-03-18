@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class CityDTO {
 
-	private Integer City_id;
+	private Integer cityID;
 	
-	private String City_name;
+	private String cityName;
 }

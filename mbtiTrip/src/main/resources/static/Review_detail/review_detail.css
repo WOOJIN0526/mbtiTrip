@@ -1,0 +1,105 @@
+*{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+/* Reset CSS */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f6f6f6;
+}
+
+/* Review Container */
+.Review_container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Review Header */
+.Review_header {
+    display: flex;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    justify-content: space-between;
+}
+
+.Review_header_title h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.Review_header_user {
+    display: flex;
+    align-items: center;
+}
+
+.Review_header_user div {
+    margin-right: 10px;
+}
+
+.Review_header_user img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.Review_header_right{
+    display: flex;
+    justify-content: flex-end;
+    
+}
+.fa-solid.fa-star {
+    color: gold;
+}
+
+.fa-regular.fa-star-half-stroke {
+    color: gold;
+}
+
+.fa-regular.fa-star-half-stroke:before {
+    content: "\f089";
+}
+
+/* Review Body */
+.Review_body {
+    padding: 20px;
+}
+
+.content_field_img img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.content_field_text_content p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* Review Footer */
+.Review_footer {
+    
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #ddd;
+    align-content: space-between;
+}
+
+.Review_footer i {
+    margin-right: 5px;
+    color: #555;
+}
+
+.suggestion {
+    font-size: 16px;
+    color: #555;
+}

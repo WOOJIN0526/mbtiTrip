@@ -1,0 +1,117 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    transition-property: transform;
+    transition-duration: 0.5s;
+    transition-delay: 0.2s;
+}
+.menu{
+    position: fixed;
+    left: 5rem;
+    top: 2rem;
+    font-size: 2rem;
+    background-color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.menu.animate {
+    transform: rotate(90deg);
+  }
+.menuNode{
+    position: fixed;
+    left: 1rem;
+    top: 7rem;
+    
+}
+.node{
+    transform: translateX(-200px);
+    font-size: 1.5rem;
+    margin: 0.5rem;
+    background-color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
+}
+.node.active{
+    transform: translateX(0px);
+}
+.menuNode ul li a{
+    color: #333;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+}
+
+.profile {
+    padding: 3rem;
+    text-align: center;
+    margin-bottom: 20px;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    border-bottom: 0.1px solid rgba(0, 0, 0, 0.1);
+}
+
+
+.profile img {
+    background-color:#666 ;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.profile h2 {
+    margin: 5px 0;
+    color: #333;
+}
+
+.profile p {
+    margin: 0;
+    color: #666;
+}
+
+.section {
+    margin-bottom: 30px;
+}
+
+.section h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 150px auto;
+    grid-gap: 10px;
+}
+
+.info-grid li {
+    list-style: none;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.info-grid li:nth-child(odd) {
+    background-color: #e9e9e9;
+}
