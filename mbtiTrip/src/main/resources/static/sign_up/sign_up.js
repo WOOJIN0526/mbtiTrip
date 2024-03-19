@@ -15,13 +15,13 @@ function sendAjaxRequest(url,method,data){
         xhr.send(data);
     });
 }
-function getResultXHR(url,method,data){
+function getResultXHR(url,method,data,tString,fString){
     sendAjaxRequest(url,method,data).then((responseText) => {
-        if(responseText===1){
-            alert("중복되지않은 아이디 입니다.");
+        if(responseText){
+            alert(tString);
            
         }else{
-            alert("중복된 아이디 입니다.")
+            alert(fString)
         }
         
     }).catch((error) => {
@@ -51,7 +51,9 @@ document.getElementById("id").addEventListener("blur",()=>{
     }else{
         delError();
         document.getElementById("pwd").classList.remove("disActive");
-        // getResultXHR("/sign_up","POST",id);1
+        let tString = "사용가능한 아이디 입니다."
+        let fString = "중복된 아이디 입니다."
+        // getResultXHR("/sign_up","POST",id,tString,fString);
     }
 });
 document.getElementById("pwd").addEventListener("blur",()=>{
@@ -121,5 +123,7 @@ document.getElementById("sign_up_btn").addEventListener("click",()=>{
         mail:email,
     }
     let jsonData = JSON.stringify(sign_up_data);
-    getResultXHR("/signup","POST",jsonData);
+    let tString = "회원가입에 성공했습니다."
+    let fString = "회원가입에 실패했습니다."
+    getResultXHR("/signup","POST",jsonData,tString,fString);
 });
