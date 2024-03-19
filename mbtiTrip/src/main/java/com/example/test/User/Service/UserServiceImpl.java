@@ -17,8 +17,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public int createUser(UserDTO userDTO) {
-			int result = this.userDao.insert(userDTO);
+		int result = this.userDao.insert(userDTO);
 			return result;
+	
 	}
 
 	@Override

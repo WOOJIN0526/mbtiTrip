@@ -28,9 +28,31 @@ public class UserController {
 	@RequestMapping(value = "/signup", method=RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView singup(@ModelAttribute UserDTO userdto) {		
+		ModelAndView mav = new ModelAndView();     // 아직 비번 암 복호화 안됌 ㅋㅌ
+		boolean result = false;
+		if(userSerivice.createUser(userdto) == 1) {
+			result = true;
+			mav.addObject(result);
+		} 
+		else {
+			mav.addObject(result);
+
+		}	
+		return mav;
+	}
+	
+	@RequestMapping(value = "/login", method=RequestMethod.GET)
+	public ModelAndView login() {
 		ModelAndView mav = new ModelAndView();
-		System.out.print(userdto);
 		mav.setViewName("login_form");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/login", method=RequestMethod.POST)
+	public ModelAndView login(@ModelAttribute UserDTO userdto) {
+		//login value ck; 필요 
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/main");
 		return mav;
 	}
 }
