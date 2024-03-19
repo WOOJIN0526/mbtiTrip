@@ -7,7 +7,9 @@ import lombok.Setter;
 @Setter
 public class UserDTO {
 	
-	private String userID;  //p
+	private String UID;	//p
+	
+	private String userId;  
 	
 	private String userName; 
 	
@@ -15,7 +17,7 @@ public class UserDTO {
 	
 	private String password;
 
-	private String PhoneNumber;
+	private String phone;
 	
 	private String Rank;
 	
@@ -26,4 +28,14 @@ public class UserDTO {
 	private String history;
 	
 	private boolean admin;
+	
+	@Override
+	   public String toString() {
+	      return "UserDTO [userId=" + userId + ", password=" + password + ", "
+	         + "userName=" + userName + ", mail=" + mail
+	         + ", phone=" + phone+ 
+	         ", mbti="+mbti+"]";
+	   }
+	
+	
 }
