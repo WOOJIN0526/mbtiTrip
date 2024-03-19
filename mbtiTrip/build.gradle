@@ -43,7 +43,7 @@ dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-log4j2";    // Spring Boot Log4j2
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-    runtimeOnly 'com.mysql:mysql-connector-j'	
+  runtimeOnly 'com.mysql:mysql-connector-j'
 }
 tasks.named('bootBuildImage') {
 	builder = 'paketobuildpacks/builder-jammy-base:latest'
