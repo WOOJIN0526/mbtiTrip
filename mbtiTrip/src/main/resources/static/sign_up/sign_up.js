@@ -105,3 +105,21 @@ document.getElementById("mbti").addEventListener("change",()=>{
         document.getElementById("sign_up_btn").classList.remove("disActive");
     
 });
+document.getElementById("sign_up_btn").addEventListener("click",()=>{
+    const id = document.getElementById("id").value;
+    const pwd = document.getElementById("pwd").value;
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+    const mbti = document.getElementById("mbti").value;
+    let sign_up_data ={
+        userID:id,
+        userName:name,
+        mbti:mbti,
+        password:pwd,
+        PhoneNumber:phone,
+        mail:email,
+    }
+    let jsonData = JSON.stringify(sign_up_data);
+    getResultXHR("/signup","POST",jsonData);
+});
