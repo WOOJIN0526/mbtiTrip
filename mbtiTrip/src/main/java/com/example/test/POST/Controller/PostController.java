@@ -25,7 +25,7 @@ public class PostController {
 	@Autowired
 	PostService postService;
 
-    @PostMapping
+    @PostMapping("/a/a/a")
     public ResponseEntity<String> createPost(@RequestBody PostDTO postDTO) {
         postService.createPost(postDTO);
         return new ResponseEntity<>("게시물 생성 성공", HttpStatus.CREATED);
@@ -51,7 +51,7 @@ public class PostController {
         return new ResponseEntity<>(postDTO, HttpStatus.OK);
     }//postId에 해당하는 게시물을 조회합니다.
 
-    @GetMapping
+    @GetMapping("/a/a/a")
     public ResponseEntity<List<PostDTO>> getAllPosts() {
         List<PostDTO> postDTOList = postService.getAllPosts();
         return new ResponseEntity<>(postDTOList, HttpStatus.OK);
