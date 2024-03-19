@@ -3,16 +3,16 @@
 function sendAjaxRequest(url,method,data){
     return new Promise(function(resolve,reject){
         const xhr = new XMLHttpRequest();
-        xhttp.onload = function(){
+        xhr.onload = function(){
             if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200){
                 resolve(xhr.responseText);
             }else{
                 reject(xhr.status);
             }
         }
-        xhttp.open(method,url,true);
-        xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-        xhttp.send(data);
+        xhr.open(method,url,true);
+        xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xhr.send(data);
     });
 }
 function getResultXHR(url,method,data){
