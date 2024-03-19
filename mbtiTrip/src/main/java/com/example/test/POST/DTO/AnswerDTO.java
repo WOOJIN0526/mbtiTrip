@@ -15,15 +15,7 @@ public class AnswerDTO {
 	
 	private String content;
 	
-	private PostDTO post; //Answer <-> Post
-	
-	//@ManyToOne
-	//private User author; user 엔티티부분 마무리시 수정
-	
-	//@ManyToMany
-	//Set<User> voter; user 엔티티부분 마무리시 수정
-	
-	
+	private PostDTO post; //Answer <-> Post	
 	
 	private LocalDateTime updateDate;
 	
