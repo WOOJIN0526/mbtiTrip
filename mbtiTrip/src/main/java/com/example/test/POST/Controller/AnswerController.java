@@ -19,23 +19,23 @@ import com.example.test.POST.Service.AnswerService;
 @Controller
 public class AnswerController {
 
-	@Autowired
-	AnswerService answerService;
+		@Autowired
+		AnswerService answerService;
 	
-	 @PostMapping
-	    public ResponseEntity<String> createAnswer(@RequestBody AnswerDTO answerDTO) {
+		@PostMapping("/save")
+	    public ResponseEntity<String> saveAnswer(@RequestBody AnswerDTO answerDTO) {
 	        answerService.saveAnswer(answerDTO);
-	        return new ResponseEntity<>("답변이 성공적으로 생성되었습니다", HttpStatus.CREATED);
+	        return new ResponseEntity<>("답변이 성공적으로 저장되었습니다", HttpStatus.CREATED);
 	    }
 
-	    @PutMapping("/{answerId}")
+	    @PostMapping("/update/{answerId}")
 	    public ResponseEntity<String> updateAnswer(@PathVariable Integer answerId, @RequestBody AnswerDTO answerDTO) {
 	        answerDTO.setAnswerID(answerId);
 	        answerService.updateAnswer(answerDTO);
 	        return new ResponseEntity<>("답변이 성공적으로 업데이트되었습니다", HttpStatus.OK);
 	    }
 
-	    @DeleteMapping("/{answerId}")
+	    @GetMapping("/delete/{answerId}")
 	    public ResponseEntity<String> deleteAnswer(@PathVariable Integer answerId) {
 	        answerService.deleteAnswer(answerId);
 	        return new ResponseEntity<>("답변이 성공적으로 삭제되었습니다", HttpStatus.OK);
@@ -44,10 +44,14 @@ public class AnswerController {
 	    @GetMapping("/{answerId}")
 	    public ResponseEntity<AnswerDTO> getAnswerById(@PathVariable Integer answerId) {
 	        AnswerDTO answerDTO = answerService.getAnswerById(answerId);
-	        return new ResponseEntity<>(answerDTO, HttpStatus.OK);
+	        if (answerDTO != null) {
+	            return new ResponseEntity<>(answerDTO, HttpStatus.OK);
+	        } else {
+	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        }
 	    }
 
-	    @GetMapping
+	    @GetMapping("/all")
 	    public ResponseEntity<List<AnswerDTO>> getAllAnswers() {
 	        List<AnswerDTO> answerDTOList = answerService.getAllAnswers();
 	        return new ResponseEntity<>(answerDTOList, HttpStatus.OK);
