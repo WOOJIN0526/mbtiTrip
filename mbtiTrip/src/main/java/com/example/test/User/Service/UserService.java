@@ -3,10 +3,11 @@ package com.example.test.User.Service;
 import java.util.Map;
 
 import com.example.test.User.DAO.UserDAO;
+import com.example.test.User.DTO.UserDTO;
 
 public interface UserService {
 		
-	public int createUser(Map<String, Object> user) ; //생성 안되면 , 0 , 1
+	public int createUser(UserDTO userdto) ; //생성 안되면 , 0 , 1
 
 	public void updateUser(Map<String, Object> user);  //게시판 수정과 내용 동일   //회원정보 수정 
 	
