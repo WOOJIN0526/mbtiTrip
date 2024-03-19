@@ -6,14 +6,16 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.example.test.User.DTO.UserDTO;
+
 @Repository
 public class UserDAO {
 
 	@Autowired
 	SqlSessionTemplate sqlSessiontemplate;
 	
-	public int insert(Map<String, Object> user) {
-		int result = this.sqlSessiontemplate.insert("user.insert", user);
+	public int insert(UserDTO userDto) {
+		int result = this.sqlSessiontemplate.insert("user.insert", userDto);
 		return result;
 	};
 	

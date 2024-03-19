@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.test.User.DAO.UserDAO;
+import com.example.test.User.DTO.UserDTO;
 
 @Service 
 public class UserServiceImpl implements UserService{
@@ -15,8 +16,8 @@ public class UserServiceImpl implements UserService{
 	private UserDAO userDao;
 	
 	@Override
-	public int createUser(Map<String, Object> user) {
-			int result = this.userDao.insert(user);
+	public int createUser(UserDTO userDTO) {
+			int result = this.userDao.insert(userDTO);
 			return result;
 	}
 
