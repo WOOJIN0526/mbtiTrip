@@ -36,17 +36,14 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
-   	implementation 'org.springframework.boot:spring-boot-starter-security'
+//   	implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 	implementation 'org.springframework.boot:spring-boot-starter-validation' 
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
 	implementation "org.springframework.boot:spring-boot-starter-log4j2";    // Spring Boot Log4j2
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-    runtimeOnly 'com.mysql:mysql-connector-j'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
-	
-	
+  runtimeOnly 'com.mysql:mysql-connector-j'
 }
 tasks.named('bootBuildImage') {
 	builder = 'paketobuildpacks/builder-jammy-base:latest'
