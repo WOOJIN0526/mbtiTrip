@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
-<insert id="insert" parameterType="hashMap" useGeneratedKeys="true" keyProperty="UID">  
-    <![CDATA[
-    insert into User
-    (userId,userName,mbti,password,PhoneNumber,mail) 
-    values
-    (#{userId},#{userName},#{mbti},#{password},#{phone},#{mail})
-]]>
-</insert>
+	<insert id="insert" parameterType="hashMap" useGeneratedKeys="true" keyProperty="UID">  
+	    <![CDATA[
+	    insert into User
+	    (userId,userName,mbti,password,PhoneNumber,mail) 
+	    values
+	    (#{userId},#{userName},#{mbti},#{password},#{phone},#{mail})
+	]]>
+	</insert>
+	<select id="login" resultType="String">
+	 <![CDATA[
+		SELECT * 
+		FROM User
+		WHERE UserId = #{userId} And `password`=#{password}; 
+	]]>
+	</select>
 </mapper>

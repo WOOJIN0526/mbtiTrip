@@ -17,6 +17,11 @@ public class UserDAO {
 	public int insert(UserDTO userDto) {
 		int result = this.sqlSessiontemplate.insert("user.insert", userDto);
 		return result;
+	}
+
+	public String login(UserDTO userdto) {
+		String result = this.sqlSessiontemplate.selectOne("user.login", userdto);
+		return result;
 	};
 	
 //	

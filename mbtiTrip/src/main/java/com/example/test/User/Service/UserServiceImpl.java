@@ -40,4 +40,9 @@ public class UserServiceImpl implements UserService{
 		return null;
 	}
 
+	@Override
+	public String login(UserDTO userdto) {
+		return userDao.login(userdto);
+	}
+
 }

@@ -4,6 +4,7 @@ import java.io.Console;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ import com.example.test.User.Service.UserService;
 public class UserController {
 
 	@Autowired
-	UserService userSerivice; 
+	UserService userService; 
 	
 	@RequestMapping(value = "/signup", method=RequestMethod.GET)
 	public String signUp() {
@@ -34,7 +35,7 @@ public class UserController {
 		System.out.println(userdto.getPhone());
 		
 		System.out.println(userdto.toString());
-		if(userSerivice.createUser(userdto) == 1) {
+		if(userService.createUser(userdto) == 1) {
 			result = true;
 			//mav.addObject(result);
 		} 
@@ -53,10 +54,13 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/login", method=RequestMethod.POST)
-	public ModelAndView login(@ModelAttribute UserDTO userdto) {
-		//login value ck; 필요 
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/main");
-		return mav;
+	public String login(@ModelAttribute UserDTO userdto, Model model) {
+		String result = userService.login(userdto);
+		if(result!=null) {
+			return "main";
+		}
+
+		
+		return "/login";
 	}
 }
