@@ -5,6 +5,7 @@ import java.io.Console;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,18 +28,21 @@ public class UserController {
 	
 	@RequestMapping(value = "/signup", method=RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView singup(@ModelAttribute UserDTO userdto) {		
-		ModelAndView mav = new ModelAndView();     // 아직 비번 암 복호화 안됌 ㅋㅌ
+	public boolean singup(@RequestBody UserDTO userdto) {		
+		//ModelAndView mav = new ModelAndView();     // 아직 비번 암 복호화 안됌 ㅋㅌ
 		boolean result = false;
+		System.out.println(userdto.getPhone());
+		
+		System.out.println(userdto.toString());
 		if(userSerivice.createUser(userdto) == 1) {
 			result = true;
-			mav.addObject(result);
+			//mav.addObject(result);
 		} 
 		else {
-			mav.addObject(result);
+			//mav.addObject(result);
 
 		}	
-		return mav;
+		return result;
 	}
 	
 	@RequestMapping(value = "/login", method=RequestMethod.GET)
