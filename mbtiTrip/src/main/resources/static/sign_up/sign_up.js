@@ -21,10 +21,11 @@ function sendAjaxRequest(url,method,data,conType){
         xhr.send(data);
     });
 }
-function getResultXHR(url,method,data,conType){
+/*function getResultXHR(url,method,data,conType){
     sendAjaxRequest(url,method,data,conType).then((responseText) => {
         if(responseText){
             alert("됨");
+            
            
         }else{
             alert("안됨");
@@ -33,7 +34,7 @@ function getResultXHR(url,method,data,conType){
     }).catch((error) => {
         alert(error.message);
     });
-}
+}*/
 function error(message){
     if(document.getElementById("totLoginPage").lastElementChild.classList.contains("error")){
 
@@ -132,5 +133,17 @@ document.getElementById("sign_up_btn").addEventListener("click",()=>{
     let tString = "회원가입에 성공했습니다."
     let fString = "회원가입에 실패했습니다."
     
-    getResultXHR("/signup","POST",jsonData,"JSON");
+    //getResultXHR("/signup","POST",jsonData,"JSON");
+    sendAjaxRequest("/signup","POST",jsonData,"JSON").then((responseText) => {
+        if(responseText){
+            alert("됨");
+            window.location.href = "/login";
+           
+        }else{
+            alert("안됨");
+        }
+        
+    }).catch((error) => {
+        alert(error.message);
+    });
 });

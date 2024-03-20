@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>title</title>
+  <!-- CKEeditor CDN -->
+  <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+  <link rel="stylesheet" href="write_form/write_form.css">
+</head>
+<body>
+
+<div class="container">
+  
+  <form id="Form" action="submit_review.php" method="POST">
+	<select name="postCategoryID" id="category">
+	        <option value="">리뷰</option>
+	        <option value="">게시판</option>
+	        <option value="">고객센터</option>
+	    </select>
+    <input type="text" name="title" id="title" placeholder="제목을 입력하세요">
+    <div id="content" name="content"></div>
+    <button type="submit">작성</button>
+  </form>
+</div>
+
+
+<script src="write_form/write_form.js"></script>
+
+</body>
+</html>
