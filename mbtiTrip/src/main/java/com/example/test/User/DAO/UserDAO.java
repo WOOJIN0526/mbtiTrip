@@ -22,6 +22,11 @@ public class UserDAO {
 	public String login(UserDTO userdto) {
 		String result = this.sqlSessiontemplate.selectOne("user.login", userdto);
 		return result;
+	}
+
+	public int userUpdate(UserDTO userdto) {
+		int result = this.sqlSessiontemplate.update("user.update", userdto);
+		return result;
 	};
 	
 //	
