@@ -1,14 +1,19 @@
 package com.example.test.POST.Service;
 
-import java.util.List;
-
 import com.example.test.POST.DTO.AnswerDTO;
+import com.example.test.POST.DTO.PostDTO;
+import com.example.test.User.DTO.UserDTO;
 
 public interface AnswerService {
 
-	void saveAnswer(AnswerDTO answerDTO);
-    void updateAnswer(AnswerDTO answerDTO);
-    void deleteAnswer(Integer answerId);
-    AnswerDTO getAnswerById(Integer answerId);
-    List<AnswerDTO> getAllAnswers();
+	public AnswerDTO create(PostDTO postDto, String content, UserDTO author);
+	
+	public AnswerDTO getAnswer(Integer id);
+	
+	public AnswerDTO modify(AnswerDTO answerDto, String content);
+	
+	public void delete(AnswerDTO answerDto);
+	
+	public AnswerDTO vote(AnswerDTO answerDto, UserDTO siteUserDto);
+	
 }
