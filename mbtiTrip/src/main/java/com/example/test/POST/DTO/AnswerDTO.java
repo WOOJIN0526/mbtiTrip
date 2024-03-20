@@ -24,4 +24,7 @@ public class AnswerDTO {
 	private LocalDateTime updateDate;
 	
 	private LocalDateTime modifiDate;
+	
+	private int replyNo;
+	private int postNo;
 }
