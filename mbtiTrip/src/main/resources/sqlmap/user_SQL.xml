@@ -4,9 +4,9 @@
 	<insert id="insert" parameterType="hashMap" useGeneratedKeys="true" keyProperty="UID">  
 	    <![CDATA[
 	    insert into User
-	    (userId,userName,mbti,password,PhoneNumber,mail) 
+	    (userId,userName,mbti,password,PhoneNumber,mail, userrole) 
 	    values
-	    (#{userId},#{userName},#{mbti},#{password},#{phone},#{mail})
+	    (#{userId},#{userName},#{mbti},#{password},#{phone},#{mail}, #{userrole})
 	]]>
 	</insert>
 	<select id="login" resultType="String">
@@ -16,4 +16,17 @@
 		WHERE UserId = #{userId} And `password`=#{password}; 
 	]]>
 	</select>
+	
+	<update id="update" >
+	<![CDATA[
+			Update User 
+			set
+			userName = #{userName},
+			mbti = #{mbti},
+			password = #{password},
+			PhoneNumber = #{phone},
+			mail =#{mail}
+			where UID = #{UID};
+		]]>
+	</update>
 </mapper>

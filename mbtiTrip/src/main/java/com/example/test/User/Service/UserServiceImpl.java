@@ -45,4 +45,11 @@ public class UserServiceImpl implements UserService{
 		return userDao.login(userdto);
 	}
 
+	@Override
+	public int userUpdate(UserDTO userdto) {
+		int result =userDao.userUpdate(userdto);
+		return result;
+		
+	}
+
 }
