@@ -2,6 +2,8 @@ package com.example.test.POST.DTO;
 
 import java.time.LocalDateTime;
 
+import com.example.test.User.DTO.UserDTO;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +18,8 @@ public class AnswerDTO {
 	private String content;
 	
 	private PostDTO post; //Answer <-> Post	
+	
+	private UserDTO Author;
 	
 	private LocalDateTime updateDate;
 	
