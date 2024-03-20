@@ -26,7 +26,6 @@ public class UserController {
 		return "sign_up";
 	}
 	
-	
 	@RequestMapping(value = "/signup", method=RequestMethod.POST)
 	@ResponseBody
 	public boolean singup(@RequestBody UserDTO userdto) {		
@@ -41,7 +40,6 @@ public class UserController {
 		} 
 		else {
 			//mav.addObject(result);
-
 		}	
 		return result;
 	}
@@ -55,12 +53,11 @@ public class UserController {
 	
 	@RequestMapping(value = "/login", method=RequestMethod.POST)
 	public String login(@ModelAttribute UserDTO userdto, Model model) {
+		System.out.println(userdto.toString());
 		String result = userService.login(userdto);
 		if(result!=null) {
 			return "main";
 		}
-
-		
 		return "/login";
 	}
 }
