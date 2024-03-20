@@ -20,15 +20,6 @@ public  class AnswerServiceImpi implements AnswerService {
 	@Autowired
 	AnswerDAO answerDAO;
 
-	private final ModelMapper modelMapper;
-	
-	private Answer of(AnswerDTO answerDto) {
-	        return modelMapper.map(answerDto, Answer.class);
-	    }
-	    
-	private AnswerDTO of(Answer answer) {
-	        return modelMapper.map(answer, AnswerDTO.class);
-	    }
 	
 	@Override
 	public AnswerDTO create(PostDTO postDto, String content, UserDTO author) {
@@ -68,8 +59,8 @@ public  class AnswerServiceImpi implements AnswerService {
 	}
 
 	@Override
-	public AnswerDTO vote(AnswerDTO answerDto, UserDTO siteUserDto) {
-		 answerDto.getVoter().add(siteUserDto);
+	public AnswerDTO vote(AnswerDTO answerDto, UserDTO UserDto) {
+		 answerDto.getVoter().add(UserDto);
 	     this.answerDAO.save(of(answerDto));
 	     return answerDto;
 	}
