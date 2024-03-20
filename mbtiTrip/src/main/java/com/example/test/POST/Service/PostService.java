@@ -18,14 +18,14 @@ public interface PostService {
 	
 //	public Page<PostDTO> getList(int page, String kw);
 	
-	public PostDTO create(String title, String content, UserDTO user);
-	
-	public PostDTO modify(PostDTO postDTO, String title, String content);
-	
-	public void delete(PostDTO postDTO);
-	
-	public PostDTO vote(PostDTO postDTO, UserDTO userDTO);
-
-	public PostDTO getPost(Integer id);
-	
+//	public PostDTO create(String title, String content, UserDTO user);
+//	
+//	public PostDTO modify(PostDTO postDTO, String title, String content);
+//	
+//	public void delete(PostDTO postDTO);
+//	
+//	public PostDTO vote(PostDTO postDTO, UserDTO userDTO);
+//
+//	public PostDTO getPost(Integer id);
+//	
 }

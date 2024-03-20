@@ -34,12 +34,12 @@ import jakarta.persistence.criteria.Root;
 
 
 
-
-@Service
-public  class PostServiceImpl implements PostService {
-
-	@Autowired
-	PostDAO postDAO;
+//
+//@Service
+//public  class PostServiceImpl implements PostService {
+//
+//	@Autowired
+//	PostDAO postDAO;
 
 //	private Specification<Post> search(String kw){
 //		return new Specification<Post>() {
@@ -87,39 +87,39 @@ public  class PostServiceImpl implements PostService {
 //	}
 
 
-	@Override
-	public PostDTO create(String title, String content, UserDTO user) {
-		 PostDTO postDto = new PostDTO();
-	        postDto.setTitle(title);
-	        postDto.setContent(content);
-	        postDto.setUpdateDate(LocalDateTime.now());
-	        postDto.setAuthor(user);
-	        this.postDAO.save(postDto);
-	        return postDto;
-	}
-
-	@Override
-	public PostDTO modify(PostDTO postDTO, String title, String content) {
-		 	postDTO.setTitle(title);
-	        postDTO.setContent(content);
-	        postDTO.setModifyDate(LocalDateTime.now());
-	        this.postDAO.save(postDTO);
-	        return postDTO;
-	}
-
-	@Override
-	public void delete(PostDTO postDTO) {
-		 this.postDAO.delete(postDTO);
-		
-	}
-
-	@Override
-	public PostDTO vote(PostDTO postDTO, UserDTO userDTO) {
-		 	postDTO.getVoter().add(userDTO);
-	        this.postDAO.save(postDTO);
-	        return postDTO;
-	}
+//	@Override
+//	public PostDTO create(String title, String content, UserDTO user) {
+//		 PostDTO postDto = new PostDTO();
+//	        postDto.setTitle(title);
+//	        postDto.setContent(content);
+//	        postDto.setUpdateDate(LocalDateTime.now());
+//	        postDto.setAuthor(user);
+//	        this.postDAO.save(postDto);
+//	        return postDto;
+//	}
+//
+//	@Override
+//	public PostDTO modify(PostDTO postDTO, String title, String content) {
+//		 	postDTO.setTitle(title);
+//	        postDTO.setContent(content);
+//	        postDTO.setModifyDate(LocalDateTime.now());
+//	        this.postDAO.save(postDTO);
+//	        return postDTO;
+//	}
+//
+//	@Override
+//	public void delete(PostDTO postDTO) {
+//		 this.postDAO.delete(postDTO);
+//		
+//	}
+//
+//	@Override
+//	public PostDTO vote(PostDTO postDTO, UserDTO userDTO) {
+//		 	postDTO.getVoter().add(userDTO);
+//	        this.postDAO.save(postDTO);
+//	        return postDTO;
+//	}
 
 	
 	
-}
+//}

@@ -41,15 +41,25 @@ public class Post {
 	private String content;
 	
 	//private String suggestion; 나중에 userDTO에서 Set으로 voter?
-	private Set<UserDTO> voter;
+	//private Set<UserDTO> voter;
 	
 	private LocalDateTime updateDate;
 	
 	private LocalDateTime modifyDate;
 	
-	@OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
-	private List<AnswerDTO> answerList;
+	//@OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+	//private List<AnswerDTO> answerList;
 	
-	@ManyToOne
-	private UserDTO author;
+	//@ManyToOne
+	//private UserDTO author;
+	
+	private int rowNo;
+	private int PostNo;
+	private int groupNo;			// 그룹번호
+	private int depthNo;			// 계층번호
+	private int seqNo;				// 순서번호
+	private String writer;
+	
+
+	
 }

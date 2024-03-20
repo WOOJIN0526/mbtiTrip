@@ -20,16 +20,5 @@ public class AnswerDAO {
 		return result;
 	};
 	
-	public void saveAnswer(AnswerDTO answerDTO) {
-	}
-    public void updateAnswer(AnswerDTO answerDTO) {
-	}
-    public void deleteAnswer(Integer answerId) {
-	}
-    public AnswerDTO getAnswerById(Integer answerId) {
-		return null;
-	}
-    public List<AnswerDTO> getAllAnswers() {
-		return null;
-	}
+	
 }

@@ -13,7 +13,7 @@ public class UserDTO {
 	
 	private String userName; 
 	
-	private String mbti;   //FK
+	private Integer mbti;   //FK
 	
 	private String password;
 
@@ -27,14 +27,14 @@ public class UserDTO {
 	
 	private String history;
 	
-	private boolean admin;
+	private User_Role userrole;
 	
 	@Override
 	   public String toString() {
 	      return "UserDTO [userId=" + userId + ", password=" + password + ", "
 	         + "userName=" + userName + ", mail=" + mail
 	         + ", phone=" + phone+ 
-	         ", mbti="+mbti+"]";
+	         ", mbti="+mbti+"]"+ ", admin= "+ userrole;
 	   }
 	
 	
