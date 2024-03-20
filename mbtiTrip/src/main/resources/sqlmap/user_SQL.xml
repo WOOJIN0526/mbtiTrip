@@ -4,12 +4,12 @@
 	<insert id="insert" parameterType="hashMap" useGeneratedKeys="true" keyProperty="UID">  
 	    <![CDATA[
 	    insert into User
-	    (userId,userName,mbti,password,PhoneNumber,mail, userrole) 
+	    (userId,userName,mbti,password,phone,mail, userrole) 
 	    values
 	    (#{userId},#{userName},#{mbti},#{password},#{phone},#{mail}, #{userrole})
 	]]>
 	</insert>
-	<select id="login" resultType="String">
+	<select id="login" resultType="hashmap">
 	 <![CDATA[
 		SELECT * 
 		FROM User
@@ -24,7 +24,7 @@
 			userName = #{userName},
 			mbti = #{mbti},
 			password = #{password},
-			PhoneNumber = #{phone},
+			phone = #{phone},
 			mail =#{mail}
 			where UID = #{UID};
 		]]>

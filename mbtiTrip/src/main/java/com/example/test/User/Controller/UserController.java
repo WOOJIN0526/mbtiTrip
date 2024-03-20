@@ -1,6 +1,7 @@
 package com.example.test.User.Controller;
 
 import java.io.Console;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,9 +54,15 @@ public class UserController {
 	
 	@RequestMapping(value = "/login", method=RequestMethod.POST)
 	public String login(@ModelAttribute UserDTO userdto, Model model) {
-		String result = userService.login(userdto);
-		if(result!=null) {
-			return "/mypage";
+		System.out.println(userdto.toString());
+		System.out.println(userdto.getUserName());
+		System.out.println(userdto.getPassword());
+		 Map<String, Object> user = userService.login(userdto);
+		System.out.println(user.toString());
+		System.out.print(user.toString());
+		if(user.get("UID")  !=null) {
+			model.addAttribute(user);
+			return String.format("redirect:/mypage/%s", user.get("UID"));
 		}
 		return "/login";
 	}

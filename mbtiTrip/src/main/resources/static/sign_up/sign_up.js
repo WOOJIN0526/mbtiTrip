@@ -134,7 +134,7 @@ document.getElementById("sign_up_btn").addEventListener("click",()=>{
     let fString = "회원가입에 실패했습니다."
     
     //getResultXHR("/signup","POST",jsonData,"JSON");
-    sendAjaxRequest("/signup","POST",jsonData,"JSON").then((responseText) => {
+    sendAjaxRequest("/signup/user","POST",jsonData,"JSON").then((responseText) => {
         if(responseText){
             alert("됨");
             window.location.href = "/login";

@@ -15,7 +15,7 @@ public interface UserService {
 	
 	public String findByUserName(UserDAO user);  //닉네임 중복 방지 용도, 회원 아이디 찾기
 
-	public String login(UserDTO userdto);
+	public Map<String, Object> login(UserDTO userdto);
 
 	public int userUpdate(UserDTO userdto);
 	
