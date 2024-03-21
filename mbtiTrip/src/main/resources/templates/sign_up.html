@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="sign_up/sign_up.css">
+	<link th:href="@{/sign_up/sign_up.css}" rel="stylesheet" />
 </head>
 <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <body>
@@ -61,6 +61,6 @@
                 <!-- <a id= "SNS_Login" href="">SNS 아이디로 로그인</s>                -->
         </div>
     </div>
-    <script src="sign_up/sign_up.js"></script>
+	<script th:src="@{/sign_up/sign_up.js}"></script>
 </body>
 </html>
