@@ -17,6 +17,14 @@
 	]]>
 	</select>
 	
+	<select id="getInfo" resultType="hashmap">
+	 <![CDATA[
+		SELECT  userID, userName, mbti, phone, mail
+		FROM User
+		WHERE UID = #{uID} ; 
+	]]>
+	</select>
+	
 	<update id="update" >
 	<![CDATA[
 			Update User 
