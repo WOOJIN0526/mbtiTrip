@@ -40,20 +40,20 @@ public class PostController {
         Page<PostDTO> paging = this.postService.getList(page, kw);
         model.addAttribute("paging", paging);
         model.addAttribute("kw", kw);
-        return "question_list";
+        return "list";
     }
 
     @RequestMapping(value = "/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
         PostDTO post = this.postService.getPost(id);
         model.addAttribute("question", post);
-        return "question_detail";
+        return "detail";
     }
 
     //@PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
     public String questionCreate(PostForm postForm) {
-        return "question_form";
+        return "form";
     }
 
     //@PreAuthorize("isAuthenticated()")
@@ -61,11 +61,11 @@ public class PostController {
     public String questionCreate(@Valid PostForm postForm, 
             BindingResult bindingResult, Principal principal) {
         if (bindingResult.hasErrors()) {
-            return "question_form";
+            return "form";
         }
         UserDTO userDto = this.userService.findByUserName(principal.getName());
         this.postService.create(postForm.getTitle(), postForm.getContent(), userDto);
-        return "redirect:/question/list";
+        return "redirect://list";
     }
     
     //@PreAuthorize("isAuthenticated()")
@@ -77,7 +77,7 @@ public class PostController {
         }
         postForm.setTitle(questionDto.getTitle());
         postForm.setContent(questionDto.getContent());
-        return "question_form";
+        return "form";
     }
     
     //@PreAuthorize("isAuthenticated()")
@@ -85,14 +85,14 @@ public class PostController {
     public String questionModify(@Valid PostForm postForm, BindingResult bindingResult, 
             Principal principal, @PathVariable("id") Integer id) {
         if (bindingResult.hasErrors()) {
-            return "question_form";
+            return "form";
         }
         PostDTO postDto = this.postService.getPost(id);
         if (!postDto.getAuthor().getUserName().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         this.postService.modify(postDto, postForm.getTitle(), postForm.getContent());
-        return String.format("redirect:/question/detail/%s", id);
+        return String.format("redirect://detail/%s", id);
     }
     
     //@PreAuthorize("isAuthenticated()")
@@ -112,6 +112,6 @@ public class PostController {
         PostDTO questionDto = this.postService.getPost(id);
         UserDTO siteUserDto = this.userService.findByUserName(principal.getName());
         this.postService.vote(questionDto, siteUserDto);
-        return String.format("redirect:/question/detail/%s", id);
+        return String.format("redirect://detail/%s", id);
     }
 }

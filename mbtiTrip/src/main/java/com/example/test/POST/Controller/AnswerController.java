@@ -50,11 +50,11 @@ public class AnswerController {
 	UserDTO userDto = this.userservice.findByUserName(principal.getName());
 		if (bindingResult.hasErrors()) {
 		            model.addAttribute("post", postDto);
-		            return "question_detail";
+		            return "detail";
 		        }
 		        AnswerDTO answerDto = this.answerService.create(postDto, 
 		                answerForm.getContent(), userDto);
-		        return String.format("redirect:/question/detail/%s#answer_%s", 
+		        return String.format("redirect://detail/%s#answer_%s", 
 		                answerDto.getPost().getUserId(), answerDto.getAnswerID());
 		    }
 		    
@@ -66,7 +66,7 @@ public class AnswerController {
 		            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
 		        }
 		        answerForm.setContent(answerDto.getContent());
-		        return "answer_form";
+		        return "form";
 		    }
 		    
 		    //@PreAuthorize("isAuthenticated()")
@@ -74,14 +74,14 @@ public class AnswerController {
 		    public String answerModify(@Valid AnswerForm answerForm, @PathVariable("id") Integer id,
 		            BindingResult bindingResult, Principal principal) {
 		        if (bindingResult.hasErrors()) {
-		            return "answer_form";
+		            return "form";
 		        }
 		        AnswerDTO answerDto = this.answerService.getAnswer(id);
 		        if (!answerDto.getAuthor().getUserName().equals(principal.getName())) {
 		            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
 		        }
 		        this.answerService.modify(answerDto, answerForm.getContent());
-		        return String.format("redirect:/question/detail/%s#answer_%s", 
+		        return String.format("redirect://detail/%s#answer_%s", 
 		                answerDto.getPost().getUserId(), answerDto.getAnswerID());
 		    }
 		    
@@ -93,7 +93,7 @@ public class AnswerController {
 		            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
 		        }
 		        this.answerService.delete(answerDto);
-		        return String.format("redirect:/question/detail/%s", answerDto.getPost().getUserId());
+		        return String.format("redirect://detail/%s", answerDto.getPost().getUserId());
 		    }
 		    
 		    //@PreAuthorize("isAuthenticated()")
@@ -102,7 +102,7 @@ public class AnswerController {
 		        AnswerDTO answerDto = this.answerService.getAnswer(id);
 		        UserDTO siteUserDto = this.userservice.findByUserName(principal.getName());
 		        this.answerService.vote(answerDto, siteUserDto);
-		        return String.format("redirect:/question/detail/%s#answer_%s", 
+		        return String.format("redirect://detail/%s#answer_%s", 
 		                answerDto.getPost().getUserId(), answerDto.getAnswerID());
 		    }
 
