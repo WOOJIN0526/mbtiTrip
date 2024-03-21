@@ -18,5 +18,7 @@ public interface UserService {
 	public Map<String, Object> login(UserDTO userdto);
 
 	public int userUpdate(UserDTO userdto);
+
+	public Map<String, Object> getInfo(Integer uID);
 	
 }

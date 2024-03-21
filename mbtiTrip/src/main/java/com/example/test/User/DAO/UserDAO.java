@@ -27,6 +27,11 @@ public class UserDAO {
 	public int userUpdate(UserDTO userdto) {
 		int result = this.sqlSessiontemplate.update("user.update", userdto);
 		return result;
+	}
+
+	public Map<String, Object> getInfo(Integer uID) {
+		Map<String, Object> map = this.sqlSessiontemplate.selectOne("user.getInfo", uID);
+		return map;
 	};
 	
 //	

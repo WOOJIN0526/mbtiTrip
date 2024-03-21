@@ -71,8 +71,22 @@ public class UserController {
 	
 	@RequestMapping(value = "/mypage/{UID}", method = RequestMethod.GET)
 	public ModelAndView mypage(@PathVariable("UID") Integer UID, UserDTO userdto, ModelAndView mav){
-		String Uid = userdto.getUID();
-		mav.addObject(userdto);
+		
+		//map에 null값 들어옴 
+		System.out.println("DAO 리턴값" + userService.getInfo(UID).toString());
+		Map<String, Object> map = userService.getInfo(UID);
+		System.out.println(map.toString());
+		
+		Integer mbti = (Integer) map.get("mbti");
+		switch (mbti) {
+		case 1: map.put("mbti", "ISTJ");
+				break;
+		};
+		
+		
+		System.out.println(map.toString());
+
+		mav.addObject("map", map);
 		mav.setViewName("mypage");
 		return mav;
 	}
