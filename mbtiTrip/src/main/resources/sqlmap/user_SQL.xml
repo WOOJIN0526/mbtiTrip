@@ -17,11 +17,13 @@
 	]]>
 	</select>
 	
-	<select id="getInfo" resultType="hashmap">
+	<select id="getIfo" resultType="hashmap">
 	 <![CDATA[
-		SELECT  userID, userName, mbti, phone, mail,UID
-		FROM User
-		WHERE UID = #{uID} ; 
+		SELECT  userID, userName, m.mbti, phone, mail, UID
+		FROM User u
+		join MBTi m
+		on u.mbti = m.mbtiId
+		WHERE UID = #{uID}; 
 	]]>
 	</select>
 	
