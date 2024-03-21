@@ -19,8 +19,8 @@ public class UserDAO {
 		return result;
 	}
 
-	public String login(UserDTO userdto) {
-		String result = this.sqlSessiontemplate.selectOne("user.login", userdto);
+	public Map<String, Object> login(UserDTO userdto) {
+		Map result = this.sqlSessiontemplate.selectOne("user.login", userdto);
 		return result;
 	}
 
