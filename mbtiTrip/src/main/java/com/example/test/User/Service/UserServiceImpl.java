@@ -53,4 +53,10 @@ public class UserServiceImpl implements UserService{
 		
 	}
 
+	@Override
+	public Map<String, Object> getInfo(Integer uID) {
+		// TODO Auto-generated method stub
+		return userDao.getInfo(uID);
+	}
+
 }
