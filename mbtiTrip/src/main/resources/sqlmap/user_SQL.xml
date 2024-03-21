@@ -19,7 +19,7 @@
 	
 	<select id="getInfo" resultType="hashmap">
 	 <![CDATA[
-		SELECT  userID, userName, mbti, phone, mail
+		SELECT  userID, userName, mbti, phone, mail,UID
 		FROM User
 		WHERE UID = #{uID} ; 
 	]]>
