@@ -99,9 +99,12 @@ public class UserController {
 	
 	@RequestMapping(value = "/mypage/update/{UID}", method = RequestMethod.GET)
 	public ModelAndView update(@PathVariable("UID") Integer UID, UserDTO userdto, ModelAndView mav){
-		String Uid = userdto.getUID();
-		mav.addObject(userdto);
-		mav.setViewName("user_update.htm");
+//		String Uid = userdto.getUID();
+//		mav.addObject(userdto);
+// 0321 최우진 유저데이터가 들어가야 될거같아서 주석하고 밑으로 바꿔봄		
+		Map<String, Object> map = userService.getInfo(UID);
+		mav.addObject("map", map);
+		mav.setViewName("user_update");
 		return mav;
 	}
 	
@@ -123,6 +126,12 @@ public class UserController {
 			mav.setViewName("mypage");
 		}
 		return mav;
+	}
+	
+	@RequestMapping(value ="/main" , method = RequestMethod.GET)
+	public ModelAndView main(ModelAndView mv) {
+		mv.setViewName("main");
+		return mv;
 	}
 	
 }
