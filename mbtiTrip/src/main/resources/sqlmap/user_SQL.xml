@@ -17,9 +17,9 @@
 	]]>
 	</select>
 	
-	<select id="getIn	fo" resultType="hashmap">
+	<select id="getIfo" resultType="hashmap">
 	 <![CDATA[
-		SELECT  userID, userName, m.mbti, phone, mail
+		SELECT  userID, userName, m.mbti, phone, mail, UID
 		FROM User u
 		join MBTi m
 		on u.mbti = m.mbtiId
