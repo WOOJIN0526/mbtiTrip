@@ -1,0 +1,128 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa;
+}
+
+.serch{
+    border: 1px;
+    background-color:#fff;
+    position: relative;
+    left: 15%;
+    width: 75rem;
+    font-size: 1.5em;
+    padding: 1rem;
+    margin: 1rem;
+    box-shadow:2px 3px 5px 0px;
+    
+}
+
+.serch input{
+    width: 60rem;
+}
+
+label{
+    color: red;
+}
+
+.c-input-search {
+    width: 60%;
+    padding: 0.9em;
+    box-sizing: border-box;
+    border-radius: 3em;
+    margin-bottom: 0.6em;
+    text-align: center;  
+}
+
+.Button{
+    text-align: center;
+    width: 75%;
+    padding: 5px;
+    margin: 5px;
+}
+
+button{
+    border-radius: 3em;
+    background-color: white;
+    margin: 1em;
+    padding: 0.6em;
+    display :relative;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.question_box{
+    float: left;
+}
+.ContentsList{
+    /* 내일 질문 */
+    height: 500px;
+    position: fixed;
+    overflow: scroll;
+    border: 1px;
+    padding: 1rem;
+    margin: 3px; 
+}
+
+details {
+    width: 75rem;
+    padding: 1rem;   
+    box-shadow:2px 3px 5px 0px;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    margin-left: 2rem;
+    background-color: #fff;
+    
+}
+
+summary {
+    text-align:left;
+    display: block;
+    padding: 2rem 3rem 2rem 0;
+    font-weight: 600;
+}
+iframe{
+    background-color: #fafafa;
+}
+details[open] {
+  padding: 0.5em;
+}
+
+details[open] summary {
+  border-bottom: 1px solid #aaa;
+  margin-bottom: 0.5em;
+}
+
+.content{
+    width: 100%;
+}
+
+
+.side {
+    
+    border: 1px solid;
+    width: 13%;
+    height: 100%;
+    padding: 1rem;
+    margin: 1px;
+    float: inline-start;
+    font-style: italic;
+    text-align: center;
+    line-height: 2;
+    background-color: #fff;
+    
+  }
+
+a {
+    text-decoration: none;
+    color: black;
+  }
+  
+
+
