@@ -29,7 +29,7 @@ public class PostDTO {
 	private UserDTO author;
 	
 	//private String suggestion; 나중에 userDTO에서 Set으로 voter?
-	//private Set<UserDTO> voter;
+	private Set<UserDTO> voter;
 	
 	private LocalDateTime updateDate;
 	

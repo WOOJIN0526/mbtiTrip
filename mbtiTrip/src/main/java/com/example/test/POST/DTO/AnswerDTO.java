@@ -1,6 +1,7 @@
 package com.example.test.POST.DTO;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import com.example.test.User.DTO.UserDTO;
 
@@ -25,6 +26,5 @@ public class AnswerDTO {
 	
 	private LocalDateTime modifiDate;
 	
-	private int replyNo;
-	private int postNo;
+	private Set<UserDTO> voter;
 }
