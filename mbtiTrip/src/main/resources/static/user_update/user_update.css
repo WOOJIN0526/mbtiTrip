@@ -32,6 +32,9 @@ form {
     font-weight: bold;
     margin-bottom: 5px;
 }
+.select{
+	
+}
 .form-group input[type="text"] {
     width: 100%;
     padding: 8px;
