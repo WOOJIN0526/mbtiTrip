@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="login_form/login_form.css">
+    <link rel="stylesheet" th:href="@{login_form/login_form.css}">
 </head>
 <body>
     <!-- login head -->
@@ -25,12 +25,12 @@
                 <br>
                 <!--login_and_sign_btn-->
                 <input type="submit" id="login-btn" value="로그인">   
-                <input type="button" id="sign_up_btn" value="회원가입" onClick="location.href='sign_up.html'">         
+                <input type="button" id="sign_up_btn" value="회원가입">         
             </form>
                 <a id= "lostIdAndLostPassword" href="">아이디/비밀번호 찾기</a><br>
                 <!-- <a id= "lostIdAndLostPassword" href="">SNS 아이디로 로그인</a>-->
         </div>
     </div>
-    <script src="login_form/login_from.js"></script>
+    <script th:src="@{login_form/login_from.js}"></script>
 </body>
 </html>

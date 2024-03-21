@@ -6,3 +6,6 @@ loginButton.addEventListener("click",()=>{
     console.log(idElement.value);
     console.log(pwdElement.value);
 })
+document.getElementById("sign_up_btn").addEventListener("click",function(){
+	window.location.assign("/signup/user");
+});
