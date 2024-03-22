@@ -39,7 +39,7 @@ public class UserController {
 	@RequestMapping(value = "/signup/user", method = RequestMethod.GET)
 	public ModelAndView signUpUser(HttpServletRequest request) {
 	    ModelAndView mav = new ModelAndView();
-	    String currentUrl = request.getRequestURL().toString();
+	    String currentUrl = request.getRequestURI().toString();
 	    mav.addObject("currentUrl", currentUrl);
 	    mav.setViewName("sign_up");
 	    return mav;
@@ -68,7 +68,7 @@ public class UserController {
 	@RequestMapping(value = "/signup/bis", method=RequestMethod.GET)
 	public ModelAndView signUpBis(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-		String currentUrl = request.getRequestURL().toString();
+		String currentUrl = request.getRequestURI().toString();
 		mav.addObject("currentUrl", currentUrl);
 		mav.setViewName("sign_up");
 		return mav;
