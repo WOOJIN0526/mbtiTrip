@@ -1,0 +1,64 @@
+*{
+    padding: 0;
+    margin: 0;
+    border: none;
+    box-sizing: border-box;
+}
+ 
+
+
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 95% 95%;
+    height: 100vh;
+    /* background:url(masaaki-komori-_SbeCWYjwCQ-unsplash.jpg); */
+    background-color: #FFD8E4;
+    text-align: center;
+    background-repeat:no-repeat;
+    background-position: top center;
+    background-size: cover;
+    display: grid;
+}
+
+
+.selectPage {
+    display: flex;
+    flex-direction: column;
+    
+    width: 18.75em;
+    background-color: #EEEFF1;
+    border-radius: 0.3em;    
+    text-align: center;
+    padding: 1.5em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo p{
+    font-size: 1.5em;
+    text-align: center;
+    padding: 1em;
+    line-height : 1em;
+}
+
+.sign_up_btn {
+    width: 90%;
+    padding: 0.7rem;
+    background-color: #FFD8E4;
+    margin-bottom: 1.8em;
+    color: #9B9B9B;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.sign_up_btn:hover{
+    box-shadow: none;
+}
+
+a {
+    text-decoration: none;
+    font-size: 1em;
+    line-height : 2em;
+}
+.sign_up_btn:hover{
+    color: black;
+}
