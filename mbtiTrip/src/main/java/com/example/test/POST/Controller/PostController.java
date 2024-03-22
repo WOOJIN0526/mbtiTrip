@@ -36,7 +36,7 @@ public class PostController {
 	UserService userService;
 	
 	@Autowired
-	Post_CategoryService PostCategoryService;
+	Post_CategoryService postCategoryService;
 	
 	@RequestMapping("/question/list")
     public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
@@ -58,7 +58,7 @@ public class PostController {
     //@PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
     public String postCreate(PostForm postForm, Model model) {
-    	model.addAttribute("categoryList", PostCategoryService.getList());
+    	model.addAttribute("categoryList", postCategoryService.getList());
         return "form";
     }
 
@@ -76,19 +76,19 @@ public class PostController {
     
     //@PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
-    public String questionModify(PostForm postForm, @PathVariable("id") Integer id, Principal principal) {
-        PostDTO questionDto = this.postService.getPost(id);
-        if(!questionDto.getAuthor().getUserName().equals(principal.getName())) {
+    public String postModify(PostForm postForm, @PathVariable("id") Integer id, Principal principal) {
+        PostDTO postDto = this.postService.getPost(id);
+        if(!postDto.getAuthor().getUserName().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
-        postForm.setTitle(questionDto.getTitle());
-        postForm.setContent(questionDto.getContent());
+        postForm.setTitle(postDto.getTitle());
+        postForm.setContent(postDto.getContent());
         return "form";
     }
     
     //@PreAuthorize("isAuthenticated()")
     @PostMapping("/modify/{id}")
-    public String questionModify(@Valid PostForm postForm, BindingResult bindingResult, 
+    public String postModify(@Valid PostForm postForm, BindingResult bindingResult, 
             Principal principal, @PathVariable("id") Integer id) {
         if (bindingResult.hasErrors()) {
             return "form";
@@ -103,18 +103,18 @@ public class PostController {
     
     //@PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
-    public String questionDelete(Principal principal, @PathVariable("id") Integer id) {
-        PostDTO questionDto = this.postService.getPost(id);
-        if (!questionDto.getAuthor().getUserName().equals(principal.getName())) {
+    public String postDelete(Principal principal, @PathVariable("id") Integer id) {
+        PostDTO postDto = this.postService.getPost(id);
+        if (!postDto.getAuthor().getUserName().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
-        this.postService.delete(questionDto);
+        this.postService.delete(postDto);
         return "redirect:/";
     }
     
     //@PreAuthorize("isAuthenticated()")
     @GetMapping("/vote/{id}")
-    public String questionVote(Principal principal, @PathVariable("id") Integer id) {
+    public String postVote(Principal principal, @PathVariable("id") Integer id) {
         //PostDTO questionDto = this.postService.getPost(id);
         //UserDTO siteUserDto = this.userService.findByUserName(principal.getName());
         //this.postService.vote(questionDto, siteUserDto);
