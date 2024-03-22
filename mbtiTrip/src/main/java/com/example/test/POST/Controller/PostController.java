@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.test.POST.DTO.AnswerForm;
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.DTO.PostForm;
 import com.example.test.POST.Service.PostService;
@@ -63,8 +64,8 @@ public class PostController {
         if (bindingResult.hasErrors()) {
             return "form";
         }
-        UserDTO userDto = this.userService.findByUserName(principal.getName());
-        this.postService.create(postForm.getTitle(), postForm.getContent(), userDto);
+        //UserDTO userDto = this.userService.findByUserName(principal.getName());
+        //this.postService.create(postForm.getTitle(), postForm.getContent(), userDto);
         return "redirect://list";
     }
     
@@ -109,9 +110,9 @@ public class PostController {
     //@PreAuthorize("isAuthenticated()")
     @GetMapping("/vote/{id}")
     public String questionVote(Principal principal, @PathVariable("id") Integer id) {
-        PostDTO questionDto = this.postService.getPost(id);
-        UserDTO siteUserDto = this.userService.findByUserName(principal.getName());
-        this.postService.vote(questionDto, siteUserDto);
+        //PostDTO questionDto = this.postService.getPost(id);
+        //UserDTO siteUserDto = this.userService.findByUserName(principal.getName());
+        //this.postService.vote(questionDto, siteUserDto);
         return String.format("redirect://detail/%s", id);
     }
 }
