@@ -1,4 +1,4 @@
-package com.example.test.POST.Controller;
+package com.example.test.Adventure.Controller;
 
 import java.security.Principal;
 
@@ -15,120 +15,113 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.example.test.POST.DTO.AnswerForm;
-import com.example.test.POST.DTO.PostDTO;
-import com.example.test.POST.DTO.PostForm;
-import com.example.test.POST.Service.PostService;
-import com.example.test.POST.Service.Post_CategoryService;
-import com.example.test.User.DTO.UserDTO;
-import com.example.test.User.Service.UserService;
+import com.example.test.Adventure.AdventureForm;
+import com.example.test.Adventure.DTO.AdventureDTO;
+import com.example.test.Adventure.Service.AdventureService;
+import com.example.test.Adventure.Service.Adventure_CategoryService;
+
 
 import jakarta.validation.Valid;
 
-@RequestMapping("/post")
 @Controller
-public class PostController {
+public class AdventureController {
 
 	@Autowired
-	PostService postService;
+	AdventureService adService;
 	
 	@Autowired
-	UserService userService;
+	Adventure_CategoryService adcService;
 	
-	@Autowired
-	Post_CategoryService PostCategoryService;
-	
-	@RequestMapping("/question/list")
+	@RequestMapping("/adventure/list")
     public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "kw", defaultValue = "") String kw) {
         
-        Page<PostDTO> paging = this.postService.getList(page, kw, "질문");
+        Page<AdventureDTO> paging = this.adService.getList(page, kw, "판매(ex 지역 or mbti)");
         model.addAttribute("paging", paging);
         model.addAttribute("kw", kw);
         return "list";
     }
 
     @RequestMapping(value = "/detail/{id}")
-    public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
-        PostDTO post = this.postService.getPost(id);
+    public String detail(Model model, @PathVariable("id") Integer id, AdventureForm adventureForm) {
+        AdventureDTO post = this.adService.getPost(id);
         model.addAttribute("post", post);
         return "detail";
     }
 
     //@PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
-    public String postCreate(PostForm postForm, Model model) {
-    	model.addAttribute("categoryList", PostCategoryService.getList());
+    public String adCreate(AdventureForm adventureForm, Model model) {
+    	model.addAttribute("categoryList", adcService.getList());
         return "form";
     }
 
     //@PreAuthorize("isAuthenticated()")
     @PostMapping("/create")
-    public String postCreate(@Valid PostForm postForm, 
+    public String adCreate(@Valid AdventureForm adventureForm, 
             BindingResult bindingResult, Principal principal) {
         if (bindingResult.hasErrors()) {
             return "form";
         }
-        //UserDTO userDto = this.userService.findByUserName(principal.getName());
-        //this.postService.create(postForm.getTitle(), postForm.getContent(), userDto);
+        //AdventureDTO admin = 관리자서비스(principal.getName());
+        //this.postService.create(adventureForm.getTitle(), adventureForm.getContent(), 관리자Dto);
         return "redirect://list";
     }
     
     //@PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
-    public String questionModify(PostForm postForm, @PathVariable("id") Integer id, Principal principal) {
-        PostDTO questionDto = this.postService.getPost(id);
-        if(!questionDto.getAuthor().getUserName().equals(principal.getName())) {
+    public String adModify(AdventureForm adForm, @PathVariable("id") Integer id, Principal principal) {
+        AdventureDTO adDto = this.adService.getPost(id);
+        if(!adDto.getAuthor().getUserName().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
-        postForm.setTitle(questionDto.getTitle());
-        postForm.setContent(questionDto.getContent());
+        adForm.setTitle(adDto.getAdventureName());
+        adForm.setContent(adDto.getAdventureContent());
         return "form";
     }
     
     //@PreAuthorize("isAuthenticated()")
     @PostMapping("/modify/{id}")
-    public String questionModify(@Valid PostForm postForm, BindingResult bindingResult, 
+    public String adModify(@Valid AdventureForm adForm, BindingResult bindingResult, 
             Principal principal, @PathVariable("id") Integer id) {
         if (bindingResult.hasErrors()) {
             return "form";
         }
-        PostDTO postDto = this.postService.getPost(id);
-        if (!postDto.getAuthor().getUserName().equals(principal.getName())) {
+        AdventureDTO adDto = this.adService.getPost(id);
+        if (!adDto.getAuthor().getUserName().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
-        this.postService.modify(postDto, postForm.getTitle(), postForm.getContent());
+        this.adService.modify(adDto, adForm.getTitle(), adForm.getContent());
         return String.format("redirect://detail/%s", id);
     }
     
     //@PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
-    public String questionDelete(Principal principal, @PathVariable("id") Integer id) {
-        PostDTO questionDto = this.postService.getPost(id);
-        if (!questionDto.getAuthor().getUserName().equals(principal.getName())) {
+    public String adDelete(Principal principal, @PathVariable("id") Integer id) {
+        AdventureDTO adDto = this.adService.getPost(id);
+        if (!adDto.getAuthor().getUserName().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
-        this.postService.delete(questionDto);
+        this.adService.delete(adDto);
         return "redirect:/";
     }
     
     //@PreAuthorize("isAuthenticated()")
     @GetMapping("/vote/{id}")
-    public String questionVote(Principal principal, @PathVariable("id") Integer id) {
+    public String adVote(Principal principal, @PathVariable("id") Integer id) {
         //PostDTO questionDto = this.postService.getPost(id);
         //UserDTO siteUserDto = this.userService.findByUserName(principal.getName());
         //this.postService.vote(questionDto, siteUserDto);
         return String.format("redirect://detail/%s", id);
     }
     
-    @GetMapping("/freepost/list")
-    public String freepostList(Model model, @RequestParam(value="page", defaultValue="0") int page,
-    	@RequestParam(value = "kw", defaultValue = "") String kw) {
-        
-        Page<PostDTO> paging = this.postService.getList(page, kw, "자유");
-        model.addAttribute("paging", paging);
-        model.addAttribute("kw", kw);
-        return "list";
-    }
-    
+//    @GetMapping("/freepost/list")
+//    public String freepostList(Model model, @RequestParam(value="page", defaultValue="0") int page,
+//    	@RequestParam(value = "kw", defaultValue = "") String kw) {
+//        
+//        Page<AdventureDTO> paging = this.adService.getList(page, kw, "다른 카테고리");
+//        model.addAttribute("paging", paging);
+//        model.addAttribute("kw", kw);
+//        return "list";
+//    }
 }

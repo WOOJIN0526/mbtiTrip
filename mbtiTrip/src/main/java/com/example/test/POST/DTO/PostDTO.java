@@ -37,7 +37,7 @@ public class PostDTO {
 	
 	private List<AnswerDTO> answerList;
 	
-
+	private Post_CategoryDTO post_category;
 	
 	
 }

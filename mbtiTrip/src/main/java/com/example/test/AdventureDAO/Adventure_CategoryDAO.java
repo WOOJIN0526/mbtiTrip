@@ -1,10 +1,14 @@
 package com.example.test.AdventureDAO;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.example.test.Adventure.DTO.Adventure_CategoryDTO;
+import com.example.test.POST.DTO.Post_CategoryDTO;
 
 @Repository
 public class Adventure_CategoryDAO {
@@ -16,4 +20,6 @@ public class Adventure_CategoryDAO {
 		int result = this.sqlSessiontemplate.insert("adventure_category.insert",Adventure_Category);
 		return result;
 	}
+	
+	public List<Adventure_CategoryDTO> categoryName;
 }

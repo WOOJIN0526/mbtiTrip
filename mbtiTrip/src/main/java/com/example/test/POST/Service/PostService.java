@@ -7,7 +7,7 @@ import com.example.test.User.DTO.UserDTO;
 
 public interface PostService {
 
-	 public Page<PostDTO> getList(int page, String kw);
+	 public Page<PostDTO> getList(int page, String kw, String categoryName);
 	 
 	 public PostDTO getPost(Integer userid);
 	 
@@ -18,4 +18,6 @@ public interface PostService {
 	 public void delete(PostDTO postDto);
 	 
 	 public PostDTO vote(PostDTO postDto, UserDTO userDto);
+	 
+	 
 }
