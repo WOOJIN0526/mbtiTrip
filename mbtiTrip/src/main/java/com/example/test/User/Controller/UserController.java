@@ -19,15 +19,30 @@ import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.DTO.User_Role;
 import com.example.test.User.Service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Controller
 public class UserController {
 
 	@Autowired
 	UserService userService; 
 	
-	@RequestMapping(value = "/signup/user", method=RequestMethod.GET)
-	public String signUpUser() {
-		return "sign_up";
+//	@RequestMapping(value = "/signup/user", method=RequestMethod.GET)
+//	public String signUpUser() {
+//		return "sign_up";
+//	}
+	@RequestMapping(value = "/signup", method=RequestMethod.GET)
+	public String signUpSelect() {
+		return "sign_up_select";
+	}
+	
+	@RequestMapping(value = "/signup/user", method = RequestMethod.GET)
+	public ModelAndView signUpUser(HttpServletRequest request) {
+	    ModelAndView mav = new ModelAndView();
+	    String currentUrl = request.getRequestURI().toString();
+	    mav.addObject("currentUrl", currentUrl);
+	    mav.setViewName("sign_up");
+	    return mav;
 	}
 	
 	@RequestMapping(value = "/signup/user", method=RequestMethod.POST)
@@ -46,10 +61,19 @@ public class UserController {
 		return chk;
 	}
 	
+//	@RequestMapping(value = "/signup/bis", method=RequestMethod.GET)
+//	public String signUpBis() {
+//		return "sign_up";
+//	}
 	@RequestMapping(value = "/signup/bis", method=RequestMethod.GET)
-	public String signUpBis() {
-		return "sign_up";
+	public ModelAndView signUpBis(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		String currentUrl = request.getRequestURI().toString();
+		mav.addObject("currentUrl", currentUrl);
+		mav.setViewName("sign_up");
+		return mav;
 	}
+	
 	
 	@RequestMapping(value = "/signup/bis", method=RequestMethod.POST)
 	@ResponseBody
@@ -80,15 +104,15 @@ public class UserController {
 			 if(user.get("UID")  != null) { 
 				 model.addAttribute(user);
 				 if(user.get("userrole").equals(User_Role.user.toString())) {
-					 return "/";
+					 return "redirect:/";
 //					 return String.format("redirect:/user/%s", user.get("UID"));
 				 	}
 				 else if(user.get("userrole").equals(User_Role.bis.toString())) {
-					 return "/";
+					 return "redirect:/";
 //					 return String.format("redirect:/bis/%s", user.get("UID"));
 				 	}	 
 				 else if(user.get("userrole").equals(User_Role.admin.toString())) {
-					 return "/";
+					 return "redirect:/";
 //					 return String.format("redirect:/admin/%s", user.get("UID"));
 				 }
 			   }
@@ -102,7 +126,7 @@ public class UserController {
 
 			return "redirect:/login";
 		}
-		return "";
+		return "redirect:/";
 	}
 	
 	

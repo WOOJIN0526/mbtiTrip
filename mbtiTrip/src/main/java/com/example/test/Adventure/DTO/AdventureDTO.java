@@ -2,6 +2,11 @@ package com.example.test.Adventure.DTO;
 
 
 
+import java.time.LocalDateTime;
+import java.util.Set;
+
+import com.example.test.User.DTO.UserDTO;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,6 +40,17 @@ public class AdventureDTO {
 	
 	private String adventureAdmin;
 	
-	private double ratringAvg;
+	private UserDTO Author;
+	
+	private double ratingAvg;
+	
+	private Set<UserDTO> voter;
+	
+	private Adventure_CategoryDTO adCategory;
+	
+	private LocalDateTime updateDate;
+	
+	private LocalDateTime modifyDate;
+	
 	
 }

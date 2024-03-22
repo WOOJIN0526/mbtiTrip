@@ -2,14 +2,15 @@
     padding: 0;
     margin: 0;
     border: none;
+    box-sizing: border-box;
 }
  
 
-/* main */
-.disActive{
-    display: none;
-}
+
 .main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 95% 95%;
     height: 100vh;
     /* background:url(masaaki-komori-_SbeCWYjwCQ-unsplash.jpg); */
@@ -18,59 +19,39 @@
     background-repeat:no-repeat;
     background-position: top center;
     background-size: cover;
-    display: flex;
+    display: grid;
 }
 
-#url{
-	display: none;
-}
-.totLoginPage {
-	
-    margin: auto;
+
+.selectPage {
+    display: flex;
+    flex-direction: column;
+    
     width: 18.75em;
     background-color: #EEEFF1;
     border-radius: 0.3em;    
     text-align: center;
-    padding: 1.25em;
-    justify-content: center;
-	align-items: center;
-    
+    padding: 1.5em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .logo p{
     font-size: 1.5em;
     text-align: center;
-    padding: 0.6em;
+    padding: 1em;
     line-height : 1em;
 }
 
-#sign_up_btn {
+.sign_up_btn {
+    width: 90%;
+    padding: 0.7rem;
     background-color: #FFD8E4;
     margin-bottom: 1.8em;
     color: #9B9B9B;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-/* .phone {
-    display: flex;
-    justify-content: space-between;
-    line-height: 35px;
-    padding: 0.55em;
-} */
-
-input {
-    width: 90%;
-    padding: 0.6em;
-    box-sizing: border-box;
-    border-radius: 0.3em;
-    margin-bottom: 0.6em;
-}
-
-select{
-    width: 90%;
-    padding: 0.6em;
-    box-sizing: border-box;
-    border-radius: 0.3em;
-    margin-bottom: 0.6em;
+.sign_up_btn:hover{
+    box-shadow: none;
 }
 
 a {
@@ -78,12 +59,6 @@ a {
     font-size: 1em;
     line-height : 2em;
 }
-#sign_up_btn:hover{
+.sign_up_btn:hover{
     color: black;
-}
-.error{
-    color: red;
-}
-.error{
-    font-size: 2rem;
 }

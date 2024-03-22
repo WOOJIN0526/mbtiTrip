@@ -1,4 +1,4 @@
-package com.example.test.POST.DTO;
+package com.example.test.Adventure;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PostForm {
+public class AdventureForm {
 
 	@NotEmpty(message = "제목은 필수항목입니다.")
     @Size(max = 100)

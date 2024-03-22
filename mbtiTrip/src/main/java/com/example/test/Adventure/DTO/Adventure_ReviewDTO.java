@@ -22,7 +22,9 @@ public class Adventure_ReviewDTO {
 	
 	private String userName;
 	
-	private LocalDateTime updatedate;
+	private LocalDateTime updateDate;
+	
+	private LocalDateTime modifyDate;
 	
 	
 	

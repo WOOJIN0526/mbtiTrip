@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{sign_up/sign_up_select.css}">
+</head>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<body>
+    <!-- loginAndSign main -->
+    <div class="main">
+        <div class="selectPage">
+            
+                <div class="logo">
+                    <a th:href="@{/}"><p>로고</p></a>
+                </div>
+                <!--login_and_sign_btn-->   
+                <a th:href="@{/signup/user}" ><button class="sign_up_btn user" >일반 회원가입</button></a>           
+                <a th:href="@{/signup/bis}"><button  class="sign_up_btn bis">사업자 회원가입</button> </a>     
+            
+                <a id= "lostIdAndLostPassword" href="">아이디/비밀번호 찾기</a><br>
+               
+        </div>
+    </div>
+</body>
+</html>
