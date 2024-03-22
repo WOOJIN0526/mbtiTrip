@@ -1,4 +1,11 @@
 
+console.log(signUpSelect()==='/bis');
+console.log(signUpSelect());
+function signUpSelect(){
+	let url =document.getElementById('url').textContent;
+	let selected = url.substring(url.indexOf("/signup") + "/signup".length)
+	return selected;
+}
 
 function sendAjaxRequest(url,method,data,conType){
     return new Promise(function(resolve,reject){
@@ -104,7 +111,14 @@ document.getElementById("phone").addEventListener("blur",()=>{
     if(phone.length < 3){
         error("전화번호 전체를 입력해 주세요")
     }else{
-        document.getElementById("mbti").classList.remove("disActive");
+		if(signUpSelect()==='/user'){
+			document.getElementById("mbti").classList.remove("disActive");
+		}
+		if(signUpSelect()==='/bis'){
+			
+			document.querySelector('#bisNumber').classList.remove("disActive");
+		}
+        
         delError();
         
     }
@@ -114,30 +128,53 @@ document.getElementById("mbti").addEventListener("change",()=>{
         document.getElementById("sign_up_btn").classList.remove("disActive");
     
 });
+document.querySelector('#bisNumber').addEventListener("blur",()=>{
+    const email =document.querySelector('#bisNumber').value;
+    if(email.length < 3){
+        
+    }else{
+        document.getElementById("sign_up_btn").classList.remove("disActive");
+    }
+});
 document.getElementById("sign_up_btn").addEventListener("click",()=>{
     const id = document.getElementById("id").value;
     const pwd = document.getElementById("pwd").value;
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
     const phone = document.getElementById("phone").value;
-    const mbti = document.getElementById("mbti").value;
-    let sign_up_data ={
+    if(signUpSelect()==='/user'){
+		const mbti = document.getElementById("mbti").value;
+        var sign_up_data ={
 		userId:id,
 		password:pwd,
 		userName:name,
 		mbti:mbti,
 		mail:email,
 		phone:phone}
+		var url='/signup/user';
+	}else if(signUpSelect()==='/bis'){
+		console.log(123);
+		const bisNumber = document.querySelector('#bisNumber').value
+		var sign_up_data ={
+		userId:id,
+		password:pwd,
+		userName:name,
+		bisNumber:bisNumber,
+		mail:email,
+		phone:phone}
+		var url='/signup/bis';
+	}
+    console.log(sign_up_data);
     let jsonData = JSON.stringify(sign_up_data);
     console.log(jsonData);
     let tString = "회원가입에 성공했습니다."
     let fString = "회원가입에 실패했습니다."
     
     //getResultXHR("/signup","POST",jsonData,"JSON");
-    sendAjaxRequest("/signup/user","POST",jsonData,"JSON").then((responseText) => {
+    sendAjaxRequest(url,"POST",jsonData,"JSON").then((responseText) => {
         if(responseText){
             alert("됨");
-            window.location.href = "/login";
+            window.location.href = "/login_A";
            
         }else{
             alert("안됨");

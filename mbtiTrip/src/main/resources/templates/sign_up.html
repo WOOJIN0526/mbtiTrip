@@ -10,6 +10,7 @@
 <body>
     <!-- loginAndSign main -->
     <div class="main">
+		<p id="url" th:text="${currentUrl}"></p>
         <div class="totLoginPage" id="totLoginPage">
             <form class="sign_up_form"  method="post" action="/sign_up">
                 <div class="logo">
@@ -26,7 +27,8 @@
                             <button id="btn" type="button">이메일 인증받기</button><br>
                         </span> -->                   
                     <input class="disActive" type="text"  name="PhoneNumber" id="phone" placeholder="휴대전화번호 '-'빼고 숫자만 입력" required><br>
-
+                    <input class="disActive" type="text"  name="bisNumber" id="bisNumber" placeholder="사업자등록번호" required><br>
+					
                     <select class="disActive" id="mbti" name="mbti">
                         <option>당신의 MBTI는?</option>
                         <option value="1">ISTJ</option>

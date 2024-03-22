@@ -18,17 +18,22 @@
     background-repeat:no-repeat;
     background-position: top center;
     background-size: cover;
-    display: grid;
+    display: flex;
 }
 
-
+#url{
+	display: none;
+}
 .totLoginPage {
+	
     margin: auto;
     width: 18.75em;
     background-color: #EEEFF1;
     border-radius: 0.3em;    
     text-align: center;
     padding: 1.25em;
+    justify-content: center;
+	align-items: center;
     
 }
 
