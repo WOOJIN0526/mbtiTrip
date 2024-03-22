@@ -2,6 +2,7 @@ package com.example.test.POST.Service;
 
 
 
+
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -9,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.test.POST.DAO.AnswerDAO;
-import com.example.test.POST.DTO.Answer;
 import com.example.test.POST.DTO.AnswerDTO;
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.User.DTO.UserDTO;
