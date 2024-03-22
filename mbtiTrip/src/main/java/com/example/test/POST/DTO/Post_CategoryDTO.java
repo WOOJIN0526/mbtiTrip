@@ -2,6 +2,8 @@ package com.example.test.POST.DTO;
 
 
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,4 +16,5 @@ public class Post_CategoryDTO {
 	
 	private String postCategory;
 	
+	private List<PostDTO> postList;
 }
