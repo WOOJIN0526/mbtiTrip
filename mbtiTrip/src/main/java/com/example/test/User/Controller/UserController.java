@@ -55,8 +55,8 @@ public class UserController {
 	@ResponseBody
 	public boolean singupUserBis(@RequestBody UserDTO userdto) {		
 		//ModelAndView mav = new ModelAndView();     // 아직 비번 암 복호화 안됌 ㅋㅌ
-		userdto.setUserrole(User_Role.bis);
-		userdto.toString();
+		userdto.setUserrole(User_Role.bis);		
+		
 		int result = userService.createUser(userdto);
 		boolean chk = false;
 		if(result == 1) {
@@ -66,32 +66,32 @@ public class UserController {
 		return chk;
 	}
 	
-	
-	@RequestMapping(value = "/login", method=RequestMethod.GET)
+	@RequestMapping(value = "/login_A", method=RequestMethod.GET)
 	public ModelAndView login() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("login_form");
 		return mav;
 	}
 	
-	@RequestMapping(value = "/login", method=RequestMethod.POST)
+	@RequestMapping(value = "/login_A", method=RequestMethod.POST)
 	public String login(@ModelAttribute UserDTO userdto, Model model) {;
 		 Map<String, Object> user = userService.login(userdto);
 		 try {
-			 if(user.get("UID")  != null) {
-				 
+			 if(user.get("UID")  != null) { 
 				 model.addAttribute(user);
 				 if(user.get("userrole").equals(User_Role.user.toString())) {
-					 return String.format("redirect:/mypage/user/%s", user.get("UID"));
+					 return "/";
+//					 return String.format("redirect:/user/%s", user.get("UID"));
 				 	}
 				 else if(user.get("userrole").equals(User_Role.bis.toString())) {
-					 return String.format("redirect:/mypage/bis/%s", user.get("UID"));
+					 return "/";
+//					 return String.format("redirect:/bis/%s", user.get("UID"));
 				 	}	 
 				 else if(user.get("userrole").equals(User_Role.admin.toString())) {
-					 return String.format("redirect:/mypage/admin/%s", user.get("UID"));
+					 return "/";
+//					 return String.format("redirect:/admin/%s", user.get("UID"));
 				 }
 			   }
-			 
 			 else {
 				 model.addAttribute("message", "사용자 정보를 찾을 수 없습니다.");
 				 return "redirect:/login";
@@ -102,12 +102,27 @@ public class UserController {
 
 			return "redirect:/login";
 		}
-		
 		return "";
-	
 	}
 	
-	//username, mbti, password, Post, cart, 
+	
+	
+	
+	@RequestMapping(value ="/" , method = RequestMethod.GET)
+	public ModelAndView main(ModelAndView mv) {
+		mv.setViewName("main");
+		return mv;
+	}
+	
+//	@RequestMapping(value="/user/{UID}", method = RequestMethod.GET)
+//	public ModelAndView mainUser(@PathVariable Integer UID , UserDTO userDTO, ModelAndView mav) {
+//		// userMBTI에 따른 replace, adventure 정보 
+//		// 인기 POSt 정보, 
+//		// 
+//		mav.addObject("user", user);
+//		
+//		return mav;
+//	}
 	
 	@RequestMapping(value = "/mypage/user/{UID}", method = RequestMethod.GET)
 	public ModelAndView mypageUser(@PathVariable("UID") Integer UID, UserDTO userdto, ModelAndView mav){
@@ -117,37 +132,7 @@ public class UserController {
 		return mav;
 	}
 	
-	
-	
-	
-	@RequestMapping(value = "/mypage/bis/{UID}", method = RequestMethod.GET)
-	public ModelAndView mypageBis(@PathVariable("UID") Integer UID, UserDTO userdto, ModelAndView mav){
-		Map<String, Object> map = userService.getInfo(UID);
-		
-		//Myreplace 로직 들어갈 예정, 나의 숙소 정보 -> UID랑 replace의 admin 이랑 조인 쳐서 
-		
-		mav.addObject("map", map);
-		mav.setViewName("mypage");
-		return mav;
-	}
-	
-	@RequestMapping(value = "/mypage/admin/{UID}", method = RequestMethod.GET)
-	public ModelAndView mypageadmin(@PathVariable("UID") Integer UID, UserDTO userdto, ModelAndView mav){
-		Map<String, Object> map = userService.getInfo(UID);
-		Integer mbti = (Integer) map.get("mbti");
-		
-		//사이트 관리 페이지에 필요한 정보들 들어갈 예정 
-		// EX, 유저수, 게시물 수, 등록된 장소 수 등  
-		
-		mav.addObject("map", map);
-		mav.setViewName("mypage");
-		return mav;
-	}
-	
-	
-
-	
-	@RequestMapping(value = "/mypage/User/update/{UID}", method = RequestMethod.GET)
+	@RequestMapping(value = "/mypage/user/update/{UID}", method = RequestMethod.GET)
 	public ModelAndView update(@PathVariable("UID") Integer UID, UserDTO userdto, ModelAndView mav){
 //		String Uid = userdto.getUID();
 //		mav.addObject(userdto);
@@ -158,7 +143,7 @@ public class UserController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/mypage/User/update/{UID}", method = RequestMethod.POST)
+	@RequestMapping(value = "/mypage/user/update/{UID}", method = RequestMethod.POST)
 	public ModelAndView update(@ModelAttribute UserDTO userdto, ModelAndView mav) {
 		
 		try {
@@ -178,10 +163,6 @@ public class UserController {
 		return mav;
 	}
 	
-	@RequestMapping(value ="/main" , method = RequestMethod.GET)
-	public ModelAndView main(ModelAndView mv) {
-		mv.setViewName("main");
-		return mv;
-	}
+
 	
 }
