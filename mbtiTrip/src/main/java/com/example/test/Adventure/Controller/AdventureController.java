@@ -115,6 +115,18 @@ public class AdventureController {
         return String.format("redirect://detail/%s", id);
     }
     
+  @GetMapping("/adventure_review/list")
+  public String freepostList(Model model, @RequestParam(value="page", defaultValue="0") int page,
+  	@RequestParam(value = "kw", defaultValue = "") String kw) {
+      
+      Page<AdventureDTO> paging = this.adService.getList(page, kw, "어드벤쳐리뷰");
+      model.addAttribute("paging", paging);
+      model.addAttribute("kw", kw);
+      return "list";
+  }
+  
+  
+    
 //    @GetMapping("/freepost/list")
 //    public String freepostList(Model model, @RequestParam(value="page", defaultValue="0") int page,
 //    	@RequestParam(value = "kw", defaultValue = "") String kw) {
