@@ -11,11 +11,11 @@ public interface Adventure_ReviewService {
 	 
 	 public Adventure_ReviewDTO getPost(Integer userid);
 	 
-	 public Adventure_ReviewDTO create(String title, String content, UserDTO user);
+	 public Adventure_ReviewDTO create(String title, String content, String user);
 	 
 	 public Adventure_ReviewDTO modify(Adventure_ReviewDTO adrDto, String title, String content);
 	 
 	 public void delete(Adventure_ReviewDTO adrDto);
 	 
-	 public Adventure_ReviewDTO vote(Adventure_ReviewDTO adrDto, UserDTO userDto);
+	
 }
