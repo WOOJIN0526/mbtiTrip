@@ -22,6 +22,10 @@ public class Adventure_ReviewDTO {
 	
 	private String userName;
 	
+	private String reviewTitle;
+	
+	private String content;
+	
 	private LocalDateTime updateDate;
 	
 	private LocalDateTime modifyDate;

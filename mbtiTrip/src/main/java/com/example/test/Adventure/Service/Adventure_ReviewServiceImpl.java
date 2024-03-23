@@ -1,7 +1,15 @@
 package com.example.test.Adventure.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +17,7 @@ import com.example.test.Adventure.DTO.Adventure_CategoryDTO;
 import com.example.test.Adventure.DTO.Adventure_ReviewDTO;
 import com.example.test.AdventureDAO.Adventure_ReviewDAO;
 import com.example.test.POST.DTO.AnswerDTO;
+import com.example.test.POST.DTO.PostDTO;
 import com.example.test.User.DTO.UserDTO;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -48,39 +57,48 @@ public class Adventure_ReviewServiceImpl implements Adventure_ReviewService {
 	
 	@Override
 	public Page<Adventure_ReviewDTO> getList(int page, String kw, String categoryName) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Sort.Order> sorts = new ArrayList<>();
+	     sorts.add(Sort.Order.desc("createDate"));
+	     Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+	     Specification<Adventure_ReviewDTO> spec = search(kw, categoryName);
+	     return this.adrDAO.findAll(spec,pageable);
 	}
 
 	@Override
-	public Adventure_ReviewDTO getPost(Integer userid) {
-		// TODO Auto-generated method stub
-		return null;
+	public Adventure_ReviewDTO getPost(Integer reviewid) {
+		Optional<Adventure_ReviewDTO> adr = this.adrDAO.findById(reviewid);
+        return adr.get();
 	}
 
 	@Override
-	public Adventure_ReviewDTO create(String title, String content, UserDTO user) {
-		// TODO Auto-generated method stub
-		return null;
+	public Adventure_ReviewDTO create(String title, String content, String user) {
+		Adventure_ReviewDTO adrDto = new Adventure_ReviewDTO();
+        adrDto.setReviewTitle(title);
+        adrDto.setContent(content);
+        adrDto.setUpdateDate(LocalDateTime.now());
+        adrDto.setUserName(user);
+        
+        
+        return this.adrDAO.save(adrDto);
 	}
 
 	@Override
 	public Adventure_ReviewDTO modify(Adventure_ReviewDTO adrDto, String title, String content) {
-		// TODO Auto-generated method stub
-		return null;
+		adrDto.setReviewTitle(title);
+        adrDto.setContent(content);
+        adrDto.setModifyDate(LocalDateTime.now());
+        
+        
+        return this.adrDAO.save(adrDto);
 	}
 
 	@Override
 	public void delete(Adventure_ReviewDTO adrDto) {
-		// TODO Auto-generated method stub
+		this.adrDAO.delete(adrDto);
 		
 	}
 
-	@Override
-	public Adventure_ReviewDTO vote(Adventure_ReviewDTO adrDto, UserDTO userDto) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	
 }
