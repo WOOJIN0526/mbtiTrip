@@ -19,7 +19,7 @@ public class ReplaceForm {
     @NotEmpty(message = "카테고리는 필수항목입니다")
     private String categoryName;
     
-    @NotEmpty(message = "지역은 필수입니다")
+    @NotEmpty(message = "주소는 필수입니다")
     private String AdventureLocation;
     
     @NotEmpty(message = "가격은 필수입니다")

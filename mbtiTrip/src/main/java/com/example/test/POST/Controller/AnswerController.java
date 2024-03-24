@@ -42,20 +42,20 @@ public class AnswerController {
 		@Autowired
 		UserService userservice;
 	
-  //@PreAuthorize("isAuthenticated()")
-//	@PostMapping("/create/{id}")
-//	public String createAnswer(Model model, @PathVariable("id") Integer id, 
-//	@Valid AnswerForm answerForm, BindingResult bindingResult, Principal principal) {
-//	PostDTO postDto = this.postservice.getPost(id);
-//	UserDTO userDto = this.userservice.findByUserName(principal.getName());
-//		if (bindingResult.hasErrors()) {
-//		            model.addAttribute("post", postDto);
-//		            return "detail";
+		// @PreAuthorize("isAuthenticated()")
+//		    @PostMapping("/create/{id}")
+//		 public String createAnswer(Model model, @PathVariable("id") Integer id, 
+//		            @Valid AnswerForm answerForm, BindingResult bindingResult, Principal principal) {
+//		        PostDTO questionDto = this.postservice.getPost(id);
+//		        UserDTO siteUserDto = this.userservice.getUser(principal.getName());
+//		        if (bindingResult.hasErrors()) {
+//		            model.addAttribute("question", questionDto);
+//		            return "question_detail";
 //		        }
-//		        AnswerDTO answerDto = this.answerService.create(postDto, 
-//		                answerForm.getContent(), userDto);
-//		        return String.format("redirect://detail/%s#answer_%s", 
-//		                answerDto.getPost().getUserId(), answerDto.getAnswerID());
+//		        AnswerDTO answerDto = this.answerService.create(questionDto, 
+//		                answerForm.getContent(), siteUserDto);
+//		        return String.format("redirect:/post/detail/%s#answer_%s", 
+//		                answerDto.getPost().getPostID(), answerDto.getAnswerID());
 //		    }
 		    
 		    //@PreAuthorize("isAuthenticated()")
