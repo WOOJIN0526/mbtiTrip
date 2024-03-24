@@ -13,12 +13,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-
+import com.example.test.Adventure.DTO.Adventure_CategoryDTO;
 import com.example.test.POST.DTO.AnswerDTO;
 import com.example.test.User.DTO.UserDTO;
-import com.example.test.replace.DAO.ReplaceDAO;
-import com.example.test.replace.DTO.ReplaceCategoryDTO;
-import com.example.test.replace.DTO.ReplaceDTO;
+import com.example.test.replace.DAO.ReplaceReviewDAO;
+import com.example.test.replace.DTO.ReplaceReviewDTO;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -28,21 +27,21 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 
 @Service
-public class ReplaceServiceImpl implements ReplaceService{
+public class ReplaceReviewServiceImpl implements ReplaceReviewService{
 
 	@Autowired
-	ReplaceDAO rpDAO;
-
-	private Specification<ReplaceDTO> search(String kw, String categoryName) {
-        return new Specification<ReplaceDTO>() {
+	ReplaceReviewDAO rprDAO;
+	
+	private Specification<ReplaceReviewDTO> search(String kw, String categoryName) {
+        return new Specification<ReplaceReviewDTO>() {
             private static final long serialVersionUID = 1L;
             
             @Override
-            public Predicate toPredicate(Root<ReplaceDTO> q, CriteriaQuery<?> query, CriteriaBuilder cb) {
+            public Predicate toPredicate(Root<ReplaceReviewDTO> q, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 query.distinct(true);  // 중복을 제거 
-                Join<ReplaceDTO, UserDTO> u1 = q.join("author", JoinType.LEFT);
-                Join<ReplaceDTO, AnswerDTO> a = q.join("answerList", JoinType.LEFT);
-                Join<ReplaceDTO, ReplaceCategoryDTO> c = q.join("category", JoinType.LEFT);
+                Join<ReplaceReviewDTO, UserDTO> u1 = q.join("author", JoinType.LEFT);
+                Join<ReplaceReviewDTO, AnswerDTO> a = q.join("answerList", JoinType.LEFT);
+                Join<ReplaceReviewDTO, Adventure_CategoryDTO> c = q.join("category", JoinType.LEFT);
                 Join<AnswerDTO, UserDTO> u2 = a.join("author", JoinType.LEFT);
                 return cb.or(cb.like(q.get("subject"), "%" + kw + "%"), // 제목 
                         cb.like(q.get("content"), "%" + kw + "%"),      // 내용 
@@ -50,60 +49,51 @@ public class ReplaceServiceImpl implements ReplaceService{
                         cb.like(a.get("content"), "%" + kw + "%"),      // 답변 내용 
                         cb.like(u2.get("username"), "%" + kw + "%"),   // 답변 작성자 
                 		cb.like(c.get("name"), "%" + categoryName + "%"));	// 카테고리 이름
-                		
             }
         };
     }
-
+	
 	@Override
-	public Page<ReplaceDTO> getList(int page, String kw, String categoryName) {
+	public Page<ReplaceReviewDTO> getList(int page, String kw, String categoryName) {
 		 List<Sort.Order> sorts = new ArrayList<>();
 	     sorts.add(Sort.Order.desc("createDate"));
 	     Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-	     Specification<ReplaceDTO> spec = search(kw, categoryName);
-	     return this.rpDAO.findAll(spec,pageable);
+	     Specification<ReplaceReviewDTO> spec = search(kw, categoryName);
+	     return this.rprDAO.findAll(spec,pageable);
 	}
 
 	@Override
-	public ReplaceDTO getPost(Integer userid) {
-		 Optional<ReplaceDTO> rp = this.rpDAO.findById(userid);
-	        return rp.get();
+	public ReplaceReviewDTO getPost(Integer userid) {
+		Optional<ReplaceReviewDTO> rpr = this.rprDAO.findById(userid);
+        return rpr.get();
 	}
 
 	@Override
-	public ReplaceDTO create(String title, String content, String admin) {
-		ReplaceDTO adDto = new ReplaceDTO();
-        adDto.setReplaceName(title);
-        adDto.setReplaceContents(content);
-        adDto.setUpdateDate(LocalDateTime.now());
-        adDto.setReplaceAdmin(admin);
-		return adDto;
-	}
-
-	@Override
-	public ReplaceDTO modify(ReplaceDTO rpDto, String title, String content) {
-		rpDto.setReplaceName(title);
-        rpDto.setReplaceContents(content);
-        rpDto.setModifyDate(LocalDateTime.now());
+	public ReplaceReviewDTO create(String title, String content, String user) {
+		ReplaceReviewDTO adrDto = new ReplaceReviewDTO();
+        adrDto.setReviewTitle(title);
+        adrDto.setContent(content);
+        adrDto.setUpdateDate(LocalDateTime.now());
+        adrDto.setUserName(user);
         
         
-        return this.rpDAO.save(rpDto);
+        return this.rprDAO.save(adrDto);
 	}
 
 	@Override
-	public void delete(ReplaceDTO rpDto) {
-		this.rpDAO.delete(rpDto);
+	public ReplaceReviewDTO modify(ReplaceReviewDTO rprDto, String title, String content) {
+		rprDto.setReviewTitle(title);
+        rprDto.setContent(content);
+        rprDto.setModifyDate(LocalDateTime.now());
+        
+        
+        return this.rprDAO.save(rprDto);
+	}
+
+	@Override
+	public void delete(ReplaceReviewDTO rprDto) {
+		this.rprDAO.delete(rprDto);
 		
 	}
 
-	@Override
-	public ReplaceDTO vote(ReplaceDTO rpDto, UserDTO user) {
-		rpDto.getVoter().add(user);
-        
-        return this.rpDAO.save(rpDto);
-	}
-	
-	
-	
-	
 }
