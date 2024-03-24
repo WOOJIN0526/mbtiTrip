@@ -20,6 +20,8 @@ public class ReplaceReviewDTO {
 	
 	private Integer rating;
 	
+	private String reviewTitle;
+	
 	private String content;
 
 	private LocalDateTime updateDate;
