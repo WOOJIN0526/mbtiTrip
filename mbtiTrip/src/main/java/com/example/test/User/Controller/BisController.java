@@ -37,6 +37,7 @@ public class BisController {
 //		@RequestMapping(value = "/signup/bis", method=RequestMethod.GET)
 	
 	
+	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public ModelAndView signUpBis(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		String currentUrl = request.getRequestURI().toString();
@@ -46,7 +47,7 @@ public class BisController {
 	}
 	
 	
-	@RequestMapping(value = "/signup/bis", method=RequestMethod.POST)
+	@RequestMapping(value = "/signup", method=RequestMethod.POST)
 	@ResponseBody
 	public boolean singupUserBis(@RequestBody UserDTO userdto) {		
 		//ModelAndView mav = new ModelAndView();     // 아직 비번 암 복호화 안됌 ㅋㅌ
@@ -61,7 +62,7 @@ public class BisController {
 	}
 	
 	
-	@RequestMapping(value = "/bis/mypage/{UID}", method = RequestMethod.GET)
+	@RequestMapping(value = "/mypage/{UID}", method = RequestMethod.GET)
 	public ModelAndView mypageBis(@PathVariable("UID") Integer UID, UserDTO userdto, ModelAndView mav){
 		Map<String, Object> map = userService.getInfo(UID);
 		mav.addObject("map", map);
@@ -70,7 +71,7 @@ public class BisController {
 	}
 	
 	
-	@RequestMapping(value = "/bis/mypage/update/{UID}", method = RequestMethod.POST)
+	@RequestMapping(value = "/mypage/update/{UID}", method = RequestMethod.POST)
 	public ModelAndView Bisupdate(@ModelAttribute UserDTO userdto, ModelAndView mav) {
 		
 		try {

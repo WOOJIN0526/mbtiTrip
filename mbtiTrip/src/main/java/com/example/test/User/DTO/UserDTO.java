@@ -38,7 +38,7 @@ public class UserDTO {
 	         + ", phone=" + phone+ 
 	         ", mbti=" +mbti+"]"+ ", admin= "+ userrole
 	         + ", BNum =" + BNum; 
-	         ; 
+	          
 	   }
 	
 	
