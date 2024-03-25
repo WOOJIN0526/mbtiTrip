@@ -21,9 +21,17 @@ public class GlobalExceptionHandler {
     	log.error("handlerException", ex);
     	ErrorRespone response = new ErrorRespone(ErrorCode.INTER_SERVER_ERROR);
     	return new ResponseEntity(response, HttpStatus.INTERNAL_SERVER_ERROR);
-
-       
     }
+    
+    @ExceptionHandler(NullPointerException.class)
+    protected ResponseEntity<ErrorResponse> NullhandlerException(NullPointerException nEX){
+    	log.error("nullPoingException", nEX);
+    	
+    	ErrorRespone response = new ErrorRespone(nEX.toString(), "null" );
+    	return new ResponseEntity(response, HttpStatus.NOT_FOUND);
+    }
+    	
+    
 }
 
 
