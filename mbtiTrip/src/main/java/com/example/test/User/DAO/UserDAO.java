@@ -18,6 +18,11 @@ public class UserDAO {
 		int result = this.sqlSessiontemplate.insert("user.insert", userDto);
 		return result;
 	}
+	
+	public int insertBis(UserDTO userdto) {
+		int result = this.sqlSessiontemplate.insert("user.insertBis", userdto);
+		return result;
+	};
 
 	public Map<String, Object> login(UserDTO userdto) {
 		Map result = this.sqlSessiontemplate.selectOne("user.login", userdto);
@@ -25,14 +30,21 @@ public class UserDAO {
 	}
 
 	public int userUpdate(UserDTO userdto) {
-		int result = this.sqlSessiontemplate.update("user.update", userdto);
+		int result = this.sqlSessiontemplate.update("user.updateUser", userdto);
+		return result;
+	}
+	
+	public int BisUpdate(UserDTO userdto) {
+		int result = this.sqlSessiontemplate.update("user.updateBis", userdto);
 		return result;
 	}
 
 	public Map<String, Object> getInfo(Integer uID) {
 		Map<String, Object> map = this.sqlSessiontemplate.selectOne("user.getInfo", uID);
 		return map;
-	};
+	}
+
+
 	
 //	
 //	@Id @GeneratedValue

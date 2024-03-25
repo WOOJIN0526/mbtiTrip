@@ -20,5 +20,9 @@ public interface UserService {
 	public int userUpdate(UserDTO userdto);
 
 	public Map<String, Object> getInfo(Integer uID);
+
+	public int createBis(UserDTO userdto);
+
+	public int BisUpdate(UserDTO userdto);
 	
 }
