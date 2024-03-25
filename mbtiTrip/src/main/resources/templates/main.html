@@ -1,26 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="en"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	**xmlns:sec="http://www.thymeleaf.org/extras/spring-security"**
     layout:decorate="~{layout.html}">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="main/style.css" />
+   
 
-    <style>
-      a,
-      button,input,select,h1,h2,h3,h4,h5,
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        border: none;
-        text-decoration: none;
-        appearance: none;
-        background: none;
-        -webkit-font-smoothing: antialiased;
-      }
-    </style>
+
+	<link th:href="@{main/style.css}" rel="stylesheet"/>
   </head>
 
   <body>
@@ -74,16 +64,16 @@
 		
 		      <div class="div11">
 		        <div class="map-container">
-		          <img class=""th:src="@{main/img/image-170.png}" />
-		          <img class=""th:src="@{main/img/image-170.png}" />
-		          <img class=""th:src="@{main/img/image-170.png}" />
+				  <img th:src="@{main/img/image-170.png}" />
+		          <img th:src="@{main/img/image-170.png}" />
+		          <img th:src="@{main/img/image-170.png}" />
 		          
 		        </div>
 		      </div>
 		
 		      <div>
 		        <div class="section">
-		            <img  class="image-13" src="https://www.vinatimes.net/files/attach/images/163/939/551/cb1075b156c396a48028fd017f403fa9.jpg" /> 
+		            <img  class="image-13" th:src="@{https://www.vinatimes.net/files/attach/images/163/939/551/cb1075b156c396a48028fd017f403fa9.jpg}" /> 
 		          <div class="container3">
 		            <div class="d-1">사용자추천</div>
 		            <div class="selection">
@@ -98,14 +88,14 @@
 		                <div>사고적</div>
 		              </div>
 		              <div class="label-normal">
-		                <span">계획적</span>
+		                <span>계획적</span>
 		              </div>
 		              <div class="label-normal">
 		                <div>혼자</div>
 		              </div>
 		
 		            </div>
-		            <div class=">연애중인 카라니입니다~</div>
+		            <div class="">연애중인 카라니입니다~</div>
 		       
 		
 		            <div class="primary5">

@@ -41,6 +41,8 @@ public  class PostServiceImpl implements PostService {
 	@Autowired
 	PostDAO postDAO;
 	
+	//검색기능 기존 or 조건(검색어)에서 and 조건(원하는 카테고리만 조회)을 추가
+	//즉, 검색 조건이 일치하고 카테고리도 일치하는 게시물들만 조회됨
 	private Specification<PostDTO> search(String kw, String categoryName) {
         return new Specification<PostDTO>() {
             private static final long serialVersionUID = 1L;
@@ -63,7 +65,7 @@ public  class PostServiceImpl implements PostService {
     }
 	
 	
-
+	//생성일자 기준 내림차순 정렬 페이징
 	@Override
 	public Page<PostDTO> getList(int page, String kw, String categoryName) {
 		 List<Sort.Order> sorts = new ArrayList<>();
@@ -74,18 +76,27 @@ public  class PostServiceImpl implements PostService {
 	}
 
 
-
+	//해당게시글 가져옴, 조회수 증가
 	@Override
 	public PostDTO getPost(Integer userid) {
 		  Optional<PostDTO> post = this.postDAO.findById(userid);
-	        return post.get();
-	}
+		  if (post.isPresent()) {
+	        	PostDTO post1 = post.get();        	
+	        	post1.setViews(post1.getViews()+1);        	
+	        	this.postDAO.save(post1);
+	            	return post1;
+	        } else {
+	            throw new DataNotFoundException("question not found");
+	        }	
+		  }
 
+	//생성
 	@Override
-	public PostDTO create(String title, String content, UserDTO user) {
+	public PostDTO create(String title, String content, UserDTO user, Post_CategoryDTO category) {
 		 	PostDTO postDto = new PostDTO();
 	        postDto.setTitle(title);
 	        postDto.setContent(content);
+	        postDto.setPost_category(category);
 	        postDto.setUpdateDate(LocalDateTime.now());
 	        postDto.setAuthor(user);
 	        
@@ -93,6 +104,7 @@ public  class PostServiceImpl implements PostService {
 	        return this.postDAO.save(postDto);
 	}
 
+	//수정
 	@Override
 	public PostDTO modify(PostDTO postDto, String title, String content) {
 		 	postDto.setTitle(title);
@@ -103,6 +115,7 @@ public  class PostServiceImpl implements PostService {
 	        return this.postDAO.save(postDto);
 	}
 
+	//삭제
 	@Override
 	public void delete(PostDTO postDto) {
 		 this.postDAO.delete(postDto);

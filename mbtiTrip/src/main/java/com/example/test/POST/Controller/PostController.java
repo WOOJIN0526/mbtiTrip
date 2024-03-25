@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.example.test.POST.DTO.AnswerForm;
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.DTO.PostForm;
+import com.example.test.POST.DTO.Post_CategoryDTO;
 import com.example.test.POST.Service.PostService;
 import com.example.test.POST.Service.Post_CategoryService;
 import com.example.test.User.DTO.UserDTO;
@@ -55,6 +56,8 @@ public class PostController {
         return "detail";
     }
 
+    //게시물을 작성할 때도 카테고리를 선택해서 게시물을 생성해야 한다. 
+    //따라서 전체 카테고리 중에서 알맞는 카테고리를 선택할 수 있어야 한다. 즉, 아래와 같이 게시물 등록 폼에서 전체 카테고리를 조회한다.
     //@PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
     public String postCreate(PostForm postForm, Model model) {
@@ -62,17 +65,21 @@ public class PostController {
         return "form";
     }
 
+    //컨트롤러에 넘어온 카테고리 이름으로 카테고리 엔티티를 조회하고, 
+    //조회한 카테고리 엔티티를 질문 엔티티에 넣어주고 저장하면 질문에 카테고리가 생기게 된다.
     //@PreAuthorize("isAuthenticated()")
-    @PostMapping("/create")
-    public String postCreate(@Valid PostForm postForm, 
-            BindingResult bindingResult, Principal principal) {
+    @PostMapping("/post/create")
+    public String postCreate(Model model, @Valid PostForm postForm, 
+    	BindingResult bindingResult, Principal principal) {
         if (bindingResult.hasErrors()) {
-            return "form";
+        	model.addAttribute("categoryList", postCategoryService.getList());
+            return "question_form";
         }
-        //UserDTO userDto = this.userService.getUser(principal.getName());
-        //this.postService.create(postForm.getTitle(), postForm.getContent(), userDto);
-        return "redirect://list";
-    }
+//        UserDTO siteUser = this.userService.getUser(principal.getName());
+//        Post_CategoryDTO category = this.postCategoryService.getCategory(postForm.getCategoryName());
+//        this.postService.create(postForm.getTitle(), postForm.getContent(), siteUser, category);
+        return "redirect:/question/list";
+        }
     
     //@PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
@@ -130,5 +137,12 @@ public class PostController {
         model.addAttribute("kw", kw);
         return "list";
     }
+    
+
+    @GetMapping("/support")
+    public String support() {
+    	return "customer_center";
+    }
+
     
 }

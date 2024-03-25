@@ -2,6 +2,7 @@ package com.example.test.AdventureDAO;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,4 +23,9 @@ public class Adventure_CategoryDAO {
 	}
 	
 	public List<Adventure_CategoryDTO> categoryName;
+
+	public Optional<Adventure_CategoryDTO> findById(String category) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
