@@ -1,9 +1,6 @@
-
-console.log(signUpSelect()==='/bis');
-console.log(signUpSelect());
 function signUpSelect(){
 	let url =document.getElementById('url').textContent;
-	let selected = url.substring(url.indexOf("/signup") + "/signup".length)
+	let selected = url.includes("/user")?'/user':'/bis';
 	return selected;
 }
 
