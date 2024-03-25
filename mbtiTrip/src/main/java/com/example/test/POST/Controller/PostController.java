@@ -138,7 +138,11 @@ public class PostController {
         return "list";
     }
     
-    
-    
+
+    @GetMapping("/support")
+    public String support() {
+    	return "customer_center";
+    }
+
     
 }

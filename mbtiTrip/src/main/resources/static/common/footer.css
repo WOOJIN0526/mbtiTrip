@@ -1,6 +1,15 @@
 footer{
+	display: flex;
+	flex-direction: column;
+	background-color:  var(--main-color);
+	justify-content: center;
+	text-align: center;
+	padding: 2rem 2rem 2rem 3rem;
+	gap :5rem;
+}
+.footerMenu{
     display: flex;
     justify-content: space-between;
     padding: 2rem;
-    background-color:  var(--main-color);
+    font-size:1.2rem;
 }

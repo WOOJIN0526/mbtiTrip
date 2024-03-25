@@ -1,24 +1,23 @@
-*{
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+.content{
+	display: flex;
+	justify-content: center;
+	padding: 1rem 0 5rem 0;
 }
-
-body{
-    margin: 0;
-    padding: 0;
-    background-color: #fafafa;
+.main{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
-
 .serch{
     border: 1px;
-    background-color:#fff;
-    position: relative;
-    left: 15%;
+    background-color:var(--blurry-main);
+   /* position: relative;*/
+    
     width: 75rem;
     font-size: 1.5em;
     padding: 1rem;
-    margin: 1rem;
+    
     box-shadow:2px 3px 5px 0px;
     
 }
@@ -32,7 +31,7 @@ label{
 }
 
 .c-input-search {
-    width: 60%;
+    width: 50%;
     padding: 0.9em;
     box-sizing: border-box;
     border-radius: 3em;
@@ -58,13 +57,15 @@ button{
 }
 
 .question_box{
-    float: left;
+   
 }
 .ContentsList{
+	border: 2px solid var(--vivid-main);
+	 overflow-x: hidden;
     /* 내일 질문 */
-    height: 500px;
-    position: fixed;
-    overflow: scroll;
+    height: 700px;
+    /*position: fixed;*/
+    overflow-y: scroll;
     border: 1px;
     padding: 1rem;
     margin: 3px; 
@@ -99,16 +100,12 @@ details[open] summary {
   margin-bottom: 0.5em;
 }
 
-.content{
-    width: 100%;
-}
-
 
 .side {
     
     border: 1px solid;
     width: 13%;
-    height: 100%;
+    
     padding: 1rem;
     margin: 1px;
     float: inline-start;

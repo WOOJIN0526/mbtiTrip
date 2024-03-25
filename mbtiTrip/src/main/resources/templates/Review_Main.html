@@ -12,74 +12,8 @@
 </head>
 
 <body>
-  <header class="top-bar">
-    <a href="">
-      <div class="logoIcon"></div>
-      <div class="MainLogo">Trip to Trip</div>
-    </a>
-    <div class="userBox">
-      <!-- 유저 박스 보더 -->
-      <div class="user">
-        <div class="profileBox" th:object="user">
-          <div class="userImg" th:img="user.img"></div>
-          <p class="userName" th:text="user.name">User X</p>
-        </div>
-        <!-- 메뉴아이콘 svg -->
-        <svg class="icon-menu" width="62" height="62" viewBox="0 0 62 62" fill="none"
-          xmlns="http://www.w3.org/2000/svg"  onclick="changeIcon()">
-          <path
-            d="M7.86206 46.4253H54.1379V41.2835H7.86206V46.4253ZM7.86206 33.5709H54.1379V28.4291H7.86206V33.5709ZM7.86206 15.5747V20.7165H54.1379V15.5747H7.86206Z"
-            fill="black" />
-        </svg>
-        
-        <!-- 메뉴아이콘 svg -->
-      </div>
-    </div>
-  </header>
-  <!-- 헤더영역 -->
-  <div class="profile disActive">
-    <!-- <div class="profileBox">
-      <div class="userImg"></div>
-      <p class="userName">User X</p>
-    </div> -->
-    <div class="profileItems" id="topless">
-      <a href="">
-        <p>마이페이지</p>
-        <i class="fa-solid fa-gear"></i>
-      </a>
-    </div>
-    <div class="profileItems">
-      <a href="">
-        <p>내 주문</p>
-        <i class="fa-solid fa-cart-shopping"></i>
-      </a>
-    </div>
-    <div class="profileItems">
-      <a href="">
-        <p>커뮤니티</p>
-        <i class="fa-regular fa-comments"></i>
-      </a>
-    </div>
-    <div class="profileItems">
-      <a href="">
-        <p>고객센터</p>
-        <i class="fa-solid fa-phone"></i>
-      </a>
-    </div>
-    <div class="profileItems">
-      <a href="">
-        <p>알림</p>
-        <i class="fa-regular fa-bell"></i>
-      </a>
-      <!-- <i class="fa-solid fa-bell"></i> -->
-    </div>
-    <div class="profileItems">
-      <a href="">
-        <p>로그아웃</p>
-        <i class="fa-solid fa-right-from-bracket"></i>
-      </a>
-    </div>
-  </div>
+ 
+
   <div class="category">
     <!-- <div class="menu">
       <p class="head">리뷰</p>
@@ -122,10 +56,7 @@
         </div>
       </div>
   </section>
-  <footer class="footer">
-    <div class="content copyright">© 2023 Trip to Trip. All rights reserved.</div>
-  </footer>
-  <script src="Review_Main/Review_Main.js"></script>
+	<script th:href="@{Review_MainReview_Main.js}"></script>
 </body>
 
 </html>
