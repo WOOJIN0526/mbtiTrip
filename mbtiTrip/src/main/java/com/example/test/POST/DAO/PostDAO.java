@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 
@@ -52,7 +54,10 @@ public class PostDAO {
 		
 	}
 	
-	
+	@Modifying
+	@Query("update Board b set b.count = b.count + 1 where b.id = :id")
+	public void updateCount(Integer id) {
+	}
 	
 	
 
