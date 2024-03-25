@@ -21,6 +21,12 @@ public class UserServiceImpl implements UserService{
 			return result;
 	
 	}
+	
+	@Override
+	public int createBis(UserDTO userdto) {
+		int result = this.userDao.insertBis(userdto);
+		return result;
+	}
 
 	@Override
 	public void updateUser(Map<String, Object> user) {
@@ -52,11 +58,19 @@ public class UserServiceImpl implements UserService{
 		return result;
 		
 	}
+	
+	@Override
+	public int BisUpdate(UserDTO userdto) {
+		int result =userDao.BisUpdate(userdto);
+		return result;
+	}
 
 	@Override
 	public Map<String, Object> getInfo(Integer uID) {
 		// TODO Auto-generated method stub
 		return userDao.getInfo(uID);
 	}
+
+
 
 }
