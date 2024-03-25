@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.example.test.User.Service.UserService;
 import com.example.test.replace.ReplaceForm;
+import com.example.test.replace.DTO.ReplaceCategoryDTO;
 import com.example.test.replace.DTO.ReplaceDTO;
 import com.example.test.replace.Service.ReplaceCategoryService;
 import com.example.test.replace.Service.ReplaceService;
@@ -68,6 +69,7 @@ public class ReplaceController {
             return "form";
         }
         //UserDTO admin = this.userService.getUser(principal.getName()); 관리자여야함
+        ReplaceCategoryDTO category = this.rpc.getCategory(replaceForm.getCategoryName());
         //this.adService.create(adventureForm.getTitle(), adventureForm.getContent(), UserDTO);
         return "redirect://list";
     }

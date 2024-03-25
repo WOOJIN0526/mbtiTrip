@@ -2,6 +2,7 @@ package com.example.test.replace.DAO;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,11 @@ public class ReplaceCategoryDAO {
 	}
 	  
 	public List<ReplaceCategoryDTO> categoryName;
+
+
+	public Optional<ReplaceCategoryDTO> findById(String category) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

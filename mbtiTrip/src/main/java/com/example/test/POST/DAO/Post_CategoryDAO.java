@@ -2,6 +2,7 @@ package com.example.test.POST.DAO;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,10 @@ public class Post_CategoryDAO {
 	};
 	
 	public List<Post_CategoryDTO> categoryName;
+
+	public Optional<Post_CategoryDTO> findById(String category) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectOne("post.findById", category);
+	}
 	
 }

@@ -40,4 +40,5 @@ public class PostDTO {
 	private Post_CategoryDTO post_category;
 	
 	
+	
 }

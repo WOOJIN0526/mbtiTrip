@@ -44,6 +44,7 @@ public class AnswerController {
 		@Autowired
 		UserService userservice;
 	
+		// 답변등록
 		// @PreAuthorize("isAuthenticated()")
 //	    @PostMapping("/create/{id}")
 //	    public String createAnswer(Model model, @PathVariable("id") Integer id, 
@@ -60,6 +61,7 @@ public class AnswerController {
 //	                answerDto.getPost().getPostID(), answerDto.getAnswerID());
 //	    }
 		    
+			//답변수정된것 가져옴
 		    //@PreAuthorize("isAuthenticated()")
 		    @GetMapping("/modify/{id}")
 		    public String answerModify(AnswerForm answerForm, @PathVariable("id") Integer id, Principal principal) {
@@ -71,6 +73,7 @@ public class AnswerController {
 		        return "form";
 		    }
 		    
+		    //답변수정함
 		    //@PreAuthorize("isAuthenticated()")
 		    @PostMapping("/modify/{id}")
 		    public String answerModify(@Valid AnswerForm answerForm, @PathVariable("id") Integer id,
@@ -87,6 +90,7 @@ public class AnswerController {
 		                answerDto.getPost().getUserId(), answerDto.getAnswerID());
 		    }
 		    
+		    //답변삭제
 		    //@PreAuthorize("isAuthenticated()")
 		    @GetMapping("/delete/{id}")
 		    public String answerDelete(Principal principal, @PathVariable("id") Integer id) {
