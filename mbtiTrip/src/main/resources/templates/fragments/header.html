@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/common/header.css}">
+</head>
+<body>
+    <header th:fragment="header">
+        <div class="headerCon">
+            <div class="title">Tip to track</div>
+            <div>
+                <a href="#"><span class="tab">About the Site</span></a>
+                <a href="#"><span class="tab">How to Use</span></a>
+                <a href="#"><span class="tab">고객센터</span></a>
+                <a href="#"><span class="tab">커뮤니티</span></a>
+                <a th:href="@{/login_A}"><span class="tab">로그인</span></a>
+            </div>
+        </div>
+    </header>
+</body>
+</html>

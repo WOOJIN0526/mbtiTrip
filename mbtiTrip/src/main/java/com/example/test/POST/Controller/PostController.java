@@ -69,7 +69,7 @@ public class PostController {
         if (bindingResult.hasErrors()) {
             return "form";
         }
-        //UserDTO userDto = this.userService.findByUserName(principal.getName());
+        //UserDTO userDto = this.userService.getUser(principal.getName());
         //this.postService.create(postForm.getTitle(), postForm.getContent(), userDto);
         return "redirect://list";
     }
@@ -116,7 +116,7 @@ public class PostController {
     @GetMapping("/vote/{id}")
     public String postVote(Principal principal, @PathVariable("id") Integer id) {
         //PostDTO questionDto = this.postService.getPost(id);
-        //UserDTO siteUserDto = this.userService.findByUserName(principal.getName());
+        //UserDTO siteUserDto = this.userService.getUser(principal.getName());
         //this.postService.vote(questionDto, siteUserDto);
         return String.format("redirect://detail/%s", id);
     }

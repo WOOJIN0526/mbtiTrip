@@ -9,6 +9,14 @@
 	    (#{userId},#{userName},#{mbti},#{password},#{phone},#{mail}, #{userrole})
 	]]>
 	</insert>
+		<insert id="insertBis" parameterType="hashMap" useGeneratedKeys="true" keyProperty="UID">  
+	    <![CDATA[
+	    insert into User
+	    (userId,userName,Bnum,password,phone,mail, userrole) 
+	    values
+	    (#{userId},#{userName},#{Bnum},#{password},#{phone},#{mail}, #{userrole})
+	]]>
+	</insert>
 	<select id="login" resultType="hashmap">
 	 <![CDATA[
 		SELECT * 
@@ -27,12 +35,23 @@
 	]]>
 	</select>
 	
-	<update id="update" >
+	<update id="updateUser" >
 	<![CDATA[
 			Update User 
 			set
 			userName = #{userName},
 			mbti = #{mbti},
+			password = #{password},
+			phone = #{phone},
+			mail =#{mail}
+			where UID = #{UID};
+		]]>
+	</update>
+		<update id="updateBis" >
+	<![CDATA[
+			Update User 
+			set
+			userName = #{userName},
 			password = #{password},
 			phone = #{phone},
 			mail =#{mail}

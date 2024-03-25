@@ -15,6 +15,8 @@ public class UserDTO {
 	
 	private Integer mbti;   //FK
 	
+	private String BNum;
+	
 	private String password;
 
 	private String phone;
@@ -34,7 +36,9 @@ public class UserDTO {
 	      return "UserDTO [userId=" + userId + ", password=" + password + ", "
 	         + "userName=" + userName + ", mail=" + mail
 	         + ", phone=" + phone+ 
-	         ", mbti="+mbti+"]"+ ", admin= "+ userrole;
+	         ", mbti=" +mbti+"]"+ ", admin= "+ userrole
+	         + ", BNum =" + BNum; 
+	         ; 
 	   }
 	
 	

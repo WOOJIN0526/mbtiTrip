@@ -26,6 +26,10 @@ import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 
 
 
@@ -105,6 +109,7 @@ public  class PostServiceImpl implements PostService {
 		
 	}
 
+	//추천수 기능
 	@Override
 	public PostDTO vote(PostDTO postDto, UserDTO userDto) {
 			postDto.getVoter().add(userDto);
@@ -112,6 +117,36 @@ public  class PostServiceImpl implements PostService {
 	        return this.postDAO.save(postDto);
 	}
 
-	
+	// 게시물을 조회하고 조회수 증가
+	@Transactional
+	public PostDTO detail(Integer id, HttpServletRequest request, HttpServletResponse response) {
+		 Cookie oldCookie = null;
+		    Cookie[] cookies = request.getCookies();
+		    if (cookies != null)
+		        for (Cookie cookie : cookies)
+		            if (cookie.getName().equals("postView"))
+		                oldCookie = cookie;
+
+		    if (oldCookie != null) {
+		        if (!oldCookie.getValue().contains("[" + id.toString() + "]")) {
+		            postDAO.updateCount(id);
+		            oldCookie.setValue(oldCookie.getValue() + "_[" + id + "]");
+		            oldCookie.setPath("/");
+		            oldCookie.setMaxAge(60 * 60 * 24);
+		            response.addCookie(oldCookie);
+		        }
+		    }
+		    else {
+		        postDAO.updateCount(id);
+		        Cookie newCookie = new Cookie("boardView","[" + id + "]");
+		        newCookie.setPath("/");
+		        newCookie.setMaxAge(60 * 60 * 24);
+		        response.addCookie(newCookie);
+		    }
+
+		    return postDAO.findById(id).orElseThrow(() -> {
+		        return new IllegalArgumentException("글 상세보기 실패: 아이디를 찾을 수 없습니다.");
+		    });
+		}
 	
 }
