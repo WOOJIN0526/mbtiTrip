@@ -1,5 +1,10 @@
 package com.example.test.replace.DTO;
 
+import java.time.LocalDateTime;
+import java.util.Set;
+
+import com.example.test.User.DTO.UserDTO;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,4 +40,12 @@ public class ReplaceDTO {
 	private Integer R_rating_avg;
 	
 	private String review;
+	
+	private LocalDateTime updateDate;
+	
+	private LocalDateTime modifyDate;
+	
+	private Set<UserDTO> voter;
+	
+	private UserDTO Author;
 }

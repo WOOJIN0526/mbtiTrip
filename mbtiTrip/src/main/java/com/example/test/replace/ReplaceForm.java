@@ -1,4 +1,4 @@
-package com.example.test.Adventure;
+package com.example.test.replace;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AdventureForm {
+public class ReplaceForm {
 
 	@NotEmpty(message = "제목은 필수항목입니다.")
     @Size(max = 100)
@@ -33,5 +33,4 @@ public class AdventureForm {
     
     @NotEmpty(message = "내용은 필수항목입니다.")
     private String content;
-    
 }

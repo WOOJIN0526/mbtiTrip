@@ -1,4 +1,4 @@
-package com.example.test.Adventure.Controller;
+package com.example.test.replace.Controller;
 
 import java.security.Principal;
 
@@ -15,53 +15,54 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.example.test.Adventure.AdventureForm;
-import com.example.test.Adventure.DTO.AdventureDTO;
-import com.example.test.Adventure.Service.AdventureService;
-import com.example.test.Adventure.Service.Adventure_CategoryService;
+
 import com.example.test.User.Service.UserService;
+import com.example.test.replace.ReplaceForm;
+import com.example.test.replace.DTO.ReplaceDTO;
+import com.example.test.replace.Service.ReplaceCategoryService;
+import com.example.test.replace.Service.ReplaceService;
 
 import jakarta.validation.Valid;
 
 @Controller
-public class AdventureController {
+public class ReplaceController {
 
 	@Autowired
-	AdventureService adService;
+	ReplaceService rps;
 	
 	@Autowired
-	Adventure_CategoryService adcService;
+	ReplaceCategoryService rpc;
 	
 	@Autowired
 	UserService userService;
 	
-	@RequestMapping("/adventure/list")
+	@RequestMapping("/replace/list")
     public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "kw", defaultValue = "") String kw) {
         
-        Page<AdventureDTO> paging = this.adService.getList(page, kw, "판매(ex 지역 or mbti)");
+        Page<ReplaceDTO> paging = this.rps.getList(page, kw, "판매(ex 지역 or mbti)");
         model.addAttribute("paging", paging);
         model.addAttribute("kw", kw);
         return "list";
     }
 
-    @RequestMapping(value = "/detail/{id}")
-    public String detail(Model model, @PathVariable("id") Integer id, AdventureForm adventureForm) {
-        AdventureDTO post = this.adService.getPost(id);
+    @RequestMapping(value = "/rdetail/{id}")
+    public String detail(Model model, @PathVariable("id") Integer id, ReplaceForm replaceForm) {
+        ReplaceDTO post = this.rps.getPost(id);
         model.addAttribute("post", post);
         return "detail";
     }
 
     //@PreAuthorize("isAuthenticated()")
-    @GetMapping("/create")
-    public String adCreate(AdventureForm adventureForm, Model model) {
-    	model.addAttribute("categoryList", adcService.getList());
+    @GetMapping("/rcreate")
+    public String replaceCreate(ReplaceForm replaceForm, Model model) {
+    	model.addAttribute("categoryList", rpc.getList());
         return "form";
     }
 
     //@PreAuthorize("isAuthenticated()")
-    @PostMapping("/create")
-    public String adCreate(@Valid AdventureForm adventureForm, 
+    @PostMapping("/rcreate")
+    public String replaceCreate(@Valid ReplaceForm replaceForm, 
             BindingResult bindingResult, Principal principal) {
         if (bindingResult.hasErrors()) {
             return "form";
@@ -72,71 +73,60 @@ public class AdventureController {
     }
     
     //@PreAuthorize("isAuthenticated()")
-    @GetMapping("/modify/{id}")
-    public String adModify(AdventureForm adForm, @PathVariable("id") Integer id, Principal principal) {
-        AdventureDTO adDto = this.adService.getPost(id);
-        if(!adDto.getAuthor().getUserName().equals(principal.getName())) {
+    @GetMapping("/rmodify/{id}")
+    public String adModify(ReplaceForm replaceForm, @PathVariable("id") Integer id, Principal principal) {
+        ReplaceDTO rpDto = this.rps.getPost(id);
+        if(!rpDto.getAuthor().getUserName().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
-        adForm.setTitle(adDto.getAdventureName());
-        adForm.setContent(adDto.getAdventureContent());
+        replaceForm.setTitle(rpDto.getReplaceName());
+        replaceForm.setContent(rpDto.getReplaceContents());
         return "form";
     }
     
     //@PreAuthorize("isAuthenticated()")
-    @PostMapping("/modify/{id}")
-    public String adModify(@Valid AdventureForm adForm, BindingResult bindingResult, 
+    @PostMapping("/rmodify/{id}")
+    public String adModify(@Valid ReplaceForm rpForm, BindingResult bindingResult, 
             Principal principal, @PathVariable("id") Integer id) {
         if (bindingResult.hasErrors()) {
             return "form";
         }
-        AdventureDTO adDto = this.adService.getPost(id);
-        if (!adDto.getAuthor().getUserName().equals(principal.getName())) {
+        ReplaceDTO rpDto = this.rps.getPost(id);
+        if (!rpDto.getAuthor().getUserName().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
-        this.adService.modify(adDto, adForm.getTitle(), adForm.getContent());
+        this.rps.modify(rpDto, rpForm.getTitle(), rpForm.getContent());
         return String.format("redirect://detail/%s", id);
     }
     
     //@PreAuthorize("isAuthenticated()")
-    @GetMapping("/delete/{id}")
+    @GetMapping("/rdelete/{id}")
     public String adDelete(Principal principal, @PathVariable("id") Integer id) {
-        AdventureDTO adDto = this.adService.getPost(id);
+        ReplaceDTO adDto = this.rps.getPost(id);
         if (!adDto.getAuthor().getUserName().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
-        this.adService.delete(adDto);
+        this.rps.delete(adDto);
         return "redirect:/";
     }
     
     //@PreAuthorize("isAuthenticated()")
-    @GetMapping("/vote/{id}")
+    @GetMapping("/rvote/{id}")
     public String adVote(Principal principal, @PathVariable("id") Integer id) {
-        //PostDTO postDto = this.postService.getPost(id);
+        //ReplaceDTO replaceDto = this.rps.getReplace(id);
         //UserDTO siteUserDto = this.userService.findByUserName(principal.getName());
-        //this.postService.vote(questionDto, siteUserDto);
+        //this.rps.vote(replaceDto, siteUserDto);
         return String.format("redirect://detail/%s", id);
     }
     
-  @GetMapping("/adventure_review/list")
+  @GetMapping("/replace_review/list")
   public String reviewList(Model model, @RequestParam(value="page", defaultValue="0") int page,
   	@RequestParam(value = "kw", defaultValue = "") String kw) {
       
-      Page<AdventureDTO> paging = this.adService.getList(page, kw, "어드벤쳐리뷰");
+      Page<ReplaceDTO> paging = this.rps.getList(page, kw, "숙소리뷰");
       model.addAttribute("paging", paging);
       model.addAttribute("kw", kw);
       return "list";
   }
-  
-  
-    
-//    @GetMapping("/freepost/list")
-//    public String freepostList(Model model, @RequestParam(value="page", defaultValue="0") int page,
-//    	@RequestParam(value = "kw", defaultValue = "") String kw) {
-//        
-//        Page<AdventureDTO> paging = this.adService.getList(page, kw, "다른 카테고리");
-//        model.addAttribute("paging", paging);
-//        model.addAttribute("kw", kw);
-//        return "list";
-//    }
+	
 }
