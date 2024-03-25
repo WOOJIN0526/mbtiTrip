@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.example.test.Adventure.AdventureForm;
 import com.example.test.Adventure.DTO.AdventureDTO;
+import com.example.test.Adventure.DTO.Adventure_CategoryDTO;
 import com.example.test.Adventure.Service.AdventureService;
 import com.example.test.Adventure.Service.Adventure_CategoryService;
 import com.example.test.User.Service.UserService;
@@ -67,7 +68,8 @@ public class AdventureController {
             return "form";
         }
         //UserDTO admin = this.userService.getUser(principal.getName()); 관리자여야함
-        //this.adService.create(adventureForm.getTitle(), adventureForm.getContent(), UserDTO);
+        //Adventure_CategoryDTO category = this.adcService.getCategory(adventureForm.getCategoryName());
+        //this.adService.create(adventureForm.getTitle(), adventureForm.getContent(), UserDTO, category);
         return "redirect://list";
     }
     

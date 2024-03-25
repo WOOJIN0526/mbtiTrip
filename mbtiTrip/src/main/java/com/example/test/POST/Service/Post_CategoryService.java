@@ -9,5 +9,9 @@ public interface Post_CategoryService {
 
 	public List<Post_CategoryDTO> getList();
 
+	public Post_CategoryDTO getCategory(String category);
+
+	
+
 	
 }

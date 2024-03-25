@@ -11,4 +11,6 @@ public interface ReplaceCategoryService {
 	
 	
 	public List<ReplaceCategoryDTO> getList();
+
+	public ReplaceCategoryDTO getCategory(String categoryName);
 }

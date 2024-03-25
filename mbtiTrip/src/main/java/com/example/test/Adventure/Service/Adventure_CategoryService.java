@@ -10,4 +10,6 @@ public interface Adventure_CategoryService {
 
 	public List<Adventure_CategoryDTO> getList();
 
+	public Adventure_CategoryDTO getCategory(String category);
+
 }
