@@ -41,7 +41,7 @@ public class UserController {
 		return "sign_up_select";
 	}
 	
-	@RequestMapping(value = "/signup/user", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/signup", method = RequestMethod.GET)
 	public ModelAndView signUpUser(HttpServletRequest request) {
 	    ModelAndView mav = new ModelAndView();
 	    String currentUrl = request.getRequestURI().toString();
@@ -50,7 +50,7 @@ public class UserController {
 	    return mav;
 	}
 	
-	@RequestMapping(value = "/signup/user", method=RequestMethod.POST)
+	@RequestMapping(value = "/user/signup", method=RequestMethod.POST)
 	@ResponseBody
 	public boolean singupUser(@RequestBody UserDTO userdto) {		
 		//ModelAndView mav = new ModelAndView();     // 아직 비번 암 복호화 안됌 ㅋㅌ
@@ -77,22 +77,24 @@ public class UserController {
 	public String login(@ModelAttribute UserDTO userdto, Model model) {
 		System.out.print(userdto.toString());
 		 Map<String, Object> user = userService.login(userdto);
-		 System.out.print(userdto.toString());
+		 System.out.print("user정보 저장 map = "+user.toString());
 		 model.addAttribute("user", user);
 		 try {
 			 if(user.get("UID")  != null) { 
 				 model.addAttribute(user);
 				 if(user.get("userrole").equals(User_Role.user.toString())) {
-					 return String.format("/main/%s/%s", user.get("userrole") ,user.get("UID"));
+					 System.out.println("유저 로그인 정보 조회 성공");
+					 return String.format("redirect:user/mypage/%s", user.get("UID"));
+//					 return String.format("redirect:/main/%s/%s", user.get("userrole") ,user.get("UID"));
 //					 return String.format("redirect:/user/%s", user.get("UID"));
 				 	}
 				 
 				 else if(user.get("userrole").equals(User_Role.bis.toString())) {
-					 return String.format("/main/%s/%s",user.get("userrole"), user.get("UID"));
+					 return String.format("redirect:/main/%s/%s",user.get("userrole"), user.get("UID"));
 //					 return String.format("redirect:/bis/%s", user.get("UID"));
 				 	}	 
 				 else if(user.get("userrole").equals(User_Role.admin.toString())) {
-					 return "main";
+					 return "redirect:/";
 //					 return String.format("redirect:/admin/%s", user.get("UID"));
 				 }
 			   }
@@ -118,9 +120,9 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/main/{userrole}/{UID}", method = RequestMethod.GET)
-	public ModelAndView main(@PathVariable String userrole, 
-							@PathVariable String UID,
-							@RequestBody UserDTO userdto,
+	public ModelAndView main(@PathVariable("userrole") String userrole, 
+							@PathVariable("UID") String UID,
+							UserDTO userdto,
 							ModelAndView mav) {
 		mav.addObject(userdto);
 		return mav;
@@ -138,9 +140,10 @@ public class UserController {
 //		return mav;
 //	}
 	
-	@RequestMapping(value = "/mypage/user/{UID}", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/mypage/{UID}", method = RequestMethod.GET)
 	public ModelAndView mypageUser(@PathVariable("UID") Integer UID, UserDTO userdto, ModelAndView mav){
 		Map<String, Object> map = userService.getInfo(UID);
+		System.out.println("mypageLoad="+map.toString());
 		mav.addObject("map", map);
 		mav.setViewName("mypage");
 		return mav;

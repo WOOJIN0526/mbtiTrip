@@ -18,4 +18,11 @@ public class ErrorRespone {
 		this.code = errorCode.getErrorCode();
 	}
 	
+	
+	ErrorRespone(String err , String mesage){
+		this.message = err;
+		this.code = mesage;
+	}
+	
+	
 }
