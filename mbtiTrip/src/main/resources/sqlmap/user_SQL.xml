@@ -37,6 +37,18 @@
 	]]>
 	</select>
 
+	<select id="getUID" resultType="Integer">
+	 <![CDATA[
+		SELECT  UID
+		FROM User 
+		WHERE userName = #{userName}; 
+		]]>
+	</select>
+
+
+
+
+
 	<update id="updateUser">
 	<![CDATA[
 			Update User 

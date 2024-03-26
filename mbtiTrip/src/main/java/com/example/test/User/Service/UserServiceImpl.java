@@ -34,11 +34,6 @@ public class UserServiceImpl implements UserService{
 		
 	}
 
-	@Override
-	public Integer findByUserID(UserDAO user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public String findByUserName(UserDAO user) {
@@ -69,6 +64,12 @@ public class UserServiceImpl implements UserService{
 	public Map<String, Object> getInfo(Integer uID) {
 		// TODO Auto-generated method stub
 		return userDao.getInfo(uID);
+	}
+
+	@Override
+	public Integer findByUID(String userName) {
+		Integer UID = userDao.getUID(userName);
+		return UID;
 	}
 
 
