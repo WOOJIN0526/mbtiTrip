@@ -20,7 +20,7 @@
 <div class="container">
     <div class="profile">
        <!-- <img src="profile-pic.jpg" alt="프로필 사진">-->
-        <h2 th:text="${user['userName']}"></h2>
+        <h2 th:text="${map['userName']}"></h2>
        
     </div>
     
@@ -34,10 +34,10 @@
                 <li>MBTI</li>
             </ul>
             <ul>
-				<li th:text="${user['userName']}"></li>    
-				<li th:thext="${user['phone']}"></li>
-				<li th:text="${user['mail']}"></li>
-				<li th:text="${user['mbti']}"></li>
+				<li th:text="${map['userName']}"></li>    
+				<li th:thext="${map['phone']}"></li>
+				<li th:text="${map['mail']}"></li>
+				<li th:text="${map['mbti']}"></li>
             </ul>
         </div>
     </div>

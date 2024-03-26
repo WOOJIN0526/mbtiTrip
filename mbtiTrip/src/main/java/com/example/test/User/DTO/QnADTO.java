@@ -1,0 +1,24 @@
+package com.example.test.User.DTO;
+
+import java.util.List;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class QnADTO {
+
+	
+	private Integer QID;
+	
+	private String QName;
+	
+	private String contents;
+	
+	private String userName;
+
+		
+	private List<QAnswerDTO> answer;
+	
+}
