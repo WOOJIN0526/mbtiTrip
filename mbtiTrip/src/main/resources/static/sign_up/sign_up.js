@@ -1,30 +1,14 @@
+/**
+ * 현재 페이지 URL의 경로에 따라 회원가입 유형을 선택합니다.
+ * 페이지 URL이 '/user'를 포함하면 '/user'를 반환하고, 그렇지 않으면 '/bis'를 반환합니다.
+ * @returns {string} - 회원가입 유형에 따라 '/user' 또는 '/bis'를 반환합니다.
+ */
 function signUpSelect(){
 	let url =document.getElementById('url').textContent;
 	let selected = url.includes("/user")?'/user':'/bis';
 	return selected;
 }
 
-function sendAjaxRequest(url,method,data,conType){
-    return new Promise(function(resolve,reject){
-        const xhr = new XMLHttpRequest();
-        xhr.onload = function(){
-            if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200){
-                resolve(xhr.responseText);
-            }else{
-                reject(xhr.status);
-            }
-        }
-        xhr.open(method,url,true);
-       
-        if(conType=="JSON"){
-			xhr.setRequestHeader("Content-Type", "application/json");
-
-		}else{
-			xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		}
-        xhr.send(data);
-    });
-}
 /*function getResultXHR(url,method,data,conType){
     sendAjaxRequest(url,method,data,conType).then((responseText) => {
         if(responseText){
@@ -39,10 +23,17 @@ function sendAjaxRequest(url,method,data,conType){
         alert(error.message);
     });
 }*/
+/**
+ * 화면에 오류 메시지를 표시합니다.
+ * 오류 메시지가 이미 표시되어 있는 경우에는 새로운 메시지를 추가하지 않습니다.
+ * @param {string} message - 화면에 출력할 오류 메시지 문자열
+ */
 function error(message){
+	// 이미 오류 메시지가 표시되어 있는지 확인합니다.
     if(document.getElementById("totLoginPage").lastElementChild.classList.contains("error")){
-
+		 // 이미 오류 메시지가 표시되어 있으면 추가적인 처리를 하지 않습니다.
     }else{
+		// 오류 메시지가 표시되어 있지 않으면 새로운 오류 메시지를 생성하여 페이지에 추가합니다.
         const eDiv =document.createElement("div");
         eDiv.innerHTML =message;
         eDiv.classList.add("error");
@@ -50,8 +41,14 @@ function error(message){
     }
     
 }
+/**
+ * 오류 메시지를 삭제합니다.
+ * 페이지에 오류 메시지가 표시되어 있는 경우에만 실행됩니다.
+ */
 function delError(){
+	// 페이지에 오류 메시지가 표시되어 있는지 확인합니다.
     if(document.getElementById("totLoginPage").lastElementChild.classList.contains("error")){
+        // 페이지에 오류 메시지가 있으면 마지막으로 추가된 오류 메시지를 삭제합니다.
         document.getElementById("totLoginPage").removeChild(document.getElementById("totLoginPage").lastElementChild);
     }
 }

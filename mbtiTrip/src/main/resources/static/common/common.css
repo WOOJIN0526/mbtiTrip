@@ -6,6 +6,7 @@
 	--dark-secondary:#6155A6;
 	--black:#0000;
 	--white:#FFFFFF;
+	--gray:#ddd;
 }
 *{
   box-sizing: border-box;
