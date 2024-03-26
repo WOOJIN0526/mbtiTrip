@@ -45,10 +45,6 @@
 		]]>
 	</select>
 
-
-
-
-
 	<update id="updateUser">
 	<![CDATA[
 			Update User 

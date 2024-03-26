@@ -47,9 +47,7 @@ public class Security_Config  {
 //	@Bean
 //	public void configure(WebSecurity web) throws Exception {
 //	    (web)->web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-//	}
-	
-	
+//	
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers("**.js", "**.css", "**.img");
@@ -58,7 +56,7 @@ public class Security_Config  {
 	@Bean
     protected SecurityFilterChain webSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((authorizeHttpRequests)-> authorizeHttpRequests
+       .authorizeHttpRequests((authorizeHttpRequests)-> authorizeHttpRequests
                 	 .requestMatchers("/login_form", "main/**", "/**").permitAll()
                          .anyRequest( ).authenticated());
 	
@@ -66,6 +64,7 @@ public class Security_Config  {
 //        .rememberMe((remember)->remember
 //        		.rememberMeServices(rememberMeServices(userDetailsService)))
 //        		;
+       
        http.rememberMe(
     		   (rememberMe) -> rememberMe
     		   .rememberMeParameter("remember")   // login 시 기억할 것인지에 대한 chk box name 값
@@ -80,8 +79,8 @@ public class Security_Config  {
                 .permitAll())
         		.securityContext((securityContext)->securityContext
         				.securityContextRepository(new DelegatingSecurityContextRepository(
-        						new RequestAttributeSecurityContextRepository(),
-        						new HttpSessionSecurityContextRepository()
+        						new RequestAttributeSecurityContextRepository()
+        						,new HttpSessionSecurityContextRepository()
         						)));
         
         http
