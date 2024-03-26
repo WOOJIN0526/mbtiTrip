@@ -13,11 +13,13 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.example.test.Adventure.DTO.AdventureDTO;
 import com.example.test.Adventure.DTO.Adventure_CategoryDTO;
 import com.example.test.Adventure.DTO.Adventure_ReviewDTO;
 import com.example.test.AdventureDAO.Adventure_ReviewDAO;
 import com.example.test.POST.DTO.AnswerDTO;
 import com.example.test.POST.DTO.PostDTO;
+import com.example.test.POST.Service.DataNotFoundException;
 import com.example.test.User.DTO.UserDTO;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -26,6 +28,10 @@ import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 
 @Service
 public class Adventure_ReviewServiceImpl implements Adventure_ReviewService {
@@ -67,8 +73,16 @@ public class Adventure_ReviewServiceImpl implements Adventure_ReviewService {
 	@Override
 	public Adventure_ReviewDTO getPost(Integer reviewid) {
 		Optional<Adventure_ReviewDTO> adr = this.adrDAO.findById(reviewid);
-        return adr.get();
-	}
+		if (adr.isPresent()) {
+        	Adventure_ReviewDTO adr1 = adr.get();        	
+        	adr1.setViews(adr1.getViews()+1);        	
+        	this.adrDAO.save(adr1);
+            	return adr1;
+        } else {
+            throw new DataNotFoundException("adventure_Review not found");
+        }	
+	  }
+	
 
 	@Override
 	public Adventure_ReviewDTO create(String title, String content, String user) {
@@ -98,7 +112,37 @@ public class Adventure_ReviewServiceImpl implements Adventure_ReviewService {
 		
 	}
 
-	
+	// 게시물을 조회하고 조회수 증가
+			@Transactional
+			public Adventure_ReviewDTO detail(Integer id, HttpServletRequest request, HttpServletResponse response) {
+				 Cookie oldCookie = null;
+				    Cookie[] cookies = request.getCookies();
+				    if (cookies != null)
+				        for (Cookie cookie : cookies)
+				            if (cookie.getName().equals("adventureView"))
+				                oldCookie = cookie;
+
+				    if (oldCookie != null) {
+				        if (!oldCookie.getValue().contains("[" + id.toString() + "]")) {
+				            adrDAO.updateCount(id);
+				            oldCookie.setValue(oldCookie.getValue() + "_[" + id + "]");
+				            oldCookie.setPath("/");
+				            oldCookie.setMaxAge(60 * 60 * 24);
+				            response.addCookie(oldCookie);
+				        }
+				    }
+				    else {
+				        adrDAO.updateCount(id);
+				        Cookie newCookie = new Cookie("adventureReviewView","[" + id + "]");
+				        newCookie.setPath("/");
+				        newCookie.setMaxAge(60 * 60 * 24);
+				        response.addCookie(newCookie);
+				    }
+
+				    return adrDAO.findById(id).orElseThrow(() -> {
+				        return new IllegalArgumentException("글 상세보기 실패: 아이디를 찾을 수 없습니다.");
+				    });
+				}
 
 	
 }

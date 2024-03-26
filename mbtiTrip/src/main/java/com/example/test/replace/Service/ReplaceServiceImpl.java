@@ -13,8 +13,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-
+import com.example.test.Adventure.DTO.Adventure_ReviewDTO;
 import com.example.test.POST.DTO.AnswerDTO;
+import com.example.test.POST.Service.DataNotFoundException;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.replace.DAO.ReplaceDAO;
 import com.example.test.replace.DTO.ReplaceCategoryDTO;
@@ -26,6 +27,10 @@ import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 
 @Service
 public class ReplaceServiceImpl implements ReplaceService{
@@ -67,8 +72,16 @@ public class ReplaceServiceImpl implements ReplaceService{
 	@Override
 	public ReplaceDTO getPost(Integer userid) {
 		 Optional<ReplaceDTO> rp = this.rpDAO.findById(userid);
-	        return rp.get();
-	}
+		 if (rp.isPresent()) {
+	        	ReplaceDTO adr1 = rp.get();        	
+	        	adr1.setViews(adr1.getViews()+1);        	
+	        	this.rpDAO.save(adr1);
+	            	return adr1;
+	        } else {
+	            throw new DataNotFoundException("adventure_Review not found");
+	        }	
+		  }
+	
 
 	@Override
 	public ReplaceDTO create(String title, String content, String admin) {
@@ -103,6 +116,37 @@ public class ReplaceServiceImpl implements ReplaceService{
         return this.rpDAO.save(rpDto);
 	}
 	
+	// 게시물을 조회하고 조회수 증가
+	@Transactional
+	public ReplaceDTO detail(Integer id, HttpServletRequest request, HttpServletResponse response) {
+			Cookie oldCookie = null;
+			Cookie[] cookies = request.getCookies();
+			if (cookies != null)
+			for (Cookie cookie : cookies)
+			if (cookie.getName().equals("replace"))
+					     oldCookie = cookie;
+
+			if (oldCookie != null) {
+				if (!oldCookie.getValue().contains("[" + id.toString() + "]")) {
+					 rpDAO.updateCount(id);
+					 oldCookie.setValue(oldCookie.getValue() + "_[" + id + "]");
+					 oldCookie.setPath("/");
+					 oldCookie.setMaxAge(60 * 60 * 24);
+					 response.addCookie(oldCookie);
+			}
+			}
+			else {
+					rpDAO.updateCount(id);
+					Cookie newCookie = new Cookie("replaceView","[" + id + "]");
+				    newCookie.setPath("/");
+					newCookie.setMaxAge(60 * 60 * 24);
+					response.addCookie(newCookie);
+					    }
+
+					    return rpDAO.findById(id).orElseThrow(() -> {
+					        return new IllegalArgumentException("글 상세보기 실패: 아이디를 찾을 수 없습니다.");
+					    });
+					}
 	
 	
 	

@@ -33,23 +33,28 @@ public class ReplaceDAO {
 	}
 
 	public Page<ReplaceDTO> findAll(Specification<ReplaceDTO> spec, Pageable pageable) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	public Optional<ReplaceDTO> findById(Integer userid) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<ReplaceDTO> result = this.sqlSessiontemplate.selectOne("replace.findById", userid);
+		return result;
 	}
 
 	public ReplaceDTO save(ReplaceDTO rpDto) {
-		// TODO Auto-generated method stub
-		return null;
+		ReplaceDTO result = sqlSessiontemplate.selectOne("replace.save", rpDto);
+		return result;
 	}
 
-	public void delete(ReplaceDTO rpDto) {
-		// TODO Auto-generated method stub
-		
+	public int delete(ReplaceDTO rpDto) {
+		int result = sqlSessiontemplate.delete("replace.delete", rpDto);
+		return result;
+	}
+
+	public int updateCount(Integer id) {
+		int result = sqlSessiontemplate.update("replace.update", id);
+		return result;
 	}
 	
 	 
