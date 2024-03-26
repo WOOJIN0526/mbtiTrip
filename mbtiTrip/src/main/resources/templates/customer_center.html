@@ -10,7 +10,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<script src="https://kit.fontawesome.com/664a7b3827.js" crossorigin="anonymous"></script>
-	
+	<link rel="stylesheet" th:href="@{/common/header.css}">
 	<link th:href="@{/customer_center/customer_center.css}" rel="stylesheet" />
 </head>
 
@@ -26,18 +26,19 @@
 					<label class="searchQ&A">Q&A 검색</label>
 					<input id="searchQ&A" type="text" name="search" placeholder="궁금한 점을 검색해 보세요" maxlength="256"
 						class="c-input-search">
-					<button type="submit" class="c-button-search">
-						<i class="fa-solid fa-magnifying-glass"></i> </button></span>
+					<button type="button" class="c-button-search">
+						<i class="fa-solid fa-magnifying-glass" aria-hidden="false"></i> </button></span>
 			</form>
 		</section>
 
 		<!-- categoryButton -->
 		<section class="Button">
-			<button id="categoryButton1" type="button" name="cButton1" onclick="showContent('A')"> 자주 묻는 질문 </button>
-			<button id="categoryButton2" type="button" name="cButton2" onclick="showContent('B')"> 회원정보 관리 </button>
-			<button id="categoryButton3" type="button" name="cButton3" onclick="showContent('C')"> 고객센터 </button>
-			<button id="categoryButton4" type="button" name="cButton4" onclick="showContent('D')"> 문의하기 </button>
-			<button id="categoryButton5" type="button" name="cButton5" onclick="showContent('E')"> 서비스 문의 </button>
+			<button class="CButton" type="button" name="cButton1" onclick="showContent('often')"> 자주 묻는 질문 </button>
+			<button class="CButton" type="button" name="cButton2" onclick="showContent('userData')"> 회원정보 관리 </button>
+			<button class="CButton" type="button" name="cButton3" onclick="showContent('support')"> 고객센터 </button>
+			<button class="CButton" type="button" name="cButton4" onclick="showContent('ask')"> 문의하기 </button>
+			<button class="CButton" type="button" name="cButton5" onclick="showContent('service')"> 서비스 문의 </button>
+			<button class="CButton" type="button" name="cButton5" onclick="showContent('own')"> 내 문의 </button>
 		</section>
 		<!--<section class="side_box">
 			<div class="side">
@@ -60,317 +61,236 @@
 		<section class="question_box">
 			<div class="ContentsList">
 				<!---->
-				<div id="frequently_question">
+				
 					<!-- 자주 묻는 질문 -->
-					<details id="question1">
-						<summary class="c_type">
-							<span>고객 센터 이용 시간은 어떻해 되나요?</span>
-							
-						</summary>
-
-						<div class="c_detail">
-							<p class="c_text">
-								asfafs
-							</p>
-						</div>
-					</details>
-
-
-
-					<details id="question1">
-						<summary class="c_type">
+					
+					<details class="question"  data-value="often" data-often="often">
+						<summary>
 							<span>아이디/비밀번호를 잊어버렸어요</span>
-							<!---->
 						</summary>
-						<div class="c_detail">
-							<p class="c_text">
-								<iframe src="" class="content">
-
-								</iframe>
+						<div>
+							<p>
+								아이디/비밀번호를 잊어버렸어요?
 							</p>
 						</div>
-
 					</details>
-
-					<details id="question1">
-						<summary class="c_type">
+					<details class="question"  data-value="often" data-often="often">
+						<summary>
 							<span>예약 성공 여부는 어디서 알수 있나요?</span>
-							<!---->
 						</summary>
-						<div class="c_detail">
-							<p class="c_text">
-								<iframe src="" class="content">
-
-								</iframe>
+						<div>
+							<p>
+								예약 성공 여부는 예약여부에서 알수있습니다.
 							</p>
 						</div>
-						<details id="question1">
-							<summary class="c_type">
-								<span>이벤트는 무엇이 있나요?</span>
-								<!---->
-							</summary>
-							<div class="c_detail">
-								<p class="c_text">
-									<iframe src="" class="content">
-
-									</iframe>
-								</p>
-							</div>
-
-						</details>
-
-				</div>
+					</details>
+					<details class="question"  data-value="often" data-often="often">
+						<summary>
+							<span>이벤트는 무엇이 있나요?</span>
+						</summary>
+						<div>
+							<p>
+								이벤트는 여러가지가 있습니다.
+							</p>
+						</div>
+					</details>
+				
 				<!-- 회원 정보 관리 -->
-				<div id='profile_question'>
-					<details id="question2">
-						<summary class="c_type">
-							<span id="question1">회원정보는 어떻해 관리되나요?</span>
-							<!---->
+				
+                    <details class="question"  data-value="userData">
+						<summary>
+							<span>회원정보는 어떻해 관리되나요?</span>
 						</summary>
-
-						<div class="c_detail">
-							<p class="c_text">
-								<iframe src="" class="content">
-
-								</iframe>
+						<div>
+							<p>
+								회원정보는 잘관리됩니다.
 							</p>
 						</div>
 					</details>
-					<details id="question2">
-						<summary class="c_type">
-							<span id="question1">회원가입은 어떻해 하나요?</span>
-							<!---->
+                    <details class="question"  data-value="userData">
+						<summary>
+							<span>회원가입은 어떻해 하나요?</span>
 						</summary>
-
-						<div class="c_detail">
-							<p class="c_text">
-								<iframe src="" class="content">
-
-								</iframe>
+						<div>
+							<p>
+								회원가입버튼을 누르면 됩니다.
 							</p>
 						</div>
 					</details>
-					<details id="question2">
-						<summary class="c_type">
-							<span id="question1">등록된 정보는 어떻게 바꾸나요?</span>
-							<!---->
+                    <details class="question"  data-value="userData">
+						<summary>
+							<span>등록된 정보는 어떻게 바꾸나요?</span>
 						</summary>
-
-						<div class="c_detail">
-							<p class="c_text">
-								<iframe src="" class="content">
-
-								</iframe>
+						<div>
+							<p>
+								수정 버튼을 누르면 됩니다.
 							</p>
 						</div>
 					</details>
-					<details id="question2">
-						<summary class="c_type">
-							<span id="question1">회원 탈퇴시 개인 정보는 모두 삭제되나요?</span>
-							<!---->
+                    <details class="question"  data-value="userData">
+						<summary>
+							<span>회원 탈퇴시 개인 정보는 모두 삭제되나요?</span>
 						</summary>
-
-						<div class="c_detail">
-							<p class="c_text">
-								<iframe src="" class="content">
-
-								</iframe>
+						<div>
+							<p>
+								과연그럴까요?
 							</p>
 						</div>
 					</details>
-				</div>
+					
+				
 				<!-- 고객센터 -->
-				<div id="center_question">
-					<details id="question1">
-						<summary class="c_type">
-							<span>고객 센터 이용 시간은 어떻해 되나요?</span>
-							<!---->
-						</summary>
-						<div class="c_detail">
-							<p class="c_text">
-								<iframe src="" class="content">
-
-								</iframe>
-							</p>
-						</div>
-
-					</details>
-				</div>
-
+				<details class="question" data-value="support" data-often="often">
+                    <summary>
+                        <span>고객 센터 이용 시간은 어떻해 되나요?</span>
+                    </summary>
+                    <div>
+                        <p>
+                            고객센터는 고객들의 질문을 담고 있으며, 질문에 대한 답변은 고객센터에게 전달됩니다.
+                        </p>
+                    </div>
+                </details>
 
 
 				<!-- 문의하기 -->
-				<div id="question_question">
-					<details id="question3">
-						<summary class="c_type">
-							<span id="question1"> 1:1 문의는 어떻해 하면 되나요?</span>
-							<!---->
-						</summary>
-
-						<div class="c_detail">
-							<p class="c_text">
-								<iframe src="" class="content">
-
-								</iframe>
-							</p>
-						</div>
-
-					</details>
-					<details id="question3">
-						<summary class="c_type">
-							<span id="question1"> 문의 내역은 어디에서 보나요?</span>
-							<!---->
-						</summary>
-
-						<div class="c_detail">
-							<p class="c_text">
-								<iframe src="" class="content">
-
-								</iframe>
-							</p>
-						</div>
-
-					</details>
-					<details id="question3">
-						<summary class="c_type">
-							<span id="question1"> 다른 사람의 문의도 볼수 있나요?</span>
-							<!---->
-						</summary>
-
-						<div class="c_detail">
-							<p class="c_text">
-								<iframe src="" class="content">
-
-								</iframe>
-							</p>
-						</div>
-
-					</details>
-					<details id="question3">
-						<summary class="c_type">
-							<span id="question1"> 문의한 것을 취소할수있나요?</span>
-							<!---->
-						</summary>
-
-						<div class="c_detail">
-							<p class="c_text">
-								<iframe src="" class="content">
-
-								</iframe>
-							</p>
-						</div>
-
-					</details>
-				</div>
+				<details class="question" data-value="ask">
+                    <summary>
+                        <span> 1:1 문의는 어떻해 하면 되나요?</span>
+                    </summary>
+                    <div>
+                        <p>
+                            문의하기 버튼을 누르면 답변을 받아요.
+                        </p>
+                    </div>
+                </details>
+				<details class="question" data-value="ask">
+                    <summary>
+                        <span>문의 내역은 어디에서 보나요?</span>
+                    </summary>
+                    <div>
+                        <p>
+                           글쎄요?
+                        </p>
+                    </div>
+                </details>
+				<details class="question" data-value="ask">
+                    <summary>
+                        <span>다른 사람의 문의도 볼수 있나요?</span>
+                    </summary>
+                    <div>
+                        <p>
+                           아니요
+                        </p>
+                    </div>
+                </details>
+				<details class="question" data-value="ask">
+                    <summary>
+                        <span>문의한 것을 취소할수있나요?</span>
+                    </summary>
+                    <div>
+                        <p>
+                           아니요
+                        </p>
+                    </div>
+                </details>
+				
+				
+					
+				
 				<!-- 서비스 문의 -->
-				<div id="service_question">
-					<details id="question4">
-						<summary class="c_type">
-							<span id="question1">예약 취소는 어떻해 하면 되나요?</span>
-							<!---->
+                <details class="question" data-value="service">
+                    <summary>
+                        <span>예약 취소는 어떻해 하면 되나요?</span>
+                    </summary>
+                    <div>
+                        <p>
+                            예약 취소 버튼을 누르세요
+                        </p>
+                    </div>
+                </details>
+                <details class="question" data-value="service">
+                    <summary>
+                        <span>예약 성공 여부는 어떻해 알 수 있나요?</span>
+                    </summary>
+                    <div>
+                        <p>
+                            예약 성공 여부는 예약여부에서 알수있습니다.
+                        </p>
+                    </div>
+                </details>
+                <details class="question" data-value="service">
+                    <summary>
+                        <span>현금영수증 신청은 어떻해 하나요?</span>
+                    </summary>
+                    <div>
+                        <p>
+                            현금영수증 신청 버튼을 누르면 됩니다
+                        </p>
+                    </div>
+                </details>
+                <details class="question" data-value="service">
+                    <summary>
+                        <span>결제한 내역을 보고 싶어요</span>
+                    </summary>
+                    <div>
+                        <p>
+                           결제내역에 들어가시면 됩니다
+                        </p>
+                    </div>
+                </details>
+                <details class="question" data-value="service">
+                    <summary>
+                        <span>리뷰 작성은 어떻해 하나요?</span>
+                    </summary>
+                    <div>
+                        <p>
+                            리뷰 버튼을 누르면 됩니다
+                        </p>
+                    </div>
+                </details>
+                <details class="question" data-value="service">
+                    <summary>
+                        <span>작성한 리뷰 삭제나 수정 할 수 있나요?</span>
+                    </summary>
+                    <div>
+                        <p>
+                            글쎄요?
+                        </p>
+                    </div>
+                </details>
+                <details class="question" data-value="service">
+                    <summary>
+                        <span>등록한 사진이 보이지 않아요</span>
+                    </summary>
+                    <div>
+                        <p>
+                            사진이 보이지 않아요
+                        </p>
+                    </div>
+                </details>
+				<div th:each="question : ${questionList}">
+					<details class="question" data-value="own">
+						<summary>
+							<span th:text="${question.title}"></span>
+							<span th:text="${question.updateDate}"></span>
 						</summary>
-
-						<div class="c_detail">
-							<p class="c_text">
-								<iframe src="" class="content">
-
-								</iframe>
-							</p>
-						</div>
-					</details>
-					<details id="question5">
-						<summary class="c_type">
-							<span id="question1">예약 성공 여부는 어떻해 알 수 있나요?</span>
-							<!---->
-						</summary>
-
-						<div class="c_detail">
-							<p class="c_text">
-								<iframe src="" class="content">
-
-								</iframe>
-							</p>
-						</div>
-					</details>
-					<details id="question6">
-						<summary class="c_type">
-							<span id="question1">현금영수증 신청은 어떻해 하나요?</span>
-							<!---->
-						</summary>
-
-						<div class="c_detail">
-							<p class="c_text">
-								<iframe src="" class="content">
-
-								</iframe>
-							</p>
-						</div>
-					</details>
-
-					<details id="question7">
-						<summary class="c_type">
-							<span id="question1">결제한 내역을 보고 싶어요</span>
-							<!---->
-						</summary>
-
-						<div class="c_detail">
-							<p class="c_text">
-								<iframe src="" class="content">
-
-								</iframe>
-							</p>
-						</div>
-					</details>
-					</details>
-					<details id="question8">
-						<summary class="c_type">
-							<span id="question1">리뷰 작성은 어떻해 하나요?</span>
-							<!---->
-						</summary>
-
-						<div class="c_detail">
-							<p class="c_text">
-								<iframe src="" class="content">
-
-								</iframe>
-							</p>
-						</div>
-					</details>
-					<details id="question9">
-						<summary class="c_type">
-							<span id="question1">작성한 리뷰 삭제나 수정 할 수 있나요?</span>
-							<!---->
-						</summary>
-
-						<div class="c_detail">
-							<p class="c_text">
-								<iframe src="" class="content">
-
-								</iframe>
-							</p>
-						</div>
-					</details>
-					<details id="question10">
-						<summary class="c_type">
-							<span id="question1">등록한 사진이 보이지 않아요</span>
-							<!---->
-						</summary>
-
-						<div class="c_detail">
-							<p class="c_text">
-								<iframe src="" class="content">
-
-								</iframe>
+						<div>
+							<p>
+								<span th:text="${question.description}"></span>
 							</p>
 						</div>
 					</details>
 				</div>
+				
+				
 			</div>
-	</div>
-	</section>
-</div>
-</div>	
+	    
+	    </section>
+		<button class="write"><a th:href="@{/Q&A}">작성</a></button>
+    </div>
 	<script th:src="@{/customer_center/customer_center.js}"></script>
+</div>	
+
 </body>
 
 </html>

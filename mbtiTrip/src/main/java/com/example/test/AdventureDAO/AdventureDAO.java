@@ -42,4 +42,9 @@ public class AdventureDAO {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void updateCount(Integer id) {
+		// TODO Auto-generated method stub
+		
+	}
 }

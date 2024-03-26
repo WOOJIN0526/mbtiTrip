@@ -8,13 +8,14 @@
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+ 
 }
 .serch{
     border: 1px;
     background-color:var(--blurry-main);
    /* position: relative;*/
     
-    width: 75rem;
+    width: 100%;
     font-size: 1.5em;
     padding: 1rem;
     
@@ -24,10 +25,11 @@
 
 .serch input{
     width: 60rem;
-}
+} 
 
 label{
-    color: red;
+    color: var(--white);
+    text-shadow: -1px 0px var(--black), 0px 1px var(--black), 1px 0px var(--black), 0px -1px var(--black);
 }
 
 .c-input-search {
@@ -45,7 +47,9 @@ label{
     padding: 5px;
     margin: 5px;
 }
-
+.button i{
+	color: var(--black);
+}
 button{
     border-radius: 3em;
     background-color: white;
@@ -55,20 +59,25 @@ button{
     font-size: 1rem;
     font-weight: bold;
 }
-
 .question_box{
-   
+
+}
+.question{
+    padding: 0 2rem;
+}
+.question div{
+    padding: 2rem 0 0 0;
 }
 .ContentsList{
 	border: 2px solid var(--vivid-main);
-	 overflow-x: hidden;
+	 
     /* 내일 질문 */
-    height: 700px;
+   
     /*position: fixed;*/
-    overflow-y: scroll;
+    translate: -20px 0;
     border: 1px;
     padding: 1rem;
-    margin: 3px; 
+    
 }
 
 details {
@@ -92,12 +101,43 @@ iframe{
     background-color: #fafafa;
 }
 details[open] {
-  padding: 0.5em;
+  padding: 2em;
 }
+.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+  
+  /* 닫힐 때 사라지는 애니메이션 */
+  .fade-out {
+    animation: fadeOut 0.5s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 1;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
 details[open] summary {
+  
   border-bottom: 1px solid #aaa;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.5em 2rem;
 }
 
 
@@ -120,6 +160,9 @@ a {
     text-decoration: none;
     color: black;
   }
-  
-
-
+.write{
+  font-size: 1.5rem;
+  padding: 1rem;
+  width: 10rem;
+ 
+}

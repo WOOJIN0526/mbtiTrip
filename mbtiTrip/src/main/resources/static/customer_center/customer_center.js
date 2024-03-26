@@ -1,67 +1,54 @@
-window.addEventListener('DOMContentLoaded', function() {
-  showContent('A');
-});
 
-function showContent(content) {
-  var contentA = document.getElementById("frequently_question");
-  var contentB = document.getElementById("profile_question");
-  var contentC = document.getElementById("center_question");
-  var contentD = document.getElementById("question_question");
-  var contentE = document.getElementById("service_question");
-
-  var cButtonA = document.getElementById("categoryButton1");
-  var cButtonB = document.getElementById("categoryButton2");
-  var cButtonC = document.getElementById("categoryButton3");
-  var cButtonD = document.getElementById("categoryButton4");
-  var cButtonE = document.getElementById("categoryButton5");
-
-  contentA.style.display = "none";
-  contentB.style.display = "none";
-  contentC.style.display = "none";
-  contentD.style.display = "none";
-  contentE.style.display = "none";
-
-  // 선택한 내용 보이기
-  if (content === "A") {
-    contentA.style.display = "block";
-    cButtonA.style.backgroundColor = "red";
-    cButtonB.style.backgroundColor = "white";
-    cButtonC.style.backgroundColor = "white";
-    cButtonD.style.backgroundColor = "white";
-    cButtonE.style.backgroundColor = "white";
-  }if (content === "B") {
-    contentB.style.display = "block"; 
-    cButtonB.style.backgroundColor = "red";
-    cButtonA.style.backgroundColor = "white";
-    cButtonC.style.backgroundColor = "white";
-    cButtonD.style.backgroundColor = "white";
-    cButtonE.style.backgroundColor = "white";
-  }if (content === "C") {
-    contentC.style.display = "block"; 
-    cButtonC.style.backgroundColor = "red";
-    cButtonA.style.backgroundColor = "white";
-    cButtonB.style.backgroundColor = "white";
-    cButtonD.style.backgroundColor = "white";
-    cButtonE.style.backgroundColor = "white";
-  }if (content === "D") {
-    contentD.style.display = "block";
-    cButtonD.style.backgroundColor = "red";
-    cButtonA.style.backgroundColor = "white";
-    cButtonB.style.backgroundColor = "white";
-    cButtonC.style.backgroundColor = "white";
-    cButtonE.style.backgroundColor = "white";
-  }if (content === "E") {
-    contentE.style.display = "block";
-    cButtonE.style.backgroundColor = "red";
-    cButtonA.style.backgroundColor = "white";
-    cButtonB.style.backgroundColor = "white";
-    cButtonC.style.backgroundColor = "white";
-    cButtonD.style.backgroundColor = "white";
-    
-  } 
-}
-
-
-
-
-
+  const questions =document.querySelectorAll(".question");
+  window.addEventListener('DOMContentLoaded', function() {
+    questions.forEach(function(qeustion){
+        if(!qeustion.dataset.often){
+            qeustion.style.display = "none";
+            
+        }
+    });
+  });
+/**
+ * 이 함수는 클릭한 카테고리에 따라 question 요소를 보이게 합니다.
+ * @param {string} content - question 요소의 dataset과 비교할 값
+ */
+  function showContent(content){
+    questions.forEach(function(qeustion){
+        if(qeustion.dataset.often == content || qeustion.dataset.value == content){
+            qeustion.style.display = "block";
+        }else{
+            qeustion.style.display = "none";
+        }
+        
+    });
+  }
+  document.querySelector('.c-search-box button').addEventListener('click', function(){
+    const search =document.querySelector('.c-search-box input').value;
+    questions.forEach(function(question){
+        const content =question.firstElementChild.firstElementChild.textContent;
+        if(content.includes(search)){
+            question.style.display = "block";
+        }else{
+            question.style.display = "none";
+        }
+    });
+  });
+  document.querySelectorAll('.CButton').forEach(function(button){
+    button.addEventListener('click', function(){
+        document.querySelectorAll('.CButton').forEach(function(b){
+            b.style.backgroundColor = "white";
+        });
+        button.style.backgroundColor = "var(--main-color)";
+    });
+  })
+  questions.forEach(function(question){
+    question.addEventListener('toggle', function(){
+        if(question.open){
+            question.classList.remove('fade-out');
+            question.classList.add('fade-in');
+        }else{
+            question.classList.remove('fade-in');
+            question.classList.add('fade-out');
+        }
+    });
+  });

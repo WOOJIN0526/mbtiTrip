@@ -48,4 +48,6 @@ public class ReplaceDTO {
 	private Set<UserDTO> voter;
 	
 	private UserDTO Author;
+	
+	private Integer views;
 }

@@ -1,6 +1,7 @@
 package com.example.test.User.Controller;
 
 import java.io.Console;
+import java.security.Principal;
 import java.util.Map;
 
 import org.apache.catalina.security.SecurityConfig;
@@ -14,13 +15,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.test.User.DTO.QnADTO;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.DTO.User_Role;
+import com.example.test.User.Service.QnAService;
 import com.example.test.User.Service.UserService;
 
+import groovy.transform.ToString;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j2;
 
@@ -31,6 +36,9 @@ public class UserController {
 
 	@Autowired
 	UserService userService; 
+	
+	@Autowired
+	QnAService qnaService;
 	
 //	@RequestMapping(value = "/signup/user", method=RequestMethod.GET)
 //	public String signUpUser() {
@@ -180,6 +188,6 @@ public class UserController {
 		return mav;
 	}
 	
-
+	
 	
 }

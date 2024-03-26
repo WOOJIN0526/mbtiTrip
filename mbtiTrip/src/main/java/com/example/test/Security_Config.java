@@ -32,6 +32,7 @@ import com.example.test.User.DTO.User_Role;
 import com.example.test.User.Service.UserService;
 import com.mysql.cj.protocol.AuthenticationProvider;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 
@@ -69,38 +70,45 @@ public class Security_Config  {
     		   (rememberMe) -> rememberMe
     		   .rememberMeParameter("remember")   // login 시 기억할 것인지에 대한 chk box name 값
     		   .tokenValiditySeconds(3600)  //토큰 유효 시간 
-    	       .alwaysRemember(false)
+    	       .alwaysRemember(true)
     	       .userDetailsService(userDetailsService)
     		   );
 
-     
-        
-        
+    
          http.formLogin((formLogin)->formLogin
         		.loginPage("/login_form")
                 .permitAll())
         		.securityContext((securityContext)->securityContext
         				.securityContextRepository(new DelegatingSecurityContextRepository(
         						new RequestAttributeSecurityContextRepository(),
-        						new HttpSessionSecurityContextRepository())))
-        
-        ;
-        
+        						new HttpSessionSecurityContextRepository()
+        						)));
         
         http
         .sessionManagement((sessionManagement)->sessionManagement.invalidSessionUrl("/login_A"))
         .logout((logout)->logout
-        	    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
-                .permitAll());
-        ;
-        
+        		.logoutUrl("/logout")
+        		.addLogoutHandler((request, response, authtication) -> {
+        			HttpSession session = request.getSession();
+        			if(session != null) {
+        				session.invalidate();
+        			}
+        		})
+        		.logoutSuccessHandler((request, response, authtication) -> {
+        			response.sendRedirect("/");
+        		})
+        		.deleteCookies("mbox", "remember-me"));
+        		
+//        		/3/26 위 코드 작성[아래는 로그아웃을 간단하게 구현한 ver 예시 
+//        	    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                .invalidateHttpSession(true)
+//                .deleteCookies("JSESSIONID")
+//                .permitAll());
         
         http.csrf((csrf)->csrf.ignoringRequestMatchers("/**").csrfTokenRepository((CookieCsrfTokenRepository.withHttpOnlyFalse())));
         return http.build();
         
-		//위는 테스 트 끝.	
+	
         //defalutURL 수정 or 삭제 필요 테스트 이후 진행 작업자: 신성진 
         
 

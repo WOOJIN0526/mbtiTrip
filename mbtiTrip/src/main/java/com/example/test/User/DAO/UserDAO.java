@@ -44,6 +44,11 @@ public class UserDAO {
 		return map;
 	}
 
+	public Integer getUID(String userName) {
+		Integer UID = this.sqlSessiontemplate.selectOne("user.getUID", userName);
+		return UID;
+	}
+
 
 	
 //	

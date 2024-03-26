@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class UserDTO {
 	
-	private String UID;	//p
+	private Integer UID;	//p
 	
 	private String userId;  
 	

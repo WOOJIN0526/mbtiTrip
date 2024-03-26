@@ -52,5 +52,6 @@ public class AdventureDTO {
 	
 	private LocalDateTime modifyDate;
 	
+	private Integer views;
 	
 }
