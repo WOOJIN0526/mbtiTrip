@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.test.User.DAO.QnADAO;
 import com.example.test.User.DTO.QnADTO;
 
+
+@Service
 public class QnAServiceImpl implements QnAService {
 
 	@Autowired 
@@ -23,7 +26,7 @@ public class QnAServiceImpl implements QnAService {
 	public List<QnADTO> getList(QnADTO qna) {
 		
 		return qnaDao.getList(qna);
-	}s
+	}
 
 	@Override
 	public QnADTO QnAdetail(Integer qID) {
