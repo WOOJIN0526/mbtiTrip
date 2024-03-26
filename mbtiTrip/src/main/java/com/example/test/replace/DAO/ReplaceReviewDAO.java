@@ -32,17 +32,24 @@ public class ReplaceReviewDAO {
 	}
 
 	public Optional<ReplaceReviewDTO> findById(Integer userid) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<ReplaceReviewDTO> result = sqlSessiontemplate.selectOne("replaceReview.findById", userid);
+		return result;
 	}
 
-	public ReplaceReviewDTO save(ReplaceReviewDTO adrDto) {
-		// TODO Auto-generated method stub
-		return null;
+	public ReplaceReviewDTO save(ReplaceReviewDTO rprDto) {
+		ReplaceReviewDTO result = sqlSessiontemplate.selectOne("replaceReview.save", rprDto);
+		return result;
 	}
 
-	public void delete(ReplaceReviewDTO rprDto) {
-		// TODO Auto-generated method stub
+	public int delete(ReplaceReviewDTO rprDto) {
+		int result = sqlSessiontemplate.delete("replaceReview.delete", rprDto);
+		return result;
+		
+	}
+
+	public int updateCount(Integer id) {
+		int result = sqlSessiontemplate.update("replaceReview.update", id);
+		return result;
 		
 	}
 	

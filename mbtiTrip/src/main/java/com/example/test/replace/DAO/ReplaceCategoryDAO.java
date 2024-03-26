@@ -30,7 +30,7 @@ public class ReplaceCategoryDAO {
 
 
 	public Optional<ReplaceCategoryDTO> findById(String category) {
-		// TODO Auto-generated method stub
+		int result = sqlSessiontemplate.selectOne("replaceCategory.findById", category);
 		return null;
 	}
 	

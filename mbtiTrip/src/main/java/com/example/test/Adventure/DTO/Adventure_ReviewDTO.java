@@ -2,6 +2,8 @@ package com.example.test.Adventure.DTO;
 
 import java.time.LocalDateTime;
 
+import com.example.test.User.DTO.UserDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +32,8 @@ public class Adventure_ReviewDTO {
 	
 	private LocalDateTime modifyDate;
 	
+	private UserDTO author;
 	
+	private Integer views;
 	
 }

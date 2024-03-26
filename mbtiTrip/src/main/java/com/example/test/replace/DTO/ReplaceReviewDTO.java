@@ -2,6 +2,8 @@ package com.example.test.replace.DTO;
 
 import java.time.LocalDateTime;
 
+import com.example.test.User.DTO.UserDTO;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,4 +29,8 @@ public class ReplaceReviewDTO {
 	private LocalDateTime updateDate;
 
 	private LocalDateTime modifyDate;
+	
+	private Integer views;
+	
+	private UserDTO Author;
 }

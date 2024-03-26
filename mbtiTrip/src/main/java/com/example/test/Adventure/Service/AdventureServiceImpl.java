@@ -20,6 +20,7 @@ import com.example.test.Adventure.DTO.Adventure_CategoryDTO;
 import com.example.test.AdventureDAO.AdventureDAO;
 import com.example.test.POST.DTO.AnswerDTO;
 import com.example.test.POST.DTO.PostDTO;
+import com.example.test.POST.Service.DataNotFoundException;
 import com.example.test.User.DTO.UserDTO;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -28,6 +29,10 @@ import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 
 
 
@@ -72,8 +77,15 @@ public class AdventureServiceImpl implements AdventureService{
 		@Override
 		public AdventureDTO getPost(Integer userid) {
 			 Optional<AdventureDTO> ad = this.adDAO.findById(userid);
-		        return ad.get();
-		}
+			 if (ad.isPresent()) {
+		        	AdventureDTO ad1 = ad.get();        	
+		        	ad1.setViews(ad1.getViews()+1);        	
+		        	this.adDAO.save(ad1);
+		            	return ad1;
+		        } else {
+		            throw new DataNotFoundException("adventure not found");
+		        }	
+			  }
 
 		
 
@@ -111,7 +123,37 @@ public class AdventureServiceImpl implements AdventureService{
 		}
 	
 	
-	
+		// 게시물을 조회하고 조회수 증가
+		@Transactional
+		public AdventureDTO detail(Integer id, HttpServletRequest request, HttpServletResponse response) {
+			 Cookie oldCookie = null;
+			    Cookie[] cookies = request.getCookies();
+			    if (cookies != null)
+			        for (Cookie cookie : cookies)
+			            if (cookie.getName().equals("postView"))
+			                oldCookie = cookie;
+
+			    if (oldCookie != null) {
+			        if (!oldCookie.getValue().contains("[" + id.toString() + "]")) {
+			            adDAO.updateCount(id);
+			            oldCookie.setValue(oldCookie.getValue() + "_[" + id + "]");
+			            oldCookie.setPath("/");
+			            oldCookie.setMaxAge(60 * 60 * 24);
+			            response.addCookie(oldCookie);
+			        }
+			    }
+			    else {
+			        adDAO.updateCount(id);
+			        Cookie newCookie = new Cookie("adventureView","[" + id + "]");
+			        newCookie.setPath("/");
+			        newCookie.setMaxAge(60 * 60 * 24);
+			        response.addCookie(newCookie);
+			    }
+
+			    return adDAO.findById(id).orElseThrow(() -> {
+			        return new IllegalArgumentException("글 상세보기 실패: 아이디를 찾을 수 없습니다.");
+			    });
+			}
 	
 
 	
