@@ -42,7 +42,7 @@ public class QnAController {
 	}
 	
 	
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView createQAndA(ModelAndView mav) {
 		mav.setViewName("등록 폼");
 		return mav;
@@ -56,7 +56,7 @@ public class QnAController {
 		boolean ck = false;
 		String userName = princi.getName();
 		Integer UID = userService.findByUID(userName);
-		qna.setUID(UID);
+
 		qna.setContents(contents);
 		qna.setUserName(userName);
 		qnaService.createQ(qna);
