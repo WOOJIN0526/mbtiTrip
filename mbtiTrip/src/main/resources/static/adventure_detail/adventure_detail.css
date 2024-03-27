@@ -1,0 +1,74 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+#adventure_detail{
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    
+}
+
+h1{
+    text-align: center;
+}
+
+.detail_tab{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border: 1px solid;
+    text-align: center;
+}
+
+.detail_tab ul li{
+    list-style: none;
+    
+}
+
+.detail_tab ul li a{
+    text-decoration-line: none;
+    color: black;
+}
+
+#photo_zone{
+    width: 100%;
+    height: 500px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(진해/진해_여좌천로망스다리.jpg);
+}
+
+#detail_text{
+    margin-bottom: 30px;
+}
+
+h6{
+    border: 0;
+    height: 2px;
+    background-color:  #d3d3d3;
+}
+
+#review{
+    margin-bottom: 30px; 
+}
+
+#wirte_from{
+    width: 100%;
+    height: 80px;
+    resize: none;
+}
+
+.ok_button{
+    width: 100%;
+    margin-bottom: 30px;
+    
+}
+
+#review_list ul{
+    background-color: #d3d3d3;
+}

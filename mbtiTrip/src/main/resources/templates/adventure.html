@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="adventure.css"> -->
+    <link rel="stylesheet" th:href="@{adventure/adventure.css}">
+</head>
+<body>
+    <!-- main -->
+    <div id="head">
+        <section id="contents">
+            <div id="adventure_view">
+                <div id="adventure_box">
+                    <div id="btn_check">
+                        <button type="button" id="btn1">최신순</button>
+                        <button type="button" id="btn2">인기순</button>
+                        <button type="button" id="btn3">조회순</button>
+                    </div>
+                    <!-- 진해 여행지 -->
+                    <div id="local_JINHAE">
+                        <ul class="adventure_list">
+                            <li>
+                                <div class="photo" style="background-image: url(진해/진해_여좌천로망스다리.jpg);"></div>
+                                <div class="text">
+                                    <div class="text_area"><a href="">여좌천로망스다리</a></div><br>
+                                    <div> 드라마 <로망스>의 촬영지로 알려진 벚꽃 명소</div>
+                                    <div>#진해 #자연 #커플 #가족</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="photo" style="background-image: url(진해/진해_경화역.JPG);"></div>
+                                <div class="text">
+                                    <div class="text_area"><a href="">경화역</a></div><br>
+                                    <div>국내에서 가장 화려한 봄을 만날 수 있는 곳</div>
+                                    <div>#진해 #자연 #커플 #가족</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="photo" style="background-image: url(진해/진해_김씨박물관.jpg);"></div>
+                                <div class="text">
+                                    <div class="text_area"><a href="">김씨박물관</a></div><br>
+                                    <div>1970년대를 연상시키는 골목 풍경</div>
+                                    <div>#진해 #역사 #커플 #가족</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="photo" style="background-image: url(진해/진해_진해드림파크.jpg);"></div>
+                                <div class="text">
+                                    <div class="text_area"><a href="">진해드림파크</a></div><br>
+                                    <div>4대 사업을 통합한 대규모 산림 휴양 테마파크</div>
+                                    <div>#진해 #자연 #커플 #가족</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="photo" style="background-image: url(진해/진해_진해해양공원.jpg);"></div>
+                                <div class="text">
+                                    <div class="text_area"><a href="">진해해양공원</a></div><br>
+                                    <div>한국제일의 군항도시에 걸맞는 해양공원</div>
+                                    <div>#진해 #자연 #커플 #가족</div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <!-- 대전 여행지 -->
+                    <div id="local_DAEJEON">
+                        <ul class="adventure_list">
+                            <li>
+                                <div class="photo" style="background-image: url(대전/대전_성심당.jpg);"></div>
+                                <div class="text">
+                                    <div class="text_area"><a href="">성심당</a></div><br>
+                                    <div>식도락의 끝판왕 전국 5대 빵집</div>
+                                    <div>#대전 #커플 #가족</div>
+                                </div>
+                            </li>
+                        </ul>    
+                    </div>    
+                    <!-- 제주도 여행지 -->
+                    <div id="local_JEJU">
+                        <ul class="adventure_list">
+                            <li>
+                                <div class="photo" style="background-image: url(제주도/제주_카멜리아힐.jpg)"></div>
+                                <div class="text">
+                                    <div class="text_area"><a href="">카멜리아힐</a></div><br>
+                                    <div>동양 최대 규모의 동백 수목원</div>
+                                    <div>#제주도 #자연 #커플 #가족</div>
+
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 페이지 변경 -->
+                    <div class="page_change">
+                        <a href  = "">◀ 이전</a> 
+                        <a href  = "">1</a>  
+                        <a href  = "">2</a>  
+                        <a href  = "">3</a>  
+                        <a href  = "">4</a>  
+                        <a href  = "">5</a>  
+                        <a href  = "">다음 ▶</a>
+                    </div>
+                    
+                </div>
+                <!-- 태그 -->
+               <div class="side"> 
+                    <div id="tag">
+                        <ul id="location">
+                            <li><button id="ALL" onclick="showContent('ALL')"><span>#전체</span></button></li>
+                            <li><button id="JINHAE" onclick="showContent('JINHAE')" ><span>#진해</span></button></li>
+                            <li><button id="DAEJEON" onclick="showContent('DAEJEON')"><span>#대전</span></button></li>
+                            <li><button id="JEJU" onclick="showContent('JEJU')"><span>#제주도</span></button></li>
+                        </ul>
+                        <ul id="category">
+                            <li><button id="family" onclick="showContent('family')"><span>#가족</span></button></li>
+                            <li><button id="couple" onclick="showContent('couple')"><span>#커플</span></button></li>
+                            <li><button id="history" onclick="showContent('history')"><span>#역사</span></button></li>
+                            <li><button id="nature" onclick="showContent('nature')"><span>#자연</span></button></li>
+                        </ul>
+                        <ul id="mbti">
+                            <li><button><span>#I--J</span></button></li>
+                            <li><button><span>#I--P</span></button></li>
+                            <li><button><span>#E--P</span></button></li>
+                            <li><button><span>#E--J</span></button></li>
+
+                        </ul>    
+                    </div>
+                        <a href="">
+                            <div class="advertise"></div>
+                        </a>
+                </div>
+
+            </div>
+        </section>
+
+        
+    </div>
+    <!-- <script src="adventure.js"></script> -->
+    <script th:src="@{adventure/adventure.js}"></script>
+</body>
+</html>
