@@ -1,71 +1,74 @@
  section{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 5rem;
-        }
-        .form-container {
-           
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            border: solid 3px var(--blurry-main);
-        }
-
-        .form-container h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            text-align: center;
-            
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 70vw;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ced4da;
-            border-radius: 4px;
-            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--blurry-main);
-            box-shadow: 0 0 0 0.2rem var(--blurry-main);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 250px;
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            color: var(--white);
-            background-color: var(--blurry-main);
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.15s ease-in-out;
-        }
-
-        .btn-submit:hover {
-            background-color: var(--main-color);
-        }
+		            display: flex;
+		            justify-content: center;
+		            align-items: center;
+		            padding: 5rem;
+		        }
+		        .form-container {
+		           
+		            padding: 20px;
+		            background-color: #fff;
+		            border-radius: 8px;
+		            border: solid 3px var(--blurry-main);
+		        }
+		
+		        .form-container h2 {
+		            font-size: 24px;
+		            margin-bottom: 20px;
+		            text-align: center;
+		            
+		        }
+		
+		        .form-group {
+		            margin-bottom: 20px;
+		        }
+		
+		        .form-group label {
+		            display: block;
+		            font-size: 16px;
+		            font-weight: bold;
+		            margin-bottom: 5px;
+		        }
+		
+		        .form-group input,
+		        .form-group textarea,
+		        .form-group select {
+		            width: 70vw;
+		            padding: 10px;
+		            font-size: 16px;
+		            border: 1px solid #ced4da;
+		            border-radius: 4px;
+		            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+		        }
+		
+		        .form-group input:focus,
+		        .form-group textarea:focus,
+		        .form-group select:focus {
+		            outline: none;
+		            border-color: var(--blurry-main);
+		            box-shadow: 0 0 0 0.2rem var(--blurry-main);
+		        }
+		
+		        .form-group textarea {
+		            resize: vertical;
+		            min-height: 250px;
+		        }
+		
+		        .btn-submit {
+		            width: 100%;
+		            padding: 10px;
+		            font-size: 16px;
+		            color: var(--white);
+		            background-color: var(--blurry-main);
+		            border: none;
+		            border-radius: 4px;
+		            cursor: pointer;
+		            transition: background-color 0.15s ease-in-out;
+		        }
+		
+		        .btn-submit:hover {
+		            background-color: var(--main-color);
+		        }
+#selboxDirect{
+	display: none;
+}

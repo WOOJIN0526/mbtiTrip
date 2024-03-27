@@ -22,14 +22,17 @@
     box-shadow:2px 3px 5px 0px;
     
 }
-
+#searchI{
+	width: 1.2rem;
+	height: 1rem;
+}
 .serch input{
     width: 60rem;
 } 
 
 label{
     color: var(--white);
-    text-shadow: -1px 0px var(--black), 0px 1px var(--black), 1px 0px var(--black), 0px -1px var(--black);
+    text-shadow: 2px 0px var(--main-color), 0px 2px var(--main-color), 1px 0px var(--main-color), 0px -1px var(--main-color);
 }
 
 .c-input-search {
