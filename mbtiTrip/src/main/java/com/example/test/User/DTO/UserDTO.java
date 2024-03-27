@@ -1,11 +1,26 @@
 package com.example.test.User.DTO;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.management.relation.Role;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-public class UserDTO {
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter @Setter @Builder
+public class UserDTO implements UserDetails{
 	
 	private Integer UID;	//p
 	
@@ -29,7 +44,7 @@ public class UserDTO {
 	
 	private String history;
 	
-	private User_Role userrole;
+	private String userrole;
 	
 	@Override
 	   public String toString() {
@@ -40,6 +55,48 @@ public class UserDTO {
 	         + ", BNum =" + BNum; 
 	          
 	   }
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		Collection<GrantedAuthority> authorities = new ArrayList<>();
+		
+		for(String role : userrole.split(",")) {
+			authorities.add(new SimpleGrantedAuthority(role));
+		}
+		return authorities;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return userName;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	
 	
 	
 }

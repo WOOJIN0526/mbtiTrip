@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.test.User.DTO.QnADTO;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.DTO.User_Role;
+import com.example.test.User.Service.LoginService;
 import com.example.test.User.Service.QnAService;
 import com.example.test.User.Service.UserService;
 
@@ -39,6 +40,9 @@ public class UserController {
 	
 	@Autowired
 	QnAService qnaService;
+	
+	@Autowired
+	LoginService loginservice;
 	
 //	@RequestMapping(value = "/signup/user", method=RequestMethod.GET)
 //	public String signUpUser() {
@@ -62,7 +66,7 @@ public class UserController {
 	@ResponseBody
 	public boolean singupUser(@RequestBody UserDTO userdto) {		
 		//ModelAndView mav = new ModelAndView();     // 아직 비번 암 복호화 안됌 ㅋㅌ
-		userdto.setUserrole(User_Role.user);
+		userdto.setUserrole("ROLE_USER");  //보류 
 		userdto.toString();
 		int result = userService.createUser(userdto);
 		boolean chk = false;
@@ -92,17 +96,17 @@ public class UserController {
 				 model.addAttribute(user);
 				 if(user.get("userrole").equals(User_Role.user.toString())) {
 					 System.out.println("유저 로그인 정보 조회 성공");
-					 return String.format("redirect:user/mypage/%s", user.get("UID"));
+					 return String.format("redirect:user/main/%s", user.get("UID"));
 //					 return String.format("redirect:/main/%s/%s", user.get("userrole") ,user.get("UID"));
 //					 return String.format("redirect:/user/%s", user.get("UID"));
 				 	}
 				 
 				 else if(user.get("userrole").equals(User_Role.bis.toString())) {
-					 return String.format("redirect:/main/%s/%s",user.get("userrole"), user.get("UID"));
+					 return String.format("redirect:bis/main/%s", user.get("UID"));
 //					 return String.format("redirect:/bis/%s", user.get("UID"));
 				 	}	 
 				 else if(user.get("userrole").equals(User_Role.admin.toString())) {
-					 return "redirect:/";
+					 return "redirect:/main";
 //					 return String.format("redirect:/admin/%s", user.get("UID"));
 				 }
 			   }
@@ -127,12 +131,14 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(value = "/main/{userrole}/{UID}", method = RequestMethod.GET)
-	public ModelAndView main(@PathVariable("userrole") String userrole, 
+	@RequestMapping(value = "/user/main/{UID}", method = RequestMethod.GET)
+	public ModelAndView main(
 							@PathVariable("UID") String UID,
 							UserDTO userdto,
 							ModelAndView mav) {
+		log.info("user Main === "+ userdto.toString());
 		mav.addObject(userdto);
+		mav.setViewName("main");
 		return mav;
 		
 		

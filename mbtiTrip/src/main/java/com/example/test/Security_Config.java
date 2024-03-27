@@ -5,6 +5,7 @@ import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.RememberMeAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -29,6 +30,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.AntPathMatcher;
 
 import com.example.test.User.DTO.User_Role;
+import com.example.test.User.Service.LoginService;
 import com.example.test.User.Service.UserService;
 import com.mysql.cj.protocol.AuthenticationProvider;
 
@@ -42,7 +44,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Security_Config  {
 
-	UserDetailsService userDetailsService;
+	private UserDetailsService userDetailsService; //?
+	private LoginService loginService; 
+	
+	
+	public Security_Config(LoginService loginService) {
+		this.loginService = loginService;
+	}
+	
+	
+	@Bean
+	PasswordEncoder passwordEncoder(){
+		return new BCryptPasswordEncoder();
+	}
 	
 //	@Bean
 //	public void configure(WebSecurity web) throws Exception {
@@ -56,47 +70,75 @@ public class Security_Config  {
 	@Bean
     protected SecurityFilterChain webSecurityFilterChain(HttpSecurity http) throws Exception {
         http
+        .csrf((csrf)->csrf
+        		.disable())
        .authorizeHttpRequests((authorizeHttpRequests)-> authorizeHttpRequests
-                	 .requestMatchers("/login_form", "main/**", "/**").permitAll()
-                         .anyRequest( ).authenticated());
+                	 .requestMatchers("/login_A", "main/**", "/**", "/user/signup", "/bis/signup")
+                	 .permitAll())
+       .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
+    		   .requestMatchers("/user/**", "bis/**", "/admin").hasRole("ADMIN")
+    		   .requestMatchers("bis/**", "/user/**").hasRole("BIS")
+    		   .requestMatchers("/user/**").hasRole("USER"))
+    		   .formLogin((formLogin) -> formLogin
+    				   .loginPage("/login_form")
+    				   .loginProcessingUrl("login_A")
+    				   .failureUrl("/")
+    				   .usernameParameter("userId"))
+    		   .rememberMe((rememberMe)->rememberMe
+    				   .rememberMeParameter("remember")
+    				   .tokenValiditySeconds(60300)
+    				   .alwaysRemember(true)
+    				   )
+    		   .logout((logout)->logout
+    				   .logoutSuccessUrl("/")
+    				   .invalidateHttpSession(true))
+    		   .exceptionHandling((exceptionHandling)-> exceptionHandling
+    				   .accessDeniedPage("/accessDenied"))
+    		   
+       ;
 	
 //        http
 //        .rememberMe((remember)->remember
 //        		.rememberMeServices(rememberMeServices(userDetailsService)))
 //        		;
        
-       http.rememberMe(
-    		   (rememberMe) -> rememberMe
-    		   .rememberMeParameter("remember")   // login 시 기억할 것인지에 대한 chk box name 값
-    		   .tokenValiditySeconds(3600)  //토큰 유효 시간 
-    	       .alwaysRemember(true)
-    	       .userDetailsService(userDetailsService)
-    		   );
-
-    
-         http.formLogin((formLogin)->formLogin
-        		.loginPage("/login_form")
-                .permitAll())
-        		.securityContext((securityContext)->securityContext
-        				.securityContextRepository(new DelegatingSecurityContextRepository(
-        						new RequestAttributeSecurityContextRepository()
-        						,new HttpSessionSecurityContextRepository()
-        						)));
+        // login Page 분할 방안 고려 
+//        http.formLogin((formLogin) -> formLogin 
+//        		.loginProcessingUrl("login/user")
+//        		.loginPage("/login_form")
+//        		);
         
-        http
-        .sessionManagement((sessionManagement)->sessionManagement.invalidSessionUrl("/login_A"))
-        .logout((logout)->logout
-        		.logoutUrl("/logout")
-        		.addLogoutHandler((request, response, authtication) -> {
-        			HttpSession session = request.getSession();
-        			if(session != null) {
-        				session.invalidate();
-        			}
-        		})
-        		.logoutSuccessHandler((request, response, authtication) -> {
-        			response.sendRedirect("/");
-        		})
-        		.deleteCookies("mbox", "remember-me"));
+//        
+//       http.rememberMe(
+//    		   (rememberMe) -> rememberMe
+//    		   .rememberMeParameter("remember")   // login 시 기억할 것인지에 대한 chk box name 값
+//    		   .tokenValiditySeconds(3600)  //토큰 유효 시간 
+//    	       .alwaysRemember(true)
+//    	       .userDetailsService(userDetailsService)
+//    		   );
+//         http.formLogin((formLogin)->formLogin
+//        		.loginPage("/login_form")
+//                .permitAll())
+//        		.securityContext((securityContext)->securityContext
+//        				.securityContextRepository(new DelegatingSecurityContextRepository(
+//        						new RequestAttributeSecurityContextRepository()
+//        						,new HttpSessionSecurityContextRepository()
+//        						)));
+        
+//        http
+//        .sessionManagement((sessionManagement)->sessionManagement.invalidSessionUrl("/login_A"))
+//        .logout((logout)->logout
+//        		.logoutUrl("/logout")
+//        		.addLogoutHandler((request, response, authtication) -> {
+//        			HttpSession session = request.getSession();
+//        			if(session != null) {
+//        				session.invalidate();
+//        			}
+//        		})
+//        		.logoutSuccessHandler((request, response, authtication) -> {
+//        			response.sendRedirect("/");
+//        		})
+//        		.deleteCookies("mbox", "remember-me"));
         		
 //        		/3/26 위 코드 작성[아래는 로그아웃을 간단하게 구현한 ver 예시 
 //        	    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
@@ -104,16 +146,18 @@ public class Security_Config  {
 //                .deleteCookies("JSESSIONID")
 //                .permitAll());
         
-        http.csrf((csrf)->csrf.ignoringRequestMatchers("/**").csrfTokenRepository((CookieCsrfTokenRepository.withHttpOnlyFalse())));
-        return http.build();
-        
+//        http.csrf((csrf)->csrf.ignoringRequestMatchers("/**").csrfTokenRepository((CookieCsrfTokenRepository.withHttpOnlyFalse())));
+//        return http.build();
+//        
 	
         //defalutURL 수정 or 삭제 필요 테스트 이후 진행 작업자: 신성진 
-        
+        return http.build();
 
     }
 	
-	
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(loginService).passwordEncoder(passwordEncoder());
+    }
 	
     @Bean
     RememberMeServices rememberMeServices(UserDetailsService userDetailsService) {
@@ -180,8 +224,5 @@ public class Security_Config  {
 //		
 //	}
 	
-	@Bean
-	PasswordEncoder passwordEncoder(){
-		return new BCryptPasswordEncoder();
-	}
+
 }
