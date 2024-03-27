@@ -1,6 +1,7 @@
 package com.example.test.User.DAO;
 
 import java.util.Map;
+import java.util.Optional;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ public class UserDAO {
 	@Autowired
 	SqlSessionTemplate sqlSessiontemplate;
 	
+
+	
+	
 	public int insert(UserDTO userDto) {
 		int result = this.sqlSessiontemplate.insert("user.insert", userDto);
 		return result;
@@ -24,10 +28,7 @@ public class UserDAO {
 		return result;
 	};
 
-	public Map<String, Object> login(UserDTO userdto) {
-		Map result = this.sqlSessiontemplate.selectOne("user.login", userdto);
-		return result;
-	}
+
 
 	public int userUpdate(UserDTO userdto) {
 		int result = this.sqlSessiontemplate.update("user.updateUser", userdto);
@@ -49,8 +50,15 @@ public class UserDAO {
 		return UID;
 	}
 
+	public Optional<UserDTO> findByUserID(String username) {
+		return this.sqlSessiontemplate.selectOne("user.getUser", username);
+	}
 
-	
+
+	public Map<String, Object> login(UserDTO userdto) {
+		Map result = this.sqlSessiontemplate.selectOne("user.login", userdto);
+		return result;
+	}
 //	
 //	@Id @GeneratedValue
 //	@Column(name = "User_ID")

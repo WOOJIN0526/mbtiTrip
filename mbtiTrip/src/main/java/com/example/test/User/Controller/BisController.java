@@ -51,7 +51,7 @@ public class BisController {
 	@ResponseBody
 	public boolean singupUserBis(@RequestBody UserDTO userdto) {		
 		//ModelAndView mav = new ModelAndView();     // 아직 비번 암 복호화 안됌 ㅋㅌ
-		userdto.setUserrole(User_Role.bis);		
+		userdto.setUserrole("BIS");		
 		int result = userService.createBis(userdto);
 		boolean chk = false;
 		if(result == 1) {
