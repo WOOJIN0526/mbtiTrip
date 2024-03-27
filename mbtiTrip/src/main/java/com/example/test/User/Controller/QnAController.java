@@ -7,9 +7,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.test.User.DTO.QnADTO;
@@ -44,20 +46,20 @@ public class QnAController {
 	
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView createQAndA(ModelAndView mav) {
-		mav.setViewName("등록 폼");
+		mav.setViewName("qNa_form");
 		return mav;
 	}
 	
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public boolean createQAndA(@RequestParam String question, 
-							  @RequestParam String contents,
-								Principal princi, QnADTO qna) {
+	@ResponseBody
+	public boolean createQAndA(@RequestBody QnADTO qna,
+								Principal princi) {
 		boolean ck = false;
 		String userName = princi.getName();
 		Integer UID = userService.findByUID(userName);
 
-		qna.setContents(contents);
+		System.out.println(qna.toString());
 		qna.setUserName(userName);
 		qnaService.createQ(qna);
 		return ck;
