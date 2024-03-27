@@ -139,10 +139,7 @@ public class PostController {
     }
     
 
-    @GetMapping("/support")
-    public String support() {
-    	return "customer_center";
-    }
+   
 
     
 }
