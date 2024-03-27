@@ -9,7 +9,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
-	<script src="https://kit.fontawesome.com/664a7b3827.js" crossorigin="anonymous"></script>
+	
 	<link rel="stylesheet" th:href="@{/common/header.css}">
 	<link th:href="@{/customer_center/customer_center.css}" rel="stylesheet" />
 </head>
@@ -27,18 +27,18 @@
 					<input id="searchQ&A" type="text" name="search" placeholder="궁금한 점을 검색해 보세요" maxlength="256"
 						class="c-input-search">
 					<button type="button" class="c-button-search">
-						<i class="fa-solid fa-magnifying-glass" aria-hidden="false"></i> </button></span>
+						<img id="searchI" th:src="@{https://svgsilh.com/svg/1093183.svg}"> </button></span>
 			</form>
 		</section>
 
 		<!-- categoryButton -->
 		<section class="Button">
-			<button class="CButton" type="button" name="cButton1" onclick="showContent('often')"> 자주 묻는 질문 </button>
-			<button class="CButton" type="button" name="cButton2" onclick="showContent('userData')"> 회원정보 관리 </button>
-			<button class="CButton" type="button" name="cButton3" onclick="showContent('support')"> 고객센터 </button>
-			<button class="CButton" type="button" name="cButton4" onclick="showContent('ask')"> 문의하기 </button>
-			<button class="CButton" type="button" name="cButton5" onclick="showContent('service')"> 서비스 문의 </button>
-			<button class="CButton" type="button" name="cButton5" onclick="showContent('own')"> 내 문의 </button>
+			<button class="CButton" type="button" onclick="showContent('often')"> 자주 묻는 질문 </button>
+			<button class="CButton" type="button" onclick="showContent('userData')"> 회원정보 관리 </button>
+			<button class="CButton" type="button" onclick="showContent('support')"> 고객센터 </button>
+			<button class="CButton" type="button" onclick="showContent('ask')"> 문의하기 </button>
+			<button class="CButton" type="button" onclick="showContent('service')"> 서비스 문의 </button>
+			<button class="CButton" type="button" onclick="showContent('own')"> 내 문의 </button>
 		</section>
 		<!--<section class="side_box">
 			<div class="side">
@@ -286,7 +286,7 @@
 			</div>
 	    
 	    </section>
-		<button class="write"><a th:href="@{/Q&A}">작성</a></button>
+		<button class="write"><a th:href="@{/QnA/create}">작성</a></button>
     </div>
 	<script th:src="@{/customer_center/customer_center.js}"></script>
 </div>	

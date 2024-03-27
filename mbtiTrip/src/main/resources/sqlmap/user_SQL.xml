@@ -36,6 +36,12 @@
 		WHERE UID = #{uID}; 
 	]]>
 	</select>
+	
+	<select id="getUser" resultType="list">
+	Select * 
+	from User 
+	where userName = #{username}
+	</select>
 
 	<select id="getUID" resultType="Integer">
 	 <![CDATA[

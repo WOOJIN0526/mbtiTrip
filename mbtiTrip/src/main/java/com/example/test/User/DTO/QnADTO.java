@@ -12,7 +12,7 @@ public class QnADTO {
 	
 	private Integer QID;
 	
-	private String QName;
+	private String QC;
 	
 	private String contents;
 	
@@ -21,4 +21,15 @@ public class QnADTO {
 		
 	private List<QAnswerDTO> answer;
 	
+	
+	@Override
+    public String toString() {
+        return "YourClass{" +
+                "QID=" + QID +
+                ", QC='" + QC + '\'' +
+                ", contents='" + contents + '\'' +
+                ", userName='" + userName + '\'' +
+                ", answer=" + answer +
+                '}';
+    }
 }
