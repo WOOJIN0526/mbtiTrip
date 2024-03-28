@@ -44,6 +44,12 @@ public class UserController {
 	@Autowired
 	LoginService loginservice;
 	
+//	@RequestMapping(value="/access_denied_page", method=RequestMethod.GET)
+//	public String DeniedPage  {       
+//		return "access_denied_page";  
+//	}
+	
+	
 //	@RequestMapping(value = "/signup/user", method=RequestMethod.GET)
 //	public String signUpUser() {
 //		return "sign_up";
@@ -78,7 +84,7 @@ public class UserController {
 		} 
 		mav.addObject(chk);
 		return mav;
-	}
+	}  
 
 	@RequestMapping(value = "/login_A", method=RequestMethod.GET)
 	public ModelAndView login() {
@@ -86,7 +92,7 @@ public class UserController {
 		mav.setViewName("login_form");
 		return mav;
 	}
-//	
+	
 //	@RequestMapping(value = "/login_A", method=RequestMethod.POST)
 //	public String login(@ModelAttribute UserDTO userdto, Model model) {
 //		System.out.print(userdto.toString());

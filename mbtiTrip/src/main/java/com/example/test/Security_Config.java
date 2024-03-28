@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,8 +37,10 @@ import com.mysql.cj.protocol.AuthenticationProvider;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
 
+@Log4j2
 @EnableWebSecurity(debug = false)
 @EnableMethodSecurity(mode =  AdviceMode.PROXY)
 @Configuration
@@ -74,24 +77,33 @@ public class Security_Config  {
                 	 .requestMatchers("/login_A", "/**", "/user/signup", "/bis/signup")
                 	 .permitAll());
        http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-    		   .requestMatchers("/user/**", "bis/**", "/admin/**").hasRole(User_Role.admin.toString())
-    		   .requestMatchers("bis/**", "/user/**").hasRole(User_Role.bis.toString())
-    		   .requestMatchers("/user/**").hasRole(User_Role.user.toString()))
+    		   .requestMatchers("/user/**", "bis/**", "/admin/**").hasRole("ADMIN")
+    		   .requestMatchers("bis/**", "/user/**").hasRole("BIS")
+    		  
+    		   .requestMatchers("/user/**").hasRole("USER")
+    		   .requestMatchers("/**").permitAll())
     	.formLogin((formLogin) -> formLogin
     			.loginPage("/login_form")
     			.loginProcessingUrl("login_A")
     		    .usernameParameter("userId")
     		    .passwordParameter("password")
-    		    
     		    .successHandler((request, response, authentication)->{
+    		    	//3.28 TEST 진행 예정 
+    		    	// role 을 잘 받아오면, 여기서 format 가능 
+    		    	String role = authentication.getAuthorities().toString();
+    		    	log.info("로그인 성공시 유저의 권한 확인 "+role);
+    		    	log.info("principal 정보" + authentication.getPrincipal());
     		    	System.out.println("authentication" + authentication.getName());
     		    	response.sendRedirect(String.format("user/main/%s"));
     		    })
     		    .failureHandler((request, response, exception)->{
     		        System.out.println("exception : " + exception.getMessage());
     		    	response.sendRedirect("login_A");
-    		    }));
-//    	.rememberMe((rememberMe)->rememberMe
+    		    })
+    		    )
+//    	.exceptionHandling((ex)->ex.accessDeniedPage("/access_denied_page"))
+    	;
+//    	.rememberMe((rememberMe)->rememberMe   
 //    			.rememberMeParameter("remember")
 //    			.tokenValiditySeconds(60300)
 //    			.alwaysRemember(true))
@@ -101,7 +113,7 @@ public class Security_Config  {
 //    		 .exceptionHandling((exceptionHandling)-> exceptionHandling
 //    		.accessDeniedPage("/accessDenied")))   
 //       ;
-	
+	 
 //        http
 //        .rememberMe((remember)->remember
 //        		.rememberMeServices(rememberMeServices(userDetailsService)))
