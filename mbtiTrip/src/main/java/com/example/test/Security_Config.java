@@ -101,7 +101,7 @@ public class Security_Config  {
     		    	response.sendRedirect("login_A");
     		    })
     		    )
-    	.exceptionHandling((ex)->ex.accessDeniedPage("/access_denied_page"))
+//    	.exceptionHandling((ex)->ex.accessDeniedPage("/access_denied_page"))
     	;
 //    	.rememberMe((rememberMe)->rememberMe   
 //    			.rememberMeParameter("remember")
