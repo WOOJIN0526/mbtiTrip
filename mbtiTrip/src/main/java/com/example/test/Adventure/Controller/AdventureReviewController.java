@@ -77,7 +77,7 @@ public class AdventureReviewController {
     @GetMapping("/modifyR/{id}")
     public String adModify(Adventure_ReviewForm adForm, @PathVariable("id") Integer id, Principal principal) {
         Adventure_ReviewDTO adrDto = this.adrService.getPost(id);
-        if(!adrDto.getAuthor().getUserName().equals(principal.getName())) {
+        if(!adrDto.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         adForm.setTitle(adrDto.getReviewTitle());
@@ -93,7 +93,7 @@ public class AdventureReviewController {
             return "form";
         }
         Adventure_ReviewDTO adDto = this.adrService.getPost(id);
-        if (!adDto.getAuthor().getUserName().equals(principal.getName())) {
+        if (!adDto.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         this.adrService.modify(adDto, adRForm.getTitle(), adRForm.getContent());
@@ -104,7 +104,7 @@ public class AdventureReviewController {
     @GetMapping("/deleteR/{id}")
     public String adDelete(Principal principal, @PathVariable("id") Integer id) {
         Adventure_ReviewDTO adDto = this.adrService.getPost(id);
-        if (!adDto.getAuthor().getUserName().equals(principal.getName())) {
+        if (!adDto.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
         this.adrService.delete(adDto);

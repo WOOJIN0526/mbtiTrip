@@ -85,7 +85,7 @@ public class PostController {
     @GetMapping("/modify/{id}")
     public String postModify(PostForm postForm, @PathVariable("id") Integer id, Principal principal) {
         PostDTO postDto = this.postService.getPost(id);
-        if(!postDto.getAuthor().getUserName().equals(principal.getName())) {
+        if(!postDto.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         postForm.setTitle(postDto.getTitle());
@@ -101,7 +101,7 @@ public class PostController {
             return "form";
         }
         PostDTO postDto = this.postService.getPost(id);
-        if (!postDto.getAuthor().getUserName().equals(principal.getName())) {
+        if (!postDto.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         this.postService.modify(postDto, postForm.getTitle(), postForm.getContent());
@@ -112,7 +112,7 @@ public class PostController {
     @GetMapping("/delete/{id}")
     public String postDelete(Principal principal, @PathVariable("id") Integer id) {
         PostDTO postDto = this.postService.getPost(id);
-        if (!postDto.getAuthor().getUserName().equals(principal.getName())) {
+        if (!postDto.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
         this.postService.delete(postDto);
