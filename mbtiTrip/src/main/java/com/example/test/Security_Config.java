@@ -103,7 +103,7 @@ public class Security_Config  {
     		    )
     	.exceptionHandling((ex)->ex.accessDeniedPage("/access_denied_page"))
     	;
-//    	.rememberMe((rememberMe)->rememberMe
+//    	.rememberMe((rememberMe)->rememberMe   
 //    			.rememberMeParameter("remember")
 //    			.tokenValiditySeconds(60300)
 //    			.alwaysRemember(true))
@@ -113,7 +113,7 @@ public class Security_Config  {
 //    		 .exceptionHandling((exceptionHandling)-> exceptionHandling
 //    		.accessDeniedPage("/accessDenied")))   
 //       ;
-	
+	 
 //        http
 //        .rememberMe((remember)->remember
 //        		.rememberMeServices(rememberMeServices(userDetailsService)))

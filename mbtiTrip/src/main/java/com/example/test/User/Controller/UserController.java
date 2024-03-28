@@ -84,7 +84,7 @@ public class UserController {
 		} 
 		mav.addObject(chk);
 		return mav;
-	}
+	}  
 
 	@RequestMapping(value = "/login_A", method=RequestMethod.GET)
 	public ModelAndView login() {
