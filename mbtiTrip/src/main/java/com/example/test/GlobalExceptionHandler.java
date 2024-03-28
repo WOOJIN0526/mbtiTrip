@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import groovy.util.logging.Slf4j;
 import lombok.extern.log4j.Log4j2;
@@ -31,7 +32,13 @@ public class GlobalExceptionHandler {
     	return new ResponseEntity(response, HttpStatus.NOT_FOUND);
     }
     	
-    
+    @ExceptionHandler(NoResourceFoundException.class)
+    protected ResponseEntity<ErrorResponse> NoResourceFoundException(NoResourceFoundException noresource){
+    	log.error("NoResourceFoundException", noresource);
+    	ErrorRespone response = new ErrorRespone(noresource.toString(), "Noresource" );
+    	return new ResponseEntity(response, HttpStatus.CONTINUE);
+    	
+    }
 }
 
 
