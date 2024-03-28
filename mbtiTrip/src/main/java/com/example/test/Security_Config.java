@@ -77,10 +77,10 @@ public class Security_Config  {
                 	 .requestMatchers("/login_A", "/**", "/user/signup", "/bis/signup")
                 	 .permitAll());
        http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-    		   .requestMatchers("/user/**", "bis/**", "/admin/**").hasRole(User_Role.admin.getValue())
-    		   .requestMatchers("bis/**", "/user/**").hasRole(User_Role.bis.getValue())
+    		   .requestMatchers("/user/**", "bis/**", "/admin/**").hasRole("ADMIN")
+    		   .requestMatchers("bis/**", "/user/**").hasRole("BIS")
     		  
-    		   .requestMatchers("/user/**").hasRole(User_Role.user.getValue())
+    		   .requestMatchers("/user/**").hasRole("USER")
     		   .requestMatchers("/**").permitAll())
     	.formLogin((formLogin) -> formLogin
     			.loginPage("/login_form")
@@ -88,8 +88,11 @@ public class Security_Config  {
     		    .usernameParameter("userId")
     		    .passwordParameter("password")
     		    .successHandler((request, response, authentication)->{
+    		    	//3.28 TEST 진행 예정 
+    		    	// role 을 잘 받아오면, 여기서 format 가능 
     		    	String role = authentication.getAuthorities().toString();
     		    	log.info("로그인 성공시 유저의 권한 확인 "+role);
+    		    	log.info("principal 정보" + authentication.getPrincipal());
     		    	System.out.println("authentication" + authentication.getName());
     		    	response.sendRedirect(String.format("user/main/%s"));
     		    })
