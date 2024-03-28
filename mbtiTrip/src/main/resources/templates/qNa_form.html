@@ -8,7 +8,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/common/common.css}">
-	
     <link rel="stylesheet" th:href="@{/customer_center/qNa.css}">
     <title>질문 등록 폼</title>
 
@@ -34,7 +33,7 @@
                 <label for="questionContent">문의 내용</label>
                 <textarea name="contents" id="contents" placeholder="내용을 입력하세요" maxlength="600" required></textarea>
             </div>
-            <button sec: type="button" class="btn-submit">등록하기</button>
+            <button type="button" class="btn-submit">등록하기</button>
         </form>
     </div>
 	<script th:src="@{/customer_center/qNa.js}"></script>
