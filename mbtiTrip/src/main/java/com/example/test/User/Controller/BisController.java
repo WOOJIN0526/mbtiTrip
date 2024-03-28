@@ -36,7 +36,6 @@ public class BisController {
 //		return mav;
 //		@RequestMapping(value = "/signup/bis", method=RequestMethod.GET)
 	
-	
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public ModelAndView signUpBis(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
@@ -45,7 +44,6 @@ public class BisController {
 		mav.setViewName("sign_up");
 		return mav;
 	}
-	
 	
 	@RequestMapping(value = "/signup", method=RequestMethod.POST)
 	@ResponseBody
