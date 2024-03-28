@@ -62,6 +62,7 @@ public class UserController {
 	@RequestMapping(value = "/user/signup", method = RequestMethod.GET)
 	public ModelAndView signUpUser(HttpServletRequest request) {
 	    ModelAndView mav = new ModelAndView();
+	    log.info("signup user,get도착 ");
 	    String currentUrl = request.getRequestURI().toString();
 	    mav.addObject("currentUrl", currentUrl);
 	    mav.setViewName("sign_up");
@@ -69,10 +70,13 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/user/signup", method=RequestMethod.POST)
-	@ResponseBody
 	public ModelAndView singupUser(@RequestBody UserDTO userdto , ModelAndView mav) {		
 		//ModelAndView mav = new ModelAndView();     // 아직 비번 암 복호화 안됌 ㅋㅌ
+
+		log.info("signup user,Post도착 ");
+
 		System.out.println(userdto.toString());
+
 		userdto.setUserrole(User_Role.user.getValue());  //보류 
 		userdto.toString();
 		int result = userService.createUser(userdto);
@@ -81,7 +85,7 @@ public class UserController {
 		if(result == 1) {
 			chk = true;
 			mav.addObject(chk);
-			mav.setViewName("/login_A");
+			mav.setViewName("redirect:/login_A");
 		} 
 		mav.addObject(chk);
 		return mav;
@@ -94,44 +98,45 @@ public class UserController {
 		return mav;
 	}
 	
-//	@RequestMapping(value = "/login_A", method=RequestMethod.POST)
-//	public String login(@ModelAttribute UserDTO userdto, Model model) {
-//		System.out.print(userdto.toString());
-//		 Map<String, Object> user = userService.login(userdto);
-//		 System.out.print("user정보 저장 map = "+user.toString());
-//		 model.addAttribute("user", user);
-//		 try {
-//			 if(user.get("UID")  != null) { 
-//				 model.addAttribute(user);
-//				 System.out.println(User_Role.user.toString());
-//				 if(user.get("userrole").equals(User_Role.user.toString())) {
-//					 System.out.println("유저 로그인 정보 조회 성공");
-//					 user.put("authorities", userdto.getAuthorities());
-//					 return String.format("redirect:user/main/%s", user.get("UID"));
-////					 return String.format("redirect:/main/%s/%s", user.get("userrole") ,user.get("UID"));
-////					 return String.format("redirect:/user/%s", user.get("UID"));
-//				 	}
-//				 else if(user.get("userrole").equals(User_Role.bis.toString())) {
-//					 return String.format("redirect:bis/main/%s", user.get("UID"));
-////					 return String.format("redirect:/bis/%s", user.get("UID"));
-//				 	}	 
-//				 else if(user.get("userrole").equals(User_Role.admin.toString())) {
-//					 return "redirect:/main";
-////					 return String.format("redirect:/admin/%s", user.get("UID"));
-//				 }
-//			   }
-//			 else {
-//				 model.addAttribute("message", "사용자 정보를 찾을 수 없습니다.");
-//				 return "redirect:/login_A";
-//			}
-//		} catch (Exception e) {
-//			model.addAttribute("message", e);
-//			System.out.println("exception");
-//
-//			return "redirect:/login_A";
-//		}
-//		return "redirect:/";
-//	}
+	@RequestMapping(value = "/login_A", method=RequestMethod.POST)
+	public String login(@ModelAttribute UserDTO userdto, Model model) {
+		System.out.print(userdto.toString());
+		 Map<String, Object> user = userService.login(userdto);
+		 System.out.print("user정보 저장 map = "+user.toString());
+		 model.addAttribute("user", user);
+		 try {
+			 if(user.get("UID")  != null) { 
+				 
+				 model.addAttribute(user);
+				 System.out.println(User_Role.user.toString());
+				 if(user.get("userrole").equals(User_Role.user.getValue())) {
+					 System.out.println("유저 로그인 정보 조회 성공");
+					
+					 return String.format("redirect:user/main/%s", user.get("UID"));
+//					 return String.format("redirect:/main/%s/%s", user.get("userrole") ,user.get("UID"));
+//					 return String.format("redirect:/user/%s", user.get("UID"));
+				 	}
+				 else if(user.get("userrole").equals(User_Role.bis.getValue())) {
+					 return String.format("redirect:bis/main/%s", user.get("UID"));
+//					 return String.format("redirect:/bis/%s", user.get("UID"));
+				 	}	 
+				 else if(user.get("userrole").equals(User_Role.admin.getValue())) {
+					 return "redirect:/main";
+//					 return String.format("redirect:/admin/%s", user.get("UID"));
+				 }
+			   }
+			 else {
+				 model.addAttribute("message", "사용자 정보를 찾을 수 없습니다.");
+				 return "redirect:/login_A";
+			}
+		} catch (Exception e) {
+			model.addAttribute("message", e);
+			e.printStackTrace();
+
+			return "redirect:/login_A";
+		}
+		return "redirect:/login_A";
+	}
 	
 	
 	@RequestMapping(value ="/" , method = RequestMethod.GET)
