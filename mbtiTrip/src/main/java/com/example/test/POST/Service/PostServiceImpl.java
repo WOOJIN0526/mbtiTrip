@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.test.POST.DAO.PostDAO;
 import com.example.test.POST.DTO.AnswerDTO;
+import com.example.test.POST.DTO.Criteria;
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.DTO.Post_CategoryDTO;
 import com.example.test.POST.DTO.SearchData;
@@ -44,37 +45,49 @@ public  class PostServiceImpl implements PostService {
 	
 	//검색기능 기존 or 조건(검색어)에서 and 조건(원하는 카테고리만 조회)을 추가
 	//즉, 검색 조건이 일치하고 카테고리도 일치하는 게시물들만 조회됨
-	private Specification<PostDTO> search(String kw, String categoryName) {
-        return new Specification<PostDTO>() {
-            private static final long serialVersionUID = 1L;
-            
-            @Override
-            public Predicate toPredicate(Root<PostDTO> q, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                query.distinct(true);  // 중복을 제거 
-                Join<PostDTO, UserDTO> u1 = q.join("author", JoinType.LEFT);
-                Join<PostDTO, AnswerDTO> a = q.join("answerList", JoinType.LEFT);
-                Join<PostDTO, Post_CategoryDTO> c = q.join("category", JoinType.LEFT);
-                Join<AnswerDTO, UserDTO> u2 = a.join("author", JoinType.LEFT);
-                return cb.or(cb.like(q.get("subject"), "%" + kw + "%"), // 제목 
-                        cb.like(q.get("content"), "%" + kw + "%"),      // 내용 
-                        cb.like(u1.get("username"), "%" + kw + "%"),    // 질문 작성자 
-                        cb.like(a.get("content"), "%" + kw + "%"),      // 답변 내용 
-                        cb.like(u2.get("username"), "%" + kw + "%"),   // 답변 작성자 
-                		cb.like(c.get("name"), "%" + categoryName + "%"));	// 카테고리 이름
-            }
-        };
-    }
-	
+//	private Specification<PostDTO> search(String kw, String categoryName) {
+//        return new Specification<PostDTO>() {
+//            private static final long serialVersionUID = 1L;
+//            
+//            @Override
+//            public Predicate toPredicate(Root<PostDTO> q, CriteriaQuery<?> query, CriteriaBuilder cb) {
+//                query.distinct(true);  // 중복을 제거 
+//                Join<PostDTO, UserDTO> u1 = q.join("author", JoinType.LEFT);
+//                Join<PostDTO, AnswerDTO> a = q.join("answerList", JoinType.LEFT);
+//                Join<PostDTO, Post_CategoryDTO> c = q.join("category", JoinType.LEFT);
+//                Join<AnswerDTO, UserDTO> u2 = a.join("author", JoinType.LEFT);
+//                return cb.or(cb.like(q.get("subject"), "%" + kw + "%"), // 제목 
+//                        cb.like(q.get("content"), "%" + kw + "%"),      // 내용 
+//                        cb.like(u1.get("username"), "%" + kw + "%"),    // 질문 작성자 
+//                        cb.like(a.get("content"), "%" + kw + "%"),      // 답변 내용 
+//                        cb.like(u2.get("username"), "%" + kw + "%"),   // 답변 작성자 
+//                		cb.like(c.get("name"), "%" + categoryName + "%"));	// 카테고리 이름
+//            }
+//        };
+//    }
+// 페이징 처리된 게시물 목록을 반환	
+	@Override
+	public List<PostDTO> list(Criteria cri) throws Exception {
+		// TODO Auto-generated method stub
+		return postDAO.list(cri);
+	}
+
+// 페이지 수를 계산하기 위해 사용
+	@Override
+	public int listCount(Criteria cri) throws Exception {
+		// TODO Auto-generated method stub
+		return postDAO.listCount(cri);
+	}
 	
 	//생성일자 기준 내림차순 정렬 페이징
-	@Override
-	public Page<PostDTO> getList(int page, String kw, String categoryName) {
-		 List<Sort.Order> sorts = new ArrayList<>();
-	     sorts.add(Sort.Order.desc("createDate"));
-	     Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-	     Specification<PostDTO> spec = search(kw, categoryName);
-	     return this.postDAO.findAll(spec,pageable);
-	}
+//	@Override
+//	public Page<PostDTO> getList(int page, String kw, String categoryName) {
+//		 List<Sort.Order> sorts = new ArrayList<>();
+//	     sorts.add(Sort.Order.desc("createDate"));
+//	     Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+//	     Specification<PostDTO> spec = search(kw, categoryName);
+//	     return this.postDAO.findAll(spec,pageable);
+//	}
 
 
 	//해당게시글 가져옴, 조회수 증가
@@ -162,6 +175,9 @@ public  class PostServiceImpl implements PostService {
 		        return new IllegalArgumentException("글 상세보기 실패: 아이디를 찾을 수 없습니다.");
 		    });
 		}
+
+
+	
 	
     
 

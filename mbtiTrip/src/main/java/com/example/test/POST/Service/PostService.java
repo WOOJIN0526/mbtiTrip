@@ -1,14 +1,17 @@
 package com.example.test.POST.Service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
+import com.example.test.POST.DTO.Criteria;
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.DTO.Post_CategoryDTO;
 import com.example.test.User.DTO.UserDTO;
 
 public interface PostService {
 
-	 public Page<PostDTO> getList(int page, String kw, String categoryName);
+	 //public Page<PostDTO> getList(int page, String kw, String categoryName);
 	 
 	 public PostDTO getPost(Integer userid);
 	 
@@ -20,5 +23,7 @@ public interface PostService {
 	 
 	 public PostDTO vote(PostDTO postDto, UserDTO userDto);
 	 
-	 
+	 List<PostDTO> list(Criteria cri) throws Exception;
+
+	 public int listCount(Criteria cri) throws Exception;
 }

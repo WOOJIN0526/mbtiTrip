@@ -1,6 +1,7 @@
 package com.example.test.User.Service;
 
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,6 +71,12 @@ public class UserServiceImpl implements UserService{
 	public Integer findByUID(String userName) {
 		Integer UID = userDao.getUID(userName);
 		return UID;
+	}
+
+	@Override
+	public UserDTO getUser(String name) {
+		Optional<UserDTO> siteUser = this.userDao.findByUsername(name);
+		return siteUser.get();
 	}
 
 

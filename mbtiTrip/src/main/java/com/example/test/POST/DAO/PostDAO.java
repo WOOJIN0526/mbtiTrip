@@ -18,8 +18,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-
-
+import com.example.test.POST.DTO.Criteria;
 import com.example.test.POST.DTO.PostDTO;
 
 
@@ -78,7 +77,13 @@ public class PostDAO {
 		return null;
 	}
 	
-	
+	public List<PostDTO> list(Criteria cri) throws Exception {		
+	    return sqlSessiontemplate.selectList("qna.q_list", cri);
+	}
+
+	public int listCount(Criteria cri) {
+	    return sqlSessiontemplate.selectOne("qna.listCount", cri);
+	}
 
 	
 	

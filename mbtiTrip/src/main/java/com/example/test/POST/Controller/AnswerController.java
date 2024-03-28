@@ -46,20 +46,20 @@ public class AnswerController {
 	
 		// 답변등록
 		// @PreAuthorize("isAuthenticated()")
-//	    @PostMapping("/create/{id}")
-//	    public String createAnswer(Model model, @PathVariable("id") Integer id, 
-//	            @Valid AnswerForm answerForm, BindingResult bindingResult, Principal principal) {
-//	        PostDTO postDto = this.postservice.getPost(id);
-//	        UserDTO siteUserDto = this.userservice.getUser(principal.getName());
-//	        if (bindingResult.hasErrors()) {
-//	            model.addAttribute("post", postDto);
-//	            return "question_detail";
-//	        }
-//	        AnswerDTO answerDto = this.answerService.create(postDto, 
-//	                answerForm.getContent(), siteUserDto);
-//	        return String.format("redirect:/post/detail/%s#answer_%s", 
-//	                answerDto.getPost().getPostID(), answerDto.getAnswerID());
-//	    }
+	    @PostMapping("/create/{id}")
+	    public String createAnswer(Model model, @PathVariable("id") Integer id, 
+	            @Valid AnswerForm answerForm, BindingResult bindingResult, Principal principal) {
+	        PostDTO postDto = this.postservice.getPost(id);
+	        UserDTO UserDto = this.userservice.getUser(principal.getName());
+	        if (bindingResult.hasErrors()) {
+	            model.addAttribute("post", postDto);
+	            return "question_detail";
+	        }
+	        AnswerDTO answerDto = this.answerService.create(postDto, 
+	                answerForm.getContent(), UserDto);
+	        return String.format("redirect:/post/detail/%s#answer_%s", 
+	                answerDto.getPost().getPostID(), answerDto.getAnswerID());
+	    }
 		    
 			//답변수정된것 가져옴
 		    //@PreAuthorize("isAuthenticated()")

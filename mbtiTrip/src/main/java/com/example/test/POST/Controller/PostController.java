@@ -3,7 +3,6 @@ package com.example.test.POST.Controller;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,8 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.test.POST.DTO.AnswerForm;
+import com.example.test.POST.DTO.Criteria;
+import com.example.test.POST.DTO.PageMaker;
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.DTO.PostForm;
 import com.example.test.POST.DTO.Post_CategoryDTO;
@@ -39,15 +41,31 @@ public class PostController {
 	@Autowired
 	Post_CategoryService postCategoryService;
 	
-	@RequestMapping("/question/list")
-    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "kw", defaultValue = "") String kw) {
-        
-        Page<PostDTO> paging = this.postService.getList(page, kw, "질문");
-        model.addAttribute("paging", paging);
-        model.addAttribute("kw", kw);
-        return "list";
-    }
+//	@RequestMapping("/question/list")
+//    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+//            @RequestParam(value = "kw", defaultValue = "") String kw) {
+//        
+//        Page<PostDTO> paging = this.postService.getList(page, kw, "질문");
+//        model.addAttribute("paging", paging);
+//        model.addAttribute("kw", kw);
+//        return "list";
+//    }
+	//게시물 목록을 조회하고, 페이징 처리를 위한 정보를 추가하여 뷰로 전달하는 메서드
+	@RequestMapping("list")
+    public ModelAndView postList(ModelAndView mv, Criteria cri) throws Exception {
+
+        PageMaker pageMaker = new PageMaker();//이 객체는 페이징 처리를 위한 정보를 제공합니다.
+        pageMaker.setCri(cri); //page, perpagenum 셋팅, 현재 페이지 번호와 페이지당 게시물 수 등의 정보를 전달
+        pageMaker.setTotalCount(postService.listCount(cri)); //총 게시글 수 셋팅(전체 게시물 수를 기반으로 페이지 수 등의 정보를 계산)
+
+        //View에 페이징 처리를 위한 조건 및 그에 맞는 게시판 리스트 전송
+        mv.addObject("pageMaker", pageMaker);
+        mv.addObject("data", postService.list(cri)); 
+
+        mv.setViewName("board/post/post_list");
+
+        return mv;
+	}
 
     @RequestMapping(value = "/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
@@ -75,9 +93,9 @@ public class PostController {
         	model.addAttribute("categoryList", postCategoryService.getList());
             return "question_form";
         }
-//        UserDTO siteUser = this.userService.getUser(principal.getName());
-//        Post_CategoryDTO category = this.postCategoryService.getCategory(postForm.getCategoryName());
-//        this.postService.create(postForm.getTitle(), postForm.getContent(), siteUser, category);
+        UserDTO User = this.userService.getUser(principal.getName());
+        Post_CategoryDTO category = this.postCategoryService.getCategory(postForm.getCategoryName());
+        this.postService.create(postForm.getTitle(), postForm.getContent(), User, category);
         return "redirect:/question/list";
         }
     
@@ -122,23 +140,25 @@ public class PostController {
     //@PreAuthorize("isAuthenticated()")
     @GetMapping("/vote/{id}")
     public String postVote(Principal principal, @PathVariable("id") Integer id) {
-        //PostDTO questionDto = this.postService.getPost(id);
-        //UserDTO siteUserDto = this.userService.getUser(principal.getName());
-        //this.postService.vote(questionDto, siteUserDto);
+        PostDTO postDto = this.postService.getPost(id);
+        UserDTO UserDto = this.userService.getUser(principal.getName());
+        this.postService.vote(postDto, UserDto);
         return String.format("redirect://detail/%s", id);
     }
     
-    @GetMapping("/freepost/list")
-    public String freepostList(Model model, @RequestParam(value="page", defaultValue="0") int page,
-    	@RequestParam(value = "kw", defaultValue = "") String kw) {
-        
-        Page<PostDTO> paging = this.postService.getList(page, kw, "자유");
-        model.addAttribute("paging", paging);
-        model.addAttribute("kw", kw);
-        return "list";
-    }
+//    @GetMapping("/freepost/list")
+//    public String freepostList(Model model, @RequestParam(value="page", defaultValue="0") int page,
+//    	@RequestParam(value = "kw", defaultValue = "") String kw) {
+//        
+//        Page<PostDTO> paging = this.postService.getList(page, kw, "자유");
+//        model.addAttribute("paging", paging);
+//        model.addAttribute("kw", kw);
+//        return "list";
+//    }
+    
     
 
+    
    
 
     
