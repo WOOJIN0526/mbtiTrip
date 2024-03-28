@@ -12,7 +12,7 @@ public class QnADTO {
 	
 	private Integer QID;
 	
-	private String QC;
+	private String title;
 	
 	private String contents;
 	
@@ -26,7 +26,7 @@ public class QnADTO {
     public String toString() {
         return "YourClass{" +
                 "QID=" + QID +
-                ", QC='" + QC + '\'' +
+                ", title='" + title + '\'' +
                 ", contents='" + contents + '\'' +
                 ", userName='" + userName + '\'' +
                 ", answer=" + answer +

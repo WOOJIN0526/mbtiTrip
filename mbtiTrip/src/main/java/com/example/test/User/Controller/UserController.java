@@ -72,6 +72,7 @@ public class UserController {
 	@ResponseBody
 	public ModelAndView singupUser(@RequestBody UserDTO userdto , ModelAndView mav) {		
 		//ModelAndView mav = new ModelAndView();     // 아직 비번 암 복호화 안됌 ㅋㅌ
+		System.out.println(userdto.toString());
 		userdto.setUserrole(User_Role.user.getValue());  //보류 
 		userdto.toString();
 		int result = userService.createUser(userdto);

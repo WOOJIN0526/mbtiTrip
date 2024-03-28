@@ -24,13 +24,14 @@ function logFormData() {
 }
 
 document.querySelector('.btn-submit').addEventListener('click',function(){
-	let category = document.querySelector('#questionCategory').value;
-	if(category==='direct'){
-		category=document.querySelector('#selboxDirect').value;
+	let title = document.querySelector('#questionCategory').value;
+	if(title==='direct'){
+		title=document.querySelector('#selboxDirect').value;
 	}
 	const contents=document.querySelector('#contents').value;
 	const data={
-		QC:category,
+		
+		title:title,
 		contents:contents		
 	}
 	
@@ -39,7 +40,7 @@ document.querySelector('.btn-submit').addEventListener('click',function(){
 	const url ='/QnA/create';
 	const method ='post';
 	const conType ='JSON';
-	sendAjaxRequest(url,method,jsonData,conType).then((responseText) => {
+/*	sendAjaxRequest(url,method,jsonData,conType).then((responseText) => {
         if(responseText === 'true'){
 			console.log(responseText);
             alert("등록되었습니다.");
@@ -51,12 +52,12 @@ document.querySelector('.btn-submit').addEventListener('click',function(){
         
     }).catch((error) => {
         alert(error.message);
-    });
-/*   const option = {
+    });*/
+   const option = {
   method: 'POST',
   headers: {
     'Accept': 'application/json',
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json; charset=utf-8'
   },
   body:jsonData
 };
@@ -77,7 +78,7 @@ fetch(url, option)
     alert("등록에 실패했습니다.");
   });
 
-    */
+    
     
     
 });
