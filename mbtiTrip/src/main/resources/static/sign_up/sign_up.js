@@ -153,10 +153,10 @@ document.getElementById("sign_up_btn").addEventListener("click",()=>{
 		userId:id,
 		password:pwd,
 		userName:name,
-		bisNumber:bisNumber,
+		mbti:bisNumber,
 		mail:email,
 		phone:phone}
-		var url='/signup/bis';
+		var url='/bis/signup';
 	}
     console.log(sign_up_data);
     let jsonData = JSON.stringify(sign_up_data);
