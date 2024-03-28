@@ -52,8 +52,7 @@ public class UserDTO implements UserDetails{
 	         + "userName=" + userName + ", mail=" + mail
 	         + ", phone=" + phone+ 
 	         ", mbti=" +mbti+"]"+ ", admin= "+ userrole
-	         + ", BNum =" + BNum; 
-	          
+	         + ", BNum =" + BNum;    
 	   }
 
 	@Override
@@ -69,9 +68,10 @@ public class UserDTO implements UserDetails{
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return userName;
+		return this.userName;
 	}
 
+	
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub

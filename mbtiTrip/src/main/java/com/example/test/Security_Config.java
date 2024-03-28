@@ -52,7 +52,6 @@ public class Security_Config  {
 		this.loginService = loginService;
 	}
 	
-	
 	@Bean
 	PasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();
@@ -70,32 +69,38 @@ public class Security_Config  {
 	@Bean
     protected SecurityFilterChain webSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-        .csrf((csrf)->csrf
-        		.disable())
+ 
        .authorizeHttpRequests((authorizeHttpRequests)-> authorizeHttpRequests
-                	 .requestMatchers("/login_A", "main/**", "/**", "/user/signup", "/bis/signup")
-                	 .permitAll())
-       .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-    		   .requestMatchers("/user/**", "bis/**", "/admin").hasRole("ADMIN")
-    		   .requestMatchers("bis/**", "/user/**").hasRole("BIS")
-    		   .requestMatchers("/user/**").hasRole("USER"))
-    		   .formLogin((formLogin) -> formLogin
-    				   .loginPage("/login_form")
-    				   .loginProcessingUrl("login_A")
-    				   .failureUrl("/")
-    				   .usernameParameter("userId"))
-    		   .rememberMe((rememberMe)->rememberMe
-    				   .rememberMeParameter("remember")
-    				   .tokenValiditySeconds(60300)
-    				   .alwaysRemember(true)
-    				   )
-    		   .logout((logout)->logout
-    				   .logoutSuccessUrl("/")
-    				   .invalidateHttpSession(true))
-    		   .exceptionHandling((exceptionHandling)-> exceptionHandling
-    				   .accessDeniedPage("/accessDenied"))
-    		   
-       ;
+                	 .requestMatchers("/login_A", "/**", "/user/signup", "/bis/signup")
+                	 .permitAll());
+       http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
+    		   .requestMatchers("/user/**", "bis/**", "/admin/**").hasRole(User_Role.admin.toString())
+    		   .requestMatchers("bis/**", "/user/**").hasRole(User_Role.bis.toString())
+    		   .requestMatchers("/user/**").hasRole(User_Role.user.toString()))
+    	.formLogin((formLogin) -> formLogin
+    			.loginPage("/login_form")
+    			.loginProcessingUrl("login_A")
+    		    .usernameParameter("userId")
+    		    .passwordParameter("password")
+    		    
+    		    .successHandler((request, response, authentication)->{
+    		    	System.out.println("authentication" + authentication.getName());
+    		    	response.sendRedirect(String.format("user/main/%s"));
+    		    })
+    		    .failureHandler((request, response, exception)->{
+    		        System.out.println("exception : " + exception.getMessage());
+    		    	response.sendRedirect("login_A");
+    		    }));
+//    	.rememberMe((rememberMe)->rememberMe
+//    			.rememberMeParameter("remember")
+//    			.tokenValiditySeconds(60300)
+//    			.alwaysRemember(true))
+//    	.logout((logout)->logout
+//    		.logoutSuccessUrl("/")
+//    		.invalidateHttpSession(true))
+//    		 .exceptionHandling((exceptionHandling)-> exceptionHandling
+//    		.accessDeniedPage("/accessDenied")))   
+//       ;
 	
 //        http
 //        .rememberMe((remember)->remember
@@ -154,6 +159,7 @@ public class Security_Config  {
         return http.build();
 
     }
+
 	
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(loginService).passwordEncoder(passwordEncoder());
