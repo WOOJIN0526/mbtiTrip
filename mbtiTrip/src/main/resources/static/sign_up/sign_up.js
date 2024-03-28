@@ -145,7 +145,7 @@ document.getElementById("sign_up_btn").addEventListener("click",()=>{
 		mbti:mbti,
 		mail:email,
 		phone:phone}
-		var url='/signup/user';
+		var url='/user/signup';
 	}else if(signUpSelect()==='/bis'){
 		console.log(123);
 		const bisNumber = document.querySelector('#bisNumber').value
