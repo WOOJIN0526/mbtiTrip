@@ -72,7 +72,11 @@ public class UserController {
 	@RequestMapping(value = "/user/signup", method=RequestMethod.POST)
 	public ModelAndView singupUser(@RequestBody UserDTO userdto , ModelAndView mav) {		
 		//ModelAndView mav = new ModelAndView();     // 아직 비번 암 복호화 안됌 ㅋㅌ
+
 		log.info("signup user,Post도착 ");
+
+		System.out.println(userdto.toString());
+
 		userdto.setUserrole(User_Role.user.getValue());  //보류 
 		userdto.toString();
 		int result = userService.createUser(userdto);

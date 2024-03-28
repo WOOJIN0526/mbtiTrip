@@ -41,7 +41,7 @@
   flex: 1;
 }
 .main {
-  background-image: url(../main/img/main~.png);
+  /*background-image: url(../main/img/main~.png);*/
   background-size: cover;
   position: relative;
 }
@@ -125,7 +125,7 @@
   position: relative;
 }
 .world {
-  background-image: url(../main/img/div8.png);
+  /*background-image: url(../main/img/div8.png);*/
   background-size: cover;
   padding: 10rem;
 }

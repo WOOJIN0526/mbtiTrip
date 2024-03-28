@@ -164,8 +164,7 @@ public class Security_Config  {
 //                .permitAll());
         
         http.csrf((csrf)->csrf.ignoringRequestMatchers("/**").csrfTokenRepository((CookieCsrfTokenRepository.withHttpOnlyFalse())));
-       
-//        
+
 	
         //defalutURL 수정 or 삭제 필요 테스트 이후 진행 작업자: 신성진 
         return http.build();
