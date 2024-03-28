@@ -56,12 +56,12 @@ public class QnAController {
 	public boolean createQAndA(@RequestBody QnADTO qna,
 								Principal princi) {
 		boolean ck = false;
-		String userName = princi.getName();
-		Integer UID = userService.findByUID(userName);
+//		String userName = princi.getName();
+//		Integer UID = userService.findByUID(userName);
 
 		System.out.println(qna.toString());
-		qna.setUserName(userName);
-		qnaService.createQ(qna);
+//		qna.setUserName(userName);
+//		qnaService.createQ(qna);
 		return ck;
 		
 	}
