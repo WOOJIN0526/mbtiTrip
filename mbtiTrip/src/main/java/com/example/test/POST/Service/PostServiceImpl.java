@@ -18,6 +18,7 @@ import com.example.test.POST.DAO.PostDAO;
 import com.example.test.POST.DTO.AnswerDTO;
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.DTO.Post_CategoryDTO;
+import com.example.test.POST.DTO.SearchData;
 import com.example.test.User.DTO.UserDTO;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -162,4 +163,6 @@ public  class PostServiceImpl implements PostService {
 		    });
 		}
 	
+    
+
 }
