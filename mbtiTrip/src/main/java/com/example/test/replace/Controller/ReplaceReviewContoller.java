@@ -77,7 +77,7 @@ public class ReplaceReviewContoller {
     @GetMapping("/modifyRer/{id}")
     public String rprModify(ReplaceReviewForm rprForm, @PathVariable("id") Integer id, Principal principal) {
         ReplaceReviewDTO rprDto = this.rprService.getPost(id);
-        if(!rprDto.getAuthor().getUserName().equals(principal.getName())) {
+        if(!rprDto.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         rprForm.setTitle(rprDto.getReviewTitle());
@@ -93,7 +93,7 @@ public class ReplaceReviewContoller {
             return "form";
         }
         ReplaceReviewDTO rprDto = this.rprService.getPost(id);
-        if (!rprDto.getAuthor().getUserName().equals(principal.getName())) {
+        if (!rprDto.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         this.rprService.modify(rprDto, rprForm.getTitle(), rprForm.getContent());
@@ -104,7 +104,7 @@ public class ReplaceReviewContoller {
     @GetMapping("/deleteRer/{id}")
     public String rprDelete(Principal principal, @PathVariable("id") Integer id) {
         ReplaceReviewDTO adDto = this.rprService.getPost(id);
-        if (!adDto.getAuthor().getUserName().equals(principal.getName())) {
+        if (!adDto.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
         this.rprService.delete(adDto);
