@@ -84,17 +84,17 @@ public class Security_Config  {
     		   .requestMatchers("/**").permitAll())
     	.formLogin((formLogin) -> formLogin
     			.loginPage("/login_form")
-    			.loginProcessingUrl("login_A")
-    		    .usernameParameter("userId")
-    		    .passwordParameter("password")
+//    			.loginProcessingUrl("login_A")
+//    		    .usernameParameter("userId")
+//    		    .passwordParameter("password")
     		    .successHandler((request, response, authentication)->{
     		    	//3.28 TEST 진행 예정 
     		    	// role 을 잘 받아오면, 여기서 format 가능 
     		    	String role = authentication.getAuthorities().toString();
     		    	log.info("로그인 성공시 유저의 권한 확인 "+role);
-    		    	log.info("principal 정보" + authentication.getPrincipal());
+    		    	log.info("principal 정보" + authentication.getPrincipal().toString());
     		    	System.out.println("authentication" + authentication.getName());
-    		    	response.sendRedirect(String.format("user/main/%s"));
+    		    	response.sendRedirect(String.format("user/mypage/%s"));
     		    })
     		    .failureHandler((request, response, exception)->{
     		        System.out.println("exception : " + exception.getMessage());
@@ -163,8 +163,8 @@ public class Security_Config  {
 //                .deleteCookies("JSESSIONID")
 //                .permitAll());
         
-//        http.csrf((csrf)->csrf.ignoringRequestMatchers("/**").csrfTokenRepository((CookieCsrfTokenRepository.withHttpOnlyFalse())));
-//        return http.build();
+        http.csrf((csrf)->csrf.ignoringRequestMatchers("/**").csrfTokenRepository((CookieCsrfTokenRepository.withHttpOnlyFalse())));
+       
 //        
 	
         //defalutURL 수정 or 삭제 필요 테스트 이후 진행 작업자: 신성진 
