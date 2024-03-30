@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -138,8 +139,21 @@ public class PostController {
         return "list";
     }
     
-
+    @GetMapping("/review/create")
+    public String create() {
+    return "write_form";
+    }
    
+    @PostMapping("/review/create")
+    public String create(@ModelAttribute PostDTO dto) {
+    	int CID = dto.getPostCategoryID();
+    	String title = dto.getTitle();
+    	String content = dto.getContent();
+    	System.out.println("CID : "+CID+", title : "+title+", content : "+content);
+    	
+    	
+    	return "redirect:/post/review/create";
+    }
 
     
 }
