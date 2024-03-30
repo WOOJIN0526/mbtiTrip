@@ -96,7 +96,8 @@ public class UserDTO implements UserDetails{
 		return true;
 	}
 
-	
-	
+	public Integer UID() {
+		return this.UID;
+	}
 	
 }
