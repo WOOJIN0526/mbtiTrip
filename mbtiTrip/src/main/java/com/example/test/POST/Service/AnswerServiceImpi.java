@@ -3,16 +3,20 @@ package com.example.test.POST.Service;
 
 
 
-import java.time.LocalDateTime;
-import java.util.Optional;
+
+import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.test.POST.DAO.AnswerDAO;
+import com.example.test.POST.DAO.PostDAO;
 import com.example.test.POST.DTO.AnswerDTO;
-import com.example.test.POST.DTO.PostDTO;
-import com.example.test.User.DTO.UserDTO;
+import com.example.test.POST.DTO.AnswerPageDTO;
+import com.example.test.paging.Criteria;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public  class AnswerServiceImpi implements AnswerService {
@@ -20,45 +24,53 @@ public  class AnswerServiceImpi implements AnswerService {
 	@Autowired
 	AnswerDAO answerDAO;
 	
-	@Override
-	public AnswerDTO create(PostDTO postDto, String content, UserDTO author) {
-		 AnswerDTO answerDto = new AnswerDTO();
-	        answerDto.setContent(content);
-	        answerDto.setUpdateDate(LocalDateTime.now());
-	        answerDto.setPost(postDto);
-	        answerDto.setAuthor(author);
-	        
-	        return this.answerDAO.save(answerDto);
-	}
+	@Autowired
+	PostDAO postDAO;
 
+	@Transactional
 	@Override
-	public AnswerDTO getAnswer(Integer answerid) {
-		Optional<AnswerDTO> answer = this.answerDAO.findById(answerid);
-		if(answer.isPresent()) {
-			return answer.get();
-		}
-		return null;
-	}
-
-	@Override
-	public AnswerDTO modify(AnswerDTO answerDto, String content) {
-		// TODO Auto-generated method stub
-				answerDto.setContent(content);
-				answerDto.setModifiDate(LocalDateTime.now());
-				return this.answerDAO.save(answerDto);
-	}
-
-	@Override
-	public void delete(AnswerDTO answerDto) {
-		 this.answerDAO.delete(answerDto);
+	public int register(AnswerDTO answer) {
 		
+		postDAO.updateAnswerCnt(answer.getPno(), 1);
+		
+		return answerDAO.insert(answer);
 	}
 
 	@Override
-	public AnswerDTO vote(AnswerDTO answerDto, UserDTO siteUserDto) {
-		 	answerDto.getVoter().add(siteUserDto);
-	        
-	        return this.answerDAO.save(answerDto);
+	public AnswerDTO get(Long ano) {
+		// TODO Auto-generated method stub
+		return answerDAO.read(ano);
 	}
 
+	@Override
+	public int modify(AnswerDTO answer) {
+		// TODO Auto-generated method stub
+		return answerDAO.update(answer);
+	}
+
+	@Transactional
+	@Override
+	public int remove(Long ano) {
+		AnswerDTO anwer = answerDAO.read(ano);
+		
+		postDAO.updateAnswerCnt(anwer.getPno(), -1);
+		return answerDAO.delete(ano);
+	}
+
+	@Override
+	public List<AnswerDTO> getList(Criteria cri, Long pno) {
+		// TODO Auto-generated method stub
+		return answerDAO.getListWithPaging(cri, pno);
+	}
+
+	@Override
+	public AnswerPageDTO getListPage(Criteria cri, Long pno) {
+		// TODO Auto-generated method stub
+		return new AnswerPageDTO(
+				answerDAO.getCountByPno(pno),
+				answerDAO.getListWithPaging(cri, pno));
+	}
+	
+	
+	
 }

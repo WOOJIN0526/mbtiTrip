@@ -106,6 +106,11 @@ public class UserDAO {
 //	
 //	
 //	private boolean admin;
+
+	public Optional<UserDTO> findByUsername(String name) {
+		// TODO Auto-generated method stub
+		return this.sqlSessiontemplate.selectOne("user.getUsername", name);
+	}
 	
 	
 }
