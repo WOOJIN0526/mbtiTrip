@@ -16,13 +16,13 @@ import lombok.Setter;
 public class Adventure_ReviewDTO {
 
 	
-	private Integer adventureReviewID;
+	private Integer adventureReviewID; //작성자 아이디
 	
-	private Integer adventureID;
+	private Integer adventureID; //어드벤쳐 아이디
 	
 	private double rating;
 	
-	private String userName;
+	private String userName; // 작성자 이름
 	
 	private String reviewTitle;
 	
@@ -32,8 +32,8 @@ public class Adventure_ReviewDTO {
 	
 	private LocalDateTime modifyDate;
 	
-	private UserDTO author;
+	private UserDTO author; // 작성자
 	
-	private Integer views;
+	private Integer views; // 조회수
 	
 }

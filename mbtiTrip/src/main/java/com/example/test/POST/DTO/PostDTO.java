@@ -22,8 +22,6 @@ public class PostDTO {
 	
 	private String title;
 	
-	private Integer views;
-	
 	private String content;
 	
 	private UserDTO author;
@@ -39,6 +37,16 @@ public class PostDTO {
 	
 	private Post_CategoryDTO post_category;
 	
+	private Long pno;
 	
+	//댓글수처리위함
+	private int answerCnt;
+	
+	//조회수
+	private int viewCount;
+
+    public void addViewCount() {
+        this.viewCount++;
+    }
 	
 }
