@@ -1,31 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	**xmlns:sec="http://www.thymeleaf.org/extras/spring-security"**
+    layout:decorate="~{layout.html}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>title</title>
   <!-- CKEeditor CDN -->
-  <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
-  <link rel="stylesheet" href="write_form/write_form.css">
+  <script th:src="@{/ckeditor5-build-classic/ckeditor.js}"></script>
+  <script th:src="@{/ckeditor5-build-classic/translations/ko.js}"></script>
+  <link rel="stylesheet" th:href="@{/write/write_form.css}">
 </head>
 <body>
-
+<section layout:fragment="content">
 <div class="container">
   
-  <form id="Form" action="submit_review.php" method="POST">
+  <form id="Form" th:action="@{/post/review/create}" method="POST">
 	<select name="postCategoryID" id="category">
-	        <option value="">리뷰</option>
-	        <option value="">게시판</option>
-	        <option value="">고객센터</option>
+	        <option value="1">리뷰</option>
+	        <option value="2">게시판</option>
 	    </select>
-    <input type="text" name="title" id="title" placeholder="제목을 입력하세요">
-    <div id="content" name="content"></div>
+    <input type="text" name="title" id="title" placeholder="제목을 입력하세요" required>
+    <textarea id="content" name="content"></textarea>
     <button type="submit">작성</button>
   </form>
 </div>
+<script th:src="@{/write/write_form.js}"></script>
+</section>
 
 
-<script src="write_form/write_form.js"></script>
 
 </body>
 </html>

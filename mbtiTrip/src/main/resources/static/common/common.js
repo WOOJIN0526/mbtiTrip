@@ -24,6 +24,7 @@ function sendAjaxRequest(url,method,data,conType){
 		}else{
 			xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		}
+		console.log(xhr);
         xhr.send(data);
     });
 }
