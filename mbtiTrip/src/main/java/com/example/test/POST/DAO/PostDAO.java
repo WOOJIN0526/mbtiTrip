@@ -4,23 +4,21 @@ package com.example.test.POST.DAO;
 
 
 
+
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
+
+import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Page;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
+
 import org.springframework.stereotype.Repository;
 
 
-
 import com.example.test.POST.DTO.PostDTO;
+import com.example.test.paging.Criteria;
 
 
 
@@ -37,49 +35,69 @@ public class PostDAO {
 		return result;
 	}
 
-	PostDTO findBySubject(String subject) {
-		return sqlSessiontemplate.selectOne("post.findBySubject", subject);
-	}
-    PostDTO findBySubjectAndContent(String subject, String content) {
-		return null;
-	}
-    List<PostDTO> findBySubjectLike(String subject) {
-		return sqlSessiontemplate.selectOne("findBySubjectLike", subject);
-	}
-    
-   
 
-	public PostDTO save(PostDTO postDto) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<PostDTO> getList(){
+		return sqlSessiontemplate.selectList("p.list");
 	}
-
-	public void delete(PostDTO postDto) {
-		sqlSessiontemplate.delete("post.delete", postDto);
+	
+	public List<PostDTO> getListWithPaging(Criteria cri){
+		return sqlSessiontemplate.selectList("p.list", cri);
 		
 	}
 	
-	@Modifying
-	@Query("update Board b set b.count = b.count + 1 where b.id = :id")
-	public void updateCount(Integer id) {
-		sqlSessiontemplate.update("post.updateCount", id);
-	}
-
-	public Optional<PostDTO> findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	Page<PostDTO> findAll(Pageable pageable) {
-		return null;
-	}
-	public Page<PostDTO> findAll(Specification<PostDTO> spec, Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
+	public void insert(PostDTO post) {
+		sqlSessiontemplate.insert("post.insert", post);
 	}
 	
+	public Integer insertSelectKey(PostDTO post) {
+		return sqlSessiontemplate.insert("post.insertSelectKey", post);
+		
+	}
 	
+	public PostDTO read(Long pno) {
+		return sqlSessiontemplate.selectOne("post.read", pno);
+	}
+	
+	public int delete(Long bno) {
+		return sqlSessiontemplate.delete("post.delete", bno);
+		
+	}
+	public int update(PostDTO post) {
+		return sqlSessiontemplate.update("post.update", post);
+	}
+	
+	//전체 데이터의 개수 처리(모든 게시물의 수)
+	public int getTotalCount(Criteria cri) {
+		return sqlSessiontemplate.selectOne("post.getTotalCount", cri);
+	}
+	
+	//댓글이 등록되면 1이 증가, 삭제되면 1이 감소
+	public void updateAnswerCnt(@Param("pno") Long pno, @Param("amount") int amount) {
+		sqlSessiontemplate.update("post.updateAnswerCnt", amount);
+	}
+	
+//	
+//	@Modifying
+//	@Query("update Post p set p.count = p.count + 1 where p.id = :id")
+//	public void updateCount(Integer id) {
+//		sqlSessiontemplate.update("post.updateCount", id);
+//	}
 
+	
+	
+//	public List<PostDTO> list(Criteria cri) throws Exception {		
+//	    return sqlSessiontemplate.selectList("qna.q_list", cri);
+//	}
+//
+//	public int listCount(Criteria cri) {
+//	    return sqlSessiontemplate.selectOne("qna.listCount", cri);
+//	}
+
+
+
+
+
+	
 	
 	
 }

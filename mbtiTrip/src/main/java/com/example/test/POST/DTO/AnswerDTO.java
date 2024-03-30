@@ -16,15 +16,14 @@ public class AnswerDTO {
 	
 	private Integer postID;
 	
-	private String content;
-	
-	private PostDTO post; //Answer <-> Post	
-	
-	private UserDTO Author;
-	
+	private Long ano;
+	private Long pno;
+	private String replay;
+	private String replayer;
+	private LocalDateTime replayDate;
 	private LocalDateTime updateDate;
 	
-	private LocalDateTime modifiDate;
 	
-	private Set<UserDTO> voter;
+	
+	
 }

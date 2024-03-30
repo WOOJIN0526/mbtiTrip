@@ -19,6 +19,7 @@ import com.example.test.Adventure.DTO.AdventureDTO;
 import com.example.test.Adventure.DTO.Adventure_CategoryDTO;
 import com.example.test.AdventureDAO.AdventureDAO;
 import com.example.test.POST.DTO.AnswerDTO;
+import com.example.test.POST.DTO.Criteria;
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.Service.DataNotFoundException;
 import com.example.test.User.DTO.UserDTO;
@@ -43,86 +44,85 @@ public class AdventureServiceImpl implements AdventureService{
 	@Autowired
 	AdventureDAO adDAO;
 	
-		private Specification<AdventureDTO> search(String kw, String categoryName) {
-        return new Specification<AdventureDTO>() {
-            private static final long serialVersionUID = 1L;
-            
-            @Override
-            public Predicate toPredicate(Root<AdventureDTO> q, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                query.distinct(true);  // 중복을 제거 
-                Join<AdventureDTO, UserDTO> u1 = q.join("author", JoinType.LEFT);
-                Join<AdventureDTO, AnswerDTO> a = q.join("answerList", JoinType.LEFT);
-                Join<AdventureDTO, Adventure_CategoryDTO> c = q.join("category", JoinType.LEFT);
-                Join<AnswerDTO, UserDTO> u2 = a.join("author", JoinType.LEFT);
-                return cb.or(cb.like(q.get("subject"), "%" + kw + "%"), // 제목 
-                        cb.like(q.get("content"), "%" + kw + "%"),      // 내용 
-                        cb.like(u1.get("username"), "%" + kw + "%"),    // 질문 작성자 
-                        cb.like(a.get("content"), "%" + kw + "%"),      // 답변 내용 
-                        cb.like(u2.get("username"), "%" + kw + "%"),   // 답변 작성자 
-                		cb.like(c.get("name"), "%" + categoryName + "%"));	// 카테고리 이름
-                		
-            }
-        };
-    }
-
-		@Override
-		public Page<AdventureDTO> getList(int page, String kw, String categoryName) {
-			 List<Sort.Order> sorts = new ArrayList<>();
-		     sorts.add(Sort.Order.desc("createDate"));
-		     Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-		     Specification<AdventureDTO> spec = search(kw, categoryName);
-		     return this.adDAO.findAll(spec,pageable);
-		}
-
-		@Override
-		public AdventureDTO getPost(Integer userid) {
-			 Optional<AdventureDTO> ad = this.adDAO.findById(userid);
-			 if (ad.isPresent()) {
-		        	AdventureDTO ad1 = ad.get();        	
-		        	ad1.setViews(ad1.getViews()+1);        	
-		        	this.adDAO.save(ad1);
-		            	return ad1;
+	
+	
+	@Override
+	public AdventureDTO getAdventure(Integer userid) {
+			Optional<AdventureDTO> ADdto = this.adDAO.findById(userid);
+			  if (ADdto.isPresent()) {
+		        	AdventureDTO post = ADdto.get();        	
+		        	post.setViews(post.getViews()+1);        	
+		        	this.adDAO.save(post);
+		            	return post;
 		        } else {
 		            throw new DataNotFoundException("adventure not found");
 		        }	
 			  }
+	
 
+
+
+	@Override
+	public AdventureDTO create(String title, String content, UserDTO user, Adventure_CategoryDTO category) {
+		AdventureDTO adDto = new AdventureDTO();
+        adDto.setAdventureName(title);
+        adDto.setAdventureContent(content);
+        adDto.setAdCategory(category);
+        adDto.setUpdateDate(LocalDateTime.now());
+        adDto.setAuthor(user);
+        
+        
+        return this.adDAO.save2(adDto);
+	}
+
+
+
+	@Override
+	public AdventureDTO modify(AdventureDTO adDto, String title, String content) {
+		adDto.setAdventureName(title);
+        adDto.setAdventureContent(content);
+        adDto.setModifyDate(LocalDateTime.now());
+        
+        
+        return this.adDAO.save2(adDto);
+	}
+
+
+
+	@Override
+	public void delete(AdventureDTO adDto) {
+		 this.adDAO.delete(adDto);
 		
+	}
 
-		@Override
-		public AdventureDTO create(String title, String content, String admin) {
-			AdventureDTO adDto = new AdventureDTO();
-	        adDto.setAdventureName(title);
-	        adDto.setAdventureContent(content);
-	        adDto.setUpdateDate(LocalDateTime.now());
-	        adDto.setAdventureAdmin(admin);
-			return adDto;
-		}
 
-		@Override
-		public AdventureDTO modify(AdventureDTO adDto, String title, String content) {
-			adDto.setAdventureName(title);
-	        adDto.setAdventureContent(content);
-	        adDto.setModifyDate(LocalDateTime.now());
-	        
-	        
-	        return this.adDAO.save(adDto);
-		}
 
-		@Override
-		public void delete(AdventureDTO adDto) {
-			this.adDAO.delete(adDto);
-			
-		}
+	@Override
+	public AdventureDTO vote(AdventureDTO adDto, UserDTO userDto) {
+		adDto.getVoter().add(userDto);
+        
+        return this.adDAO.save2(adDto);
+	}
 
-		@Override
-		public AdventureDTO vote(AdventureDTO adDto, UserDTO user) {
-			adDto.getVoter().add(user);
-	        
-	        return this.adDAO.save(adDto);
-		}
-	
-	
+
+
+	@Override
+	public List<AdventureDTO> list(Criteria cri) throws Exception {
+		// TODO Auto-generated method stub
+				return adDAO.list(cri);
+	}
+
+
+
+	@Override
+	public int listCount(Criteria cri) throws Exception {
+		// TODO Auto-generated method stub
+				return adDAO.listCount(cri);
+
+	}
+
+
+
 		// 게시물을 조회하고 조회수 증가
 		@Transactional
 		public AdventureDTO detail(Integer id, HttpServletRequest request, HttpServletResponse response) {

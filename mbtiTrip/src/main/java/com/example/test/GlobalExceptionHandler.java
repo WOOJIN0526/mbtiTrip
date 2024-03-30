@@ -17,28 +17,28 @@ import lombok.extern.log4j.Log4j2;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(Exception.class)
-    protected ResponseEntity<ErrorResponse> handleBusinessException(Exception ex) {
-    	log.error("handlerException", ex);
-    	ErrorRespone response = new ErrorRespone(ErrorCode.INTER_SERVER_ERROR);
-    	return new ResponseEntity(response, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-    
-    @ExceptionHandler(NullPointerException.class)
-    protected ResponseEntity<ErrorResponse> NullhandlerException(NullPointerException nEX){
-    	log.error("nullPoingException", nEX);
-    	
-    	ErrorRespone response = new ErrorRespone(nEX.toString(), "null" );
-    	return new ResponseEntity(response, HttpStatus.NOT_FOUND);
-    }
-    	
-    @ExceptionHandler(NoResourceFoundException.class)
-    protected ResponseEntity<ErrorResponse> NoResourceFoundException(NoResourceFoundException noresource){
-    	log.error("NoResourceFoundException", noresource);
-    	ErrorRespone response = new ErrorRespone(noresource.toString(), "Noresource" );
-    	return new ResponseEntity(response, HttpStatus.CONTINUE);
-    	
-    }
+//    @ExceptionHandler(Exception.class)
+//    protected ResponseEntity<ErrorResponse> handleBusinessException(Exception ex) {
+//    	log.error("handlerException", ex);
+//    	ErrorRespone response = new ErrorRespone(ErrorCode.INTER_SERVER_ERROR);
+//    	return new ResponseEntity(response, HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
+//    
+//    @ExceptionHandler(NullPointerException.class)
+//    protected ResponseEntity<ErrorResponse> NullhandlerException(NullPointerException nEX){
+//    	log.error("nullPoingException", nEX);
+//    	
+//    	ErrorRespone response = new ErrorRespone(nEX.toString(), "null" );
+//    	return new ResponseEntity(response, HttpStatus.NOT_FOUND);
+//    }
+//    	
+//    @ExceptionHandler(NoResourceFoundException.class)
+//    protected ResponseEntity<ErrorResponse> NoResourceFoundException(NoResourceFoundException noresource){
+//    	log.error("NoResourceFoundException", noresource);
+//    	ErrorRespone response = new ErrorRespone(noresource.toString(), "Noresource" );
+//    	return new ResponseEntity(response, HttpStatus.CONTINUE);
+//    	
+//    }
 }
 
 

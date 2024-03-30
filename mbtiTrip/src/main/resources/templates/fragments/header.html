@@ -10,7 +10,7 @@
 	<script th:src="@{/common/header.js}"></script>
 </head>
 <body>
-    <header th:fragment="header">
+	<div th:replace="fragments/header :: header">
 		
 		 <div sec:authorize="isAuthenticated()" class="profile disActive">
 		   <!-- <div class="profileBox">
@@ -68,7 +68,7 @@
                 <a sec:authorize="isAnonymous()" th:href="@{/login_A}"><span class="tab">로그인</span></a>
 				<div sec:authorize="isAuthenticated()" class="userBox">
 					<!-- 유저 박스 보더 -->
-					<div class="user">
+					<div sec:authorize="hasRole('ROLE_USER')" 	th:object="${user}" class="User">
 					  <div class="profileBox" th:object="user">
 					    <div class="userImg" th:img="user.img"></div>
 					    <p class="userName" th:text="user.name">User X</p>
@@ -83,7 +83,7 @@
 				</div>
             </div>
         </div>
-    </header>
+    </div>
 	<script th:href="@{/common/header.js}"></script>
 </body>
 </html>

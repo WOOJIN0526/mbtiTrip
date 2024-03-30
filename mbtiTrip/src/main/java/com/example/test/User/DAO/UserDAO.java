@@ -3,17 +3,22 @@ package com.example.test.User.DAO;
 import java.util.Map;
 import java.util.Optional;
 
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.example.test.User.DTO.UserDTO;
 
+import jakarta.inject.Inject;
+
 @Repository
 public class UserDAO {
 
+
+	
 	@Autowired
-	SqlSessionTemplate sqlSessiontemplate;
+	SqlSessionTemplate sqlSessiontemplate ;
 	
 
 	
@@ -59,6 +64,11 @@ public class UserDAO {
 		Map result = this.sqlSessiontemplate.selectOne("user.login", userdto);
 		return result;
 	}
+	
+	public UserDTO getByUserId(String userId) {
+		UserDTO result = this.sqlSessiontemplate.selectOne("user.getbyuserId", userId);
+		return result;
+	}
 //	
 //	@Id @GeneratedValue
 //	@Column(name = "User_ID")
@@ -96,6 +106,11 @@ public class UserDAO {
 //	
 //	
 //	private boolean admin;
+
+	public Optional<UserDTO> findByUsername(String name) {
+		// TODO Auto-generated method stub
+		return this.sqlSessiontemplate.selectOne("user.getUsername", name);
+	}
 	
 	
 }

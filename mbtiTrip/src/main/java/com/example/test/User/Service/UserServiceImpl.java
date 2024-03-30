@@ -1,6 +1,7 @@
 package com.example.test.User.Service;
 
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,10 @@ import org.springframework.stereotype.Service;
 import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DTO.UserDTO;
 
+import lombok.extern.log4j.Log4j2;
+
+
+@Log4j2
 @Service 
 public class UserServiceImpl implements UserService{
 
@@ -68,8 +73,16 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public Integer findByUID(String userName) {
+		log.info("User Service {}", userName);
 		Integer UID = userDao.getUID(userName);
+		log.info("User Service after {}", userName);
 		return UID;
+	}
+
+	@Override
+	public UserDTO getUser(String name) {
+		Optional<UserDTO> siteUser = this.userDao.findByUsername(name);
+		return siteUser.get();
 	}
 
 
