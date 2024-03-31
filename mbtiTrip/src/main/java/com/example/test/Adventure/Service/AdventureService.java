@@ -26,4 +26,4 @@ package com.example.test.Adventure.Service;
 //	 List<AdventureDTO> list(Criteria cri) throws Exception;
 
 //	 public int listCount(Criteria cri) throws Exception;
-//}
+//} 수정
