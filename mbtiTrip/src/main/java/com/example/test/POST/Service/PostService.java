@@ -8,6 +8,7 @@ import java.util.List;
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.paging.Criteria;
 
+
 public interface PostService {
 
 	 //public Page<PostDTO> getList(int page, String kw, String categoryName);
