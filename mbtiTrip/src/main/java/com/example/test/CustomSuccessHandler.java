@@ -44,11 +44,6 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 			try {	
 				log.info("로그인 성공시 접속자의 권한 확인이 가능한지 에 대한  log {}", authentication.getAuthorities());
 				HttpSession session = request.getSession();
-				log.info("Success Handler  : {}", session);
-				log.info("authentication   : {}", authentication.getName());
-				log.info("getCredentials   : {}", authentication.getCredentials());
-				log.info("getDetails   : {}", authentication.getDetails());
-				log.info("principal == {}" ,authentication.getPrincipal());
 				String userName = authentication.getName();
 				session.setAttribute("userName", userName);
 				response.sendRedirect("user/login/success");
