@@ -1,37 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" th:href="@{login_form/login_form.css}">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" th:href="@{login_form/login_form.css}">
 </head>
+
 <body>
-    <!-- login head -->
-    
-    
-    <!-- login main -->
-    <div class="main">
-        <div class="totLoginPage" id="totLoginPage">
-            <form class="login-form" action="login_A" method="POST">
-                <div class="logo">
-                    <p>로고들어감</p>
-                </div>
-                <!-- login_information -->
-                <fieldset id = login>
-                    <input type="textbox" id="id" name="username" placeholder="ID" required><br>
-                    <input type="password" id="pwd" name="password" placeholder="Password" required>
-                </fieldset>
-                <br>
-                <!--login_and_sign_btn-->
-                <input type="submit" id="login-btn" value="로그인">   
-                <input type="button" id="sign_up_btn" value="회원가입">         
-            </form>
-				<input type="checkbox" name="remember">
-                <a id= "lostIdAndLostPassword" href="">아이디/비밀번호 찾기</a><br>
-                <!-- <a id= "lostIdAndLostPassword" href="">SNS 아이디로 로그인</a>-->
-        </div>
-    </div>
-    <script th:src="@{login_form/login_from.js}"></script>
+	<!-- login head -->
+
+
+	<!-- login main -->
+	<div class="main">
+		<div class="totLoginPage" id="totLoginPage">
+			<form class="login-form" action="login_A" method="POST">
+				<div class="logo">
+					<p>로고들어감</p>
+				</div>
+				<!-- login_information -->
+				<fieldset id=login>
+					<input type="textbox" id="id" name="username" placeholder="ID" required><br>
+					<input type="password" id="pwd" name="password" placeholder="Password" required>
+				</fieldset>
+				<br>
+				<!--login_and_sign_btn-->
+				<input type="submit" id="login-btn" value="로그인">
+				<input type="button" id="sign_up_btn" value="회원가입">
+			</form>
+			<p> 
+				<label for="remember-me" style>로그인 유지</label>
+				<input type="checkbox" id="remember-me" name="remember-me" />
+			</p>
+
+			<a id="lostIdAndLostPassword" href="">아이디/비밀번호 찾기</a><br>
+			<!-- <a id= "lostIdAndLostPassword" href="">SNS 아이디로 로그인</a>-->
+		</div>
+	</div>
+	<script th:src="@{login_form/login_from.js}"></script>
 </body>
+
 </html>

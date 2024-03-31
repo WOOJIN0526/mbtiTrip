@@ -23,13 +23,13 @@ import lombok.extern.log4j.Log4j2;
 
 @Service
 @Log4j2
-public class LoginService implements UserDetailsService{
+public class CustomLoginService implements UserDetailsService{
 	
 	
 	
 	private UserDAO userDao;
 	
-	public LoginService( UserDAO userDao) {
+	public CustomLoginService( UserDAO userDao) {
 		this.userDao = userDao;
 	}
 	
