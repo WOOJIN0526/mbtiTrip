@@ -41,7 +41,7 @@ public class AnswerController {
 		UserService userservice;
 	
 		//등록
-		@PreAuthorize("isAuthenticated()")
+		//@PreAuthorize("isAuthenticated()")
 		@PostMapping(value = "/new", consumes = "application/json",
 					 produces = {MediaType.TEXT_PLAIN_VALUE})
 		public ResponseEntity<String> create(@RequestBody AnswerDTO answer){
@@ -74,7 +74,7 @@ public class AnswerController {
 		}
 		
 		//댓글 삭제
-		@PreAuthorize("principal.username == #answer.replyer")
+		//@PreAuthorize("principal.username == #answer.replyer")
 		@DeleteMapping(value = "/{rno}", produces = {MediaType.TEXT_PLAIN_VALUE})
 		public ResponseEntity<String> remove(@PathVariable("ano") Long ano){
 			return answerService.remove(ano) == 1
@@ -83,7 +83,7 @@ public class AnswerController {
 		}
 		
 		//댓글 수정
-		@PreAuthorize("principal.username == #answer.replyer")
+		//@PreAuthorize("principal.username == #answer.replyer")
 		@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH},
 				value = "/{ano}",
 				consumes = "application/json",
