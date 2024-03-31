@@ -68,10 +68,10 @@
                 <a sec:authorize="isAnonymous()" th:href="@{/login_A}"><span class="tab">로그인</span></a>
 				<div sec:authorize="isAuthenticated()" class="userBox">
 					<!-- 유저 박스 보더 -->
-					<div sec:authorize="hasRole('ROLE_USER')" 	th:object="${user}" class="User">
+					<div th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"  class="User">
 					  <div class="profileBox" th:object="user">
 					    <div class="userImg" th:img="user.img"></div>
-					    <p class="userName" th:text="user.name">User X</p>
+					    <p class="userName" th:text="${user[`userName`]}">User X</p>
 					</div>
 					  <!-- 메뉴아이콘 svg -->
 					<svg class="icon-menu" width="62" height="62" viewBox="0 0 62 62" fill="none"

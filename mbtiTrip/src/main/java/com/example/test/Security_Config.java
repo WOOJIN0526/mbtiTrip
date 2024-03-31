@@ -33,7 +33,8 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.AntPathMatcher;
 
 import com.example.test.User.DTO.User_Role;
-import com.example.test.User.Service.LoginService;
+import com.example.test.User.Service.CustomLoginService;
+
 import com.example.test.User.Service.UserService;
 import com.mysql.cj.protocol.AuthenticationProvider;
 
@@ -50,10 +51,10 @@ import lombok.extern.log4j.Log4j2;
 public class Security_Config  {
 
 	private UserDetailsService userDetailsService; //?
-	private LoginService loginService; 
+	private CustomLoginService loginService; 
 	
 	
-	public Security_Config(LoginService loginService) {
+	public Security_Config(CustomLoginService loginService) {
 		this.loginService = loginService;
 	}
 	
@@ -86,7 +87,14 @@ public class Security_Config  {
     		   .requestMatchers("/**").permitAll())
     	.formLogin((formLogin) -> formLogin
     			.loginPage("/login_A")
-    			.successHandler(new CustomSuccessHandler())
+    			.successHandler(new CustomSuccessHandler()))
+    	.rememberMe((remember) -> remember
+    			.key("oingdaddy")
+    			.rememberMeParameter("remember-me")
+    			.tokenValiditySeconds(86400)
+    			.userDetailsService(loginService)
+    			.authenticationSuccessHandler(new CustomSuccessHandler()))
+    	
     					
 //    		    .usernameParameter("userId")
 //    		    .passwordParameter("password")
@@ -104,7 +112,7 @@ public class Security_Config  {
 //    		        System.out.println("exception : " + exception.getMessage());
 //    		    	response.sendRedirect("login_A");
 //    		    })
-    		    )
+    		    
 //    	.exceptionHandling((ex)->ex.accessDeniedPage("/access_denied_page"))
     	;
 //    	.rememberMe((rememberMe)->rememberMe   

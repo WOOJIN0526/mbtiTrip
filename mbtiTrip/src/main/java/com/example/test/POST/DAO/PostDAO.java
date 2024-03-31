@@ -5,6 +5,7 @@ package com.example.test.POST.DAO;
 
 
 
+
 import java.util.List;
 import java.util.Map;
 
@@ -76,22 +77,6 @@ public class PostDAO {
 		sqlSessiontemplate.update("post.updateAnswerCnt", amount);
 	}
 	
-//	
-//	@Modifying
-//	@Query("update Post p set p.count = p.count + 1 where p.id = :id")
-//	public void updateCount(Integer id) {
-//		sqlSessiontemplate.update("post.updateCount", id);
-//	}
-
-	
-	
-//	public List<PostDTO> list(Criteria cri) throws Exception {		
-//	    return sqlSessiontemplate.selectList("qna.q_list", cri);
-//	}
-//
-//	public int listCount(Criteria cri) {
-//	    return sqlSessiontemplate.selectOne("qna.listCount", cri);
-//	}
 
 
 
