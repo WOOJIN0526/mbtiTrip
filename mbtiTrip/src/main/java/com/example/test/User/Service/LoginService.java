@@ -1,7 +1,12 @@
 package com.example.test.User.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -9,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DTO.UserDTO;
+import com.example.test.User.DTO.User_Role;
 
 import groovy.cli.Option;
 import lombok.extern.log4j.Log4j2;
@@ -19,6 +25,8 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class LoginService implements UserDetailsService{
 	
+	
+	
 	private UserDAO userDao;
 	
 	public LoginService( UserDAO userDao) {
@@ -28,30 +36,32 @@ public class LoginService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<UserDTO> userInfo = userDao.findByUserID(username);
-		log.info(userInfo.toString());
-		if(userInfo.isPresent()) {
-			UserDTO userIn = userInfo.get();
-			
-			UserDTO user = UserDTO.builder()
-					.UID(userIn.getUID())
-					.userId(userIn.getUserId())
-					.userName(userIn.getUsername())
-					.mbti(userIn.getMbti())
-					.BNum(userIn.getBNum())
-					.password(userIn.getPassword())
-					.phone(userIn.getPhone())
-					.Rank(userIn.getRank())
-					.mail(userIn.getMail())
-					.cart(userIn.getCart())
-					.history(userIn.getHistory())
-					.userrole(userIn.getUserrole())
-					.build();
-			
-			log.info("user: {}", user);
-			return user;
+		//여기서 username = userId
+		log.info("LoginService, loadUserByUsername =="+ username);
+		Optional<UserDTO> userInfo = Optional.of(userDao.getByUserId(username));
+		log.info("optinal Test  ==== ", userInfo.get());
+		if(userInfo.isEmpty()) {
+			log.info("THROWS ===", "UsernameNotFoundException");
+			throw new UsernameNotFoundException("찾을 수 없는 유저입니다.");
 		}
-		return null;
+		log.info("message ===", userInfo);
+		UserDTO user = userInfo.get();
+		List<GrantedAuthority> auth = new ArrayList<>();
+		
+		if(user.getUserrole().equals(User_Role.user.getValue())) {
+			log.info("authorize User");
+			auth.add(new SimpleGrantedAuthority(User_Role.user.getValue()));
+			
+		}
+		else if(user.getUserrole().equals(User_Role.bis.getValue())) {
+			auth.add(new SimpleGrantedAuthority(User_Role.bis.getValue()));
+		}
+		else if(user.getUserrole().equals(User_Role.admin.getValue())) {
+			auth.add(new SimpleGrantedAuthority(User_Role.admin.getValue()));
+		}
+
+		
+		return new User(user.getUserId(), user.getPassword(), auth);
 	}
 
 }

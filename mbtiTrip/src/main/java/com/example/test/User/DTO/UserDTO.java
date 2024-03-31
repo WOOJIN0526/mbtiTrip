@@ -59,8 +59,8 @@ public class UserDTO implements UserDetails{
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Collection<GrantedAuthority> authorities = new ArrayList<>();
 		
-		for(String role : userrole.split(",")) {
-			authorities.add(new SimpleGrantedAuthority(role));
+		for(User_Role role : User_Role.values()) {
+			authorities.add(new SimpleGrantedAuthority(role.getValue()));
 		}
 		return authorities;
 	}
@@ -96,7 +96,8 @@ public class UserDTO implements UserDetails{
 		return true;
 	}
 
-	
-	
+	public Integer UID() {
+		return this.UID;
+	}
 	
 }

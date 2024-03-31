@@ -4,8 +4,10 @@ import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.RememberMeAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -62,8 +64,9 @@ public class Security_Config  {
 	
 //	@Bean
 //	public void configure(WebSecurity web) throws Exception {
-//	    (web)->web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-//	
+//	    (web)->web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations()
+//	}
+	
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers("**.js", "**.css", "**.img");
@@ -79,27 +82,28 @@ public class Security_Config  {
        http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
     		   .requestMatchers("/user/**", "bis/**", "/admin/**").hasRole("ADMIN")
     		   .requestMatchers("bis/**", "/user/**").hasRole("BIS")
-    		  
     		   .requestMatchers("/user/**").hasRole("USER")
     		   .requestMatchers("/**").permitAll())
     	.formLogin((formLogin) -> formLogin
-    			.loginPage("/login_form")
-    			.loginProcessingUrl("login_A")
-    		    .usernameParameter("userId")
-    		    .passwordParameter("password")
-    		    .successHandler((request, response, authentication)->{
-    		    	//3.28 TEST 진행 예정 
-    		    	// role 을 잘 받아오면, 여기서 format 가능 
-    		    	String role = authentication.getAuthorities().toString();
-    		    	log.info("로그인 성공시 유저의 권한 확인 "+role);
-    		    	log.info("principal 정보" + authentication.getPrincipal());
-    		    	System.out.println("authentication" + authentication.getName());
-    		    	response.sendRedirect(String.format("user/main/%s"));
-    		    })
-    		    .failureHandler((request, response, exception)->{
-    		        System.out.println("exception : " + exception.getMessage());
-    		    	response.sendRedirect("login_A");
-    		    })
+    			.loginPage("/login_A")
+    			.successHandler(new CustomSuccessHandler())
+    					
+//    		    .usernameParameter("userId")
+//    		    .passwordParameter("password")
+//    		    .successHandler((request, response, authentication)->{
+//    		    	//3.28 TEST 진행 예정 
+//    		    	// role 을 잘 받아오면, 여기서 format 가능 
+//    		    	String role = authentication.getAuthorities().toString();
+//    		    	log.info("로그인 성공시 유저의 권한 확인 "+role);
+//    		    	log.info("principal 정보" + authentication.getPrincipal().toString());
+//    		    	System.out.println("authentication" + authentication.getName());
+//    		    	response.sendRedirect(String.format("user/mypage/%s"));
+//    		    })
+    	
+//    		    .failureHandler((request, response, exception)->{s
+//    		        System.out.println("exception : " + exception.getMessage());
+//    		    	response.sendRedirect("login_A");
+//    		    })
     		    )
 //    	.exceptionHandling((ex)->ex.accessDeniedPage("/access_denied_page"))
     	;
@@ -164,8 +168,7 @@ public class Security_Config  {
 //                .permitAll());
         
         http.csrf((csrf)->csrf.ignoringRequestMatchers("/**").csrfTokenRepository((CookieCsrfTokenRepository.withHttpOnlyFalse())));
-//        return http.build();
-        
+
 	
         //defalutURL 수정 or 삭제 필요 테스트 이후 진행 작업자: 신성진 
         return http.build();
@@ -176,7 +179,7 @@ public class Security_Config  {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(loginService).passwordEncoder(passwordEncoder());
     }
-	
+//	
     @Bean
     RememberMeServices rememberMeServices(UserDetailsService userDetailsService) {
     	RememberMeTokenAlgorithm encodingAlgorithm = RememberMeTokenAlgorithm.SHA256;
@@ -184,6 +187,13 @@ public class Security_Config  {
     	rememberMe.setMatchingAlgorithm(RememberMeTokenAlgorithm.MD5);
     	return rememberMe;
     }
+    
+    @Bean
+	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) 
+	throws Exception{
+		
+		return authenticationConfiguration.getAuthenticationManager();
+	}
     
     /** 구현 중 */
 //    @Bean

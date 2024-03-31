@@ -26,6 +26,15 @@
 		WHERE UserId = #{userId} And `password`=#{password}; 
 	]]>
 	</select>
+	
+	<select id="getbyuserId" resultType="com.example.test.User.DTO.UserDTO">
+	 <![CDATA[
+		SELECT * 
+		FROM User
+		WHERE UserId = #{userId}  
+	]]>
+	</select>
+	
 
 	<select id="getInfo" resultType="hashmap">
 	 <![CDATA[
@@ -38,9 +47,11 @@
 	</select>
 	
 	<select id="getUser" resultType="list">
+	<![CDATA[
 	Select * 
 	from User 
 	where userName = #{username}
+	]]>
 	</select>
 
 	<select id="getUID" resultType="Integer">
