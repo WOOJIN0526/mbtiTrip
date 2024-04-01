@@ -10,7 +10,7 @@
 	
 </head>
 <body>
-	<div  th:replace="fragments/header">
+	<div th:fragment="header">
 		
 		 <div sec:authorize="isAuthenticated()" class="profile disActive">
 		   <!-- <div class="profileBox">
