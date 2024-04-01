@@ -81,8 +81,8 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public UserDTO getUser(String name) {
-		Optional<UserDTO> siteUser = this.userDao.findByUsername(name);
-		return siteUser.get();
+		UserDTO siteUser = this.userDao.findByUsername(name);
+		return siteUser;
 	}
 
 

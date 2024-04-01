@@ -23,7 +23,7 @@
 		<!-- serch -->
 		<section class="serch">
 			<form action="" class="c-search-box"><span class="c-search-box__wrap">
-					<label class="searchQ&A">Q&A 검색</label>
+					<label class="searchQ&A">QnA 검색</label>
 					<input id="searchQ&A" type="text" name="search" placeholder="궁금한 점을 검색해 보세요" maxlength="256"
 						class="c-input-search">
 					<button type="button" class="c-button-search">
@@ -268,7 +268,7 @@
                         </p>
                     </div>
                 </details>
-				<div th:each="question : ${questionList}">
+				<div th:each="question : ${qnaList}">
 					<details class="question" data-value="own">
 						<summary>
 							<span th:text="${question.title}"></span>

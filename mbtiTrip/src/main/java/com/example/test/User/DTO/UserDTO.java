@@ -48,7 +48,7 @@ public class UserDTO implements UserDetails{
 	
 	@Override
 	   public String toString() {
-	      return "UserDTO [userId=" + userId + ", password=" + password + ", "
+	      return "UserDTO [UID = "+ UID+ "userId=" + userId + ", password=" + password + ", "
 	         + "userName=" + userName + ", mail=" + mail
 	         + ", phone=" + phone+ 
 	         ", mbti=" +mbti+"]"+ ", admin= "+ userrole

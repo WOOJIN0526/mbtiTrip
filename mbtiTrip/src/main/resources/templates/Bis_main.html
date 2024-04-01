@@ -14,7 +14,7 @@
 <body>
 
 	<div layout:fragment="content">
-		<div sec:authorize="hasRole('ROLE_USER')">
+		<div sec:authorize="hasRole('ROLE_BIS')">
 			<div class="main">
 				<div class="container">
 					<span class="main-title">Main Title</span>
@@ -28,9 +28,6 @@
 					<form action="">
 						<input class="textfield2" type="text" value="1조 화이팅 ~">
 					</form>
-					<div style="padding: 1rem;">
-							<div th:text="${#authentication.principal}">
-					</div>
 				</div>
 			</div>
 		</div>
@@ -57,7 +54,9 @@
 		</div>
 	</div>
 
-
+	<div style="padding: 1rem;">
+			<div th:text="${#authentication.principal}">
+	</div>
 
 
 	<div class="div11">

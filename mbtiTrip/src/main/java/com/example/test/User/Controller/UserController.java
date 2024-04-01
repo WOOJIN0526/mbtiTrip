@@ -7,7 +7,11 @@ import java.util.Map;
 import org.apache.catalina.security.SecurityConfig;
 import org.hibernate.validator.internal.util.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Import;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,6 +53,8 @@ public class UserController {
 	
 
 	private BCryptPasswordEncoder bcrypasswordEncoder = new BCryptPasswordEncoder(); 
+	
+	
 	
 //	@RequestMapping(value="/access_denied_page", method=RequestMethod.GET)
 //	public String DeniedPage  {       
@@ -166,12 +172,17 @@ public class UserController {
 		return mv;
 	}
 	
-	
+	@PreAuthorize("isAuthenticated() and  hasRole('ROLE_USER')")
 	@RequestMapping(value = "/user/main", method = RequestMethod.GET)
 	public ModelAndView main(Principal principar,
+							Authentication auth,
 							ModelAndView mav) {
+		principar.getName();
+		log.info("main user 권한 확인 ={}", auth.getAuthorities());
+		
 		log.info("main 접속 중 ");
 		Integer UID = userService.findByUID(principar.getName());
+		
 		Map<String, Object> user = userService.getInfo(UID);
 		log.info("userMain info = {} ", user);
 		mav.addObject("user", user);
@@ -200,13 +211,12 @@ public class UserController {
 //		return mav;
 //	}
 	
-	
+	@PreAuthorize("isAuthenticated() and  hasRole('ROLE_USER')")
 	@RequestMapping(value = "/user/mypage", method = RequestMethod.GET)
 	public ModelAndView mypageUser(Principal principal, UserDTO userdto, ModelAndView mav){
 		String userName = principal.getName();
 		log.info(userName);
 		Integer UID = userService.findByUID(userName);
-		
 		Map<String, Object> user = userService.getInfo(UID);
 		
 		log.info("user mypage 정보 {}", user);
@@ -215,7 +225,40 @@ public class UserController {
 		return mav;
 	}
 
+	
+	
+	
+	@PreAuthorize("isAuthenticated() and  hasRole('ROLE_USER')")
 	@RequestMapping(value = "/user/mypage/update", method = RequestMethod.GET)
+	public ModelAndView update_ck(Principal principal, ModelAndView mav){
+		log.info("cheak");
+		mav.addObject("userName", principal.getName());
+		mav.setViewName("user_update_ck");
+		return mav;
+	}
+	
+	@PreAuthorize("isAuthenticated() and  hasRole('ROLE_USER')")
+	@RequestMapping(value = "/user/mypage/update", method = RequestMethod.POST) 
+	public ModelAndView update_ck(@RequestParam("password") String password,   
+								Principal principal, ModelAndView mav) throws Exception{
+		
+		log.info("message ={}", principal.getName());
+		String ck_password =userService.getUser(principal.getName()).getPassword();
+		if(bcrypasswordEncoder.matches(password, ck_password)) {
+			log.info("message 인증성공");
+			mav.addObject("userName", principal.getName());
+			mav.setViewName("redirect:/user/mypage/update/ck");	
+		}
+		else {
+			throw new Exception("비밀번호가 일치 하지 않습니다.");
+		}
+		
+		return mav;
+	} 
+	
+
+	@PreAuthorize("isAuthenticated() and  hasRole('ROLE_USER')")
+	@RequestMapping(value = "/user/mypage/update/ck", method = RequestMethod.GET)
 	public ModelAndView update(Principal principal, UserDTO userdto, ModelAndView mav){
 //		String Uid = userdto.getUID();
 //		mav.addObject(userdto);
@@ -228,23 +271,33 @@ public class UserController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/user/mypage/updatse/{UID}", method = RequestMethod.POST)
-	public ModelAndView update(@ModelAttribute UserDTO userdto, ModelAndView mav) {
-		
+	
+	@RequestMapping(value = "/user/mypage/update/ck", method = RequestMethod.POST)
+	public ModelAndView update(@ModelAttribute UserDTO userdto,
+								Principal principal, ModelAndView mav) {
+		log.info("message POST ONE ={}", userdto.toString());
+		Integer UID = userService.findByUID(principal.getName());
+		userdto.setUID(UID);
+		userdto.setPassword(bcrypasswordEncoder.encode(userdto.getPassword()));
 		try {
 			int result= userService.userUpdate(userdto);
 			if(result == 1) {
-				mav.addObject(userdto);
+				Map<String, Object> user = userService.getInfo(userdto.getUID());
+				mav.addObject(user);
 				mav.addObject("message", "회원정보가 수정 되었습니다");
-				mav.setViewName(String.format("redirect:/mypage/%s", userdto.getUID()));
+				mav.setViewName("redirect:/user/mypage");
 			}
 			else {
+				log.info("post, else");
+				mav.addObject(userdto);
 				throw new Exception("정보가 정상적으로 수정되지 않았습니다");
+				
 			}
 		} catch (Exception e) {
 			mav.addObject("message", e.getClass());
-			mav.setViewName("mypage");
+	
 		}
+		log.info("POst retrun {}", mav.toString());
 		return mav;
 	}
 	

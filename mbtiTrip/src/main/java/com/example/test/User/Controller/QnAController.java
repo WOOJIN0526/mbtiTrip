@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,11 +45,13 @@ public class QnAController {
 //		mav.addObject("QnAlist", QnAlist);
 		mav.setViewName("customer_center");
 		return mav;
-	}
+	} 
 	
-	
+	 
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView createQAndA(ModelAndView mav) {
+	public ModelAndView createQAndA(Principal principal, ModelAndView mav) {
+		log.info("create GEt ={}", principal.getName());
 		mav.setViewName("qNa_form");
 		return mav;
 	}
@@ -59,12 +62,14 @@ public class QnAController {
 	public boolean createQAndA(@RequestBody QnADTO qna,
 								Principal princi) {
 		boolean ck = false;
-//		String userName = princi.getName();
-//		Integer UID = userService.findByUID(userName);
-
-		System.out.println(qna.toString());
-//		qna.setUserName(userName);
-//		qnaService.createQ(qna);
+		qna.setUserName(princi.getName());
+		log.info("qna.getQName ={}", qna.getQName());
+		log.info("message create Post = {}", qna.toString());
+	
+		int  c =  qnaService.createQ(qna);
+		if(c == 1) {
+			ck = true;
+		}
 		return ck;
 		
 	}

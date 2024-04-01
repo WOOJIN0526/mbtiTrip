@@ -55,8 +55,8 @@ public class UserDAO {
 		return UID;
 	}
 
-	public Optional<UserDTO> findByUserID(String username) {
-		return this.sqlSessiontemplate.selectOne("user.getUser", username);
+	public Optional<UserDTO> findByUserID(String userName) {
+		return this.sqlSessiontemplate.selectOne("user.getUser", userName);
 	}
 
 
@@ -96,20 +96,23 @@ public class UserDAO {
 //	private String Rank;
 //	
 //	@Email
-//	private String mail;
+//	private String mail; 
 //	
 //	@OneToMany
 //	private String cart;
 //	
-//	@OneToMany
+//	@OneToMany 
 //	private String history;
 //	
 //	
 //	private boolean admin;
 
-	public Optional<UserDTO> findByUsername(String name) {
-		// TODO Auto-generated method stub
-		return this.sqlSessiontemplate.selectOne("user.getUsername", name);
+	public UserDTO findByUsername(String name) {
+		// TODO Auto-generated method stub 
+		
+		UserDTO user = this.sqlSessiontemplate.selectOne("user.getUsername", name);
+	
+		return user;
 	}
 	
 	

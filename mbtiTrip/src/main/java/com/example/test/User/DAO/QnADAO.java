@@ -17,10 +17,10 @@ public class QnADAO {
 	@Autowired
 	SqlSessionTemplate sqlSessiontemplate;
 	
-	public void create(QnADTO qna) {
+	public int create(QnADTO qna) {
 		
 		int ch = this.sqlSessiontemplate.insert("qna.create", qna);
-		
+		return ch;
 	}
 
 	public List<QnADTO> getList(QnADTO qna) {
