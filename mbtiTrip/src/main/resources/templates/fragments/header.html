@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 	<link rel="stylesheet" th:href="@{/common/header.css}">
-	<script th:src="@{/common/header.js}"></script>
+	
 </head>
 <body>
 	<div th:replace="fragments/header :: header">
@@ -83,7 +83,8 @@
 				</div>
             </div>
         </div>
+		<script th:href="@{/common/header.js}"></script>
     </div>
-	<script th:href="@{/common/header.js}"></script>
+	
 </body>
 </html>
