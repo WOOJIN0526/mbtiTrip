@@ -11,6 +11,7 @@ import java.util.Map;
 
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -36,6 +37,7 @@ public class PostDAO {
 		return result;
 	}
 	
+	//@Select("select * from Post where bno >0")
 	public List<PostDTO> getList(Criteria cri){
 		return sqlSessiontemplate.selectList("post.getList", cri);
 	}
