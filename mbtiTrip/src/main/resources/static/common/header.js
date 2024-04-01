@@ -1,3 +1,4 @@
+window.onload = 
 document.querySelector('.icon-menu').addEventListener('click', function(){
     document.querySelector('.profile').classList.toggle('disActive');
     document.querySelector('.icon-menu').classList.toggle('animate')

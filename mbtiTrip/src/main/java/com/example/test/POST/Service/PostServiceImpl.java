@@ -11,14 +11,8 @@ import org.springframework.stereotype.Service;
 import com.example.test.POST.DAO.PostDAO;
 
 import com.example.test.POST.DTO.PostDTO;
-import com.example.test.POST.DTO.Post_CategoryDTO;
-import com.example.test.User.DTO.UserDTO;
 import com.example.test.paging.Criteria;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.transaction.Transactional;
 
 
 

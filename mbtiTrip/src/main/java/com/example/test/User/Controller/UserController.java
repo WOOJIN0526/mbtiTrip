@@ -24,7 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.test.User.DTO.QnADTO;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.DTO.User_Role;
-import com.example.test.User.Service.LoginService;
+import com.example.test.User.Service.CustomLoginService;
 import com.example.test.User.Service.QnAService;
 import com.example.test.User.Service.UserService;
 import com.example.test.User.Service.UserServiceImpl;
@@ -35,7 +35,7 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Controller
-@Import({SecurityConfig.class})
+
 public class UserController {
 
 	@Autowired
@@ -45,7 +45,7 @@ public class UserController {
 	private QnAService qnaService;
 	
 	@Autowired
-	private LoginService loginservice;
+	private CustomLoginService loginservice;
 	
 
 	private BCryptPasswordEncoder bcrypasswordEncoder = new BCryptPasswordEncoder(); 
@@ -115,7 +115,7 @@ public class UserController {
 		log.info("UserLoginSuccess = UserINFo= {}", user);
 		
 		mav.addObject("user", user);
-		mav.setViewName(String.format("redirect:/user/main/%s", userUID));
+		mav.setViewName(String.format("redirect:/user/mypage/%s", userUID));
 		return mav;
 	}
 	

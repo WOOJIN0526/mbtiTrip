@@ -1,5 +1,6 @@
 package com.example.test.User.Controller;
 
+import java.security.Principal;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,11 @@ import com.example.test.User.DTO.User_Role;
 import com.example.test.User.Service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.log4j.Log4j2;
 
 @Controller
 @RequestMapping("/bis")
+@Log4j2
 public class BisController {
 
 	
@@ -59,6 +62,18 @@ public class BisController {
 		return chk;
 	}
 	
+	@RequestMapping(value = "/login/success")
+	public ModelAndView UserSuccess(ModelAndView mav, 
+								Principal princ) {
+		String userName = princ.getName();
+		Integer userUID = userService.findByUID(userName);
+		Map<String, Object> user = userService.getInfo(userUID);
+		log.info("UserLoginSuccess = UserINFo= {}", user);
+		
+		mav.addObject("user", user);
+		mav.setViewName(String.format("redirect:bis/mypage/%s", userUID));
+		return mav;
+	}
 	
 	@RequestMapping(value = "/mypage/{UID}", method = RequestMethod.GET)
 	public ModelAndView mypageBis(@PathVariable("UID") Integer UID, UserDTO userdto, ModelAndView mav){

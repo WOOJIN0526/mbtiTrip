@@ -1,5 +1,6 @@
 package com.example.test.User.Controller;
 
+import java.security.Principal;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.Service.UserService;
 
+import lombok.extern.log4j.Log4j2;
+
 @Controller
+@Log4j2
 public class AdminController {
 
 	@Autowired
@@ -27,6 +31,19 @@ public class AdminController {
 //		
 //		return mav;
 //	}
+	
+	@RequestMapping(value = "admin/login/success")
+	public ModelAndView UserSuccess(ModelAndView mav, 
+								Principal princ) {
+		String userName = princ.getName();
+		Integer userUID = userService.findByUID(userName);
+		Map<String, Object> user = userService.getInfo(userUID);
+		log.info("UserLoginSuccess = UserINFo= {}", user);
+		
+		mav.addObject("user", user);
+		mav.setViewName(String.format("redirect:/user/mypage/%s", userUID));
+		return mav;
+	}
 	
 	@RequestMapping(value = "/admin/mypage/{UID}", method = RequestMethod.GET)
 	public ModelAndView mypageadmin(@PathVariable("UID") Integer UID, UserDTO userdto, ModelAndView mav){

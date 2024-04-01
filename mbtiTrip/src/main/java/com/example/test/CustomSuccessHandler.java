@@ -1,12 +1,14 @@
 package com.example.test;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Map;
 
 import org.apache.catalina.core.ApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -44,9 +46,23 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 			try {	
 				log.info("로그인 성공시 접속자의 권한 확인이 가능한지 에 대한  log {}", authentication.getAuthorities());
 				HttpSession session = request.getSession();
-				String userName = authentication.getName();
-				session.setAttribute("userName", userName);
-				response.sendRedirect("user/login/success");
+				session.setAttribute("userrole", authentication.getAuthorities());
+			
+				Collection<? extends GrantedAuthority> role = authentication.getAuthorities();
+				//세션 정보 잘 저장 됨 
+				log.info("role 정보{}", role.toString());
+				switch (role.toString()) {
+				case "[ROLE_USER]" : 
+					response.sendRedirect("user/login/success");
+					break;
+				case "[ROLE_BIS]":
+					response.sendRedirect("bis/login/success");
+					break;
+				case "[ROLE_ADMIN]":
+					response.sendRedirect("admin/login/success");
+					break;
+				}
+			
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 			}

@@ -11,7 +11,6 @@ import com.example.test.paging.Criteria;
 
 public interface PostService {
 
-	 //public Page<PostDTO> getList(int page, String kw, String categoryName);
 	 
 	public void register(PostDTO post);
 	

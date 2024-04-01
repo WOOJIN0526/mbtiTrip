@@ -51,11 +51,11 @@ import lombok.extern.log4j.Log4j2;
 public class Security_Config  {
 
 	private UserDetailsService userDetailsService; //?
-	private CustomLoginService loginService; 
+	private CustomLoginService CustomloginService; 
 	
 	
 	public Security_Config(CustomLoginService loginService) {
-		this.loginService = loginService;
+		this.CustomloginService = loginService;
 	}
 	
 	@Bean
@@ -87,14 +87,22 @@ public class Security_Config  {
     		   .requestMatchers("/**").permitAll())
     	.formLogin((formLogin) -> formLogin
     			.loginPage("/login_A")
-    			.successHandler(new CustomSuccessHandler()))
-    	.rememberMe((remember) -> remember
-    			.key("oingdaddy")
+    			.successHandler(new CustomSuccessHandler()));
+    	http.rememberMe((remember) -> remember
+    			.key("userName")
     			.rememberMeParameter("remember-me")
     			.tokenValiditySeconds(86400)
-    			.userDetailsService(loginService)
-    			.authenticationSuccessHandler(new CustomSuccessHandler()))
-    	
+    			.userDetailsService(userDetailsService)
+    			.alwaysRemember(false));
+    	http.logout((logout)-> logout
+    			.logoutUrl("/logout")
+    			.logoutSuccessHandler((request, response, authentication)->{
+    				log.info("logout SucccessHandelr 작동");
+    				response.sendRedirect("/");
+    				})
+    			.deleteCookies("JSESSIONID")
+    	)
+    
     					
 //    		    .usernameParameter("userId")
 //    		    .passwordParameter("password")
@@ -185,7 +193,7 @@ public class Security_Config  {
 
 	
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(loginService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(CustomloginService).passwordEncoder(passwordEncoder());
     }
 //	
     @Bean
