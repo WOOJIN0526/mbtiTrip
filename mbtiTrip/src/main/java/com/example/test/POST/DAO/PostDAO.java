@@ -36,15 +36,6 @@ public class PostDAO {
 		return result;
 	}
 
-
-	public List<PostDTO> getList(){
-		return sqlSessiontemplate.selectList("p.list");
-	}
-	
-	public List<PostDTO> getListWithPaging(Criteria cri){
-		return sqlSessiontemplate.selectList("p.list", cri);
-		
-	}
 	
 	public void insert(PostDTO post) {
 		sqlSessiontemplate.insert("post.insert", post);
@@ -75,6 +66,12 @@ public class PostDAO {
 	//댓글이 등록되면 1이 증가, 삭제되면 1이 감소
 	public void updateAnswerCnt(@Param("pno") Long pno, @Param("amount") int amount) {
 		sqlSessiontemplate.update("post.updateAnswerCnt", amount);
+	}
+
+
+	public List<PostDTO> getListWithPaging(Criteria cri) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectList("post.getListWithPaging", cri);
 	}
 	
 

@@ -24,7 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.test.User.DTO.QnADTO;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.DTO.User_Role;
-import com.example.test.User.Service.LoginService;
+import com.example.test.User.Service.CustomLoginService;
 import com.example.test.User.Service.QnAService;
 import com.example.test.User.Service.UserService;
 import com.example.test.User.Service.UserServiceImpl;
@@ -45,7 +45,7 @@ public class UserController {
 	private QnAService qnaService;
 	
 	@Autowired
-	private LoginService loginservice;
+	private CustomLoginService loginservice;
 	
 
 	private BCryptPasswordEncoder bcrypasswordEncoder = new BCryptPasswordEncoder(); 
