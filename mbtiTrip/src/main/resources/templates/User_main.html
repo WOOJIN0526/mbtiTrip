@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	**xmlns:sec="http://www.thymeleaf.org/extras/spring-security" ** layout:decorate="~{layout.html}">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<!--<script type="text/javascript"     
+   th:src="@{//dapi.kakao.com/v2/maps/sdk.js?appkey=39c9ddd640ab4919bedaf63639b714fe}" defer></script>-->
+	<link th:href="@{main/style.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+	<div layout:fragment="content">
+		<div sec:authorize="hasRole('ROLE_USER')">
+			<div class="main">
+				<div class="container">
+					<span class="main-title">Main Title</span>
+					<span class="div">
+						<span class="div2">호텔</span>
+						<span class="div2">즐길거리</span>
+						<span class="div2">MBTI</span>
+						<span class="div2">먹거리</span>
+						<span class="div2">일정</span>
+					</span>
+					<form action="">
+						<input class="textfield2" type="text" value="1조 화이팅 ~">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div style="padding: 1rem;">
+		<div class="button2">지역</div>
+		<div class="button2">지역</div>
+	</div>
+
+	<div class="world">
+		<div class="title3">
+			이월드 블라썸 피크닉
+		</div>
+		<div class="description">
+			전국에서 가장 빠른 벚꽃이자 국내 최대 야간 벚꽃을 즐길 수 있는
+			이월드 벚꽃은 여의도보다 3배 많은 벚꽃 나무들이 이월드 전역을
+			벚꽃으로 물들여 봄의 정취를 느낄 수 있다. 낮에는 핑크색 벚꽃을,
+			밤에는 레인보우 블라썸 라이팅 쇼와 함께 화려한 빛으로 물든
+			벚꽃의 색다른 모습도 즐길 수 있다
+		</div>
+		<div>
+			<button class="button1">클릭하세요</button>
+		</div>
+	</div>
+
+	<div style="padding: 1rem;">
+			<div th:text="${#authentication.principal}">
+	</div>
+
+
+	<div class="div11">
+		<div class="map-container">
+			<div id="map1" style="width:500px;height:400px;"></div>
+
+
+		</div>
+	</div>
+
+		<div class="section">
+			<div>img</div>
+			<div class="container3">
+				<div class="d-1">사용자추천</div>
+				<div class="selection">
+					<div class="label-normal">
+						<div>ISTJ
+						</div>
+					</div>
+					<div class="label-normal">
+						<div>내향적</div>
+					</div>
+					<div class="label-normal">
+						<div>사고적</div>
+					</div>
+					<div class="label-normal">
+						<span>계획적</span>
+					</div>
+					<div class="label-normal">
+						<div>혼자</div>
+					</div>
+
+				</div>
+				<div class="">연애중인 카라니입니다~</div>
+
+
+				<div class="primary5">
+					<div class="button1">클릭링크</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div style="text-align: center;">
+			<div>
+				<div>img</div>
+				<div>img</div>
+				<div>img</div>
+				<div>img</div>
+
+			</div>
+			<div>
+				<div>img</div>
+				<div>img</div>
+				<div>img</div>
+				<div>img</div>
+
+			</div>
+		</div>
+		</div>
+		</section>
+</body>
+
+</html>
