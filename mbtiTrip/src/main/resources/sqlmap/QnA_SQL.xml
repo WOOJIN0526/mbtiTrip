@@ -3,9 +3,9 @@
 <mapper namespace="qna">
 	<insert id="create">
 		insert into QnA
-		(QName, contents, userName, UID)
+		(QName, contents, userName)
 		values
-		(#{QName},#{contents},#{userName},#{UID})
+		(#{QName},#{contents},#{userName})
 	</insert>
 
 	<select id="getlist" resultType="list">
@@ -13,7 +13,7 @@
 		from QnA
 	</select>
 	
-	<select id= "getDetail" resultType="list" >
+	<select id= "getDetail" resultType="list">
 		select * 
 		from QnA
 		where QID = #{qID}
@@ -24,6 +24,4 @@
 		from QnA
 		where userName = #{userName};
 	</select>
-
-
 </mapper>

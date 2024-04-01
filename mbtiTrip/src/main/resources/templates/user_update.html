@@ -10,7 +10,7 @@
 
 <div class="container">
     <h2>개인정보 수정</h2>
-    <form th:action="@{/mypage/update/{UID}(UID=${map['UID']})}" method="post">
+    <form th:action="@{/user/mypage/update/ck}" method="post">
         <div class="form-group">
             <label for="name">이름:</label>
             <input type="text" id="userName" name="userName"  th:value="${map['userName']}">
@@ -20,7 +20,7 @@
             <input type="text" id="password" name="password" th:value="${map['password']}" required>
         </div>
         <div class="form-group">
-			<select class="select" id="mbti" name="mbti">
+			<select class="select" id="mbti" name="mbti" th:value = "${map['mbti']}">
 			   <option>당신의 MBTI는?</option>
 			   <option value="1">ISTJ</option>
 			   <option value="2">ISFJ</option>

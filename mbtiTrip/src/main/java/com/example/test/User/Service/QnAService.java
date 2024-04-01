@@ -7,7 +7,7 @@ import com.example.test.User.DTO.QnADTO;
 
 public interface QnAService {
 
-	void createQ(QnADTO qna);
+	int createQ(QnADTO qna);
 
 	List<QnADTO> getList(QnADTO qna);
 
