@@ -24,16 +24,28 @@ public class Adventure_ReviewDTO {
 	
 	private String userName; // 작성자 이름
 	
+	private Integer userId;
+	
 	private String reviewTitle;
 	
 	private String content;
 	
-	private LocalDateTime updateDate;
+	private String writer;
+	
+	private LocalDateTime regDate;
 	
 	private LocalDateTime modifyDate;
 	
-	private UserDTO author; // 작성자
+	private Long pno;
 	
-	private Integer views; // 조회수
+	//댓글수처리위함
+	private int answerCnt;
+	
+	//조회수
+	private int viewCount;
+
+    public void addViewCount() {
+        this.viewCount++;
+    }
 	
 }
