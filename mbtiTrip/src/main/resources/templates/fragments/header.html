@@ -10,7 +10,7 @@
 	<script th:src="@{/common/header.js}"></script>
 </head>
 <body>
-	<div th:replace="fragments/header :: header">
+	<div  th:replace="fragments/header">
 		
 		 <div sec:authorize="isAuthenticated()" class="profile disActive">
 		   <!-- <div class="profileBox">
@@ -57,7 +57,6 @@
 		 </div>
 		 
 		 
-		
         <div  class="headerCon">
             <div class="title">Tip to track</div>
             <div>
