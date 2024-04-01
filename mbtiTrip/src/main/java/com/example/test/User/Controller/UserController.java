@@ -115,7 +115,7 @@ public class UserController {
 		log.info("UserLoginSuccess = UserINFo= {}", user);
 		
 		mav.addObject("user", user);
-		mav.setViewName("redirect:/user/mypage");
+		mav.setViewName("redirect:/user/main");
 		return mav;
 	}
 	
@@ -167,15 +167,15 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(value = "/user/main/{UID}", method = RequestMethod.GET)
-	public ModelAndView main(
-							@PathVariable("UID") Integer UID,
+	@RequestMapping(value = "/user/main", method = RequestMethod.GET)
+	public ModelAndView main(Principal principar,
 							ModelAndView mav) {
 		log.info("main 접속 중 ");
+		Integer UID = userService.findByUID(principar.getName());
 		Map<String, Object> user = userService.getInfo(UID);
 		log.info("userMain info = {} ", user);
 		mav.addObject("user", user);
-		mav.setViewName("main");
+		mav.setViewName("user_main");
 		return mav;
 	}
 	
