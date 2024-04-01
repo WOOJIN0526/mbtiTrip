@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +23,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.Service.PostService;
-import com.example.test.POST.Service.Post_CategoryService;
-import com.example.test.User.Service.UserService;
 import com.example.test.paging.Criteria;
 import com.example.test.paging.PageDTO;
 
@@ -44,11 +41,6 @@ public class PostController {
 	@Autowired
 	PostService postService;
 	
-	@Autowired
-	UserService userService;
-	
-	@Autowired
-	Post_CategoryService postCategoryService;
 	
 	//전체목록조회
 	@GetMapping("/list")
@@ -64,13 +56,13 @@ public class PostController {
 	
 	//등록입력 페이지를 볼수 있도록
 	@GetMapping("/register")
-	//@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated()")
 	public void register() {
 		
 	}
 	
 	//등록처리
-	//@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/register") //등록작업이 끝난후 다시 목록화면으로 이동하기 위함(추가적으로 새롭게 등록된 게시물의 번호를 같이전달)
 	public String register(PostDTO post, RedirectAttributes rttr) {
 		postService.register(post);
@@ -88,7 +80,7 @@ public class PostController {
 	
 	
 	//수정처리
-	//@PreAuthorize("principal.username == #post.writer")
+	@PreAuthorize("principal.username == #post.writer")
 	@PostMapping("/modify")
 	public String modify(PostDTO post, Criteria cri, RedirectAttributes rttr) {
 		
@@ -100,7 +92,7 @@ public class PostController {
 	}
 	
 	//삭제처리 후 다시 목록페이지로 이동
-	//@PreAuthorize("principal.username == #writer")
+	@PreAuthorize("principal.username == #writer")
 	@PostMapping("/remove")
 	public String remove(@RequestParam("pno") Long pno, Criteria cri, RedirectAttributes rttr) {
 		if(postService.remove(pno)) {

@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @ToString
-public class Criteria {//검색기준임
+public class Criteria {//검색기준
 	
 	//페이징 처리를 위한
 	private int pageNum;
