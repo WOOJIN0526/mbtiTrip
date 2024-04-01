@@ -46,7 +46,7 @@ public class Adventure_ReviewDAO {
 		
 	}
 	
-	public PostDTO read(Long pno) {
+	public Adventure_ReviewDTO read(Long pno) {
 		return sqlSessiontemplate.selectOne("adventure_review.read", pno);
 	}
 	

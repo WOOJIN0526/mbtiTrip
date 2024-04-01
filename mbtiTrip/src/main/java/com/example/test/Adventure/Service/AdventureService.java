@@ -3,7 +3,6 @@ package com.example.test.Adventure.Service;
 import java.util.List;
 
 import com.example.test.Adventure.DTO.AdventureDTO;
-import com.example.test.POST.DTO.PostDTO;
 import com.example.test.paging.Criteria;
 
 public interface AdventureService {

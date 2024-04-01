@@ -24,6 +24,8 @@ public class ReplaceDTO {
 	private Integer postCategoryID;    //fk
 	
 	private Integer replaceType;  //fk
+	
+	private Integer userId;
 	 
 	private String replaceName;
 	
@@ -39,15 +41,21 @@ public class ReplaceDTO {
 	
 	private Integer R_rating_avg;
 	
-	private String review;
+	private String writer;
 	
-	private LocalDateTime updateDate;
+	private LocalDateTime regDate;
 	
 	private LocalDateTime modifyDate;
 	
-	private Set<UserDTO> voter;
+	private Long pno;
 	
-	private UserDTO Author;
+	//댓글수처리위함
+	private int answerCnt;
 	
-	private Integer views;
+	//조회수
+	private int viewCount;
+
+    public void addViewCount() {
+        this.viewCount++;
+    }
 }
