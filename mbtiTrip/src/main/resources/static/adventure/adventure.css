@@ -1,0 +1,122 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+#contents{
+    margin-top: 50px;
+}
+
+#adventure_view{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+   
+}
+
+
+#tag {
+    margin: 5px;
+    padding: 5px;
+}
+
+#tag ul{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; 
+    width: 300px;
+    height: 200px;
+    border-bottom: 0.25px solid;
+    background-color: #d3d3d3;
+
+}
+
+#tag ul li{
+    list-style:none; 
+}
+
+#tag ul li button{
+    margin: 5px;
+    padding: 10px;
+    border: none;
+    background: none;
+    border-radius: 45px;
+}
+
+
+#adventure_box{
+    width: 600px;
+    /* margin: 0 auto; */
+
+}
+
+#btn_check{
+    display: flex;
+    flex-direction: row-reverse;
+    border-bottom: 0.25px solid;
+}
+
+#btn_check button{
+    margin: 5px;
+    padding: 5px;
+    border: none;
+    background: none;
+}
+
+.adventure_list li{
+    display:flex;
+    flex-direction: row;
+    border-bottom: 0.25px solid;
+    flex-wrap: wrap; 
+}
+
+
+.photo{
+width: 200PX;
+height: 200PX;
+margin: 5px;
+padding: 5px;
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+.text_area{
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.page_change{
+    margin: 50px;
+    text-align: center;
+    color: black;
+   
+}
+
+.side{
+    display: flex;
+    flex-direction: column;
+}
+
+.advertise{
+    width: 300px;
+    height: 300px;
+    background-image: url(광고1.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    margin: 5px;
+    padding: 5px;
+
+}
+
+#hidden{
+    display: flex;
+    align-items: flex-end;
+}
+
+a{
+    text-decoration-line: none;
+    color: black;
+}
