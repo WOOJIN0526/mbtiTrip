@@ -28,7 +28,7 @@ public  class PostServiceImpl implements PostService {
 	@Override
 	public void register(PostDTO post) {
 		// TODO Auto-generated method stub
-		postDAO.insertSelectKey(post);
+		postDAO.insertSelectKey(post);  
 	}
 
 
@@ -44,7 +44,7 @@ public  class PostServiceImpl implements PostService {
 	@Override
 	public boolean modify(PostDTO post) {
 		// TODO Auto-generated method stub
-		return postDAO.update(post) == 1;
+		return postDAO.update(post) == 1;//수정, 삭제가 이루어지면 1이라는 값이 반환되서 true/false처리가능
 	}
 
 

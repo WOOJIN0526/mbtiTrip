@@ -46,11 +46,11 @@
 	]]>
 	</select>
 	
-	<select id="getUser" resultType="list">
+	<select id="getUser" resultType="com.example.test.User.DTO.UserDTO">
 	<![CDATA[
 	Select * 
 	from User 
-	where userName = #{username}
+	where userName = #{username};
 	]]>
 	</select>
 
