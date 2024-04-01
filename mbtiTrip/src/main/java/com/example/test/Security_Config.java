@@ -95,11 +95,8 @@ public class Security_Config  {
     			.userDetailsService(userDetailsService)
     			.alwaysRemember(false));
     	http.logout((logout)-> logout
-    			.logoutUrl("/logout")
-    			.logoutSuccessHandler((request, response, authentication)->{
-    				log.info("logout SucccessHandelr 작동");
-    				response.sendRedirect("/");
-    				})
+    			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+    			.logoutSuccessUrl("/")
     			.deleteCookies("JSESSIONID")
     	)
     
