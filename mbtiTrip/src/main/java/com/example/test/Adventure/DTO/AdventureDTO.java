@@ -24,6 +24,8 @@ public class AdventureDTO {
 	
 	private Integer cityID;
 	
+	private Integer userId;
+	
 	private Integer postCategoryID; // 게시판 카테고리(판매, 리뷰)?
 	
 	private Integer adventureTypeId; // 어드벤쳐 카테고리랑 타입이랑 무슨차이?
@@ -40,18 +42,27 @@ public class AdventureDTO {
 	
 	private String adventureAdmin; // 어드벤쳐 관리자 이름?
 	
-	private UserDTO Author; // 작성자
-	
 	private double ratingAvg; // 해당 어드벤쳐 평점
 	
-	private Set<UserDTO> voter; // 추천수
+	//private Set<UserDTO> voter; // 추천수
+	 
 	
-	private Adventure_CategoryDTO adCategory; 
+	private String writer;
 	
-	private LocalDateTime updateDate;
+	private LocalDateTime regDate;
 	
 	private LocalDateTime modifyDate;
 	
-	private Integer views; // 조회수
+	private Long pno;
+	
+	//댓글수처리위함
+	private int answerCnt;
+	
+	//조회수
+	private int viewCount;
+
+    public void addViewCount() {
+        this.viewCount++;
+    }
 	
 }

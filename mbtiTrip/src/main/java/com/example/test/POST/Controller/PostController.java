@@ -65,6 +65,10 @@ public class PostController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/register") //등록작업이 끝난후 다시 목록화면으로 이동하기 위함(추가적으로 새롭게 등록된 게시물의 번호를 같이전달)
 	public String register(PostDTO post, RedirectAttributes rttr) {
+//		if(post.getAttachList() != null) {
+//			post.getAttachList().forEach(attach -> log.info(attach));
+//		}
+		
 		postService.register(post);
 		rttr.addFlashAttribute("result", post.getPno());
 		return "redirect:/post/list";
@@ -142,22 +146,7 @@ public class PostController {
     
     
 
-    @GetMapping("/review/create")
-    public String create() {
-    return "write_form";
-    }
-
-   
-    @PostMapping("/review/create")
-    public String create(@ModelAttribute PostDTO dto) {
-    	int CID = dto.getPostCategoryID();
-    	String title = dto.getTitle();
-    	String content = dto.getContent();
-    	System.out.println("CID : "+CID+", title : "+title+", content : "+content);
-    	
-    	
-    	return "redirect:/post/review/create";
-    }
+    
 
     
 }
