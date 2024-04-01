@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	**xmlns:sec="http://www.thymeleaf.org/extras/spring-security"**
+   xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   **xmlns:sec="http://www.thymeleaf.org/extras/spring-security"**
     layout:decorate="~{layout.html}">
 <head>
   <meta charset="UTF-8">
@@ -18,10 +18,10 @@
 <div class="container">
   
   <form id="Form" th:action="@{/post/review/create}" method="POST">
-	<select name="postCategoryID" id="category">
-	        <option value="1">리뷰</option>
-	        <option value="2">게시판</option>
-	    </select>
+   <select name="postCategoryID" id="category">
+           <option value="1">리뷰</option>
+           <option value="2">게시판</option>
+       </select>
     <input type="text" name="title" id="title" placeholder="제목을 입력하세요" required>
     <textarea id="content" name="content"></textarea>
     <button type="submit">작성</button>

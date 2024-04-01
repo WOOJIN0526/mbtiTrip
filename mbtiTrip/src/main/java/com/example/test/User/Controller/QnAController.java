@@ -20,9 +20,11 @@ import com.example.test.User.Service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.log4j.Log4j2;
 
 @Controller
 @RequestMapping("/QnA")
+@Log4j2
 public class QnAController {
 
 	
@@ -34,9 +36,10 @@ public class QnAController {
 	
 	
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView QAndA(ModelAndView mav, QnADTO qna) {
 		List<QnADTO> list = qnaService.getList(qna);
+		log.info("{}", list.toString());
 		mav.addObject("qnaList", list);
 //		mav.addObject("QnAlist", QnAlist);
 		mav.setViewName("customer_center");
