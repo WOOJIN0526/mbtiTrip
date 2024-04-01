@@ -115,7 +115,7 @@ public class UserController {
 		log.info("UserLoginSuccess = UserINFo= {}", user);
 		
 		mav.addObject("user", user);
-		mav.setViewName(String.format("redirect:/user/mypage/%s", userUID));
+		mav.setViewName("redirect:/user/mypage");
 		return mav;
 	}
 	
@@ -190,21 +190,38 @@ public class UserController {
 //	}
 	
 		
-	@RequestMapping(value = "/user/mypage/{UID}", method = RequestMethod.GET)
-	public ModelAndView mypageUser(@PathVariable("UID") Integer UID, UserDTO userdto, ModelAndView mav){
+//	@RequestMapping(value = "/user/mypage/{UID}", method = RequestMethod.GET)
+//	public ModelAndView mypageUser(@PathVariable("UID") Integer UID, UserDTO userdto, ModelAndView mav){
+//	
+//		Map<String, Object> map = userService.getInfo(UID);
+//		System.out.println("mypageLoad="+map.toString());
+//		mav.addObject("map", map);
+//		mav.setViewName("mypage");
+//		return mav;
+//	}
 	
-		Map<String, Object> map = userService.getInfo(UID);
-		System.out.println("mypageLoad="+map.toString());
-		mav.addObject("map", map);
+	
+	@RequestMapping(value = "/user/mypage", method = RequestMethod.GET)
+	public ModelAndView mypageUser(Principal principal, UserDTO userdto, ModelAndView mav){
+		String userName = principal.getName();
+		log.info(userName);
+		Integer UID = userService.findByUID(userName);
+		
+		Map<String, Object> user = userService.getInfo(UID);
+		
+		log.info("user mypage 정보 {}", user);
+		mav.addObject("user", user);
 		mav.setViewName("mypage");
 		return mav;
 	}
 
-	@RequestMapping(value = "/user/mypage/update/{UID}", method = RequestMethod.GET)
-	public ModelAndView update(@PathVariable("UID") Integer UID, UserDTO userdto, ModelAndView mav){
+	@RequestMapping(value = "/user/mypage/update", method = RequestMethod.GET)
+	public ModelAndView update(Principal principal, UserDTO userdto, ModelAndView mav){
 //		String Uid = userdto.getUID();
 //		mav.addObject(userdto);
-// 0321 최우진 유저데이터가 들어가야 될거같아서 주석하고 밑으로 바꿔봄		
+// 0321 최우진 유저데이터가 들어가야 될거같아서 주석하고 밑으로 바꿔봄
+		String userName = principal.getName();
+		Integer UID = userService.findByUID(userName);		
 		Map<String, Object> map = userService.getInfo(UID);
 		mav.addObject("map", map);
 		mav.setViewName("user_update");
