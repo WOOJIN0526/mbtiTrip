@@ -38,12 +38,13 @@ public class CustomLoginService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		//여기서 username = userId
 		log.info("LoginService, loadUserByUsername =="+ username);
-		Optional<UserDTO> userInfo = Optional.of(userDao.getByUserId(username));
+		Optional<UserDTO> userInfo = Optional.of(userDao.getByUserId(username)); 
 		log.info("optinal Test  ==== ", userInfo.get());
 		if(userInfo.isEmpty()) {
 			log.info("THROWS ===", "UsernameNotFoundException");
 			throw new UsernameNotFoundException("찾을 수 없는 유저입니다.");
 		}
+		
 		log.info("message ===", userInfo);
 		UserDTO user = userInfo.get();
 		List<GrantedAuthority> auth = new ArrayList<>();
@@ -60,8 +61,9 @@ public class CustomLoginService implements UserDetailsService{
 			auth.add(new SimpleGrantedAuthority(User_Role.admin.getValue()));
 		}
 
-		
-		return new User(user.getUserId(), user.getPassword(), auth);
+		UserDetails userIN  =new User(user.getUserId(), user.getPassword(), auth);
+		log.info("userIN {}", userIN);
+		return userIN;
 	}
 
 }
