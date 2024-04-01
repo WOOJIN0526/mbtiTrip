@@ -35,12 +35,21 @@ public class PostDAO {
 		int result = sqlSessiontemplate.insert("post.insert", post);
 		return result;
 	}
-
 	
+	public List<PostDTO> getList(Criteria cri){
+		return sqlSessiontemplate.selectList("post.getList", cri);
+	}
+	
+	public List<PostDTO> getListWithPaging(Criteria cri) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectList("post.getListWithPaging", cri);
+	}
+
+	// 생성된 PK값을 알필요 없는경우
 	public void insert(PostDTO post) {
 		sqlSessiontemplate.insert("post.insert", post);
 	}
-	
+	// 생성된 PK값을 알아야하는경우
 	public Integer insertSelectKey(PostDTO post) {
 		return sqlSessiontemplate.insert("post.insertSelectKey", post);
 		
@@ -69,10 +78,7 @@ public class PostDAO {
 	}
 
 
-	public List<PostDTO> getListWithPaging(Criteria cri) {
-		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectList("post.getListWithPaging", cri);
-	}
+	
 	
 
 

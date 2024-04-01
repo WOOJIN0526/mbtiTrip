@@ -1,89 +1,92 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+   xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-	<link rel="stylesheet" th:href="@{/common/header.css}">
-	
+   <link rel="stylesheet" th:href="@{/common/header.css}">
+   
 </head>
 <body>
-	<div  th:replace="fragments/header">
-		
-		 <div sec:authorize="isAuthenticated()" class="profile disActive">
-		   <!-- <div class="profileBox">
-		     <div class="userImg"></div>
-		     <p class="userName">User X</p>
-		   </div> -->
-		   <div class="profileItems" id="topless">
-		     <a href="">
-		       <p>마이페이지</p>
-		       <i class="fa-solid fa-gear"></i>
-		     </a>
-		   </div>
-		   <div class="profileItems">
-		     <a href="">
-		       <p>내 주문</p>
-		       <i class="fa-solid fa-cart-shopping"></i>
-		     </a>
-		   </div>
-		   <div class="profileItems">
-		     <a href="">
-		       <p>커뮤니티</p>
-		       <i class="fa-regular fa-comments"></i>
-		     </a>
-		   </div>
-		   <div class="profileItems">
-		     <a href="">
-		       <p>고객센터</p>
-		       <i class="fa-solid fa-phone"></i>
-		     </a>
-		   </div>
-		   <div class="profileItems">
-		     <a href="">
-		       <p>알림</p>
-		       <i class="fa-regular fa-bell"></i>
-		     </a>
-		     <!-- <i class="fa-solid fa-bell"></i> -->
-		   </div>
-		   <div class="profileItems">
-		     <a href="">
-		       <p>로그아웃</p>
-		       <i class="fa-solid fa-right-from-bracket"></i>
-		     </a>
-		   </div>
-		 </div>
-		 
-		 
+
+   <div th:fragment="header">
+      
+       <div sec:authorize="isAuthenticated()" class="profile disActive">
+         <!-- <div class="profileBox">
+           <div class="userImg"></div>
+           <p class="userName">User X</p>
+         </div> -->
+         <div class="profileItems" id="topless">
+           <a href="">
+             <p>마이페이지</p>
+             <i class="fa-solid fa-gear"></i>
+           </a>
+         </div>
+         <div class="profileItems">
+           <a href="">
+             <p>내 주문</p>
+             <i class="fa-solid fa-cart-shopping"></i>
+           </a>
+         </div>
+         <div class="profileItems">
+           <a href="">
+             <p>커뮤니티</p>
+             <i class="fa-regular fa-comments"></i>
+           </a>
+         </div>
+         <div class="profileItems">
+           <a href="">
+             <p>고객센터</p>
+             <i class="fa-solid fa-phone"></i>
+           </a>
+         </div>
+         <div class="profileItems">
+           <a href="">
+             <p>알림</p>
+             <i class="fa-regular fa-bell"></i>
+           </a>
+           <!-- <i class="fa-solid fa-bell"></i> -->
+         </div>
+         <div class="profileItems">
+           <a href="">
+             <p>로그아웃</p>
+             <i class="fa-solid fa-right-from-bracket"></i>
+           </a>
+         </div>
+       </div>
+   
+
         <div  class="headerCon">
             <div class="title">Tip to track</div>
-            <div>
+           
                 <a href="#"><span class="tab">About the Site</span></a>
                 <a href="#"><span class="tab">How to Use</span></a>
-                <a th:href="@{/QnA/}"><span class="tab">고객센터</span></a>
+                <a th:href="@{/QnA}"><span class="tab">고객센터</span></a>
                 <a href="#"><span class="tab">커뮤니티</span></a>
                 <a sec:authorize="isAnonymous()" th:href="@{/login_A}"><span class="tab">로그인</span></a>
-				<div sec:authorize="isAuthenticated()" class="userBox">
-					<!-- 유저 박스 보더 -->
-					<div th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}"  class="User">
-					  <div class="profileBox" th:object="user">
-					    <div class="userImg" th:img="user.img"></div>
-					    <p class="userName" th:text="${user[`userName`]}">User X</p>
-					</div>
-					  <!-- 메뉴아이콘 svg -->
-					<svg class="icon-menu" width="62" height="62" viewBox="0 0 62 62" fill="none"
-					    xmlns="http://www.w3.org/2000/svg"  onclick="changeIcon()">
-					  <path
-					    d="M7.86206 46.4253H54.1379V41.2835H7.86206V46.4253ZM7.86206 33.5709H54.1379V28.4291H7.86206V33.5709ZM7.86206 15.5747V20.7165H54.1379V15.5747H7.86206Z"
-					    fill="black" />
-					</svg>
-				</div>
+
+            <div sec:authorize="isAuthenticated()" class="userBox">
+               <!-- 유저 박스 보더 -->
+               <div th:if="${#authorization.expression('hasRole('ROLE_USER')')}"  class="User">
+                 <div class="profileBox">
+                   <div class="userImg" ></div>
+                   <p class="userName" th:text="${user['userName']}">User X</p>
+               </div>
+                 <!-- 메뉴아이콘 svg -->
+               <svg class="icon-menu" width="62" height="62" viewBox="0 0 62 62" fill="none"
+                   xmlns="http://www.w3.org/2000/svg"  onclick="changeIcon()">
+                 <path
+                   d="M7.86206 46.4253H54.1379V41.2835H7.86206V46.4253ZM7.86206 33.5709H54.1379V28.4291H7.86206V33.5709ZM7.86206 15.5747V20.7165H54.1379V15.5747H7.86206Z"
+                   fill="black" />
+               </svg>
             </div>
-        </div>
-		<script th:href="@{/common/header.js}"></script>
-    </div>
-	
+
+            </div>
+        </div>   
+   
+   <script th:href="@{/common/header.js}"></script>
+</div>
 </body>
 </html>

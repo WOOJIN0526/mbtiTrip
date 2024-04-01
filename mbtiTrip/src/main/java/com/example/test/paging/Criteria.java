@@ -29,6 +29,7 @@ public class Criteria {//검색기준
 		this.amount = amount;
 	}
 	
+	// 검색조건이 각 글자별로 되어있으므로 검색 조건을 배열로 만들어서 한번에 처리
 	public String[] getTypeArr() {
 		return type == null? new String[] {}: type.split("");
 	}
