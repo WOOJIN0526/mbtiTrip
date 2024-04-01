@@ -69,10 +69,10 @@
 
             <div sec:authorize="isAuthenticated()" class="userBox">
                <!-- 유저 박스 보더 -->
-               <div th:if="${#authorization.expression('hasRole('ROLE_USER')')}"  class="User">
+               <div class="User">
                  <div class="profileBox">
                    <div class="userImg" ></div>
-                   <p class="userName" th:text="${user['userName']}">User X</p>
+  
                </div>
                  <!-- 메뉴아이콘 svg -->
                <svg class="icon-menu" width="62" height="62" viewBox="0 0 62 62" fill="none"

@@ -107,7 +107,7 @@ public class AdventureController {
 	        // request에 쿠키들이 있을 때
 	        for (int i = 0; cookies != null && i < cookies.length; i++) {
 	        	// postView 쿠키가 있을 때
-	            if (cookies[i].getName().equals("postView")) {
+	            if (cookies[i].getName().equals("adventureView")) {
 	            	// cookie 변수에 저장
 	                cookie = cookies[i];
 	                // 만약 cookie 값에 현재 게시글 번호가 없을 때

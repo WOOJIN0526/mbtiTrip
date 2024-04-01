@@ -82,9 +82,10 @@ public class Security_Config  {
                 	 .permitAll());
        http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
     		   .requestMatchers("/user/**", "bis/**", "/admin/**").hasRole("ADMIN")
-    		   .requestMatchers("bis/**", "/user/**").hasRole("BIS")
-    		   .requestMatchers("/user/**").hasRole("USER")
-    		   .requestMatchers("/**").permitAll())
+    		   .requestMatchers("bis/**", "/user/**").hasAnyRole("BIS")
+    		   .requestMatchers("/user/**").hasAnyRole("USER")
+    		   .requestMatchers("/**").permitAll()
+    		   )
     	.formLogin((formLogin) -> formLogin
     			.loginPage("/login_A")
     			.successHandler(new CustomSuccessHandler()));
@@ -93,12 +94,14 @@ public class Security_Config  {
     			.rememberMeParameter("remember-me")
     			.tokenValiditySeconds(86400)
     			.userDetailsService(userDetailsService)
-    			.alwaysRemember(false));
+    			.alwaysRemember(false))
+    			;
     	http.logout((logout)-> logout
     			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
     			.logoutSuccessUrl("/")
     			.deleteCookies("JSESSIONID")
-    	)
+    			.clearAuthentication(true)
+    			)
     
     					
 //    		    .usernameParameter("userId")

@@ -15,19 +15,29 @@
             <!-- 구성 -->
             <div class="detail_tab">                
                 <ul>
-                    <li><a href=""><span>사진</span></a></li>
+                    <li><a href="#photo_zone"><span>사진</span></a></li>
                 </ul>
                 <ul>
-                    <li><a href=""><span>상세설명</span></a></li>
+                    <li><a href="#detail_text"><span>상세설명</span></a></li>
                     
                     
                 </ul>
                 <ul>    
-                    <li><a href=""><span>리뷰</span></a></li>
+                    <li><a href="#review"><span>리뷰</span></a></li>
                 </ul>
             </div>
             <!-- 사진 -->
-            <div id="photo_zone"></div>
+                <div class="photo__img">
+                    <div class="photo__inner">
+                        <div class="photo"><img src="진해/진해_여좌천로망스다리.jpg" alt=""></div>
+                            <!-- <div class="photo">
+                                <img src="진해/진해_진해드림로드.jpg" alt="">
+                            </div>
+                            <div class="photo">
+                                <img src="진해/진해_웅천도요지전시관.jpg" alt="">
+                            </div> -->
+                    </div>     
+                </div>        
             <!-- 설명 -->
             <div id="detail_text">
                 <h2>상세설명</h2>
@@ -42,7 +52,7 @@
                 <h2>리뷰란</h2>
                 <textarea id="wirte_from" placeholder="로그인 후 소중한 댓글을 남겨주세요."></textarea>
                 <div  class="oK_button">
-                    <input type="button" value="확인">
+                    <input type="button" id="wirte_button" onclick="getTextareaValue()" value="확인">
                 </div>
                 <div id="review_list">
                     <ul>
@@ -51,11 +61,20 @@
                             <div id="review_text">동화처럼 예쁘고 힐링그차체였어요</div>
                         </li>
                     </ul>
+                    <ul>
+                        <li>
+                            <div id="user_id">trveldog</div>
+                            <div id="review_text">동화처럼 예쁘고 힐링그차체였어요</div>
+                        </li>
+                    </ul>
+
                 </div>
             </div>
               
 
         </div>
     </section>
+    <!-- <script src="adventure_detail.js"></script> -->
+    <script th:src="@{adventure_detail/adventure_detail.js}"></script>
 </body>
 </html>

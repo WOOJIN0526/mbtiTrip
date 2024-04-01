@@ -14,7 +14,7 @@ public class ReplaceReviewDTO {
 
 	private Integer replaceReivewID;
 	
-	private Integer userID;
+	private Integer userId;
 	
 	private String userName;
 
@@ -26,11 +26,21 @@ public class ReplaceReviewDTO {
 	
 	private String content;
 
-	private LocalDateTime updateDate;
-
+	private String writer;
+	
+	private LocalDateTime regDate;
+	
 	private LocalDateTime modifyDate;
 	
-	private Integer views;
+	private Long pno;
 	
-	private UserDTO Author;
+	//댓글수처리위함
+	private int answerCnt;
+	
+	//조회수
+	private int viewCount;
+
+    public void addViewCount() {
+        this.viewCount++;
+    }
 }

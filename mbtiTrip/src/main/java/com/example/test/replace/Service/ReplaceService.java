@@ -1,20 +1,23 @@
 package com.example.test.replace.Service;
 
-import org.springframework.data.domain.Page;
-import com.example.test.User.DTO.UserDTO;
+import java.util.List;
+
+
+import com.example.test.paging.Criteria;
 import com.example.test.replace.DTO.ReplaceDTO;
 
 public interface ReplaceService {
 
-	public Page<ReplaceDTO> getList(int page, String kw, String categoryName);
-	 
-	 public ReplaceDTO getPost(Integer userid);
-	 
-	 public ReplaceDTO create(String title, String content, String admin);
-	 
-	 public ReplaceDTO modify(ReplaceDTO rpDto, String title, String content);
-	 
-	 public void delete(ReplaceDTO rpDto);
-	 
-	 public ReplaceDTO vote(ReplaceDTO rpDto, UserDTO user);
+	public void register(ReplaceDTO ad);
+	
+	public ReplaceDTO get(Long pno);
+	
+	public boolean modify(ReplaceDTO ad);
+	
+	public boolean remove(Long pno);
+	
+	public List<ReplaceDTO> getList(Criteria cri);
+	
+	//adventureDAO의 gettotalcnt 호출용
+	public int getTotal(Criteria cri);
 }

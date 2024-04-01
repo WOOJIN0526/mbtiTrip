@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import com.example.test.User.Service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j2;
 
+@PreAuthorize("hasRole('ROLE_BIS') and hasRole('ROLE_ADMIN')")
 @Controller
 @RequestMapping("/bis")
 @Log4j2
@@ -71,7 +73,19 @@ public class BisController {
 		log.info("UserLoginSuccess = UserINFo= {}", user);
 		
 		mav.addObject("user", user);
-		mav.setViewName(String.format("redirect:bis/mypage/%s", userUID));
+		mav.setViewName("Bis_main");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	public ModelAndView main(Principal principar,
+							ModelAndView mav) {
+		log.info("main 접속 중 ");
+		Integer UID = userService.findByUID(principar.getName());
+		Map<String, Object> bis = userService.getInfo(UID);
+		log.info("userMain info = {} ", bis);
+		mav.addObject("user", bis);
+		mav.setViewName("Bis_main");
 		return mav;
 	}
 	
