@@ -3,13 +3,13 @@
 <mapper namespace="qna">
 	<insert id="create">
 		insert into QnA
-		(QName, contents, userName)
+		(QName, contents, userName, updateDate)
 		values
-		(#{QName},#{contents},#{userName})
+		(#{title},#{contents},#{userName}, #{updateDate})
 	</insert>
 
-	<select id="getlist" resultType="list">
-		select QID, QName,  contents, userName
+	<select id="getlist" resultType="hashmap">
+		select QID, QName as title,  contents, userName, updateDate
 		from QnA
 	</select>
 	

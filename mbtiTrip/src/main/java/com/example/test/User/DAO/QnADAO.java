@@ -12,20 +12,20 @@ import com.example.test.User.DTO.QnADTO;
 import jakarta.inject.Inject;
 
 @Repository
-public class QnADAO {
+public class QnADAO { 
 
 	@Autowired
 	SqlSessionTemplate sqlSessiontemplate;
 	
 	public int create(QnADTO qna) {
-		
 		int ch = this.sqlSessiontemplate.insert("qna.create", qna);
 		return ch;
 	}
 
 	public List<QnADTO> getList(QnADTO qna) {
-		
-		return this.sqlSessiontemplate.selectList("qna.getlist", qna);
+	List<QnADTO> result = this.sqlSessiontemplate.selectList("qna.getlist", qna);
+	 return result;
+	
 	}
 
 	public QnADTO getDetail(Integer qID) {

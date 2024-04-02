@@ -26,7 +26,7 @@ public class QnAServiceImpl implements QnAService {
 	@Override
 	public List<QnADTO> getList(QnADTO qna) {
 		
-		return qnaDao.getList(qna);
+		return qnaDao.getList( qna);
 	}
 
 	@Override

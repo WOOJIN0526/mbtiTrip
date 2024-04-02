@@ -46,13 +46,15 @@ public class UserDTO implements UserDetails{
 	
 	private String userrole;
 	
+	private boolean loked;
+	
 	@Override
 	   public String toString() {
 	      return "UserDTO [UID = "+ UID+ "userId=" + userId + ", password=" + password + ", "
 	         + "userName=" + userName + ", mail=" + mail
 	         + ", phone=" + phone+ 
-	         ", mbti=" +mbti+"]"+ ", admin= "+ userrole
-	         + ", BNum =" + BNum;    
+	         ", mbti=" +mbti+ ", admin= "+ userrole
+	         + ", BNum =" + BNum + "loked =" + loked+"]";    
 	   }
 
 	@Override
@@ -81,7 +83,7 @@ public class UserDTO implements UserDetails{
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
-		return true;
+		return this.loked;
 	}
 
 	@Override
