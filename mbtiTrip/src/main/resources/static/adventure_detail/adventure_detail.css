@@ -8,13 +8,13 @@
 }
 
 #adventure_detail{
-    width: 800px;
+    width: 50rem;
     display: flex;
     flex-direction: column;
 }
 
 h1{
-    margin-top: 30px;
+    margin-top: 1.87rem;
     text-align: center;
 }
 
@@ -24,8 +24,8 @@ h1{
     justify-content: space-around;
     border: 1px solid;
     text-align: center;
-    padding: 10px;
-    margin-top: 10PX;
+    padding: 0.62rem;
+    margin-top: 0.62rem;
 }
 
 .detail_tab ul li{
@@ -39,21 +39,22 @@ h1{
 }
 
 .photo__img{
-    width: 100%;
-    height: 500px;
-    margin-top: 20px;
-    margin-bottom: 50px;
+    margin-top: 1.25rem;
+    margin-bottom: 5px;
 }
 .photo__inner .photo img{
-    width: 800px;
-    height: 500px;
+    width: 50rem;
+    height: 32rem;
     object-fit: cover;
-    overflow: hidden;
-    transition: all 0.4s;
 }
 
 #detail_text{
-    margin-bottom: 30px;
+    margin-bottom: 1.87rem;
+}
+
+#tel_and_price{
+    margin-bottom: 1.87rem;
+    
 }
 
 h6{
@@ -63,24 +64,24 @@ h6{
 }
 
 #review{
-    margin-bottom: 30px; 
+    margin-bottom: 1.87rem; 
 }
 
 #wirte_from{
     width: 100%;
-    height: 80px;
+    height: 5rem;
     resize: none;
 }
 
 .oK_button{
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
     display: flex;
     flex-direction: row-reverse;
 }
 
 .oK_button input{
    
-    padding: 10px;
+    padding: 0.62rem;
     border-radius: 0.3em;
     background-color: #FFD8E4;
 }
