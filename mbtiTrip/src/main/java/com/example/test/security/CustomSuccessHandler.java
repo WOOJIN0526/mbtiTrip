@@ -1,6 +1,7 @@
 package com.example.test.security;
 
 import java.io.IOException;
+import java.net.http.HttpRequest;
 import java.util.Collection;
 import java.util.Map;
 
@@ -46,6 +47,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 			try {	
 				log.info("로그인 성공시 접속자의 권한 확인이 가능한지 에 대한  log {}", authentication.getAuthorities());
 				HttpSession session = request.getSession();
+				session.setMaxInactiveInterval(60*60);
 				session.setAttribute("userrole", authentication.getAuthorities());
 			
 				Collection<? extends GrantedAuthority> role = authentication.getAuthorities();

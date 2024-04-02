@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.Service.UserService;
+import com.example.test.session.SessionUserCnt;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -19,7 +20,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class AdminController {
 
-	@Autowired
+	@Autowired 
 	private UserService userService;
 
 //	@RequestMapping(value="/{UID}", method = RequestMethod.GET)
@@ -58,5 +59,12 @@ public class AdminController {
 		return mav;
 	}	
 	
-		
+	@RequestMapping("/userCount")
+	public ModelAndView userCount(ModelAndView mav, SessionUserCnt session) {
+		log.info("session count =>{}", session.getCnt());
+		int userCount = session.getCnt();
+		mav.addObject("userCount", userCount);
+		mav.setViewName("userCount");
+		return mav;
+	}
 }

@@ -20,8 +20,13 @@ public class customSessionExpiredStrategy implements SessionInformationExpiredSt
 	public void onExpiredSessionDetected(SessionInformationExpiredEvent event) throws IOException, ServletException {
 		HttpServletRequest request = event.getRequest();
 		HttpServletResponse response = event.getResponse();
+		log.info("message customSessionExpiredStrategy {}", event.getRequest());
+		log.info("message customSessionExpiredStrategy {}", event.getResponse());
 		
-		request.setAttribute("DUP", response);
+		
+		request.setAttribute("DUPLICATE_LOGIN", true);
+		
+		request.getRequestDispatcher("/login_A").forward(request, response);
 		
 	}
 
