@@ -1,6 +1,7 @@
 package com.example.test.Adventure.DTO;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import com.example.test.User.DTO.UserDTO;
 
@@ -20,9 +21,11 @@ public class Adventure_ReviewDTO {
 	
 	private Integer adventureID; //어드벤쳐 아이디
 	
+	private Adventure_CategoryDTO adventure_categoryID;
+	
 	private double rating;
 	
-	private String userName; // 작성자 이름
+	private UserDTO user; // 작성자 
 	
 	private Integer userId;
 	
@@ -30,22 +33,17 @@ public class Adventure_ReviewDTO {
 	
 	private String content;
 	
-	private String writer;
-	
-	private LocalDateTime regDate;
+	private LocalDateTime updateDate;
 	
 	private LocalDateTime modifyDate;
 	
-	private Long pno;
-	
-	//댓글수처리위함
-	private int answerCnt;
+	private Set<UserDTO> suggestion; // 추천수
 	
 	//조회수
-	private int viewCount;
+	private int views;
 
     public void addViewCount() {
-        this.viewCount++;
+        this.views++;
     }
 	
 }

@@ -8,7 +8,7 @@ package com.example.test.POST.DAO;
 
 import java.util.List;
 import java.util.Map;
-
+import java.util.Optional;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -36,48 +36,39 @@ public class PostDAO {
 		int result = sqlSessiontemplate.insert("post.insert", post);
 		return result;
 	}
-	
-	//@Select("select * from Post where bno >0")
-	public List<PostDTO> getList(Criteria cri){
-		return sqlSessiontemplate.selectList("post.getList", cri);
-	}
-	
-	public List<PostDTO> getListWithPaging(Criteria cri) {
-		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectList("post.getListWithPaging", cri);
+
+	public Optional<PostDTO> findById(Integer userid) {
+		
+		return sqlSessiontemplate.selectOne("post.findById", userid);
 	}
 
-	// 생성된 PK값을 알필요 없는경우
-	public void insert(PostDTO post) {
-		sqlSessiontemplate.insert("post.insert", post);
-	}
-	// 생성된 PK값을 알아야하는경우
-	public Integer insertSelectKey(PostDTO post) {
-		return sqlSessiontemplate.insert("post.insertSelectKey", post);
+	public PostDTO save(PostDTO postDto) {
+		return sqlSessiontemplate.selectOne("post.save", postDto);
 		
 	}
-	
-	public PostDTO read(Long pno) {
-		return sqlSessiontemplate.selectOne("post.read", pno);
-	}
-	
-	public int delete(Long bno) {
-		return sqlSessiontemplate.delete("post.delete", bno);
+
+	public void delete(PostDTO postDto) {
+		sqlSessiontemplate.delete("post.delete", postDto);
 		
 	}
-	public int update(PostDTO post) {
-		return sqlSessiontemplate.update("post.update", post);
+
+	public List<PostDTO> list(Criteria cri) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectList("post.list", cri);
 	}
+
+	public int listCount(Criteria cri) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectOne("post.listCount", cri);
+	}
+
+	public void updateCount(Integer postID) {
+		// TODO Auto-generated method stub
+		sqlSessiontemplate.update("post.updateCount", postID);
+	}
+
 	
-	//전체 데이터의 개수 처리(모든 게시물의 수)
-	public int getTotalCount(Criteria cri) {
-		return sqlSessiontemplate.selectOne("post.getTotalCount", cri);
-	}
-	
-	//댓글이 등록되면 1이 증가, 삭제되면 1이 감소
-	public void updateAnswerCnt(@Param("pno") Long pno, @Param("amount") int amount) {
-		sqlSessiontemplate.update("post.updateAnswerCnt", amount);
-	}
+
 
 
 	

@@ -1,6 +1,7 @@
 package com.example.test.replace.DTO;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import com.example.test.User.DTO.UserDTO;
 
@@ -14,7 +15,7 @@ public class ReplaceReviewDTO {
 
 	private Integer replaceReivewID;
 	
-	private Integer userId;
+	private UserDTO userId;
 	
 	private String userName;
 
@@ -25,22 +26,19 @@ public class ReplaceReviewDTO {
 	private String reviewTitle;
 	
 	private String content;
-
-	private String writer;
 	
-	private LocalDateTime regDate;
+	private LocalDateTime updateDate;
 	
 	private LocalDateTime modifyDate;
 	
-	private Long pno;
+	private Set<UserDTO> suggestion; // 추천수
 	
-	//댓글수처리위함
-	private int answerCnt;
+	private ReplaceCategoryDTO category;
 	
 	//조회수
-	private int viewCount;
+	private int views;
 
     public void addViewCount() {
-        this.viewCount++;
+        this.views++;
     }
 }

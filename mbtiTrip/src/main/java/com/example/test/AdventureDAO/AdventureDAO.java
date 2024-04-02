@@ -2,6 +2,7 @@ package com.example.test.AdventureDAO;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -22,45 +23,37 @@ public class AdventureDAO {
 		return result;
 	}
 
-	public List<AdventureDTO> getList(Criteria cri){
-		return sqlSessiontemplate.selectList("adventure.getList", cri);
-	}
-	
-	public List<AdventureDTO> getListWithPaging(Criteria cri) {
+	public Optional<AdventureDTO> findById(Integer adventureID) {
 		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectList("adventure.getListWithPaging", cri);
+		return sqlSessiontemplate.selectOne("adventure.findById", adventureID);
 	}
 
-	// 생성된 PK값을 알필요 없는경우
-	public void insert(AdventureDTO ad) {
-		sqlSessiontemplate.insert("adventure.insert", ad);
-	}
-	// 생성된 PK값을 알아야하는경우
-	public Integer insertSelectKey(AdventureDTO ad) {
-		return sqlSessiontemplate.insert("adventure.insertSelectKey", ad);
+	public AdventureDTO save(AdventureDTO adDto) {
+		return adDto;
+		// TODO Auto-generated method stub
 		
 	}
-	
-	public AdventureDTO read(Long pno) {
-		return sqlSessiontemplate.selectOne("adventure.read", pno);
-	}
-	
-	public int delete(Long bno) {
-		return sqlSessiontemplate.delete("adventure.delete", bno);
+
+	public void delete(AdventureDTO adDto) {
+		sqlSessiontemplate.delete("adventure.delete", adDto);
 		
 	}
-	public int update(AdventureDTO ad) {
-		return sqlSessiontemplate.update("adventure.update", ad);
+
+	public List<AdventureDTO> list(Criteria cri) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectList("adventure.list", cri);
 	}
+
+	public int listCount(Criteria cri) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectOne("adventure.listCount", cri);
+	}
+
+	public void updateCount(Integer adventureID) {
+		// TODO Auto-generated method stub
+		sqlSessiontemplate.update("adventure.updateCount", adventureID);
+	}
+
 	
-	//전체 데이터의 개수 처리(모든 게시물의 수)
-	public int getTotalCount(Criteria cri) {
-		return sqlSessiontemplate.selectOne("adventure.getTotalCount", cri);
-	}
-	
-	//댓글이 등록되면 1이 증가, 삭제되면 1이 감소
-	public void updateAnswerCnt(@Param("pno") Long pno, @Param("amount") int amount) {
-		sqlSessiontemplate.update("adventure.updateAnswerCnt", amount);
-	}
 	
 }

@@ -4,72 +4,57 @@ package com.example.test.POST.Service;
 
 
 
-import java.util.List;
-
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.test.POST.DAO.AnswerDAO;
-import com.example.test.POST.DAO.PostDAO;
 import com.example.test.POST.DTO.AnswerDTO;
-import com.example.test.POST.DTO.AnswerPageDTO;
-import com.example.test.paging.Criteria;
+import com.example.test.POST.DTO.PostDTO;
+import com.example.test.User.DTO.UserDTO;
 
-import jakarta.transaction.Transactional;
 
 @Service
 public  class AnswerServiceImpi implements AnswerService {
 
 	@Autowired
 	AnswerDAO answerDAO;
-	
-	@Autowired
-	PostDAO postDAO;
 
-	@Transactional
 	@Override
-	public int register(AnswerDTO answer) {
-		
-		postDAO.updateAnswerCnt(answer.getPno(), 1);
-		
-		return answerDAO.insert(answer);
+	public AnswerDTO create(PostDTO post, String content, UserDTO writer) {
+		 	AnswerDTO answerDto = new AnswerDTO();
+	        answerDto.setContent(content);
+	        answerDto.setUpdateDate(LocalDateTime.now());
+	        answerDto.setPostID(post);;
+	        answerDto.setWriter(writer);
+	        
+	        return this.answerDAO.save(answerDto);
 	}
 
 	@Override
-	public AnswerDTO get(Long ano) {
-		// TODO Auto-generated method stub
-		return answerDAO.read(ano);
+	public AnswerDTO getAnswer(Integer answerID) {
+		Optional<AnswerDTO> answer = this.answerDAO.findById(answerID);
+		if(answer.isPresent()) {
+			return answer.get();
+		}
+		return null;
 	}
 
 	@Override
-	public int modify(AnswerDTO answer) {
-		// TODO Auto-generated method stub
-		return answerDAO.update(answer);
-	}
-
-	@Transactional
-	@Override
-	public int remove(Long ano) {
-		AnswerDTO anwer = answerDAO.read(ano);
-		
-		postDAO.updateAnswerCnt(anwer.getPno(), -1);
-		return answerDAO.delete(ano);
+	public AnswerDTO modify(AnswerDTO answerDto, String content) {
+		answerDto.setContent(content);
+		answerDto.setModifyDate(LocalDateTime.now());
+		return this.answerDAO.save(answerDto);
 	}
 
 	@Override
-	public List<AnswerDTO> getList(Criteria cri, Long pno) {
-		// TODO Auto-generated method stub
-		return answerDAO.getListWithPaging(cri, pno);
+	public void delete(AnswerDTO answerDto) {
+		this.answerDAO.delete(answerDto);
 	}
 
-	@Override
-	public AnswerPageDTO getListPage(Criteria cri, Long pno) {
-		// TODO Auto-generated method stub
-		return new AnswerPageDTO(
-				answerDAO.getCountByPno(pno),
-				answerDAO.getListWithPaging(cri, pno));
-	}
+
 	
 	
 	
