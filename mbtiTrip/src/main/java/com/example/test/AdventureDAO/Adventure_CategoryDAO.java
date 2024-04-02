@@ -22,10 +22,17 @@ public class Adventure_CategoryDAO {
 		return result;
 	}
 	
-	public List<Adventure_CategoryDTO> categoryName;
 
-	public Optional<Adventure_CategoryDTO> findById(String category) {
+
+	public List<Adventure_CategoryDTO> getList() {
 		// TODO Auto-generated method stub
-		return null;
+		return sqlSessiontemplate.selectList("adventure_category.getList");
+	}
+
+
+
+	public Adventure_CategoryDTO getCategory(Integer category) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectOne("adventure_category.getCategory", category);
 	}
 }

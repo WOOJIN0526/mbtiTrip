@@ -19,17 +19,16 @@ public class Adventure_CategoryServiceImpl implements Adventure_CategoryService 
 	@Override
 	public List<Adventure_CategoryDTO> getList() {
 		// TODO Auto-generated method stub
-		return adcDAO.categoryName;
+		return adcDAO.getList();
 	}
 
 	@Override
-	public Adventure_CategoryDTO getCategory(String category) {
-		Optional<Adventure_CategoryDTO> pc = this.adcDAO.findById(category);
-		if(pc.isPresent()) {
-			return pc.get();
-		}
-		return null;
+	public Adventure_CategoryDTO getCategory(Integer category) {
+		// TODO Auto-generated method stub
+		return adcDAO.getCategory(category);
 	}
+
+	
 	
 	
 	

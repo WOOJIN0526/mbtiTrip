@@ -26,34 +26,20 @@ public class AnswerDAO {
 		return result;
 	}
 
-	//등록
-	public int insert(AnswerDTO answer) {
-		return sqlSessiontemplate.insert("answer.insert", answer);
+	public AnswerDTO save(AnswerDTO answerDto) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
-	//조회(특정 댓글 읽기)
-	public AnswerDTO read(Long ano) {
-		return sqlSessiontemplate.selectOne("answer.read", ano);
+
+	public Optional<AnswerDTO> findById(Integer answerID) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
-	
-	//특정댓글삭제
-	public int delete(Long ano) {
-		return sqlSessiontemplate.delete("answer.delete", ano);
+
+	public void delete(AnswerDTO answerDto) {
+		// TODO Auto-generated method stub
+		
 	}
+
 	
-	//수정
-	public int update(AnswerDTO answer) {
-		return sqlSessiontemplate.update("answer.update", answer);
-	}
-	
-	//댓글목록 페이징처리
-	public List<AnswerDTO> getListWithPaging(@Param("cri") Criteria cri, @Param("pno") Long pno){
-		return sqlSessiontemplate.selectList("answer.getListWithPaging", cri);
-	}
-	
-	//해당 게시물의 댓글수 파악
-	public int getCountByPno(Long pno) {
-		return sqlSessiontemplate.selectOne("answer.getCountByPno", pno);
-	}
 }

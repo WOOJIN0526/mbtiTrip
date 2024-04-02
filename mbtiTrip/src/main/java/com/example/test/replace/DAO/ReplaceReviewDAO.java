@@ -29,46 +29,38 @@ public class ReplaceReviewDAO {
 		return result;
 	}
 
-	public List<ReplaceReviewDTO> getList(Criteria cri){
-		return sqlSessiontemplate.selectList("replace_review.getList", cri);
-	}
-	
-	public List<ReplaceReviewDTO> getListWithPaging(Criteria cri) {
+	public Optional<ReplaceReviewDTO> findById(Integer replaceReviewID) {
 		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectList("replace_review.getListWithPaging", cri);
+		return sqlSessiontemplate.selectOne("replaceReview.findById", replaceReviewID);
 	}
 
-	// 생성된 PK값을 알필요 없는경우
-	public void insert(ReplaceReviewDTO ad) {
-		sqlSessiontemplate.insert("replace_review.insert", ad);
-	}
-	// 생성된 PK값을 알아야하는경우
-	public Integer insertSelectKey(ReplaceReviewDTO ad) {
-		return sqlSessiontemplate.insert("replace_review.insertSelectKey", ad);
+	public ReplaceReviewDTO save(ReplaceReviewDTO rprDto) {
+		return rprDto;
+		// TODO Auto-generated method stub
 		
 	}
+
+	public void delete(ReplaceReviewDTO rprDto) {
+		// TODO Auto-generated method stub
+		sqlSessiontemplate.delete("replaceReview.delete", rprDto);
+	}
+
+	public List<ReplaceReviewDTO> list(Criteria cri) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectList("replaceReview.list", cri);
+	}
+
+	public int listCount(Criteria cri) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectOne("replaceReview.listCount", cri);
+	}
+
+	public void updateCount(Integer replaceReviewID) {
+		// TODO Auto-generated method stub
+		sqlSessiontemplate.update("replaceReview.updateCount", replaceReviewID);
+	}
+
 	
-	public ReplaceReviewDTO read(Long pno) {
-		return sqlSessiontemplate.selectOne("replace_review.read", pno);
-	}
-	
-	public int delete(Long bno) {
-		return sqlSessiontemplate.delete("replace_review.delete", bno);
-		
-	}
-	public int update(ReplaceReviewDTO ad) {
-		return sqlSessiontemplate.update("replace_review.update", ad);
-	}
-	
-	//전체 데이터의 개수 처리(모든 게시물의 수)
-	public int getTotalCount(Criteria cri) {
-		return sqlSessiontemplate.selectOne("replace_review.getTotalCount", cri);
-	}
-	
-	//댓글이 등록되면 1이 증가, 삭제되면 1이 감소
-	public void updateAnswerCnt(@Param("pno") Long pno, @Param("amount") int amount) {
-		sqlSessiontemplate.update("replace.updateAnswerCnt", amount);
-	}
 	
 	
 	

@@ -36,46 +36,38 @@ public class ReplaceDAO {
 		return result;
 	}
 
-	public List<ReplaceDTO> getList(Criteria cri){
-		return sqlSessiontemplate.selectList("replace.getList", cri);
-	}
-	
-	public List<ReplaceDTO> getListWithPaging(Criteria cri) {
+	public Optional<ReplaceDTO> findById(Integer replaceID) {
 		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectList("replace.getListWithPaging", cri);
+		return sqlSessiontemplate.selectOne("replace.findById", replaceID);
 	}
 
-	// 생성된 PK값을 알필요 없는경우
-	public void insert(ReplaceDTO ad) {
-		sqlSessiontemplate.insert("replace.insert", ad);
-	}
-	// 생성된 PK값을 알아야하는경우
-	public Integer insertSelectKey(ReplaceDTO ad) {
-		return sqlSessiontemplate.insert("replace.insertSelectKey", ad);
+	public ReplaceDTO save(ReplaceDTO rpDto) {
+		return rpDto;
+		// TODO Auto-generated method stub
 		
 	}
+
+	public void delete(ReplaceDTO rpDto) {
+		// TODO Auto-generated method stub
+		sqlSessiontemplate.delete("replace.delete", rpDto);
+	}
+
+	public List<ReplaceDTO> list(Criteria cri) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectList("replace.list", cri);
+	}
+
+	public int listCount(Criteria cri) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectOne("replace.listCount", cri);
+	}
+
+	public void updateCount(Integer replaceID) {
+		// TODO Auto-generated method stub
+		sqlSessiontemplate.update("replace.updateCount", replaceID);
+	}
+
 	
-	public ReplaceDTO read(Long pno) {
-		return sqlSessiontemplate.selectOne("replace.read", pno);
-	}
-	
-	public int delete(Long bno) {
-		return sqlSessiontemplate.delete("replace.delete", bno);
-		
-	}
-	public int update(ReplaceDTO ad) {
-		return sqlSessiontemplate.update("replace.update", ad);
-	}
-	
-	//전체 데이터의 개수 처리(모든 게시물의 수)
-	public int getTotalCount(Criteria cri) {
-		return sqlSessiontemplate.selectOne("replace.getTotalCount", cri);
-	}
-	
-	//댓글이 등록되면 1이 증가, 삭제되면 1이 감소
-	public void updateAnswerCnt(@Param("pno") Long pno, @Param("amount") int amount) {
-		sqlSessiontemplate.update("replace.updateAnswerCnt", amount);
-	}
 	
 	 
 

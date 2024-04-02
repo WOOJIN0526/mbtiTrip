@@ -1,6 +1,6 @@
 package com.example.test.paging;
 
-import org.springframework.web.util.UriComponentsBuilder;
+
 
 import groovy.transform.ToString;
 import lombok.Getter;
@@ -11,37 +11,64 @@ import lombok.Setter;
 @ToString
 public class Criteria {//검색기준
 	
-	//페이징 처리를 위한
-	private int pageNum;
-	private int amount;
-	
-	//주제별 검색 처리를 위한
-	private String type;
-	private String keyword;
-	
-	//한 페이지에 얼만큼의 게시물을 허용할지(1페이지에 10개)
-	public Criteria() {
-		this(1,10);
+	 	private int page;                //현재 페이지 번호
+	    private int perPageNum;          //한 페이지 당 게시물 수
+	    private String keyword, option;  //검색 시 페이징 처리 유지를 위한 검색조건들
+
+	    public String getKeyword() {
+	        return keyword;
+	    }
+	    public void setKeyword(String keyword) {
+	        this.keyword = keyword;
+	    }
+	    public String getOption() {
+	        return option;
+	    }
+	    public void setOption(String option) {
+	        this.option = option;
+	    }
+
+	    //현재 페이지 게시글 시작 번호
+	    public int getPageStart() {
+	    return (this.page-1)*perPageNum;
+	    }
+	    
+	    //첫 접근 시 현재 페이지는 1, 게시물 개수 10개
+	    public Criteria() {
+	        this.page = 1;
+	        this.perPageNum = 10;
+	    }
+	    
+	    public int getPage() {
+	        return page;
+	    }
+	    
+	    //음수가 될 경우는 시작 페이지를 리턴
+	    public void setPage(int page) {
+	        if(page <= 0) {
+	            this.page = 1;
+	        } else {
+	            this.page = page;
+	        }
+	    }
+	    
+	    public int getPerPageNum() {
+	        return perPageNum;
+	    }
+	    
+	    //페이지 당 게시글 수가 변하지 않아야 한다
+	    public void setPerPageNum(int pageCount) {
+	        int cnt = this.perPageNum;
+	        if(pageCount != cnt) {
+	            this.perPageNum = cnt;
+	        } else {
+	            this.perPageNum = pageCount;
+	        }
+	    }
+	    
+	    @Override
+	    public String toString() {
+	    	return "Criteria[page = " + page + ", perPageNum = " + perPageNum + "]";
+	    }
+	    
 	}
-	
-	public Criteria(int pageNum, int amount) {
-		this.pageNum = pageNum;
-		this.amount = amount;
-	}
-	
-	// 검색조건이 각 글자별로 되어있으므로 검색 조건을 배열로 만들어서 한번에 처리
-	public String[] getTypeArr() {
-		return type == null? new String[] {}: type.split("");
-	}
-	
-	public String getListLink() {
-		//여러개의 파라미터들을 연결하여 url의 형태로 만들어주는 기능
-		UriComponentsBuilder builder = UriComponentsBuilder.fromPath("")
-				.queryParam("pageNum", this.pageNum)
-				.queryParam("amount",  this.getAmount())
-				.queryParam("type", this.getType())
-				.queryParam("keyword", this.getKeyword());
-		
-		return builder.toUriString();
-	}
-}

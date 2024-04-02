@@ -1,17 +1,24 @@
 package com.example.test.POST.DTO;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
-import lombok.Data;
+import com.example.test.User.DTO.UserDTO;
+
+import lombok.Getter;
+import lombok.Setter;
 
 
 
-@Data
+@Getter
+@Setter
 public class PostDTO {
 
 	private Integer postID;
 	
 	private Integer postCategoryID;
+	
+	private Post_CategoryDTO post_category;
 	
 	private Integer userId;
 	
@@ -19,12 +26,9 @@ public class PostDTO {
 	
 	private String content;
 	
-	private String writer;
+	private Set<UserDTO> suggestion;
 	
-	//private String suggestion; 나중에 userDTO에서 Set으로 voter?
-	//private Set<UserDTO> voter;
-	
-	private LocalDateTime regDate;
+	private LocalDateTime updateDate;
 	
 	private LocalDateTime modifyDate;
 	
@@ -32,16 +36,13 @@ public class PostDTO {
 	
 	//private Post_CategoryDTO post_category;
 	
-	private Long pno;
-	
-	//댓글수처리위함
-	private int answerCnt;
+	private UserDTO write;
 	
 	//조회수
-	private int viewCount;
+	private int views;
 
     public void addViewCount() {
-        this.viewCount++;
+        this.views++;
     }
 	
 }

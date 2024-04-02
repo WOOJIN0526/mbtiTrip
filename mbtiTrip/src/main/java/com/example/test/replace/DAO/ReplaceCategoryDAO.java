@@ -25,13 +25,19 @@ public class ReplaceCategoryDAO {
 		int result = this.sqlSessiontemplate.insert("replaceCategory.insert",replaceCategory);
 		return result;
 	}
-	  
-	public List<ReplaceCategoryDTO> categoryName;
 
 
-	public Optional<ReplaceCategoryDTO> findById(String category) {
-		int result = sqlSessiontemplate.selectOne("replaceCategory.findById", category);
-		return null;
+	public List<ReplaceCategoryDTO> getList() {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectList("replaceCategory.getList");
 	}
+
+
+	public ReplaceCategoryDTO getCategory(Integer category) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectOne("replaceCategory.getCategory", category);
+	}
+	  
+
 	
 }

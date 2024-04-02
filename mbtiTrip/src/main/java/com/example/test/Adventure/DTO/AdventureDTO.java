@@ -18,7 +18,7 @@ public class AdventureDTO {
 	
 	private Integer adventureID; //게시한 담당자아이디?
 	
-	private Integer adventureCategoryID; // 어드벤쳐 카테고리 id
+	private Adventure_CategoryDTO adventureCategoryID; // 어드벤쳐 카테고리 id
 	
 	private Integer mbtiID;
 	
@@ -40,29 +40,20 @@ public class AdventureDTO {
 	
 	private String tel; // 어드벤쳐 번호
 	
-	private String adventureAdmin; // 어드벤쳐 관리자 이름?
+	private UserDTO adventureAdmin; // 어드벤쳐 관리자 이름?
 	
-	private double ratingAvg; // 해당 어드벤쳐 평점
+	private double ratingAvg; // 해당 어드벤쳐 평점(추천)
 	
-	//private Set<UserDTO> voter; // 추천수
-	 
+	private Set<UserDTO> suggestion; // 추천수
 	
-	private String writer;
-	
-	private LocalDateTime regDate;
-	
+	private LocalDateTime updateDate;
 	private LocalDateTime modifyDate;
 	
-	private Long pno;
-	
-	//댓글수처리위함
-	private int answerCnt;
-	
 	//조회수
-	private int viewCount;
+	private int views;
 
     public void addViewCount() {
-        this.viewCount++;
+        this.views++;
     }
 	
 }

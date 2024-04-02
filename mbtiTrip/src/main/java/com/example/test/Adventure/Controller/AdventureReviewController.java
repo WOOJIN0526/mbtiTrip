@@ -1,140 +1,147 @@
 package com.example.test.Adventure.Controller;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneOffset;
+import java.security.Principal;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.ModelAndView;
 
 
+
+import com.example.test.Adventure.AdventureReviewForm;
+import com.example.test.Adventure.DTO.Adventure_CategoryDTO;
 import com.example.test.Adventure.DTO.Adventure_ReviewDTO;
+import com.example.test.Adventure.Service.Adventure_CategoryService;
 import com.example.test.Adventure.Service.Adventure_ReviewService;
+import com.example.test.POST.Controller.PageDTO;
+import com.example.test.User.DTO.UserDTO;
+import com.example.test.User.Service.UserService;
 import com.example.test.paging.Criteria;
-import com.example.test.paging.PageDTO;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
-@RequestMapping("/adventure/review/*")
+import jakarta.validation.Valid;
+
+@RequestMapping("/adventureReview/")
 @Controller
 public class AdventureReviewController {
 
 	@Autowired
 	Adventure_ReviewService adrService;
 	
-			//전체목록조회
-			@GetMapping("/main")
-			public String list(Criteria cri, Model model) {
-			model.addAttribute("list", adrService.getList(cri));
-			//model.addAttribute("pageMaker", new PageDTO(cri, 123)); //123은 임의의 값임 아직 전체 데이터수정해지지 않음
-					
-			int total = adrService.getTotal(cri);
-						
-			model.addAttribute("pageMaker", new PageDTO(cri, total));
-					
-			return "Review_main";
-						
-			}
-			
-			//등록입력 페이지를 볼수 있도록
-			@GetMapping("/write/form")
-			@PreAuthorize("isAuthenticated()")
-			public String register() {
-				return "write_form";
-			}
-			
-			//등록처리
-			@PreAuthorize("isAuthenticated()")
-			@PostMapping("/write/form") //등록작업이 끝난후 다시 목록화면으로 이동하기 위함(추가적으로 새롭게 등록된 게시물의 번호를 같이전달)
-			public String register(Adventure_ReviewDTO adr, RedirectAttributes rttr) {
-//				if(post.getAttachList() != null) {
-//					post.getAttachList().forEach(attach -> log.info(attach));
-//				}
-				
-				adrService.register(adr);
-				rttr.addFlashAttribute("result", adr.getPno());
-				return "redirect:/adventure/review/main";
-			}
-			
-			//특정 번호의 게시물 조회, 수정/삭제 페이지로 이동
-			@GetMapping({"/detail", "/modify"})
-			public void get(@RequestParam("pno") Long pno,@ModelAttribute("cri") Criteria cri, Model model) {
-				
-				model.addAttribute("adventureReview", adrService.get(pno));
-			}
-			
-			
-			
-			//수정처리
-			@PreAuthorize("principal.username == #adventure.writer")
-			@PostMapping("/modify")
-			public String modify(Adventure_ReviewDTO adr, Criteria cri, RedirectAttributes rttr) {
-				
-				if(adrService.modify(adr)) {
-					rttr.addFlashAttribute("result", "success");
-				}
-				
-				return "redirect:/adventure/review/main" + cri.getListLink();
-			}
-			
-			//삭제처리 후 다시 목록페이지로 이동
-			@PreAuthorize("principal.username == #writer")
-			@PostMapping("/remove")
-			public String remove(@RequestParam("pno") Long pno, Criteria cri, RedirectAttributes rttr) {
-				if(adrService.remove(pno)) {
-					rttr.addFlashAttribute("result", "success");
-				}
-				
-				return "redirect:/adventure/review/main" + cri.getListLink();
-			}
-			
-			// 여기까지 게시물의 등록, 수정, 삭제, 조회 페이징 처리 완료
-			
-			// 조회수증가(쿠키기반)
-			private void viewCountValidation(Adventure_ReviewDTO adr, HttpServletRequest request, HttpServletResponse response) {
-		        Cookie[] cookies = request.getCookies();
-		        Cookie cookie = null;
-		        boolean isCookie = false;
-		        // request에 쿠키들이 있을 때
-		        for (int i = 0; cookies != null && i < cookies.length; i++) {
-		        	// postView 쿠키가 있을 때
-		            if (cookies[i].getName().equals("adventure_reviewView")) {
-		            	// cookie 변수에 저장
-		                cookie = cookies[i];
-		                // 만약 cookie 값에 현재 게시글 번호가 없을 때
-		                if (!cookie.getValue().contains("[" + adr.getUserId() + "]")) {
-		                	// 해당 게시글 조회수를 증가시키고, 쿠키 값에 해당 게시글 번호를 추가
-		                    adr.addViewCount();
-		                    cookie.setValue(cookie.getValue() + "[" + adr.getUserId() + "]");
-		                }
-		                isCookie = true;
-		                break;
-		            }
-		        }
-		        // 만약 postView라는 쿠키가 없으면 처음 접속한 것이므로 새로 생성
-		        if (!isCookie) { 
-		            adr.addViewCount();
-		            cookie = new Cookie("adventure_reviewView", "[" + adr.getUserId() + "]"); // oldCookie에 새 쿠키 생성
-		        }
-		        
-		        // 쿠키 유지시간을 오늘 하루 자정까지로 설정
-		        long todayEndSecond = LocalDate.now().atTime(LocalTime.MAX).toEpochSecond(ZoneOffset.UTC);
-		        long currentSecond = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
-		        cookie.setPath("/"); // 모든 경로에서 접근 가능
-		        cookie.setMaxAge((int) (todayEndSecond - currentSecond));
-		        response.addCookie(cookie);
-		    }
+	@Autowired
+	UserService userService;
+	
+	@Autowired
+	Adventure_CategoryService adCategoryService;
+	
+	@RequestMapping("list")
+	public ModelAndView List(ModelAndView mv, Criteria cri) throws Exception {
+
+	    PageDTO pageMaker = new PageDTO();
+	    pageMaker.setCri(cri); //page, perpagenum 셋팅
+	    pageMaker.setTotalCount(adrService.listCount(cri)); //총 게시글 수 셋팅
+
+	    //View에 페이징 처리를 위한 조건 및 그에 맞는 게시판 리스트 전송
+	    mv.addObject("pageMaker", pageMaker);
+	    mv.addObject("data", adrService.list(cri)); 
+
+	    mv.setViewName("adventureReview_list");
+
+	    return mv;
+	    }
+	
+	
+    @RequestMapping(value = "/detail/{id}")
+    public String detail(Model model, @PathVariable("id") Integer adventureReviewID) {
+        Adventure_ReviewDTO adr = this.adrService.getPost(adventureReviewID);
+        model.addAttribute("adventure", adr);
+        return "adventureReview_detail";
+    }
+
+    //게시물을 작성할 때도 카테고리를 선택해서 게시물을 생성해야 한다. 
+    //따라서 전체 카테고리 중에서 알맞는 카테고리를 선택할 수 있어야 한다. 즉, 아래와 같이 게시물 등록 폼에서 전체 카테고리를 조회한다.
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/create")
+    public String Create(AdventureReviewForm Form, Model model) {
+    	model.addAttribute("categoryList", adCategoryService.getList());
+        return "adventureReview_form";
+    }
+
+    //컨트롤러에 넘어온 카테고리 이름으로 카테고리 엔티티를 조회하고, 
+    //조회한 카테고리 엔티티를 질문 엔티티에 넣어주고 저장하면 질문에 카테고리가 생기게 된다.
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/create")
+    public String Create(Model model, @Valid AdventureReviewForm Form, 
+    	BindingResult bindingResult, Principal principal) {
+        if (bindingResult.hasErrors()) {
+        	model.addAttribute("categoryList", adCategoryService.getList());
+            return "adventureReview_form";
+        }
+        UserDTO User = this.userService.getUser(principal.getName());
+        Adventure_CategoryDTO category = this.adCategoryService.getCategory(Form.getAdventureCategoryID());
+        this.adrService.create(Form.getTitle(),Form.getContent(), User,category);
+        return "redirect:/adventureReview/list";
+        }
+    
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/modify/{id}")
+    public String Modify(AdventureReviewForm postForm, @PathVariable("id") Integer adventureID, Principal principal) {
+        Adventure_ReviewDTO adrDto = this.adrService.getPost(adventureID);
+        if(!adrDto.getUser().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        postForm.setTitle(adrDto.getReviewTitle());
+        postForm.setContent(adrDto.getContent());
+        return "adventureReview_form";
+    }
+    
+    //수정
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/modify/{id}")
+    public String Modify(@Valid AdventureReviewForm postForm, BindingResult bindingResult, 
+            Principal principal, @PathVariable("id") Integer adventureID) {
+        if (bindingResult.hasErrors()) {
+            return "adventureReview_form";
+        }
+        Adventure_ReviewDTO adrDto = this.adrService.getPost(adventureID);
+        if (!adrDto.getUser().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        this.adrService.modify(adrDto, postForm.getTitle(), postForm.getContent());
+        return String.format("redirect:/adventureReview/detail/%s", adventureID);
+    }
+    
+    //삭제
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/delete/{id}")
+    public String Delete(Principal principal, @PathVariable("id") Integer adventureID) {
+        Adventure_ReviewDTO adrDto = this.adrService.getPost(adventureID);
+        if (!adrDto.getUser().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+        }
+        this.adrService.delete(adrDto);
+        return "redirect:/";
+    }
+    
+    //추천
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/suggestion/{id}")
+    public String Suggestion(Principal principal, @PathVariable("id") Integer adventureID) {
+        Adventure_ReviewDTO adrDto = this.adrService.getPost(adventureID);
+        UserDTO user = this.userService.getUser(principal.getName());
+        this.adrService.suggestion(adrDto, user);
+        return String.format("redirect:/adventureReview/detail/%s", adventureID);
+    }
 
 
 }
