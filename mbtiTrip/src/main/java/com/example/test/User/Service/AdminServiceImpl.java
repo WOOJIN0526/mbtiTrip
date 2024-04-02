@@ -19,7 +19,7 @@ import lombok.extern.log4j.Log4j2;
 @Service
 public class AdminServiceImpl implements adminService{
 
-	@Autowired
+	@Autowired(required=true)
 	private AdminDTO adminDto;
 	@Autowired
 	private adminDAO adminDao;
@@ -39,8 +39,7 @@ public class AdminServiceImpl implements adminService{
 		return baned;
 	}
 
-
-	@Bean()
+  ;
 	@Override
 	public int rating(String userName) {
 		int rating = adminDto.getRating();
@@ -54,6 +53,7 @@ public class AdminServiceImpl implements adminService{
 		}
 		return rating;
 	}
+	
 	
 	@Scheduled(cron = "0 0 0 * * *") 
 	@Override
