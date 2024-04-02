@@ -13,16 +13,11 @@ import lombok.Setter;
 public class AnswerDTO {
 
 	private Integer answerID;
-	
-	private Integer postID;
-	
-	private Long ano;
-	private Long pno;
-	private String replay;
-	private String replayer;
-	private LocalDateTime replayDate;
+	private PostDTO postID;
+	private String content;
 	private LocalDateTime updateDate;
-	
+	private LocalDateTime modifyDate;
+	private UserDTO writer;
 	
 	
 	

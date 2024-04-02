@@ -15,7 +15,7 @@ public class ReplaceDTO {
 
 	private Integer replaceID;    //pk
 	
-	private Integer replaceCategoryID;   //fk
+	private ReplaceCategoryDTO replaceCategoryID;   //fk
 	
 	private Integer mbtiID;    //fk
 
@@ -37,25 +37,20 @@ public class ReplaceDTO {
 	
 	private String tel;
 	
-	private String replaceAdmin;
+	private UserDTO replaceAdmin;
 	
 	private Integer R_rating_avg;
 	
-	private String writer;
+	private Set<UserDTO> suggestion;
 	
-	private LocalDateTime regDate;
+	private LocalDateTime updateDate;
 	
 	private LocalDateTime modifyDate;
 	
-	private Long pno;
-	
-	//댓글수처리위함
-	private int answerCnt;
-	
 	//조회수
-	private int viewCount;
+	private int views;
 
     public void addViewCount() {
-        this.viewCount++;
+        this.views++;
     }
 }

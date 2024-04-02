@@ -10,15 +10,13 @@ import lombok.Setter;
 public class ReplaceReviewForm {
 
 	@NotEmpty(message = "제목은 필수항목입니다.")
-    @Size(max = 100)
+    @Size(max = 200)
     private String title;
 
+	@NotEmpty(message = "여행카테고리는 필수항목입니다.")
+	private Integer adventureCategoryID; 
+
+ 	
     @NotEmpty(message = "내용은 필수항목입니다.")
     private String content;
-    
-    @NotEmpty(message = "MBTI는 필수항목입니다")
-    private String mbti;
-    
-    @NotEmpty(message = "카테고리는 필수항목입니다")
-    private String categoryName;
 }

@@ -272,11 +272,12 @@
 					<details class="question" data-value="own">
 						<summary>
 							<span th:text="${question.title}"></span>
+							<span th:text="${question.userName}"></span>
 							<span th:text="${question.updateDate}"></span>
 						</summary>
 						<div>
 							<p>
-								<span th:text="${question.description}"></span>
+								<span th:text="${question.contents}"></span>
 							</p>
 						</div>
 					</details>

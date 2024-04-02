@@ -20,18 +20,17 @@ public class ReplaceCategoryServiceImpl implements ReplaceCategoryService{
 	@Override
 	public List<ReplaceCategoryDTO> getList() {
 		// TODO Auto-generated method stub
-		return rpcDAO.categoryName;
+		return rpcDAO.getList();
 	}
 
 
 	@Override
-	public ReplaceCategoryDTO getCategory(String category) {
-		Optional<ReplaceCategoryDTO> pc = this.rpcDAO.findById(category);
-		if(pc.isPresent()) {
-			return pc.get();
-		}
-		return null;
+	public ReplaceCategoryDTO getCategory(Integer category) {
+
+		return rpcDAO.getCategory(category);
 	}
+
+
 
 	
 }

@@ -1,23 +1,21 @@
 package com.example.test.POST.Service;
 
-import java.util.List;
+
 
 import com.example.test.POST.DTO.AnswerDTO;
-import com.example.test.POST.DTO.AnswerPageDTO;
-import com.example.test.paging.Criteria;
+import com.example.test.POST.DTO.PostDTO;
+import com.example.test.User.DTO.UserDTO;
 
 public interface AnswerService {
 
-	public int register(AnswerDTO answer);
+	 public AnswerDTO create(PostDTO questionDto, String content, UserDTO writer);
+
+	 public AnswerDTO getAnswer(Integer answerID);
+	 
+	 public AnswerDTO modify(AnswerDTO answerDto, String content);
+	 
+	 public void delete(AnswerDTO answerDto);
+	 
 	
-	public AnswerDTO get(Long ano);
-	
-	public int modify(AnswerDTO answer);
-	
-	public int remove(Long ano);
-	
-	public List<AnswerDTO> getList(Criteria cri, Long pno);
-	
-	public AnswerPageDTO getListPage(Criteria cri, Long pno);
 	
 }

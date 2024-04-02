@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin">
+	
+	
+	<select id="UserCnt" resultType="Int">
+		 <![CDATA[
+			select count(*)
+			from `User`
+			where userRole = "ROLE_User" 
+			and  loked = false;
+			]]>
+	</select>
+		
+	<select id="BisCnt" resultType="Int">
+		 <![CDATA[
+			select count(*)
+			from `User`
+			where userRole = "ROLE_BIS" 
+			and  loked = false;
+			]]>
+	</select>
+	
+
+	<select id="userReportCnt" resultType="Int">
+	 <![CDATA[
+		select report
+		from `User`
+		where userName = #{userName}
+		]]>
+	</select>
+	
+	<update id="userBaned">
+	 <![CDATA[
+		update User set loked = true
+		where userName= #{userName}
+		]]>
+	</update>
+	
+	<update id="userBaned">
+	 <![CDATA[
+		update User set report = report+1
+		where userName= #{userName}
+		]]>
+	</update>
+</mapper>

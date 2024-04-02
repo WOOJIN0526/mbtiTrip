@@ -19,13 +19,18 @@ public class Post_CategoryDAO {
 	public int insert(Map<String, Object> post_category) {
 		int result = sqlSessiontemplate.insert("post_category.insert", post_category);
 		return result;
-	};
-	
-	public List<Post_CategoryDTO> categoryName;
-
-	public Optional<Post_CategoryDTO> findById(String category) {
-		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectOne("post.findById", category);
 	}
+
+	public List<Post_CategoryDTO> getList() {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectList("post_category.getList");
+	}
+
+	public Post_CategoryDTO getCategory(String category) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectOne("post_category.getCategory", category);
+	}
+	
+
 	
 }

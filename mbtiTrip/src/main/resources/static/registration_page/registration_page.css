@@ -1,0 +1,66 @@
+*{
+    padding: 0;
+    margin: 0;
+
+}
+
+.registration_page{
+    width: 100%;
+    height: 43rem;
+    display: flex;
+    align-items: center;
+}
+
+
+tr{
+    display: flex;
+    flex-direction: row;
+    border: 0.25px solid gray;
+}
+
+tr th{
+    width: 12.5rem;
+    margin-right: 0.6rem;
+    background-color: #d3d3d3;
+}
+td input{
+    border-width: 0;
+    margin-left: 0.6rem;
+   
+}
+
+td input:focus{
+    outline: none;
+}
+
+.text{
+    width: 50rem;
+
+}
+
+textarea{
+    width: 50rem;
+    height: 25rem;
+    resize: none;
+    border: none;
+}
+
+textarea:focus{
+    outline: none;
+}
+
+.button{
+    display: flex;
+    flex-direction: row-reverse;
+}
+    
+.registration{
+    width: 5rem;
+    height: 1.87rem;
+    font-weight: 900;
+    color: white;
+    text-align: center;
+    background:  black;
+    border: solid 2px white;
+    border-radius: 0.3rem;
+}

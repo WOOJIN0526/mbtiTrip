@@ -15,21 +15,20 @@ public class Post_CategoryServiceImpl implements Post_CategoryService {
 
 	@Autowired
 	Post_CategoryDAO postCategoryDao;
-	
+
 	@Override
 	public List<Post_CategoryDTO> getList() {
-		
-        return postCategoryDao.categoryName;
+		// TODO Auto-generated method stub
+		return this.postCategoryDao.getList();
 	}
 
 	@Override
 	public Post_CategoryDTO getCategory(String category) {
-		Optional<Post_CategoryDTO> pc = this.postCategoryDao.findById(category);
-		if(pc.isPresent()) {
-			return pc.get();
-		}
-		return null;
+		// TODO Auto-generated method stub
+		return this.postCategoryDao.getCategory(category);
 	}
+	
+
 
 
 	

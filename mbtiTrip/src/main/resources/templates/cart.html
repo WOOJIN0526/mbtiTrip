@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+    <section class="cart">
+        <h1>장바구니</h1>
+        <div class="cart_information">
+            <ul>
+                <li>상품은 최대 30일간 저장됩니다.</li>
+                <li>상품 등록자가 가격, 옵션 등 정보가 변경된 경우 주문이 불가할 수 있습니다.</li>
+            </ul>
+        </div>
+        <table class="cart_list">
+            <form>
+                <thead>
+                    <tr>
+                        <th><input type="checkbox"></th>
+                        <th>상품이름</th>
+                        <th>옵션</th>
+                        <th>상품금액</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="cart_list_detail">
+                        <td><input type="checkbox"></td>
+                        <td colspan="2" class="image_name">
+                            <img src="제주도/제주_카멜리아힐.jpg" alt="">                      
+                            <span>제주도 숙소</span>    
+                        </td>
+                        <td class="cart_list_option">
+                            <p></p>
+                            <span class="">넷플레스 무료 제공</span>
+                            <span>조식 제공</span>                            
+                        </td>
+                        <td><span class="price">1160000원</span><br>
+                            <span style="text-decoration: line-through; color: lightgray;">1190000</span><br>
+                            <button class="cart__list__orderbtn">예약하기</button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr class="cart_list_detail">
+                        <td><input type="checkbox"></td>
+                        <td class="image_name" colspan="2">
+                            <img src="제주도/제주_카멜리아힐.jpg" alt="">
+                            <span>제주도 숙소</span>  
+                        </td>
+                        <td class="cart_list_option">
+                            <p></p>
+                            <span class="">넷플레스 무료 제공</span>
+                            <span>조식 제공</span>                            
+                        </td>
+                        <td><span class="price">1160000원</span><br>
+                            <span style="text-decoration: line-through; color: lightgray;">1190000</span><br>
+                            <button class="cart__list__orderbtn">예약하기</button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                             <button class="cart_list_optionbtn">선택 상품 삭제</button>
+                             <button class="cart_list_optionbtn">전체 상품 삭제</button>
+                        </td>
+                    </tr>
+                </tfoot>
+            </form>
+        </table>
+        <div class="cart_mainbtns">
+            <button class="cart_bigorderbtn left">숙소 더 둘러보기</button>
+            <button class="cart_bigorderbtn right">에약하기</button>
+        </div>
+    </section>
+</body>
+</html>
