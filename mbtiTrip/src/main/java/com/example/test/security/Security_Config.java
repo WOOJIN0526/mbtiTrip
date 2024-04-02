@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test.security;
 
 import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
 import org.springframework.context.annotation.AdviceMode;
@@ -76,7 +76,6 @@ public class Security_Config  {
 	@Bean
     protected SecurityFilterChain webSecurityFilterChain(HttpSecurity http) throws Exception {
         http
- 
        .authorizeHttpRequests((authorizeHttpRequests)-> authorizeHttpRequests
                 	 .requestMatchers("/login_A", "/**", "/user/signup", "/bis/signup")
                 	 .permitAll());
@@ -88,7 +87,9 @@ public class Security_Config  {
     		   )
     	.formLogin((formLogin) -> formLogin
     			.loginPage("/login_A")
-    			.successHandler(new CustomSuccessHandler()));
+    			.successHandler(new CustomSuccessHandler())
+    			.failureHandler(new CustomLoginFailhandelr()))
+    			;
     	http.rememberMe((remember) -> remember
     			.key("userName")
     			.rememberMeParameter("remember-me")
@@ -101,7 +102,15 @@ public class Security_Config  {
     			.logoutSuccessUrl("/")
     			.deleteCookies("JSESSIONID")
     			.clearAuthentication(true)
-    			)
+    			);
+    	
+    	http.sessionManagement((SessionManagement) ->SessionManagement
+    			.sessionFixation().changeSessionId()
+    			.maximumSessions(1)
+//    			.expiredSessionStrategy(customSessionExpiredStrategy)
+    			.maxSessionsPreventsLogin(true) //새로운 요청 거부 
+    			
+    			) ;
     
     					
 //    		    .usernameParameter("userId")
@@ -122,7 +131,7 @@ public class Security_Config  {
 //    		    })
     		    
 //    	.exceptionHandling((ex)->ex.accessDeniedPage("/access_denied_page"))
-    	;
+    	
 //    	.rememberMe((rememberMe)->rememberMe   
 //    			.rememberMeParameter("remember")
 //    			.tokenValiditySeconds(60300)

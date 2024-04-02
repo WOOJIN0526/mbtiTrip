@@ -24,14 +24,14 @@ function logFormData() {
 }
 
 document.querySelector('.btn-submit').addEventListener('click',function(){
-	let title = document.querySelector('#questionCategory').value;
-	if(title==='direct'){
-		title=document.querySelector('#selboxDirect').value;
+	let QName = document.querySelector('#questionCategory').value;
+	if(QName==='direct'){
+		QName=document.querySelector('#selboxDirect').value;
 	}
 	const contents=document.querySelector('#contents').value;
 	const data={
 		
-		title:title,
+		title:QName,
 		contents:contents		
 	}
 	
@@ -68,7 +68,7 @@ fetch(url, option)
     if (responseText === 'true') {
       console.log(responseText);
       alert("등록되었습니다.");
-      window.location.href = "/QnA/";
+      window.location.href = "/QnA";
     } else {
       alert("등록에 실패했습니다.");
     }

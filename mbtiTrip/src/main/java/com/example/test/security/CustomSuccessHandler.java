@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test.security;
 
 import java.io.IOException;
 import java.util.Collection;
