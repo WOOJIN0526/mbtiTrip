@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="registration_page.css">
+</head>
+<body>
+    <div class="registration_page">
+        <div class="form">
+            <div class="title">
+                <h1>여행지 등록하기</h1>
+            </div>
+        
+            <table>
+                
+                <tr>
+                    <th>작성 ID</th>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <th>여행지</th>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <th>한줄 소개글</th>
+                    <td><input type="text"></td>
+                </tr>
+                <tr class="textarea">
+                    <th>상세 설명</th>
+                    <td><textarea name="" id="" cols="30" rows="10"></textarea></td>
+                </tr>
+                
+                <tr>
+                    <th>이미지 파일</th>
+                    <td><input type="file"></td>
+                </tr>
+                <tr>
+                    <th>지역</th>
+                    <td>
+                        <div>
+                            <input type="radio" id="jinhae" name="local" value="jinhae" checked />
+                            <label for="jinhae">진해</label>
+                    
+                            <input type="radio" id="daejeon" name="local" value="daejeon" />
+                            <label for="daejeon">대전</label>
+                    
+                            <input type="radio" id="jeju" name="local" value="jeju" />
+                            <label for="jeju">제주도</label>
+                        </div>
+                    </td>           
+                </tr>
+                <tr>
+                    <th>테마</th>
+                    <td>
+                        <input type="checkbox" name="family" id="family">가족
+                        <input type="checkbox" name="couple" id="couple">커플
+                        <input type="checkbox" name="history" id="history">역사
+                        <input type="checkbox" name="nature" id="nature">자연
+                    </td>
+        
+                </tr>
+                <tr>
+                    <th>mbti</th>
+                    <td>
+                        <input type="checkbox" name="I--J" id="I--J">I--J
+                        <input type="checkbox" name="I--P" id="I--P">I--P
+                        <input type="checkbox" name="E--P" id="E--P">E--P
+                        <input type="checkbox" name="E--J" id="E--J">E--J
+                    </td>
+                </tr>
+        
+        
+            </table>
+            <input type="button" class="registration" value="등록">
+        </div>
+        
+    </div>
+    
+    
+   
+
+</body>
+</html>
