@@ -88,7 +88,8 @@ public class Security_Config  {
     	.formLogin((formLogin) -> formLogin
     			.loginPage("/login_A")
     			.successHandler(new CustomSuccessHandler())
-    			.failureHandler(new CustomLoginFailhandelr()))
+    			.failureHandler(new CustomLoginFailhandelr())
+    			)
     			;
     	http.rememberMe((remember) -> remember
     			.key("userName")
@@ -107,8 +108,8 @@ public class Security_Config  {
     	http.sessionManagement((SessionManagement) ->SessionManagement
     			.sessionFixation().changeSessionId()
     			.maximumSessions(1)
-//    			.expiredSessionStrategy(customSessionExpiredStrategy)
-    			.maxSessionsPreventsLogin(true) //새로운 요청 거부 
+    			.maxSessionsPreventsLogin(false) //새로운 요청 거부 
+    			.expiredSessionStrategy(new customSessionExpiredStrategy())	
     			
     			) ;
     
