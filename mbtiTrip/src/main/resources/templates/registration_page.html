@@ -17,19 +17,19 @@
                 
                 <tr>
                     <th>작성 ID</th>
-                    <td><input type="text"></td>
+                    <td><input type="text" id="user_id" class="text"></td>
                 </tr>
                 <tr>
                     <th>여행지</th>
-                    <td><input type="text"></td>
+                    <td><input type="text" id="adventure" class="text"></td>
                 </tr>
                 <tr>
                     <th>한줄 소개글</th>
-                    <td><input type="text"></td>
+                    <td><input type="text" id="short_description" class="text"></td>
                 </tr>
                 <tr class="textarea">
                     <th>상세 설명</th>
-                    <td><textarea name="" id="" cols="30" rows="10"></textarea></td>
+                    <td><textarea id="textarea"></textarea></td>
                 </tr>
                 
                 <tr>
@@ -40,46 +40,46 @@
                     <th>지역</th>
                     <td>
                         <div>
-                            <input type="radio" id="jinhae" name="local" value="jinhae" checked />
-                            <label for="jinhae">진해</label>
+                            <input type="radio" id="jinhae" name="local" value="jinhae" checked />진해
                     
-                            <input type="radio" id="daejeon" name="local" value="daejeon" />
-                            <label for="daejeon">대전</label>
+                            <input type="radio" id="daejeon" name="local" value="daejeon" />대전
                     
-                            <input type="radio" id="jeju" name="local" value="jeju" />
-                            <label for="jeju">제주도</label>
+                            <input type="radio" id="jeju" name="local" value="jeju" />제주도
                         </div>
                     </td>           
                 </tr>
                 <tr>
                     <th>테마</th>
                     <td>
-                        <input type="checkbox" name="family" id="family">가족
-                        <input type="checkbox" name="couple" id="couple">커플
-                        <input type="checkbox" name="history" id="history">역사
-                        <input type="checkbox" name="nature" id="nature">자연
+                        <input type="checkbox" name="category" value="family" id="family">가족
+                        <input type="checkbox" name="category" value="couple" id="couple">커플
+                        <input type="checkbox" name="category" value="history" id="history">역사
+                        <input type="checkbox" name="category" value="nature" id="nature">자연
                     </td>
         
                 </tr>
                 <tr>
                     <th>mbti</th>
                     <td>
-                        <input type="checkbox" name="I--J" id="I--J">I--J
-                        <input type="checkbox" name="I--P" id="I--P">I--P
-                        <input type="checkbox" name="E--P" id="E--P">E--P
-                        <input type="checkbox" name="E--J" id="E--J">E--J
+                        <input type="checkbox" name="mbti" value="I--J" id="I--J">I--J
+                        <input type="checkbox" name="mbti" value="I--P" id="I--P">I--P
+                        <input type="checkbox" name="mbti" value="E--P" id="E--P">E--P
+                        <input type="checkbox" name="mbti" value="E--J" id="E--J">E--J
                     </td>
                 </tr>
         
         
             </table>
-            <input type="button" class="registration" value="등록">
+            <div class="button">
+                <input type="button" class="registration" onclick="getValue()" value="등록">
+            </div>
+            
         </div>
         
     </div>
     
     
    
-
+<script src="registration_page.js"></script>
 </body>
 </html>
