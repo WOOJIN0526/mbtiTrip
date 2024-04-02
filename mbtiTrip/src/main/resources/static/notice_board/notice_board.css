@@ -4,7 +4,7 @@
 }
 
 .notice{
-    margin: 50px;
+    margin: 3.12rem;
 }
 
 
@@ -16,8 +16,8 @@ h6{
     border: 0;
     height: 3px;
     background-color:  #d3d3d3;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 0.62rem;
+    margin-bottom: 0.62rem;
 }
 
 form {
@@ -27,18 +27,18 @@ form {
 }
 
 form select{
-    margin-right: 10px;
+    margin-right: 0.62rem;
 }
 
 
 form span{
     font-weight: 900;
-    font-size: 20px;
-    margin-right: 10px;
+    font-size: 1.25rem;
+    margin-right: 0.62rem;
 }
 
 form input{
-    margin-right: 10px; 
+    margin-right: 0.62rem; 
 }
 
 table {
@@ -46,8 +46,8 @@ table {
     text-align: center;
     border-top: 1px solid #d3d3d3;
     border-collapse: collapse;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 0.62rem;
+    margin-bottom: 0.62rem;
 }
 th { 
     background-color: #d3d3d3 ; 
@@ -55,7 +55,7 @@ th {
 }
 th, td {
     border-bottom: 1px solid #d3d3d3;
-    padding: 10px;
+    padding: 0.62rem;
 }
 
 .write_button
@@ -66,14 +66,14 @@ th, td {
 
 }
 .write {
-width: 80px;
-height: 30px;
+width: 5rem;
+height: 1.87rem;
 font-weight: 900;
 color: white;
 text-align: center;
 background:  black;
 border: solid 2px white;
-border-radius: 5px;
+border-radius: 0.3rem;
 }
 
 .page{
@@ -83,7 +83,7 @@ border-radius: 5px;
 
 a{
 
-    margin: 5px;
+    margin: 0.3rem;
     color:black;
     text-align: center; 
     text-decoration-line : none;
