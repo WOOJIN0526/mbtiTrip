@@ -46,6 +46,10 @@ dependencies {
    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 
+   implementation group: 'org.springframework.cloud', name: 'spring-cloud-gcp-starter', version: '1.2.5.RELEASE'
+   implementation group: 'org.springframework.cloud', name: 'spring-cloud-gcp-storage', version: '1.2.5.RELEASE'
+
+
   runtimeOnly 'com.mysql:mysql-connector-j'
 }
 tasks.named('bootBuildImage') {
