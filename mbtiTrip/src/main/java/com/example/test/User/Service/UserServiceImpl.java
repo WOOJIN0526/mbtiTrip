@@ -1,9 +1,11 @@
 package com.example.test.User.Service;
 
+import java.security.Principal;
 import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.test.User.DAO.UserDAO;
@@ -16,12 +18,17 @@ import lombok.extern.log4j.Log4j2;
 @Service 
 public class UserServiceImpl implements UserService{
 
+	private BCryptPasswordEncoder bcrypasswordEncoder = new BCryptPasswordEncoder();
 	
 	@Autowired
 	private UserDAO userDao;
 	
 	@Override
 	public int createUser(UserDTO userDTO) {
+		String userPassword = userDTO.getPassword();
+		log.info("userPassword : {}", userPassword);
+		String encodePassword = bcrypasswordEncoder.encode(userPassword);
+		userDTO.setPassword(encodePassword);
 		int result = this.userDao.insert(userDTO);
 			return result;
 	
@@ -85,6 +92,11 @@ public class UserServiceImpl implements UserService{
 		return siteUser;
 	}
 
+	public Integer princeUID(Principal principal) {
+		String userName = principal.getName();
+		Integer UID = findByUID(userName);
+		return UID;
+	}
 
 
 }
