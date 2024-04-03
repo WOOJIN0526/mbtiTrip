@@ -74,7 +74,6 @@ public class UserController {
 	@RequestMapping(value = "/user/signup", method = RequestMethod.GET)
 	public ModelAndView signUpUser(HttpServletRequest request) {
 	    ModelAndView mav = new ModelAndView();
-	    log.info("signup user,get도착 ");
 	    String currentUrl = request.getRequestURI().toString();
 	    mav.addObject("currentUrl", currentUrl);
 	    mav.setViewName("sign_up");
@@ -87,15 +86,9 @@ public class UserController {
 
 		log.info("signup user,Post도착 ");
 		log.info("UserDetail :  {}", userdto);
-		userdto.setUserrole(User_Role.user.getValue());  //보류 
-		String userPassword = userdto.getPassword();
-		log.info("userPassword : {}", userPassword);
-		String encodePassword = bcrypasswordEncoder.encode(userPassword);
-		log.info("encodePassword : {}", encodePassword);
-		userdto.setPassword(encodePassword);
+		userdto.setUserrole(User_Role.user.getValue());   
 		int result = userService.createUser(userdto);
 		boolean chk = false;
-		
 		if(result == 1) {
 			chk = true;
 			mav.addObject(chk);
@@ -105,6 +98,7 @@ public class UserController {
 		return mav;
 	}  
 
+	
 	@RequestMapping(value = "/login_A", method=RequestMethod.GET)
 	public ModelAndView login() {
 		ModelAndView mav = new ModelAndView();
@@ -115,11 +109,9 @@ public class UserController {
 	@RequestMapping(value = "user/login/success")
 	public ModelAndView UserSuccess(ModelAndView mav, 
 								Principal princ) {
-		String userName = princ.getName();
-		Integer userUID = userService.findByUID(userName);
+		Integer userUID = userService.princeUID(princ);
 		Map<String, Object> user = userService.getInfo(userUID);
 		log.info("UserLoginSuccess = UserINFo= {}", user);
-		
 		mav.addObject("user", user);
 		mav.setViewName("redirect:/user/main");
 		return mav;
@@ -177,12 +169,10 @@ public class UserController {
 	public ModelAndView main(Principal principar,
 							Authentication auth,
 							ModelAndView mav) {
-		principar.getName();
 		log.info("main user 권한 확인 ={}", auth.getAuthorities());
 		
 		log.info("main 접속 중 ");
-		Integer UID = userService.findByUID(principar.getName());
-		
+		Integer UID = userService.princeUID(principar);
 		Map<String, Object> user = userService.getInfo(UID);
 		log.info("userMain info = {} ", user);
 		mav.addObject("user", user);
@@ -214,19 +204,14 @@ public class UserController {
 	@PreAuthorize("isAuthenticated() and  hasRole('ROLE_USER')")
 	@RequestMapping(value = "/user/mypage", method = RequestMethod.GET)
 	public ModelAndView mypageUser(Principal principal, UserDTO userdto, ModelAndView mav){
-		String userName = principal.getName();
-		log.info(userName);
-		Integer UID = userService.findByUID(userName);
+		Integer UID = userService.princeUID(principal);
 		Map<String, Object> user = userService.getInfo(UID);
-		
 		log.info("user mypage 정보 {}", user);
 		mav.addObject("user", user);
 		mav.setViewName("mypage");
 		return mav;
 	}
 
-	
-	
 	
 	@PreAuthorize("isAuthenticated() and  hasRole('ROLE_USER')")
 	@RequestMapping(value = "/user/mypage/update", method = RequestMethod.GET)
@@ -276,7 +261,7 @@ public class UserController {
 	public ModelAndView update(@ModelAttribute UserDTO userdto,
 								Principal principal, ModelAndView mav) {
 		log.info("message POST ONE ={}", userdto.toString());
-		Integer UID = userService.findByUID(principal.getName());
+		Integer UID = userService.princeUID(principal);
 		userdto.setUID(UID);
 		userdto.setPassword(bcrypasswordEncoder.encode(userdto.getPassword()));
 		try {
@@ -300,7 +285,4 @@ public class UserController {
 		log.info("POst retrun {}", mav.toString());
 		return mav;
 	}
-	
-	
-	
 }

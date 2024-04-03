@@ -71,7 +71,6 @@ public class BisController {
 		Integer userUID = userService.findByUID(userName);
 		Map<String, Object> user = userService.getInfo(userUID);
 		log.info("UserLoginSuccess = UserINFo= {}", user);
-		
 		mav.addObject("user", user);
 		mav.setViewName("Bis_main");
 		return mav;
