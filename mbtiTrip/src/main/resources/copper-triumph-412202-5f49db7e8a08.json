@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "copper-triumph-412202",
+  "private_key_id": "5f49db7e8a08cd13be2fefb7f0b581741a16ad36",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC/hFZFmWYahtvi\nVyWRDYFNnChzzeeP6sKR5UQckx/uwAlEmjRrNrGwr+x9f5guzp420n2HgJa3oQSW\nz15jXu7EcEooQrc0jgcEp8OIF7ORzBGeTuaPloE4i4RPxAON3wXkcMcXWEk72M3D\n9q8AWdNdx4mHAK2bzD+7m31NaLOxDmPNqfHzHSf0IzbXeJY+stX8Obx9+jP+cDhb\ns+GXe46feHww8ZHgG3GQzfHTuRgm6kiWD0i9M4DhBivM99Pi/5JTy8oxtQA3lByA\nbOgML6vMoPrvBi5T9gmNppdMs2aKJ+aq5D0lH0gwsf0s6ZR3FaOtMoFrH0ihuwDe\nJ2PG/JLPAgMBAAECggEARMXS7R9OyQvQfhDpTpNY8XO4Gw2/r7CPujBoKxKyDtwq\n99WgKTf0ywwBknd1QKm1qt4fcb89YCeULEu/C1QVzbi9CIQcoeS2pHdSAdbxBtQP\nJ5gRt1JGiPWgx7wNwq5pwUS2Wa28bp9GFK7K3QdknXJ/8ljN/vpzkH0fm+KTVGrE\nX7HvaRLdaibwV+uDa9Ta8twUtwv0mF5ILaY82L+F+ijvTm2dOTEtowJvE3s0YpZT\nrWmV+qEJqTUx0aZY0dVzce+bJv6sEExj+j+JM1CA8EWtKilQnnUpCacXtioaLy9h\nbZfJgivY6Ep4ZD14OdVtmpneRL/YGob3V8GSFoNPIQKBgQD4NIKnjSdH249TOb6T\nCz3j8FJstUpBHPxjYtbuNbUGb59ve1GLIxLYs2wQ+8uo2fx4KTDrwyy3AiMMUAgr\n80l0NlXnvL+ZilV7Nqa/ydueCwQCEHXjC9PMaWaIyYJA/q6DmWDD0mmCl+yqcrlS\nAGn3uadRSlNdTlUhZ032hBHx9wKBgQDFiBJkn+/BtsKMwf65bzHzdraPxvCGE5yY\npOcxOQtyQrM+czdtrYoDW282sU7WNR7TtpXK5/rc/cVkujhm8zB62EQHwu7idNlJ\n6PzsKRK36+C/WVN//5o6Mhty26y3L4Rup1UOkWrKL4uCvAoNK2ZBU3h39XrIYcni\nsrCBg90v6QKBgQC0Uon9qpo4JXZqU5B2CfvL5yQq4EbzKVjf58YYyCIda+kcOC6U\n9EVT9H51lElxAfXfYqWtE14gE0hdQKO/MoBSEsu0kbdtmEfkPV9GBSQuHPire0P6\nUPRuFMEubZ/ZEm69Iyhe/DY1b6S8bJ7gyXYzSMkbUPFh33AP1ZqZl3fmHwKBgGft\nZMf+ghWog4mtU8jaoSxYTEsvP0M7tEt3j5ANVGFkiIwV8JbLFG8Zv1TGSxVW04ZO\nbVdZYFq/RgjuFVjNILexa3Gt9SO+mMhTRic2oPuVpiTm6ZDRuaJe1KREwgWLgaD6\ndzz383i3NS6uopc1O1KpiRuMU3J0SNT2cPljmI9pAoGABiAj/KeDK/TtBc7kHV7l\noz79IeYgUGaRkAJ5g+MDP4BzLzzLZuwx5amQlR90lLfuuCFG810PQ4wS00GEzu2K\nc/X/WaWF4nNPy7caLXzHL9y8473Zk5OKat/TfUlJg30wkzm/zt7Eq2E9IFy629t5\nbLiCa2F4iX0+1D+DmsmCSTA=\n-----END PRIVATE KEY-----\n",
+  "client_email": "kdt3th-project@copper-triumph-412202.iam.gserviceaccount.com",
+  "client_id": "113731473434839097150",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/kdt3th-project%40copper-triumph-412202.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
