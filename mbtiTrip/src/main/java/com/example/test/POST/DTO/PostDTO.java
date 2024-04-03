@@ -36,13 +36,12 @@ public class PostDTO {
 	
 	//private Post_CategoryDTO post_category;
 	
-	private UserDTO write;
+	private UserDTO writer;
 	
 	//조회수
 	private int views;
 
-    public void addViewCount() {
-        this.views++;
-    }
+	private String filename; // 파일 이름
+    private String filepath; // 파일이 저장된 경로
 	
 }

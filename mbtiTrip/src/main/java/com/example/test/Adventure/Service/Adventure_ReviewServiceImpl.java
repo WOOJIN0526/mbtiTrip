@@ -91,7 +91,7 @@ public class Adventure_ReviewServiceImpl implements Adventure_ReviewService {
 			    Cookie[] cookies = request.getCookies();
 			    if (cookies != null)
 			        for (Cookie cookie : cookies)
-			            if (cookie.getName().equals("postView"))
+			            if (cookie.getName().equals("AdventureReviewView"))
 			                oldCookie = cookie;
 
 			    if (oldCookie != null) {
@@ -105,7 +105,7 @@ public class Adventure_ReviewServiceImpl implements Adventure_ReviewService {
 			    }
 			    else {
 			        adrDAO.updateCount(adventureReviewID);
-			        Cookie newCookie = new Cookie("boardView","[" + adventureReviewID + "]");
+			        Cookie newCookie = new Cookie("AdventureReviewView","[" + adventureReviewID + "]");
 			        newCookie.setPath("/");
 			        newCookie.setMaxAge(60 * 60 * 24);
 			        response.addCookie(newCookie);

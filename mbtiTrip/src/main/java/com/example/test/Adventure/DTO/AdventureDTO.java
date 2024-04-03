@@ -52,8 +52,6 @@ public class AdventureDTO {
 	//조회수
 	private int views;
 
-    public void addViewCount() {
-        this.views++;
-    }
+   
 	
 }

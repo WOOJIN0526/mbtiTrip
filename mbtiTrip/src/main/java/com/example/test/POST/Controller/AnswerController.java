@@ -84,14 +84,14 @@ public class AnswerController {
 	    public String answerModify(@Valid AnswerForm answerForm, @PathVariable("id") Integer answerID,
 	            BindingResult bindingResult, Principal principal) {
 	        if (bindingResult.hasErrors()) {
-	            return "form";
+	            return "answer_form";
 	        }
 	        AnswerDTO answerDto = this.answerService.getAnswer(answerID);
 	        if (!answerDto.getWriter().getUsername().equals(principal.getName())) {
 	            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
 	        }
 	        this.answerService.modify(answerDto, answerForm.getContent());
-	        return String.format("redirect://detail/%s#answer_%s", 
+	        return String.format("redirect:/post/detail/%s#answer_%s", 
 	                answerDto.getPostID().getUserId(), answerDto.getAnswerID());
 	    }
 	    
@@ -104,7 +104,9 @@ public class AnswerController {
 	            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
 	        }
 	        this.answerService.delete(answerDto);
-	        return String.format("redirect://detail/%s", answerDto.getPostID().getUserId());
+	        return String.format("redirect:/post/detail/%s", answerDto.getPostID().getUserId());
 	    }
+	    
+
 
 }
