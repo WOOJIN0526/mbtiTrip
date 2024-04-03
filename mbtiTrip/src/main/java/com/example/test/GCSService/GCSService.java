@@ -4,6 +4,9 @@ import com.example.test.GCSDTO.GCSDTO;
 
 public interface GCSService {
 
-	String uploadObject(GCSDTO dto);
-
+	public String uploadObject(GCSDTO dto);
+	
+	public String getFileName(String originalName);
+	
+	public String getUrl(String bucket,String fileName);
 }
