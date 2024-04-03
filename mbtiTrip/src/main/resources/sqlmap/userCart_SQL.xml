@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userCart">
+	
+	<insert id="insertReplace" parameterType="hashMap" useGeneratedKeys="true">  
+		insert into userCart (userName, startDate, endDate, replaceID, payment)
+	    values
+	     <foreach collection="replaceInfo" item="replace" separator=",">
+        (#{userName}, #{StartDate}, #{endDate}, #{replace.replaceID}, #{payment})
+    </foreach>
+	</insert>
+	
+	<insert id="insertAD" parameterType="hashMap" useGeneratedKeys="true">  
+		insert into userCart (userName, startDate, endDate, replaceID, payment)
+	    values
+	     <foreach collection="replaceInfo" item="replace" separator=",">
+        (#{userName}, #{StartDate}, #{endDate}, #{replace.replaceID}, #{payment})
+   		 </foreach>
+	</insert>
+	<select id="detail" resultType="userCartDetailMap">
+		 <![CDATA[
+	select uc.startDate, uc.endDate, uc.payment, group_concat(re.Replace_name, re.Replace_location, re.tel, re.price separator ',') as replaceInfo 
+		from userCart uc
+		join `replace` re
+		on uc.replaceId = re.Replace_key
+		where userName = #{userName}
+		group by uc.startDate, uc.endDate, uc.payment; 
+		]]>
+	</select>
+<!--	<resultMap id="userCartDetailMap" type="com.example.test.User.DTO.UserCartDTO">
+    <id property="startDate" column="startDate"/>
+    <result property="endDate" column="endDate"/>
+    <result property="payment" column="payment"/>
+    	<collection property="replaceInfo" ofType="com.example.test.replace.DTO.ReplaceDTO">
+	        <id property="replaceName" column="Replace_name"/>
+	        <result property="replaceLocation" column="Replace_location"/>
+	        <result property="tel" column="tel"/>
+	        <result property="price" column="price"/>
+    	</collection>
+	</resultMap>
+-->
+
+</mapper>

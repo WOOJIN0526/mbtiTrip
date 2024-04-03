@@ -1,5 +1,6 @@
 package com.example.test.User.Service;
 
+import java.security.Principal;
 import java.util.Map;
 
 import com.example.test.User.DAO.UserDAO;
@@ -15,7 +16,7 @@ public interface UserService {
 
 	public Map<String, Object> login(UserDTO userdto);
 
-	public int userUpdate(UserDTO userdto);
+	int userUpdate(UserDTO userdto, Principal principal);
 
 	public Map<String, Object> getInfo(Integer uID);
 
@@ -26,5 +27,7 @@ public interface UserService {
 	public Integer findByUID(String userName);
 
 	public UserDTO getUser(String name);
+
+
 	
 }

@@ -1,6 +1,10 @@
 package com.example.test.User.DTO;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.example.test.Adventure.DTO.AdventureDTO;
+import com.example.test.replace.DTO.ReplaceDTO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,18 +13,22 @@ import lombok.Setter;
 @Setter
 public class UserCartDTO {
 
-
 	private Integer UserCartID;  //PK
 	
-	private String userID;  //Fk
+	private String userName;  //Fk
 	
-	private Integer price;
+	private Integer finalPrice;
 	
-	private Integer ucreID; //FK
 	//UserCartRePlace
+	private List<ReplaceDTO> replaceInfo;
 	
-	private String ucadID;  //FK
 	//UserCartAdventrud
+	private List<AdventureDTO> adventureInfo;  //FK
 	
-	private LocalDateTime updateDate;
+	private LocalDateTime StartDate;
+
+	private LocalDateTime endDate;
+
+	private boolean payment;
+	
 }
