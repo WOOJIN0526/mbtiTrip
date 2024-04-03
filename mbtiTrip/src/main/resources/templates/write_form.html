@@ -9,8 +9,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>title</title>
   <!-- CKEeditor CDN -->
-  <script th:src="@{/ckeditor5-build-classic/ckeditor.js}"></script>
-  <script th:src="@{/ckeditor5-build-classic/translations/ko.js}"></script>
+  <script th:src="@{/ckeditor5-build-classic/build/ckeditor.js}"></script>
+  <script type="module" th:src="@{/ckeditor5-build-classic/editor.js}"></script>
   <link rel="stylesheet" th:href="@{/write/write_form.css}">
 </head>
 <body>
@@ -27,7 +27,7 @@
     <button type="submit">작성</button>
   </form>
 </div>
-<script th:src="@{/write/write_form.js}"></script>
+<script type="module" th:src="@{/write/write_form.js}"></script>
 </section>
 
 

@@ -156,7 +156,10 @@ public class PostController {
 //        return "list";
 //    }
     
-
+    @GetMapping("/review/create")
+    public String reviewCreate() {
+    	return "write_form";
+    }
     
     
 
