@@ -20,10 +20,10 @@ public class UserCartDTO {
 	private Integer finalPrice;
 	
 	//UserCartRePlace
-	private List<ReplaceDTO> replaceInfo;
+	private ReplaceDTO replaceInfo;
 	
 	//UserCartAdventrud
-	private List<AdventureDTO> adventureInfo;  //FK
+	private AdventureDTO adventureInfo;  //FK
 	
 	private LocalDateTime StartDate;
 

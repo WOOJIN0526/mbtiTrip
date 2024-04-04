@@ -1,66 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userCart">
-	
-	<insert id="insertReplace" parameterType="hashMap" useGeneratedKeys="true">  
+
+	<insert id="insertReplace" parameterType="hashMap"
+		useGeneratedKeys="true">  
+	<![CDATA[
 		insert into userCart (userName, startDate, endDate, replaceID, payment)
 	    values
-	     <foreach collection="replaceInfo" item="replace" separator=",">
-        (#{userName}, #{StartDate}, #{endDate}, #{replace.replaceID}, #{payment})
-    </foreach>
+        (#{userName}, #{StartDate}, #{endDate}, #{replaceInfo.replaceID}, #{payment})
+   	]]>
 	</insert>
-	
-	<insert id="insertAD" parameterType="hashMap" useGeneratedKeys="true">  
-		insert into userCart (userName, startDate, endDate, replaceID, payment)
+
+	<insert id="insertAD" parameterType="hashMap"
+		useGeneratedKeys="true">  
+	<![CDATA[
+		insert into userCart (userName, startDate, endDate, adventureID, payment)
 	    values
-	     <foreach collection="replaceInfo" item="replace" separator=",">
-        (#{userName}, #{StartDate}, #{endDate}, #{replace.replaceID}, #{payment})
-   		 </foreach>
+        (#{userName}, #{StartDate}, #{endDate}, #{adventureInfo.adventureID}, #{payment})
+ 	]]>
 	</insert>
-<!--	<select id="detail" resultType="userCartInfoMap">
-		 <![CDATA[
-		select uc.startDate, uc.endDate, uc.payment, group_concat(re.Replace_name, re.Replace_location, re.tel, re.price separator ',') as replaceInfo 
+
+
+	<select id="detail" resultMap="userCartResult">
+	<![CDATA[
+		select uc.startDate, uc.endDate, uc.payment, 
+			   re.Replace_name, re.Replace_location, re.tel, re.price, re.replace_admin
 		from userCart uc
 		join `replace` re
 		on uc.replaceId = re.Replace_key
-		where userName = #{userName}
-		group by uc.startDate, uc.endDate, uc.payment; 
-		]]>
+		where uc.userName = #{userName} and uc.payment = false 	
+	]]>
 	</select>
-	<resultMap id="userCartDetailMap" type="com.example.test.User.DTO.UserCartDTO">
-    <id property="startDate" column="startDate"/>
-    <result property="endDate" column="endDate"/>
-    <result property="payment" column="payment"/>
-    	<collection property="replaceInfo" ofType="com.example.test.replace.DTO.ReplaceDTO">
-	        <id property="replaceName" column="Replace_name"/>
-	        <result property="replaceLocation" column="Replace_location"/>
-	        <result property="tel" column="tel"/>
-	        <result property="price" column="price"/>
-    	</collection>
-	</resultMap>
+	<select id="detail_payment" resultMap="userCartResult">
+	 <![CDATA[
+		select uc.startDate, uc.endDate, uc.payment, 
+			   re.Replace_name, re.Replace_location, re.tel, re.price, re.replace_admin
+		from userCart uc
+		join `replace` re
+		on uc.replaceId = re.Replace_key
+		where uc.userName = #{userName} and uc.payment = true 	
+	]]>
+	</select>
 
-<resultMap id="userCartInfoMap" type="com.example.test.User.DTO.UserCartDTO">
-    <result property="startDate" column="startDate"/>
-    <result property="endDate" column="endDate"/>
-    <result property="payment" column="payment"/>
-    <collection property="replaceInfo" ofType="com.example.test.replace.DTO.ReplaceDTO">
-        <result column="replaceId" property="replaceId"/>
-        <result column="replaceCategoryID" property="replaceCategoryID"/>
-        <result column="replaceId" property="replaceId"/>
-        <result column="mbtiID" property="mbtiID"/>
-        <result column="cityID" property="cityID"/>
-        <result column="postCategoryID" property="postCategoryID"/>
-        <result column="replaceType" property="replaceType"/>
-        <result column="userId" property="userId"/>
-        <result column="replaceName" property="replaceName"/>
-        <result column="replaceLocation" property="replaceLocation"/>
-        <result column="replacePrice" property="replacePrice"/>
-         <result column="replaceContents" property="replaceContents"/>
-        <result column="tel" property="tel"/>
-        <result column="replaceAdmin" property="replaceAdmin"/>
-        <result column="R_rating_avg" property="R_rating_avg"/>
-        <result column="updateDate" property="updateDate"/>
-    </collection>
-</resultMap>
--->
+
+	<update id="updatePaymentsSuccess">
+	<![CDATA[
+			Update userCart
+			set
+			payment = true
+			where userName = #{userName};
+		]]>
+	</update>
+	<update id="updatePaymentFalse">
+	<![CDATA[
+			Update userCart
+			set
+			payment = false
+			where userName = #{userName};
+		]]>
+	</update>
+
+	<delete id="deletRE">
+	<![CDATA[
+			delete from userCart 
+			where userName = #{userName} and replaceId = #{replaceInfo.replaceID};	
+	]]>
+	</delete>
+
+	<delete id="deletAD">
+	<![CDATA[
+			delete from userCart 
+			where userName = #{userName} and replaceId = #{replaceInfo.replaceID};	
+	]]>
+	</delete>
+
+	<delete id="deletALL">
+	<![CDATA[
+			delete from userCart 
+			where userName = #{userName} 
+	]]>
+	</delete>
+
+	<resultMap id="userCartResult"
+		type="com.example.test.User.DTO.UserCartDTO">
+		<result property="startDate" column="startDate" />
+		<result property="endDate" column="endDate" />
+		<result property="payment" column="payment" />
+		<association property="replaceInfo"
+			javaType="com.example.test.replace.DTO.ReplaceDTO">
+			<result column="Replace_key" property="replaceId" />
+			<result column="MBTI_ID" property="mbtiID" />
+			<result column="City_Key" property="cityID" />
+			<result column="Post_CateGory_ID" property="postCategoryID" />
+			<result column="RE_type_key" property="replaceType" />
+			<result column="Replace_name" property="replaceName" />
+			<result column="Replace_location" property="replaceLocation" />
+			<result column="price" property="replacePrice" />
+			<result column="contents" property="replaceContents" />
+			<result column="tel" property="tel" />
+			<result column="replace_admin" property="replaceAdmin" />
+		</association>
+		<association property="adventureInfo"
+			javaType="com.example.test.Adventure.DTO.AdventureDTO">
+			<result column="adventureID" property="adventureID" />
+			<result column="adventureCategoryID"
+				property="adventureCategoryID" />
+			<result column="MBTI_ID" property="mbtiID" />
+			<result column="City_Key" property="cityID" />
+			<result column="Post_CateGory_ID" property="postCategoryID" />
+			<result column="adventureTypeId" property="adventureTypeId" />
+			<result column="adventureName" property="adventureName" />
+			<result column="adventureLocation"
+				property="adventureLocation" />
+			<result column="adventurePrice" property="adventurePrice" />
+			<result column="adventureContent" property="adventureContent" />
+			<result column="tel" property="tel" />
+			<result column="adventureAdmin" property="adventureAdmin" />
+		</association>
+	</resultMap>
 </mapper>

@@ -56,7 +56,6 @@ public class UserCartDAO {
 		return userCart;
 	}
 
-	
 	//결제 여부 
 	public int updatePaymentsSuccess(String userName) {
 		//payment를 true로 바꾸는 method  
@@ -70,6 +69,20 @@ public class UserCartDAO {
 		return result;
 	}
 	
+	public int deleteReplace(UserCartDTO userCart) {
+		int result = this.sqlSessiontemplate.delete("userCart.deletRE", userCart);
+		return result;
+	}
+	
+	public int deleteAD(UserCartDTO userCart) {
+		int result = this.sqlSessiontemplate.delete("userCart.deletRE", userCart);
+		return result;
+	}
+	
+	public int deleteALL(UserCartDTO userCart) {
+		int result = this.sqlSessiontemplate.delete("userCart.deletRE", userCart);
+		return result;
+	}
 	
 	
 	
