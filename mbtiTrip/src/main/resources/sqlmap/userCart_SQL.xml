@@ -17,9 +17,9 @@
         (#{userName}, #{StartDate}, #{endDate}, #{replace.replaceID}, #{payment})
    		 </foreach>
 	</insert>
-	<select id="detail" resultType="userCartDetailMap">
+<!--	<select id="detail" resultType="userCartInfoMap">
 		 <![CDATA[
-	select uc.startDate, uc.endDate, uc.payment, group_concat(re.Replace_name, re.Replace_location, re.tel, re.price separator ',') as replaceInfo 
+		select uc.startDate, uc.endDate, uc.payment, group_concat(re.Replace_name, re.Replace_location, re.tel, re.price separator ',') as replaceInfo 
 		from userCart uc
 		join `replace` re
 		on uc.replaceId = re.Replace_key
@@ -27,7 +27,7 @@
 		group by uc.startDate, uc.endDate, uc.payment; 
 		]]>
 	</select>
-<!--	<resultMap id="userCartDetailMap" type="com.example.test.User.DTO.UserCartDTO">
+	<resultMap id="userCartDetailMap" type="com.example.test.User.DTO.UserCartDTO">
     <id property="startDate" column="startDate"/>
     <result property="endDate" column="endDate"/>
     <result property="payment" column="payment"/>
@@ -38,6 +38,29 @@
 	        <result property="price" column="price"/>
     	</collection>
 	</resultMap>
--->
 
+<resultMap id="userCartInfoMap" type="com.example.test.User.DTO.UserCartDTO">
+    <result property="startDate" column="startDate"/>
+    <result property="endDate" column="endDate"/>
+    <result property="payment" column="payment"/>
+    <collection property="replaceInfo" ofType="com.example.test.replace.DTO.ReplaceDTO">
+        <result column="replaceId" property="replaceId"/>
+        <result column="replaceCategoryID" property="replaceCategoryID"/>
+        <result column="replaceId" property="replaceId"/>
+        <result column="mbtiID" property="mbtiID"/>
+        <result column="cityID" property="cityID"/>
+        <result column="postCategoryID" property="postCategoryID"/>
+        <result column="replaceType" property="replaceType"/>
+        <result column="userId" property="userId"/>
+        <result column="replaceName" property="replaceName"/>
+        <result column="replaceLocation" property="replaceLocation"/>
+        <result column="replacePrice" property="replacePrice"/>
+         <result column="replaceContents" property="replaceContents"/>
+        <result column="tel" property="tel"/>
+        <result column="replaceAdmin" property="replaceAdmin"/>
+        <result column="R_rating_avg" property="R_rating_avg"/>
+        <result column="updateDate" property="updateDate"/>
+    </collection>
+</resultMap>
+-->
 </mapper>
