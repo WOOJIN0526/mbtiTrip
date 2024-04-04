@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.test.HashTag.TagService;
 import com.example.test.POST.DAO.PostDAO;
 
 import com.example.test.POST.DTO.PostDTO;
@@ -35,6 +36,9 @@ public  class PostServiceImpl implements PostService {
 
 	@Autowired
 	PostDAO postDAO;
+	
+	@Autowired
+	TagService tagService;
 
 	//해당게시글 가져옴, 조회수 증가
 	@Override
@@ -83,6 +87,9 @@ public  class PostServiceImpl implements PostService {
         postDto.setFilename(fileName);
         postDto.setFilepath("/files/" + fileName); // static 아래부분의 파일 경로로만으로도 접근이 가능
         // 파일 업로드 처리 끝
+        
+        // 생성된 post 객체에서 태그 리스트 생성하기
+        tagService.createTagList(postDto);
         
         return this.postDAO.save(postDto);
 	}
