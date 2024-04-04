@@ -54,18 +54,32 @@ public class UserController {
 
 	private BCryptPasswordEncoder bcrypasswordEncoder = new BCryptPasswordEncoder(); 
 	
-	
-	
 //	@RequestMapping(value="/access_denied_page", method=RequestMethod.GET)
 //	public String DeniedPage  {       
 //		return "access_denied_page";  
 //	}
 	
+	@RequestMapping(value ="/" , method = RequestMethod.GET)
+	public ModelAndView main(ModelAndView mv) {
+		mv.setViewName("main");
+		return mv;
+	}
 	
-//	@RequestMapping(value = "/signup/user", method=RequestMethod.GET)
-//	public String signUpUser() {
-//		return "sign_up";
-//	}
+	@PreAuthorize("isAuthenticated() and  hasRole('ROLE_USER')")
+	@RequestMapping(value = "/user/main", method = RequestMethod.GET)
+	public ModelAndView main(Principal principar,
+							Authentication auth,
+							ModelAndView mav) {
+		log.info("main user 권한 확인 ={}", auth.getAuthorities());
+		log.info("main 접속 중 ");
+		Integer UID = userService.princeUID(principar);
+		Map<String, Object> user = userService.getInfo(UID);
+		log.info("userMain info = {} ", user);
+		mav.addObject("user", user);
+		mav.setViewName("user_main");
+		return mav;
+	}
+	
 	@RequestMapping(value = "/signup", method=RequestMethod.GET)
 	public String signUpSelect() {
 		return "sign_up_select";
@@ -116,69 +130,10 @@ public class UserController {
 		mav.setViewName("redirect:/user/main");
 		return mav;
 	}
-	
-//	@RequestMapping(value = "/login_A", method=RequestMethod.POST)
-//	public String login(@ModelAttribute UserDTO userdto, Model model) {
-//		System.out.print(userdto.toString());
-//		 Map<String, Object> user = userService.login(userdto);
-//		 System.out.print("user정보 저장 map = "+user.toString());
-//		 model.addAttribute("user", user);
-//		 try {
-//			 if(user.get("UID")  != null) { 
-//				 
-//				 model.addAttribute(user);
-//				 System.out.println(User_Role.user.toString());
-//				 if(user.get("userrole").equals(User_Role.user.getValue())) {
-//					 System.out.println("유저 로그인 정보 조회 성공");
-//					
-//					 return String.format("redirect:user/main/%s", user.get("UID"));
-////					 return String.format("redirect:/main/%s/%s", user.get("userrole") ,user.get("UID"));
-////					 return String.format("redirect:/user/%s", user.get("UID"));
-//				 	}
-//				 else if(user.get("userrole").equals(User_Role.bis.getValue())) {
-//					 return String.format("redirect:bis/main/%s", user.get("UID"));
-////					 return String.format("redirect:/bis/%s", user.get("UID"));
-//				 	}	 
-//				 else if(user.get("userrole").equals(User_Role.admin.getValue())) {
-//					 return "redirect:/main";
-////					 return String.format("redirect:/admin/%s", user.get("UID"));
-//				 }
-//			   }
-//			 else {
-//				 model.addAttribute("message", "사용자 정보를 찾을 수 없습니다.");
-//				 return "redirect:/login_A";
-//			}
-//		} catch (Exception e) {
-//			model.addAttribute("message", e);
-//			e.printStackTrace();
-//
-//			return "redirect:/login_A";
-//		}
-//		return "redirect:/login_A";
-//	}
+
 	
 	
-	@RequestMapping(value ="/" , method = RequestMethod.GET)
-	public ModelAndView main(ModelAndView mv) {
-		mv.setViewName("main");
-		return mv;
-	}
-	
-	@PreAuthorize("isAuthenticated() and  hasRole('ROLE_USER')")
-	@RequestMapping(value = "/user/main", method = RequestMethod.GET)
-	public ModelAndView main(Principal principar,
-							Authentication auth,
-							ModelAndView mav) {
-		log.info("main user 권한 확인 ={}", auth.getAuthorities());
-		
-		log.info("main 접속 중 ");
-		Integer UID = userService.princeUID(principar);
-		Map<String, Object> user = userService.getInfo(UID);
-		log.info("userMain info = {} ", user);
-		mav.addObject("user", user);
-		mav.setViewName("user_main");
-		return mav;
-	}
+
 	
 //	@RequestMapping(value="/user/{UID}", method = RequestMethod.GET)
 //	public ModelAndView mainUser(@PathVariable Integer UID , UserDTO userDTO, ModelAndView mav) {
@@ -228,8 +183,8 @@ public class UserController {
 								Principal principal, ModelAndView mav) throws Exception{
 		
 		log.info("message ={}", principal.getName());
-		String ck_password =userService.getUser(principal.getName()).getPassword();
-		if(bcrypasswordEncoder.matches(password, ck_password)) {
+		boolean passwordCheck = userService.passwordCK(principal, password);
+		if(passwordCheck) {
 			log.info("message 인증성공");
 			mav.addObject("userName", principal.getName());
 			mav.setViewName("redirect:/user/mypage/update/ck");	
@@ -237,7 +192,6 @@ public class UserController {
 		else {
 			throw new Exception("비밀번호가 일치 하지 않습니다.");
 		}
-		
 		return mav;
 	} 
 	
@@ -248,8 +202,7 @@ public class UserController {
 //		String Uid = userdto.getUID();
 //		mav.addObject(userdto);
 // 0321 최우진 유저데이터가 들어가야 될거같아서 주석하고 밑으로 바꿔봄
-		String userName = principal.getName();
-		Integer UID = userService.findByUID(userName);		
+		Integer UID = userService.princeUID(principal);		
 		Map<String, Object> map = userService.getInfo(UID);
 		mav.addObject("map", map);
 		mav.setViewName("user_update");
@@ -261,11 +214,8 @@ public class UserController {
 	public ModelAndView update(@ModelAttribute UserDTO userdto,
 								Principal principal, ModelAndView mav) {
 		log.info("message POST ONE ={}", userdto.toString());
-		Integer UID = userService.princeUID(principal);
-		userdto.setUID(UID);
-		userdto.setPassword(bcrypasswordEncoder.encode(userdto.getPassword()));
 		try {
-			int result= userService.userUpdate(userdto);
+			int result= userService.userUpdate(userdto, principal);
 			if(result == 1) {
 				Map<String, Object> user = userService.getInfo(userdto.getUID());
 				mav.addObject(user);
@@ -275,8 +225,7 @@ public class UserController {
 			else {
 				log.info("post, else");
 				mav.addObject(userdto);
-				throw new Exception("정보가 정상적으로 수정되지 않았습니다");
-				
+				throw new Exception("정보가 정상적으로 수정되지 않았습니다");	
 			}
 		} catch (Exception e) {
 			mav.addObject("message", e.getClass());
@@ -286,3 +235,54 @@ public class UserController {
 		return mav;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+/*시큐리티 도입으로 인해 폐기 */
+//@RequestMapping(value = "/login_A", method=RequestMethod.POST)
+//public String login(@ModelAttribute UserDTO userdto, Model model) {
+//	System.out.print(userdto.toString());
+//	 Map<String, Object> user = userService.login(userdto);
+//	 System.out.print("user정보 저장 map = "+user.toString());
+//	 model.addAttribute("user", user);
+//	 try {
+//		 if(user.get("UID")  != null) { 
+//			 
+//			 model.addAttribute(user);
+//			 System.out.println(User_Role.user.toString());
+//			 if(user.get("userrole").equals(User_Role.user.getValue())) {
+//				 System.out.println("유저 로그인 정보 조회 성공");
+//				
+//				 return String.format("redirect:user/main/%s", user.get("UID"));
+////				 return String.format("redirect:/main/%s/%s", user.get("userrole") ,user.get("UID"));
+////				 return String.format("redirect:/user/%s", user.get("UID"));
+//			 	}
+//			 else if(user.get("userrole").equals(User_Role.bis.getValue())) {
+//				 return String.format("redirect:bis/main/%s", user.get("UID"));
+////				 return String.format("redirect:/bis/%s", user.get("UID"));
+//			 	}	 
+//			 else if(user.get("userrole").equals(User_Role.admin.getValue())) {
+//				 return "redirect:/main";
+////				 return String.format("redirect:/admin/%s", user.get("UID"));
+//			 }
+//		   }
+//		 else {
+//			 model.addAttribute("message", "사용자 정보를 찾을 수 없습니다.");
+//			 return "redirect:/login_A";
+//		}
+//	} catch (Exception e) {
+//		model.addAttribute("message", e);
+//		e.printStackTrace();
+//
+//		return "redirect:/login_A";
+//	}
+//	return "redirect:/login_A";
+//}
