@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   **xmlns:sec="http://www.thymeleaf.org/extras/spring-security"**
+    layout:decorate="~{layout.html}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>쇼핑몰 관리자 등록 페이지</title>
+<link rel="stylesheet" th:href="@{/replace/replace_form.css}">
+<script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
+</head>
+<body>
+<section class="replaceBody" layout:fragment="content">
+	<div class="container">
+	    <h2>숙박업소 등록</h2>
+	    <form method="post" enctype="multipart/form-data" id="replaceForm">
+	        <fieldset>
+	
+	            <label for="businessName" class="head">상호명</label>
+	            <input type="text" id="businessName" name="businessName" th:required="required">
+	            <br>
+	
+	            <label for="replaceName" class="head">업체이름</label>
+	            <input type="text" id="replaceName" name="replaceName" th:required="required">
+	            <br>
+	
+	            <!--<label for="name" class="head">사업자등록번호</label>
+	            <input type="text" id="name" name="userid" th:required="required">
+	            <br>-->
+	
+	           <!-- <label for="name" class="head">업체 정보</label>
+	            <input type="text" id="name" name="name" th:required="required">
+	            <br>-->
+	
+	            <!--<label for="name">위치 등록</label>
+	            <input type="text" id="name" name="name" th:required="required">
+	            <br>-->
+				<label class="head">위치 등록</label><br>
+				<input type="text" id="postcode" placeholder="우편번호" name="replacePostCode">
+				<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" id="postCodeBtn"><br>
+				<input type="text" id="address" placeholder="주소" name="replaceLocation"><br>
+				<input type="text" id="detailAddress" placeholder="상세주소" name="locationdetail">
+				<input type="text" id="extraAddress" placeholder="참고항목">
+				
+				<label for="tel" class="head">연락처</label>
+	            <input type="tel" id="tel" name="tel" th:required="required" placeholder="연락처를 입력해주세요">
+	            <br>
+				
+				
+	            <label for="replaceContents" class="head">소개글 등록</label><br>
+	            <textarea class="introduce" placeholder="소개글을 입력해주세요" name="replaceContents"></textarea>
+	            <br>
+	
+	            <label for="replaceType" class="head">숙박 시설</label><br>
+	            <input type="radio" id="motel" name="replaceType" value="1" th:required="required">
+	            <label for="motel">모텔</label><br>
+	            <input type="radio" id="hotel" name="replaceType" value="2">
+	            <label for="hotel">호텔</label><br>
+	            <input type="radio" id="guesthouse" name="replaceType" value="3">
+	            <label for="guesthouse">게스트하우스</label><br>
+	            <input type="radio" id="resort" name="replaceType" value="4">
+	            <label for="resort">리조트</label><br>
+	            <br>
+	
+	            <label for="replacePrice" class="head">요금 등록</label>
+	            <input type="number" id="replacePrice" name="replacePrice" th:required="required" placeholder="원단위로입력해주세요">
+	            <br>
+	
+				</form>
+	            <label for="image" class="head">업체 사진 등록</label><br>
+	            <input type="file" id="image" onchange="addFile(this);"multiple><br>
+				<div class="file-list"></div>
+	            <br>
+	 
+	   
+	            <input type="submit" value="등록">
+	        </fieldset>
+	    
+	</div>
+	<script th:src="@{/replace/replace_form.js}"></script>
+</section>
+</body>
+</html>

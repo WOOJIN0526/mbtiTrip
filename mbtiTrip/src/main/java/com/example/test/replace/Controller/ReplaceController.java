@@ -1,10 +1,11 @@
 package com.example.test.replace.Controller;
 
 import java.security.Principal;
-
+import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -73,26 +76,36 @@ public class ReplaceController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
     public String Create(ReplaceForm Form, Model model) {
-    	model.addAttribute("categoryList", rpCategoryService.getList());
+    	//model.addAttribute("categoryList", rpCategoryService.getList());
         return "replace_form";
     }
 
     //컨트롤러에 넘어온 카테고리 이름으로 카테고리 엔티티를 조회하고, 
     //조회한 카테고리 엔티티를 질문 엔티티에 넣어주고 저장하면 질문에 카테고리가 생기게 된다.
-    @PreAuthorize("isAuthenticated()")
+	/*
+	 * @PreAuthorize("isAuthenticated()")
+	 * 
+	 * @PostMapping("/create") public String Create(Model model, @Valid ReplaceForm
+	 * postForm, BindingResult bindingResult, Principal principal) { if
+	 * (bindingResult.hasErrors()) { model.addAttribute("categoryList",
+	 * rpCategoryService.getList()); return "replace_form"; } UserDTO User =
+	 * this.userService.getUser(principal.getName()); ReplaceCategoryDTO category =
+	 * this.rpCategoryService.getCategory(postForm.getReplaceCategoryID());
+	 * this.rpService.create(postForm.getPostCategoryID(), postForm.getMbtiID(),
+	 * postForm.getCityID(), postForm.getReplaceType(),
+	 * postForm.getReplaceLocation(), postForm.getReplaceName(),
+	 * postForm.getReplacePrice(), postForm.getReplaceContents(), postForm.getTel(),
+	 * User,category); return "redirect:/replace/list"; }
+	 */
     @PostMapping("/create")
-    public String Create(Model model, @Valid ReplaceForm postForm, 
-    	BindingResult bindingResult, Principal principal) {
-        if (bindingResult.hasErrors()) {
-        	model.addAttribute("categoryList", rpCategoryService.getList());
-            return "replace_form";
-        }
-        UserDTO User = this.userService.getUser(principal.getName());
-        ReplaceCategoryDTO category = this.rpCategoryService.getCategory(postForm.getReplaceCategoryID());
-        this.rpService.create(postForm.getPostCategoryID(), postForm.getMbtiID(), postForm.getCityID(), postForm.getReplaceType(),
-        		postForm.getReplaceLocation(), postForm.getReplaceName(), postForm.getReplacePrice(), postForm.getReplaceContents(), postForm.getTel(), User,category);
-        return "redirect:/replace/list";
-        }
+    @ResponseBody
+    public ResponseEntity<String> create(ReplaceDTO dto){
+    	System.out.println(dto.toString());
+    	for(MultipartFile file : dto.getFile()) {
+    		System.out.println(file.getOriginalFilename());
+    	}
+    	return ResponseEntity.ok().body("Success message");
+    }
     
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
