@@ -90,7 +90,7 @@ public class ReplaceReviewServiceImpl implements ReplaceReviewService{
 				    Cookie[] cookies = request.getCookies();
 				    if (cookies != null)
 				        for (Cookie cookie : cookies)
-				            if (cookie.getName().equals("postView"))
+				            if (cookie.getName().equals("ReplaceReviewView"))
 				                oldCookie = cookie;
 
 				    if (oldCookie != null) {
@@ -104,7 +104,7 @@ public class ReplaceReviewServiceImpl implements ReplaceReviewService{
 				    }
 				    else {
 				        rprDAO.updateCount(replaceReviewID);
-				        Cookie newCookie = new Cookie("boardView","[" + replaceReviewID + "]");
+				        Cookie newCookie = new Cookie("ReplaceReviewView","[" + replaceReviewID + "]");
 				        newCookie.setPath("/");
 				        newCookie.setMaxAge(60 * 60 * 24);
 				        response.addCookie(newCookie);

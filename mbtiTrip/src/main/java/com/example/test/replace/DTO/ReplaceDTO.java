@@ -3,6 +3,8 @@ package com.example.test.replace.DTO;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.example.test.User.DTO.UserDTO;
 
 import lombok.Getter;
@@ -25,11 +27,17 @@ public class ReplaceDTO {
 	
 	private Integer replaceType;  //fk
 	
-	private Integer userId;
+	private Integer userid;
 	 
+	private String businessName;
+	
 	private String replaceName;
 	
+	private String replacePostCode;
+	
 	private String replaceLocation;
+	
+	private String locationdetail;
 	
 	private Integer replacePrice;
 
@@ -38,6 +46,8 @@ public class ReplaceDTO {
 	private String tel;
 	
 	private UserDTO replaceAdmin;
+	
+	private MultipartFile[] file;
 	
 	private Integer R_rating_avg;
 	
@@ -50,7 +60,23 @@ public class ReplaceDTO {
 	//조회수
 	private int views;
 
+
     public void addViewCount() {
         this.views++;
     }
+    @Override
+    public String toString() {
+        return "ReplaceDTO{" +
+                "replaceType=" + replaceType +
+                ", businessName='" + businessName + '\'' +
+                ", replaceName='" + replaceName + '\'' +
+                ", replacePostCode='" + replacePostCode + '\'' +
+                ", replaceLocation='" + replaceLocation + '\'' +
+                ", locationdetail='" + locationdetail + '\'' +
+                ", replacePrice=" + replacePrice +
+                ", replaceContents='" + replaceContents + '\'' +
+                ", tel='" + tel + '\'' +
+                '}';
+    }
+
 }

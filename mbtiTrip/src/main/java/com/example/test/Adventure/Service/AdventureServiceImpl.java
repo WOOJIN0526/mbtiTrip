@@ -110,7 +110,7 @@ public class AdventureServiceImpl implements AdventureService{
 			    Cookie[] cookies = request.getCookies();
 			    if (cookies != null)
 			        for (Cookie cookie : cookies)
-			            if (cookie.getName().equals("postView"))
+			            if (cookie.getName().equals("AdventureView"))
 			                oldCookie = cookie;
 
 			    if (oldCookie != null) {
@@ -124,7 +124,7 @@ public class AdventureServiceImpl implements AdventureService{
 			    }
 			    else {
 			        adDAO.updateCount(adventureID);
-			        Cookie newCookie = new Cookie("boardView","[" + adventureID + "]");
+			        Cookie newCookie = new Cookie("AdventureView","[" + adventureID + "]");
 			        newCookie.setPath("/");
 			        newCookie.setMaxAge(60 * 60 * 24);
 			        response.addCookie(newCookie);

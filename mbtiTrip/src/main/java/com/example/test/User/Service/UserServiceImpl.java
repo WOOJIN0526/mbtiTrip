@@ -60,10 +60,12 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public int userUpdate(UserDTO userdto) {
+	public int userUpdate(UserDTO userdto, Principal principal) {
+		Integer UID = princeUID(principal);
+		userdto.setUID(UID);
+		userdto.setPassword(bcrypasswordEncoder.encode(userdto.getPassword()));
 		int result =userDao.userUpdate(userdto);
 		return result;
-		
 	}
 	
 	@Override
@@ -74,7 +76,6 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public Map<String, Object> getInfo(Integer uID) {
-		// TODO Auto-generated method stub
 		return userDao.getInfo(uID);
 	}
 
@@ -96,6 +97,12 @@ public class UserServiceImpl implements UserService{
 		String userName = principal.getName();
 		Integer UID = findByUID(userName);
 		return UID;
+	}
+
+	public boolean passwordCK(Principal principal, String inputPw) {
+		String target = getUser(principal.getName()).getPassword();
+		boolean ck = bcrypasswordEncoder.matches(inputPw, target);
+		return ck;
 	}
 
 
