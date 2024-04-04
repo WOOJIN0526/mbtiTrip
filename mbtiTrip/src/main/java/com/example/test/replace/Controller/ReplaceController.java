@@ -111,7 +111,8 @@ public class ReplaceController {
     @GetMapping("/modify/{id}")
     public String Modify(ReplaceForm postForm, @PathVariable("id") Integer adventureID, Principal principal) {
         ReplaceDTO rpDto = this.rpService.getPost(adventureID);
-        if(!rpDto.getReplaceAdmin().getUsername().equals(principal.getName())) {
+        if(!rpDto.getReplaceAdmin()
+        		.equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         postForm.setReplaceName(rpDto.getReplaceName());
@@ -128,7 +129,7 @@ public class ReplaceController {
             return "replace_form";
         }
         ReplaceDTO rpDto = this.rpService.getPost(replaceID);
-        if (!rpDto.getReplaceAdmin().getUsername().equals(principal.getName())) {
+        if (!rpDto.getReplaceAdmin().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         this.rpService.modify(rpDto, postForm.getPostCategoryID(), postForm.getMbtiID(), postForm.getCityID(), postForm.getReplaceType(), postForm.getReplaceLocation(),
@@ -141,7 +142,7 @@ public class ReplaceController {
     @GetMapping("/delete/{id}")
     public String Delete(Principal principal, @PathVariable("id") Integer replaceID) {
         ReplaceDTO rpDto = this.rpService.getPost(replaceID);
-        if (!rpDto.getReplaceAdmin().getUsername().equals(principal.getName())) {
+        if (!rpDto.getReplaceAdmin().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
         this.rpService.delete(rpDto);

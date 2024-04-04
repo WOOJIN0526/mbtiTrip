@@ -18,7 +18,7 @@ public class AdventureDTO {
 	
 	private Integer adventureID; //게시한 담당자아이디?
 	
-	private Adventure_CategoryDTO adventureCategoryID; // 어드벤쳐 카테고리 id
+	private String adventureCategoryID; // 어드벤쳐 카테고리 id
 	
 	private Integer mbtiID;
 	
@@ -40,7 +40,7 @@ public class AdventureDTO {
 	
 	private String tel; // 어드벤쳐 번호
 	
-	private UserDTO adventureAdmin; // 어드벤쳐 관리자 이름?
+	private String adventureAdmin; // 어드벤쳐 관리자 이름?
 	
 	private double ratingAvg; // 해당 어드벤쳐 평점(추천)
 	

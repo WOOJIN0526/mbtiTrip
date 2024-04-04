@@ -25,4 +25,11 @@ public interface UserCartService {
 
 	//예약 취소 
 	public String updatePaymentFalse(Principal prince);
+
+	Integer sumPrice(List<UserCartDTO> userCart);
+	
+	//삭제 기능 
+	public boolean deleteReplace(Principal principal, ReplaceDTO replace);
+	public boolean deleteAD(Principal principal, AdventureDTO adventure);
+	public boolean deleteALL(Principal principal);
 }

@@ -90,7 +90,7 @@ public class AdventureController {
         UserDTO User = this.userService.getUser(principal.getName());
         Adventure_CategoryDTO category = this.adCategoryService.getCategory(postForm.getAdventureCategoryID());
         this.adService.create(postForm.getPostCategoryID(), postForm.getMbtiID(), postForm.getCityID(), postForm.getAdventureTypeId(),
-        		postForm.getAdventureLocation(), postForm.getAdventureName(), postForm.getAdventurePrice(), postForm.getAdventureContent(), postForm.getTel(), User,category);
+        		postForm.getAdventureLocation(), postForm.getAdventureName(), postForm.getAdventurePrice(), postForm.getAdventureContent(), postForm.getTel(), User.getUserId(),category.getAdventureCategory());
         return "redirect:/adventure/list";
         }
     
@@ -98,7 +98,7 @@ public class AdventureController {
     @GetMapping("/modify/{id}")
     public String Modify(AdventureForm postForm, @PathVariable("id") Integer adventureID, Principal principal) {
         AdventureDTO adDto = this.adService.getPost(adventureID);
-        if(!adDto.getAdventureAdmin().getUsername().equals(principal.getName())) {
+        if(!adDto.getAdventureAdmin().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         postForm.setAdventureName(adDto.getAdventureName());
@@ -115,7 +115,7 @@ public class AdventureController {
             return "adventure_form";
         }
         AdventureDTO adDto = this.adService.getPost(adventureID);
-        if (!adDto.getAdventureAdmin().getUsername().equals(principal.getName())) {
+        if (!adDto.getAdventureAdmin().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         this.adService.modify(adDto, postForm.getPostCategoryID(), postForm.getMbtiID(), postForm.getCityID(), postForm.getAdventureTypeId(), postForm.getAdventureLocation(),
@@ -128,7 +128,7 @@ public class AdventureController {
     @GetMapping("/delete/{id}")
     public String Delete(Principal principal, @PathVariable("id") Integer adventureID) {
         AdventureDTO adDto = this.adService.getPost(adventureID);
-        if (!adDto.getAdventureAdmin().getUsername().equals(principal.getName())) {
+        if (!adDto.getAdventureAdmin().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
         this.adService.delete(adDto);

@@ -17,7 +17,7 @@ public class ReplaceDTO {
 
 	private Integer replaceID;    //pk
 	
-	private ReplaceCategoryDTO replaceCategoryID;   //fk
+	private String replaceCategoryID;   //fk
 	
 	private Integer mbtiID;    //fk
 
@@ -45,7 +45,7 @@ public class ReplaceDTO {
 	
 	private String tel;
 	
-	private UserDTO replaceAdmin;
+	private String replaceAdmin;
 	
 	private MultipartFile[] file;
 	
@@ -60,7 +60,7 @@ public class ReplaceDTO {
 	//조회수
 	private int views;
 
-
+ 
     public void addViewCount() {
         this.views++;
     }

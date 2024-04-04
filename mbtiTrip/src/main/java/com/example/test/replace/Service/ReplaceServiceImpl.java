@@ -55,8 +55,8 @@ public class ReplaceServiceImpl implements ReplaceService{
 		rp.setReplacePrice(replacePrice);
 		rp.setReplaceContents(replaceContent);
 		rp.setTel(tel);
-		rp.setReplaceAdmin(replaceAdmin);
-		rp.setReplaceCategoryID(replace_CategoryID);
+		rp.setReplaceAdmin(replaceAdmin.getUsername());
+		rp.setReplaceCategoryID(replace_CategoryID.getReplace_Category());
 		return this.rpDAO.save(rp);
 	}
 

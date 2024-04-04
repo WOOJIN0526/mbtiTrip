@@ -40,7 +40,7 @@ public class AdventureServiceImpl implements AdventureService{
 
 	@Override
 	public AdventureDTO create(Integer postCategoryID, Integer mbtiID, Integer cityID, Integer adventureTypeId, 
-			 String adventureLocation, String adventureName, Integer adventurePrice, String adventureContent, String tel, UserDTO adventureAdmin, Adventure_CategoryDTO adventure_CategoryID) {
+			 String adventureLocation, String adventureName, Integer adventurePrice, String adventureContent, String tel, String adventureAdmin, String adventure_CategoryID) {
 		AdventureDTO adDto = new AdventureDTO();
 		adDto.setPostCategoryID(postCategoryID);
 		adDto.setAdventureCategoryID(adventure_CategoryID);
