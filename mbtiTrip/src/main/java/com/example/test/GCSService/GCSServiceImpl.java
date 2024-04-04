@@ -88,22 +88,43 @@ public class GCSServiceImpl implements GCSService{
 	@Override
 	/**
 	 * 주어진 버킷에서 파일을 삭제합니다.
-	 * @param {String} objectName 삭제할 파일의 이름. 주소상의 버킷명 뒤에 날짜를 포함한 이름입니다.
+	 * @param {String} currentURL 삭제할 파일의 전체 주소입니다.
 	 */
-	public void deleteObject(String objectName) {
-		Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
-	    Blob blob = storage.get(bucketName, objectName);
-	    if (blob == null) {
-	      System.out.println("The object " + objectName + " wasn't found in " + bucketName);
-	      return;
-	    }
-
-	    Storage.BlobSourceOption precondition =
-	        Storage.BlobSourceOption.generationMatch(blob.getGeneration());
-
-	    storage.delete(bucketName, objectName, precondition);
-
-	    System.out.println("Object " + objectName + " was deleted from " + bucketName);
+	public void deleteObject(String currentURL){
+		// 삭제할 파일명을 주소에서 분리하는 작업입니다.
+		System.out.println(currentURL+"HERE!!!");
+		String defaultUrl ="https://storage.googleapis.com/kdt3th_project/";
+		int dLen =defaultUrl.length();
+		String objectName =currentURL.substring(dLen);
+		System.out.println(objectName);
+		
+		//스토리지에 권한부여 및 삭제작업 입니다.
+		try(InputStream keyFile = ResourceUtils.getURL(classPath).openStream()){
+			Storage storage = StorageOptions.newBuilder()
+	                .setCredentials(GoogleCredentials.fromStream(keyFile))
+	                .build()
+	                .getService();
+			Blob blob = storage.get(bucketName, objectName);
+		    if (blob == null) {
+		      System.out.println("The object " + objectName + " wasn't found in " + bucketName);
+		      return;
+		    }
+	
+		    Storage.BlobSourceOption precondition =
+		        Storage.BlobSourceOption.generationMatch(blob.getGeneration());
+	
+		    storage.delete(bucketName, objectName, precondition);
+	
+		    System.out.println("Object " + objectName + " was deleted from " + bucketName);
+		    
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		 
 		
 	}
 

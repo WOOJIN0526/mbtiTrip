@@ -1,6 +1,25 @@
-<h1> ㅋㅋㅋ검문 있겠슴둥 ㅋㅋㅋ</h1>
-<form th:action="@{/user/mypage/update}" method="POST">
-<div th:text="${userName}"></div>
-<input type="password" name="password", value="비밀번호 확인">
-<button type="submit" value="비밀번호확인"></button>
-</form>
+<!DOCTYPE html>
+<html lang="en"
+	xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    layout:decorate="~{layout.html}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>마이페이지</title>
+<link rel="stylesheet" th:href="@{/common/common.css}">
+
+<link th:href="@{/mypage/myPageChecker.css}" rel="stylesheet" />
+</head>
+<body>
+    <section layout:fragment="content" class="myPageChecker">
+		<h1> ㅋㅋㅋ검문 있겠슴둥 ㅋㅋㅋ</h1>
+		<form th:action="@{/user/mypage/update}" method="POST">
+		<div th:text="${userName}" id="currentName"></div>
+		<input type="password" name="password" placeholder="비밀번호 확인">
+		<button type="submit">비밀번호 확인</button>
+		</form>
+	</section>
+</body>
+</html>

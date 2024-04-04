@@ -62,43 +62,23 @@ body{
   justify-content: space-between;
   width: 20rem;
   height: 5rem;
+ 
 }
-.user {
-  padding: 0.75rem 1.9375rem 0.75rem 1.9375rem;
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-  align-items: center;
-  justify-content: flex-start;
-  flex-shrink: 0;
-  width: 20.125rem;
-  height: 4.6875rem;
-  position: relative;
-}
-/*.fa-solid.fa-bars{
-	display:inline-block; 
-	font-family: "Font Awesome 5 Free"; 
-	font-weight: 800; content: "\f014";  
-	font-style: normal; font-variant: normal; 
-	text-rendering: auto; 
-	-webkit-font-smoothing: antialiased;
-}*/
+
 .profileBox {
   display: flex;
   flex-direction: row;
-  
   align-items: center;
-  gap: 2rem;
-  flex-shrink: 0;
   position: relative;
+  gap: 1rem;
 }
 .userImg {
   background: black;
   border-radius: 2rem;
-  flex-shrink: 0;
+
   width: 3.125rem;
   height: 3.125rem;
-  position: relative;
+
   overflow: hidden;
 }
 
@@ -118,6 +98,8 @@ body{
 .icon-menu {
   transition: transform 0.5s ease;
   z-index: 999999999999;
+  width: 70%; height: 70%;
+  margin-top: 1rem;
 }
 
 .profile{
