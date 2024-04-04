@@ -13,6 +13,7 @@ import com.example.test.User.DAO.UserCartDAO;
 import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DTO.UserCartDTO;
 import com.example.test.replace.DTO.ReplaceDTO;
+import com.google.api.client.http.HttpResponse;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -32,7 +33,8 @@ public class UserCartServiceImpl implements UserCartService{
 		 List<ReplaceDTO> replaceInfo = new ArrayList();
 		 replaceInfo.add(replaceDTO);
 		userCartDTO.setUserName(principal.getName());
-		userCartDTO.setReplaceInfo(replaceInfo);
+		userCartDTO.setReplaceInfo(replaceDTO);
+		userCartDTO.setPayment(false);
 		log.info("message {}", userCartDTO.toString());
 		int result = 0;
 		boolean ck = false;
@@ -60,7 +62,8 @@ public class UserCartServiceImpl implements UserCartService{
 		//URL  = /adventure/cart Post
 		
 		userCartDTO.setUserName(principal.getName());
-		userCartDTO.getAdventureInfo().add(adventureDTO);
+		userCartDTO.setAdventureInfo(adventureDTO);
+		userCartDTO.setPayment(false);
 		log.info("message {}", userCartDTO.toString());
 		int result = 0;
 		boolean ck = false;
@@ -88,6 +91,29 @@ public class UserCartServiceImpl implements UserCartService{
 		List<UserCartDTO> userCart = this.userCartDAO.detail(usercartdto);
 		return userCart;
 	}
+	
+	@Override
+	public Integer sumPrice(List<UserCartDTO> userCart) {
+		Integer result = 0;
+		for(UserCartDTO cart : userCart) {
+			Integer replacePrice = cart.getReplaceInfo().getReplacePrice();
+			Integer adventurePrice = cart.getAdventureInfo().getAdventurePrice();
+			if(replacePrice!=null) {
+				result += replacePrice;
+			}
+			else {
+				new NullPointerException("알 수 없는 오류로 인해 수정 중입니다.");
+			}
+
+			if(adventurePrice!=null){
+				result += adventurePrice;
+			}
+//			else {
+//				new NullPointerException("알 수 없는 오류로 인해 수정 중입니다.");
+//			}
+		}
+		return result;
+	}
 
 	@Override
 	public List<UserCartDTO> detail_Pay(UserCartDTO usercartdto ,Principal principal) {
@@ -95,7 +121,7 @@ public class UserCartServiceImpl implements UserCartService{
 		//payments get true;
 		usercartdto.setUserName(principal.getName());
 		List<UserCartDTO> userCart = this.userCartDAO.detail(usercartdto);
-		return null;
+		return userCart;
 	}
 
 	@Override
@@ -118,6 +144,35 @@ public class UserCartServiceImpl implements UserCartService{
 			message = "결제가 취소되었습니다";
 		}
 		return message;
+	}
+
+	@Override
+	public boolean deleteReplace(Principal principal, ReplaceDTO replace) {
+		UserCartDTO userCart = new UserCartDTO();
+		userCart.setUserName(principal.getName());
+		userCart.setReplaceInfo(replace);
+		Integer result = userCartDAO.deleteReplace(userCart);
+		boolean ck = (result == 1) ? true : false; 		
+		return ck;
+	}
+
+	@Override
+	public boolean deleteAD(Principal principal, AdventureDTO adventure) {
+		UserCartDTO userCart = new UserCartDTO();
+		userCart.setUserName(principal.getName());
+		userCart.setAdventureInfo(adventure);
+		Integer result = userCartDAO.deleteAD(userCart);
+		boolean ck = (result == 1) ? true : false; 		
+		return ck;
+	}
+
+	@Override
+	public boolean deleteALL(Principal principal) {
+		UserCartDTO userCart = new UserCartDTO();
+		userCart.setUserName(principal.getName());
+		Integer result = userCartDAO.deleteALL(userCart);
+		boolean ck = (result == 1) ? true : false; 		
+		return ck;
 	}
 
 	

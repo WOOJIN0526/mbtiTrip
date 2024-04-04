@@ -10,6 +10,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.test.GCSDTO.GCSDTO;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -25,10 +26,16 @@ public class GCSServiceImpl implements GCSService{
 	private String bucketName;
 	@Value("${spring.cloud.gcp.storage.credentials.location}")
 	private String classPath;
-	
+	@Value("${spring.cloud.gcp.storage.project-id}")
+	private String projectId;
 	
 	@Override
-	public String uploadObject(GCSDTO dto) {
+	/**
+	 * 주어진 MultipartFile 객체를 사용하여 파일을 버킷에 업로드합니다.
+	 * @param {MultipartFile} file 업로드할 파일(이미지)을 나타내는 MultipartFile 객체입니다.
+	 * @return {String} url 업로드된 파일의 URL입니다.
+	 */
+	public String uploadObject(MultipartFile file) {
 		// try-with-resources를 통해 자동으로 close메소드를 호출
 	    try (InputStream keyFile = ResourceUtils.getURL(classPath).openStream()) {
 	    	System.out.println(bucketName);
@@ -36,11 +43,11 @@ public class GCSServiceImpl implements GCSService{
 	                .setCredentials(GoogleCredentials.fromStream(keyFile))
 	                .build()
 	                .getService();
-	        String fileName = getFileName(dto.getFile().getOriginalFilename());
+	        String fileName = getFileName(file.getOriginalFilename());
 	        BlobInfo blobInfo = BlobInfo.newBuilder(bucketName, fileName)
-	                .setContentType(dto.getFile().getContentType()).build();
+	                .setContentType(file.getContentType()).build();
 
-	        Blob blob = storage.create(blobInfo, dto.getFile().getInputStream());
+	        Blob blob = storage.create(blobInfo, file.getInputStream());
 	        String url = getUrl(bucketName, fileName);
 	        return url;
 	    } catch (FileNotFoundException e) {
@@ -73,6 +80,31 @@ public class GCSServiceImpl implements GCSService{
 		String defaultUrl ="https://storage.googleapis.com/";
 		String url=defaultUrl+bucket+"/"+fileName;
 		return url;
+	}
+
+
+
+
+	@Override
+	/**
+	 * 주어진 버킷에서 파일을 삭제합니다.
+	 * @param {String} objectName 삭제할 파일의 이름. 주소상의 버킷명 뒤에 날짜를 포함한 이름입니다.
+	 */
+	public void deleteObject(String objectName) {
+		Storage storage = StorageOptions.newBuilder().setProjectId(projectId).build().getService();
+	    Blob blob = storage.get(bucketName, objectName);
+	    if (blob == null) {
+	      System.out.println("The object " + objectName + " wasn't found in " + bucketName);
+	      return;
+	    }
+
+	    Storage.BlobSourceOption precondition =
+	        Storage.BlobSourceOption.generationMatch(blob.getGeneration());
+
+	    storage.delete(bucketName, objectName, precondition);
+
+	    System.out.println("Object " + objectName + " was deleted from " + bucketName);
+		
 	}
 
 

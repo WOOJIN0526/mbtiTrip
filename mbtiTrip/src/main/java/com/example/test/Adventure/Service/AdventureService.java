@@ -15,7 +15,7 @@ public interface AdventureService {
 	 public AdventureDTO getPost(Integer adventureID);
 	 
 	 public AdventureDTO create(Integer postCategoryID, Integer mbtiID, Integer cityID, Integer adventureTypeId, 
-			 String adventureLocation, String adventureName, Integer adventurePrice, String adventureContent, String tel, UserDTO adventureAdmin, Adventure_CategoryDTO adventure_CategoryID);
+			 String adventureLocation, String adventureName, Integer adventurePrice, String adventureContent, String tel, String adventureAdmin, String adventure_CategoryID);
 	 
 	 public AdventureDTO modify(AdventureDTO adDto, Integer postCategoryID,  Integer mbtiID, Integer cityID, 
 			 Integer adventureTypeId, String adventureLocation, String adventureName, Integer adventurePrice, String adventureContent, String tel);
