@@ -9,10 +9,10 @@ import lombok.Setter;
 @Setter
 public class Tag {
 
-	Integer tagId;
-    String content;
-    Integer tagCount;
-    Integer weekCount;
+	Integer tagId; //태그 아이디
+    String content; // 태그 내용
+    
+    
 
     public Tag(Integer tagId, String content) {
         this.tagId = tagId;
