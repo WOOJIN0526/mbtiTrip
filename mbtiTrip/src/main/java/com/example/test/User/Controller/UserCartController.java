@@ -89,12 +89,12 @@ public class UserCartController {
 		return ck;
 	}
 	
-	@RequestMapping(value="replace/delte", method=RequestMethod.POST)
-	public boolean deleteReplace(@RequestBody AdventureDTO adventure, Principal principal) {
+	@RequestMapping(value="Adventure/delte", method=RequestMethod.POST)
+	public boolean deleteAdventure(@RequestBody AdventureDTO adventure, Principal principal) {
 		boolean ck = userCartservice.deleteAD(principal, adventure);
 		return ck;
 	}
-	@RequestMapping(value="replace/delte", method=RequestMethod.POST)
+	@RequestMapping(value="/delte", method=RequestMethod.POST)
 	public boolean deleteALL(Principal principal) {
 		boolean ck = userCartservice.deleteALL(principal);
 		return ck;

@@ -6,6 +6,6 @@ import lombok.Data;
 
 @Data
 public class GCSDTO {
-	private String name;
+	private String currentURL;
 	private MultipartFile file;
 }

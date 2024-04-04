@@ -18,6 +18,19 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+.profileImgCon{
+	padding-bottom: 1rem;
+}
+.selectedImgView{
+	border: 1px solid black;
+	width: 100px; height: 100px;
+	display: inline-block;
+	background-size: cover;
+}
+#profileImg{
+	margin-left: 1rem;
+	transform: translateY(-0.5rem);
+}
 h2 {
     text-align: center;
 }
@@ -35,8 +48,11 @@ form {
 .select{
 	
 }
+.form-group input{
+	width: 100%;
+}
 .form-group input[type="text"] {
-    width: 100%;
+    width: 95%;
     padding: 8px;
     border-radius: 4px;
     border: 1px solid #ccc;

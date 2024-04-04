@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="view">
+
+	<insert id="viewRE" parameterType="hashMap"
+		useGeneratedKeys="true">  
+	<![CDATA[
+		insert into userView (userName, Replace_key)
+		value (#{userName}, #{replaceid})
+ 	]]>
+	</insert>
+
+	<insert id="viewAD" parameterType="hashMap"
+		useGeneratedKeys="true">  
+	<![CDATA[
+		insert into userView (userName, AdventureID)
+		value (#{userName}, #{adventureid})
+ 	]]>
+	</insert>
+	<insert id="viewPO" parameterType="hashMap"
+		useGeneratedKeys="true">  
+		<![CDATA[
+		insert into userView (userName, Postid)
+		value (#{userName}, #{postid})
+ 	]]>
+	</insert>
+
+	<select id="ReturnRE" resultType="com.example.test.replace.DTO.ReplaceDTO">
+	<![CDATA[
+		select re.replace_name as replaceName, re.replace_location as replaceLocation,
+		 re.replace_admin as replaceAdmin, re.price as replacePrice, re.contents as replaceContents
+		from userView uv
+		join `replace` re
+		on  uv.Replace_key = re.replace_key
+		where uv.userName =#{userName} and uv.replace_Key
+		limit 5
+	]]>
+	</select>
+	<select id="ReturnAD" resultType="com.example.test.Adventure.DTO.AdventureDTO">
+	<![CDATA[
+		select ad.adventureLocation as adventureLocation, ad.adventurename as adventureName, ad.adventurePrice, ad.adventureCOntent, ad.tel
+		from userView uv
+		join Adventure ad
+		on  uv.AdventureID = ad.AdventureID
+		where uv.userName =#{userName} and uv.AdventureID
+		limit 5
+	]]>
+	</select>
+	<select id="ReturnPO" resultType="com.example.test.POST.DTO.PostDTO">
+	<![CDATA[
+		select pt.userName, pt.title, pt.Content as content, pt.updateDate  
+		from userView uv
+		join Post pt
+		on  uv.Postid = pt.PostID
+		where uv.userName =#{userName} and pt.PostID
+		limit 5;
+	]]>	
+	</select>
+
+	<select id="userLikeMbti" parameterType="String"  resultType="hashMap">
+			select mb.mbti , (select count(re.MBTI_ID)
+							    from userView uv
+		        			    join `replace` re
+		        				  on uv.Replace_key = re.Replace_key
+						        join MBTi m
+						        on re.MBTI_ID = m.mbtiId
+						        where m.mbtiId = mb.mbtiId
+								and uv.userName = #{userName}) +
+						        (select count(ad.mbtiId)
+								from userView uv
+								join Adventure ad
+						        on uv.AdventureID = ad.AdventureID
+						        join MBTi mt
+						        on ad.mbtiId = mt.mbtiId
+						        where mt.mbtiId = mb.mbtiId
+						        and uv.userName = #{userName}) 
+						        as totalMBtiCnt
+			from MBTi mb
+			group by mb.mbtiId
+			order by totalMBtiCnt desc
+			limit 2;
+	</select>
+
+	<select id="rutin" resultType = "hashMap">
+		select re.Replace_Key, ad.adventureID
+		from `replace` re
+		right join MBTi mb
+		on mb.mbtiId = re.MBTI_ID
+		left join Adventure ad
+		on ad.mbtiID = mb.mbtiId
+		where mb.mbtiId = #{mbti}
+		order By Rand()
+		limit 4;
+	</select>
+	
+
+</mapper>

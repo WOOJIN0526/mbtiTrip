@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+	xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  **xmlns:sec="http://www.thymeleaf.org/extras/spring-security"**
+   layout:decorate="~{layout.html}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,69 +12,47 @@
 <link th:href="@{/mypage/myPage.css}" rel="stylesheet" />
 </head>
 <body>
-    <div class="menu">
-        <i class="fa-solid fa-bars"></i>
-    </div  >
-    <div class="menuNode">
-        <ul>
-            <li class="node"><a th:href="@{/user/mypage/update}">개인정보 수정</a></li>
-            <li class="node"><a href="#">위시 리스트</a></li>
-        </ul>
-    </div>
-<div class="container">
-    <div class="profile">
-       <!-- <img src="profile-pic.jpg" alt="프로필 사진">-->
-        <h2 th:text="${user['userName']}"></h2>
-       
-    </div>
-    
-    <div class="section">
-        <h3>내 정보</h3>
-        <div class="info-grid">
-            <ul>
-                <li >이름</li>
-                <li>전화번호</li>
-                <li>이메일</li>
-                <li>MBTI</li>
-            </ul>
-            <ul>
-				<li th:text="${user['userName']}"></li>    
-				<li th:thext="${user['phone']}"></li>
-				<li th:text="${user['mail']}"></li>
-				<li th:text="${user['mbti']}"></li>
-            </ul>
-        </div>
-    </div>
-	<!--<div class="activity-summary">
-        <h3>활동 요약</h3>
-        <p>최근에 작성한 글: <span th:text="${recentPostsCount}"></span>개</p>
-        <p>받은 좋아요 수: <span th:text="${likesCount}"></span>개</p>
-        <p>받은 댓글 수: <span th:text="${commentsCount}"></span>개</p>
-    </div>		-->
-   
-    <!-- <div class="section">
-        <h3>비밀번호 변경</h3>
-        <form action="#">
-            <label for="current-password">현재 비밀번호:</label>
-            <input type="password" id="current-password" name="current-password"><br>
-            <label for="new-password">새로운 비밀번호:</label>
-            <input type="password" id="new-password" name="new-password"><br>
-            <label for="confirm-password">비밀번호 확인:</label>
-            <input type="password" id="confirm-password" name="confirm-password"><br>
-            <button type="submit">변경</button>
-        </form>
-    </div> -->
-
-    <!-- <div class="section">
-        <h3>내가 작성한 글 목록</h3>
-        <ul>
-            <li>글 제목 1 <span class="edit-btn">편집</span></li>
-            <li>글 제목 2 <span class="edit-btn">편집</span></li>
-            <li>글 제목 3 <span class="edit-btn">편집</span></li>
-            
-        </ul>
-    </div> -->
-	<script type="text/javascript" th:src="@{/mypage/mypage.js}"></script>
+    <section layout:fragment="content" class="mypageBody">
+		
+		    <div class="menuNode">
+		        <ul>
+		            <li class="node"><a th:href="@{/user/mypage/update}">개인정보 수정</a></li>
+		            <li class="node"><a href="#">위시 리스트</a></li>
+		        </ul>
+		    </div>
+		<div class="container">
+			
+		    <div class="myProfile">
+				<div class="menu">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon-menu" onclick="toggleSVG()">
+						<path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+					</svg>
+				</div>
+		        <img src="profile-pic.jpg" alt="프로필 사진">
+		        <h2 th:text="${user['userName']}"></h2>
+		       
+		    </div>
+		    
+		    <div class="section">
+		        <h3>내 정보</h3>
+		        <div class="info-grid">
+		            <ul>
+		                <li >이름</li>
+		                <li>전화번호</li>
+		                <li>이메일</li>
+		                <li>MBTI</li>
+		            </ul>
+		            <ul>
+						<li th:text="${user['userName']}"></li>    
+						<li th:thext="${user['phone']}"></li>
+						<li th:text="${user['mail']}"></li>
+						<li th:text="${user['mbti']}"></li>
+		            </ul>
+		        </div>
+		    </div>
+		</div>
+			<script type="text/javascript" th:src="@{/mypage/mypage.js}"></script>
+	</section>
   
 </body>
 </html>
