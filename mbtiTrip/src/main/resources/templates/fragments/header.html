@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+	<link rel="stylesheet" th:href="@{/common/common.css}">
    <link rel="stylesheet" th:href="@{/common/header.css}">
    
 </head>
@@ -69,24 +70,18 @@
 
             <div sec:authorize="isAuthenticated()" class="userBox">
                <!-- 유저 박스 보더 -->
-               <div class="User">
+               
                  <div class="profileBox">
                    <div class="userImg" ></div>
-  
-               </div>
-                 <!-- 메뉴아이콘 svg -->
-               <svg class="icon-menu" width="62" height="62" viewBox="0 0 62 62" fill="none"
-                   xmlns="http://www.w3.org/2000/svg"  onclick="changeIcon()">
-                 <path
-                   d="M7.86206 46.4253H54.1379V41.2835H7.86206V46.4253ZM7.86206 33.5709H54.1379V28.4291H7.86206V33.5709ZM7.86206 15.5747V20.7165H54.1379V15.5747H7.86206Z"
-                   fill="black" />
-               </svg>
-            </div>
-
-            </div>
-        </div>   
-   
-   <script th:href="@{/common/header.js}"></script>
+  					<div class="userName">userName</div>
+           		 </div>
+				 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon-menu" onclick="toggleSVG()">
+					<path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+				</svg>
+				 </div> 
+        	</div>   
+			
+   <script th:src="@{/common/header.js}"></script>
 </div>
 </body>
 </html>

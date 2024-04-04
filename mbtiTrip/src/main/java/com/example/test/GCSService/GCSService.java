@@ -1,12 +1,16 @@
 package com.example.test.GCSService;
 
-import com.example.test.GCSDTO.GCSDTO;
+import org.springframework.web.multipart.MultipartFile;
+
 
 public interface GCSService {
 
-	public String uploadObject(GCSDTO dto);
+	public String uploadObject(MultipartFile file);
+
+	public void deleteObject(String objectName);
 	
 	public String getFileName(String originalName);
 	
 	public String getUrl(String bucket,String fileName);
+	
 }
