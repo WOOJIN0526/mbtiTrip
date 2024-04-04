@@ -18,7 +18,6 @@ public class QnAServiceImpl implements QnAService {
 	
 	@Override
 	public int createQ(QnADTO qna) {
-		
 		return qnaDao.create(qna);
 		
 	}

@@ -20,7 +20,7 @@ public class PostDTO {
 	
 	private Post_CategoryDTO post_category;
 	
-	private Integer userId;
+	private String userName;
 	
 	private String title;
 	
