@@ -92,7 +92,7 @@ public class AnswerController {
 	        }
 	        this.answerService.modify(answerDto, answerForm.getContent());
 	        return String.format("redirect:/post/detail/%s#answer_%s", 
-	                answerDto.getPostID().getUserId(), answerDto.getAnswerID());
+	                answerDto.getPostID().getUserName(), answerDto.getAnswerID());
 	    }
 	    
 	    //답변삭제
@@ -104,7 +104,7 @@ public class AnswerController {
 	            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
 	        }
 	        this.answerService.delete(answerDto);
-	        return String.format("redirect:/post/detail/%s", answerDto.getPostID().getUserId());
+	        return String.format("redirect:/post/detail/%s", answerDto.getPostID().getUserName());
 	    }
 	    
 

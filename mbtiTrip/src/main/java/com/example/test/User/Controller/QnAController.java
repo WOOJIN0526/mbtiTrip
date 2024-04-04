@@ -52,7 +52,6 @@ public class QnAController {
 		return mav;
 	} 
 	
-	 
 	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView createQAndA(Principal principal, ModelAndView mav) {
@@ -84,7 +83,6 @@ public class QnAController {
 	public ModelAndView QAndA(@PathVariable  Integer QID, ModelAndView mav,
 							QnADTO qna) {
 		QnADTO qnaDetail =qnaService.QnAdetail(QID);
-		
 		return mav;
 	}
 	
@@ -95,9 +93,7 @@ public class QnAController {
 		mav.addObject("currentUrl", session.getRequestURL());
 		mav.addAllObjects(qnaList);
 		mav.setViewName("내가 쓴 QnA");
-		
 		return mav;
-		
 	}
 	
 	
