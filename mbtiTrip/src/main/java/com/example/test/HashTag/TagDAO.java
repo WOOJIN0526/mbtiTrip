@@ -1,5 +1,7 @@
 package com.example.test.HashTag;
 
+
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -16,9 +18,6 @@ public class TagDAO {
 		
 	}
 
-	public void addTagCount(@Param("tagId") Integer tagId) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

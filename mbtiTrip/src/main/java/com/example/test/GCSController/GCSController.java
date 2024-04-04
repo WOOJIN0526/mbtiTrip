@@ -1,5 +1,6 @@
 package com.example.test.GCSController;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,16 @@ public class GCSController {
 		return null;
 		
 		 
+	}
+	@PostMapping("/api/gcs/delete")
+	@ResponseBody
+	public void objectDelete(GCSDTO dto){
+		
+		String url =dto.getCurrentURL();
+		System.out.println(url+"HERE!!!!!");
+		
+		gcsService.deleteObject(url);
+		
+		
 	}
 }
