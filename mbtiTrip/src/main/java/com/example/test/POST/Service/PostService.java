@@ -2,8 +2,7 @@ package com.example.test.POST.Service;
 
 import java.util.List;
 
-
-
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.DTO.Post_CategoryDTO;
@@ -18,7 +17,7 @@ public interface PostService {
 	 
 		 public PostDTO getPost(Integer postID);
 		 
-		 public PostDTO create(String title, String content, UserDTO user, Post_CategoryDTO category);
+		 public PostDTO create(String title, String content, UserDTO user, Post_CategoryDTO category, MultipartFile file);
 		 
 		 public PostDTO modify(PostDTO postDto, String title, String content);
 		 

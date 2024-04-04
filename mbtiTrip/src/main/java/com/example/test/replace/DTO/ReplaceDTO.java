@@ -60,6 +60,7 @@ public class ReplaceDTO {
 	//조회수
 	private int views;
 
+
     public void addViewCount() {
         this.views++;
     }

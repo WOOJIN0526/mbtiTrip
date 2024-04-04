@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.test.Adventure.DTO.AdventureDTO;
+
 import com.example.test.POST.Service.DataNotFoundException;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.paging.Criteria;
@@ -109,7 +109,7 @@ public class ReplaceServiceImpl implements ReplaceService{
 				    Cookie[] cookies = request.getCookies();
 				    if (cookies != null)
 				        for (Cookie cookie : cookies)
-				            if (cookie.getName().equals("postView"))
+				            if (cookie.getName().equals("ReplaceView"))
 				                oldCookie = cookie;
 
 				    if (oldCookie != null) {
@@ -123,7 +123,7 @@ public class ReplaceServiceImpl implements ReplaceService{
 				    }
 				    else {
 				        rpDAO.updateCount(replaceID);
-				        Cookie newCookie = new Cookie("boardView","[" + replaceID + "]");
+				        Cookie newCookie = new Cookie("ReplaceView","[" + replaceID + "]");
 				        newCookie.setPath("/");
 				        newCookie.setMaxAge(60 * 60 * 24);
 				        response.addCookie(newCookie);

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -48,6 +49,7 @@ public class PostController {
 	@Autowired
 	Post_CategoryService postCategoryService;
 	
+	@RequestMapping("/list")
 	public ModelAndView postList(ModelAndView mv, Criteria cri) throws Exception {
 
 	    PageDTO pageMaker = new PageDTO();
@@ -56,9 +58,9 @@ public class PostController {
 
 	    //View에 페이징 처리를 위한 조건 및 그에 맞는 게시판 리스트 전송
 	    mv.addObject("pageMaker", pageMaker);
-	    mv.addObject("data", postService.list(cri)); 
+	    mv.addObject("data", postService.list(cri)); //현재페이지에 표시할 게시글 목록 가져옴
 
-	    mv.setViewName("board/qna/qna_list");
+	    mv.setViewName("post_list");
 
 	    return mv;
 	    }
@@ -85,14 +87,14 @@ public class PostController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create")
     public String postCreate(Model model, @Valid PostForm postForm, 
-    	BindingResult bindingResult, Principal principal) {
+    	BindingResult bindingResult, Principal principal,  MultipartFile file) {
         if (bindingResult.hasErrors()) {
         	model.addAttribute("categoryList", postCategoryService.getList());
             return "post_form";
         }
         UserDTO User = this.userService.getUser(principal.getName());
         Post_CategoryDTO category = this.postCategoryService.getCategory(postForm.getCategory());
-        this.postService.create(postForm.getTitle(), postForm.getContent(), User, category);
+        this.postService.create(postForm.getTitle(), postForm.getContent(), User, category, file);
         return "redirect:/post/list";
         }
     
@@ -100,7 +102,7 @@ public class PostController {
     @GetMapping("/modify/{id}")
     public String postModify(PostForm postForm, @PathVariable("id") Integer postID, Principal principal) {
         PostDTO postDto = this.postService.getPost(postID);
-        if(!postDto.getWrite().getUsername().equals(principal.getName())) {
+        if(!postDto.getWriter().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         postForm.setTitle(postDto.getTitle());
@@ -117,7 +119,7 @@ public class PostController {
             return "post_form";
         }
         PostDTO postDto = this.postService.getPost(postID);
-        if (!postDto.getWrite().getUsername().equals(principal.getName())) {
+        if (!postDto.getWriter().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         this.postService.modify(postDto, postForm.getTitle(), postForm.getContent());
@@ -129,7 +131,7 @@ public class PostController {
     @GetMapping("/delete/{id}")
     public String postDelete(Principal principal, @PathVariable("id") Integer postID) {
         PostDTO postDto = this.postService.getPost(postID);
-        if (!postDto.getWrite().getUsername().equals(principal.getName())) {
+        if (!postDto.getWriter().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
         this.postService.delete(postDto);

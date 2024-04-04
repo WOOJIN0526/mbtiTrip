@@ -32,7 +32,7 @@ import com.example.test.replace.Service.ReplaceReviewService;
 
 import jakarta.validation.Valid;
 
-@RequestMapping("/replace/review/*")
+@RequestMapping("/replaceReview/")
 @Controller
 public class ReplaceReviewContoller {
 
@@ -45,7 +45,7 @@ public class ReplaceReviewContoller {
 	@Autowired
 	ReplaceCategoryService rpCategoryService;
 	
-	@RequestMapping("list")
+	@RequestMapping("/list")
 	public ModelAndView List(ModelAndView mv, Criteria cri) throws Exception {
 
 	    PageDTO pageMaker = new PageDTO();
@@ -54,7 +54,7 @@ public class ReplaceReviewContoller {
 
 	    //View에 페이징 처리를 위한 조건 및 그에 맞는 게시판 리스트 전송
 	    mv.addObject("pageMaker", pageMaker);
-	    mv.addObject("data", rprService.list(cri)); 
+	    mv.addObject("data", rprService.list(cri)); //현재페이지에 표시할 게시글 목록 가져옴
 
 	    mv.setViewName("replaceReview_list");
 
@@ -103,7 +103,7 @@ public class ReplaceReviewContoller {
         }
         postForm.setTitle(adrDto.getReviewTitle());
         postForm.setContent(adrDto.getContent());
-        return "adventureReview_form";
+        return "relplaceReview_form";
     }
     
     //수정
@@ -112,14 +112,14 @@ public class ReplaceReviewContoller {
     public String Modify(@Valid ReplaceReviewForm postForm, BindingResult bindingResult, 
             Principal principal, @PathVariable("id") Integer replaceReviewID) {
         if (bindingResult.hasErrors()) {
-            return "adventureReview_form";
+            return "replaceReview_form";
         }
         ReplaceReviewDTO rprDto = this.rprService.getPost(replaceReviewID);
         if (!rprDto.getUserId().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         this.rprService.modify(rprDto, postForm.getTitle(), postForm.getContent());
-        return String.format("redirect:/adventureReview/detail/%s", replaceReviewID);
+        return String.format("redirect:/replaceReview/detail/%s", replaceReviewID);
     }
     
     //삭제
@@ -141,6 +141,6 @@ public class ReplaceReviewContoller {
         ReplaceReviewDTO rprDto = this.rprService.getPost(replaceReviewID);
         UserDTO user = this.userService.getUser(principal.getName());
         this.rprService.suggestion(rprDto, user);
-        return String.format("redirect:/adventureReview/detail/%s", replaceReviewID);
+        return String.format("redirect:/replaceReview/detail/%s", replaceReviewID);
     }
 }

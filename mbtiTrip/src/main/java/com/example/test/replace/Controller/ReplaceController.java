@@ -47,7 +47,7 @@ public class ReplaceController {
 	@Autowired
 	ReplaceCategoryService rpCategoryService;
 	
-	@RequestMapping("list")
+	@RequestMapping("/list")
 	public ModelAndView List(ModelAndView mv, Criteria cri) throws Exception {
 
 	    PageDTO pageMaker = new PageDTO();
@@ -56,7 +56,7 @@ public class ReplaceController {
 
 	    //View에 페이징 처리를 위한 조건 및 그에 맞는 게시판 리스트 전송
 	    mv.addObject("pageMaker", pageMaker);
-	    mv.addObject("data", rpService.list(cri)); 
+	    mv.addObject("data", rpService.list(cri)); //현재페이지에 표시할 게시글 목록 가져옴
 
 	    mv.setViewName("replace_list");
 
@@ -133,7 +133,7 @@ public class ReplaceController {
         }
         this.rpService.modify(rpDto, postForm.getPostCategoryID(), postForm.getMbtiID(), postForm.getCityID(), postForm.getReplaceType(), postForm.getReplaceLocation(),
         		postForm.getReplaceName(), postForm.getReplacePrice(), postForm.getReplaceContents(), postForm.getTel());
-        return String.format("redirect:/adventure/detail/%s", replaceID);
+        return String.format("redirect:/replace/detail/%s", replaceID);
     }
     
     //삭제

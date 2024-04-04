@@ -44,7 +44,7 @@ public class AdventureController {
 	@Autowired
 	Adventure_CategoryService adCategoryService;
 	
-	@RequestMapping("list")
+	@RequestMapping("/list")
 	public ModelAndView List(ModelAndView mv, Criteria cri) throws Exception {
 
 	    PageDTO pageMaker = new PageDTO();
@@ -53,7 +53,7 @@ public class AdventureController {
 
 	    //View에 페이징 처리를 위한 조건 및 그에 맞는 게시판 리스트 전송
 	    mv.addObject("pageMaker", pageMaker);
-	    mv.addObject("data", adService.list(cri)); 
+	    mv.addObject("data", adService.list(cri)); //현재페이지에 표시할 게시글 목록 가져옴
 
 	    mv.setViewName("adventure_list");
 
