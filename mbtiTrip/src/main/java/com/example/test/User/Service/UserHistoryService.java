@@ -8,9 +8,9 @@ import com.example.test.replace.DTO.ReplaceDTO;
 
 public interface UserHistoryService {
 
-	public List<ReplaceDTO> uxReplace(String userName);
+	public List<HashMap<String, Object>> uxReplace(String userName);
 	
-	public List<AdventureDTO> uxAdventure(String userName);
+	public List<HashMap<String, Object>> uxAdventure(String userName);
 	
 	public List<HashMap<String, Object>> uxRutin(String userName);
 

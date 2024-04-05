@@ -30,5 +30,6 @@ public class UserCartDTO {
 	private LocalDateTime endDate;
 
 	private boolean payment;
+
 	
 }

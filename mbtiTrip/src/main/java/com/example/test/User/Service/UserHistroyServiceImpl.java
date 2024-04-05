@@ -19,25 +19,28 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 	UserHistoryDAO userhistoryDAO;
 	
 	@Override
-	public List<ReplaceDTO> uxReplace(String userName) {
-		
-		return null;
+	public List<HashMap<String,Object>> uxReplace(String userName) {
+		List<HashMap<String, Object>> ULM = userhistoryDAO.uxMbti(userName);
+		String largestMbti = (String) ULM.get(0).get("mbti");
+		List<HashMap<String,Object>> adRutin = userhistoryDAO.rutinREByUx(largestMbti);
+		return adRutin;
 	}
 
 	@Override
-	public List<AdventureDTO> uxAdventure(String userName) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<HashMap<String,Object>> uxAdventure(String userName) {
+		List<HashMap<String, Object>> ULM = userhistoryDAO.uxMbti(userName);
+		String largestMbti = (String) ULM.get(0).get("mbti");
+		List<HashMap<String,Object>> adRutin = userhistoryDAO.rutinADByUx(largestMbti);
+		return adRutin;
 	}
-
+	
 	@Override
 	public List<HashMap<String, Object>> uxRutin(String userName) {
 		List<HashMap<String, Object>> ULM = userhistoryDAO.uxMbti(userName);
 		//가장 많이 검색 된 상위 3개의 mbti가 저장된 리스트 
 		String largestMbti = (String) ULM.get(0).get("mbti");
-		List<HashMap<String, Object>> rutin = userhistoryDAO.rutin(largestMbti);
-	
-		return null;
+		List<HashMap<String, Object>> rutin = userhistoryDAO.rutinByUx(largestMbti);		
+		return rutin;
 	}
 
 }
