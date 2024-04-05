@@ -2,16 +2,15 @@ package com.example.test.POST.Service;
 
 
 
-import java.io.File;
-import java.io.IOException;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+
 
 //import com.example.test.HashTag.TagService;
 import com.example.test.POST.DAO.PostDAO;
@@ -58,7 +57,7 @@ public  class PostServiceImpl implements PostService {
 	
 	//생성
 	@Override
-	public PostDTO create(String title, String content, UserDTO user, Post_CategoryDTO category, MultipartFile file) {
+	public int create(String title, String content, UserDTO user, Post_CategoryDTO category) {
 		PostDTO postDto = new PostDTO();
         postDto.setTitle(title);
         postDto.setContent(content);
@@ -66,29 +65,7 @@ public  class PostServiceImpl implements PostService {
         postDto.setUpdateDate(LocalDateTime.now());
         postDto.setWriter(user);
         
-        // 파일 업로드 처리 시작
-        String projectPath = System.getProperty("user.dir") // 프로젝트 경로를 가져옴
-                + "\\src\\main\\resources\\static\\files"; // 파일이 저장될 폴더의 경로
-
-        UUID uuid = UUID.randomUUID(); // 랜덤으로 식별자를 생성
-
-        String fileName = uuid + "_" + file.getOriginalFilename(); // UUID와 파일이름을 포함된 파일 이름으로 저장
-
-        File saveFile = new File(projectPath, fileName); // projectPath는 위에서 작성한 경로, name은 전달받을 이름
-
-        try {
-			file.transferTo(saveFile);
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-        postDto.setFilename(fileName);
-        postDto.setFilepath("/files/" + fileName); // static 아래부분의 파일 경로로만으로도 접근이 가능
-        // 파일 업로드 처리 끝
+       
         
         // 생성된 post 객체에서 태그 리스트 생성하기
 
@@ -100,7 +77,7 @@ public  class PostServiceImpl implements PostService {
 
 	//수정
 	@Override
-	public PostDTO modify(PostDTO postDto, String title, String content) {
+	public int modify(PostDTO postDto, String title, String content) {
 		postDto.setTitle(title);
         postDto.setContent(content);
         postDto.setModifyDate(LocalDateTime.now());
@@ -119,7 +96,7 @@ public  class PostServiceImpl implements PostService {
 
 	//추천
 	@Override
-	public PostDTO suggestion(PostDTO postDto, UserDTO userDto) {
+	public int suggestion(PostDTO postDto, UserDTO userDto) {
 		postDto.getSuggestion().add(userDto);
         
         return this.postDAO.save(postDto);

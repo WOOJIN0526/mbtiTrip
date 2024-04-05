@@ -3,7 +3,10 @@ package com.example.test.Adventure.DTO;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
+
+import com.example.test.AdventureAnswer.AdventureAnswerDTO;
 
 import com.example.test.User.DTO.UserDTO;
 
@@ -49,9 +52,20 @@ public class AdventureDTO {
 	private LocalDateTime updateDate;
 	private LocalDateTime modifyDate;
 	
+	private List<AdventureAnswerDTO> answerList;
+	
 	//조회수
 	private int views;
 
-   
+	@Override
+	public String toString() {
+		return "AdventureDTO [adventureID=" + adventureID + ", adventureCategoryID=" + adventureCategoryID + ", mbtiID="
+				+ mbtiID + ", cityID=" + cityID + ", userId=" + userId + ", postCategoryID=" + postCategoryID
+				+ ", adventureTypeId=" + adventureTypeId + ", adventureLocation=" + adventureLocation
+				+ ", adventureName=" + adventureName + ", adventurePrice=" + adventurePrice + ", adventureContent="
+				+ adventureContent + ", tel=" + tel + ", adventureAdmin=" + adventureAdmin + ", ratingAvg=" + ratingAvg
+				+ ", suggestion=" + suggestion + ", updateDate=" + updateDate + ", modifyDate=" + modifyDate
+				+ ", views=" + views + "]";
+	}
 	
 }

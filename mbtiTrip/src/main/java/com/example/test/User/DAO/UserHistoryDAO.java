@@ -22,7 +22,7 @@ public class UserHistoryDAO {
 
 	@Autowired
 	SqlSessionTemplate sqlsessiontemplate;
-	
+	/*사용자가 해당 게시글들을 조회할 때마다 기록 */
 	public void  viewCkRE(UserHistoryDTO userHistory) {
 		this.sqlsessiontemplate.insert("view.viewRE", userHistory);
 	}
@@ -35,29 +35,46 @@ public class UserHistoryDAO {
 		this.sqlsessiontemplate.insert("view.viewPO", userHistoryDTO);
 	}
 	
+	//사용자가 조회한 숙소 정보 -> limit 통해서 최근 5개 건만
 	public List<ReplaceDTO> viewReturnRE(String userName) {
 		log.info("HIStoryDAO => {}", userName);
 		List<ReplaceDTO> returnvalue =this.sqlsessiontemplate.selectList("view.ReturnRE", userName);
 		return returnvalue;
 	}
 	
+	//사용자가 조회한 놀거리 정보 -> limit 통해서 최근 5개 건만
 	public List<AdventureDTO> viewReturnAD(String userName) {
 		log.info("HIStoryDAO => {}", userName);
 		return this.sqlsessiontemplate.selectList("view.ReturnAD", userName);
 	}
 	
+	//사용자가 조회한 게시글 정보 -> limit 통해서 최근 5개 건만
 	public List<PostDTO> viewReturnPO(String userName) {
 		log.info("HIStoryDAO => {}", userName);
 		return this.sqlsessiontemplate.selectList("view.ReturnPO", userName);
 	}
 
+	
+	/* UX를 위한 DB 정제, 사용자가 가장 많이 조회한 MBTI type*/
 	public List<HashMap<String, Object>> uxMbti(String userName){
 		log.info("UserName --->{}", userName);
 		return this.sqlsessiontemplate.selectList("view.userLikeMbti", userName);
 	}
 	
-	public List<HashMap<String, Object>> rutin(String mbti){
-		return this.sqlsessiontemplate.selectList("view.rutin", mbti);
+	/*이하 위 기능을 활용하여 각각 ALL, adventure, replace 정보 추천 최대 4개 */
+	//아래 메소드는 루트 추천을 위해 각각 replace정보와 adventure 정보를 담고 있음 
+	public List<HashMap<String, Object>> rutinByUx(String mbti){
+		return this.sqlsessiontemplate.selectList("view.rutinALL", mbti);
+	}
+
+	public List<HashMap<String, Object>> rutinADByUx(String mbti) {
+		return this.sqlsessiontemplate.selectList("view.rutinAD", mbti);
+		
+	}
+	
+	public List<HashMap<String, Object>> rutinREByUx(String mbti) {
+		return this.sqlsessiontemplate.selectList("view.rutinRE", mbti);
+		
 	}
 	
 	  

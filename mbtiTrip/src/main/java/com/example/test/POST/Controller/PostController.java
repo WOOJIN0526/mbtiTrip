@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -88,14 +89,14 @@ public class PostController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create")
     public String postCreate(Model model, @Valid PostForm postForm, 
-    	BindingResult bindingResult, Principal principal,  MultipartFile file) {
+    	BindingResult bindingResult, Principal principal) {
         if (bindingResult.hasErrors()) {
         	model.addAttribute("categoryList", postCategoryService.getList());
             return "post_form";
         }
         UserDTO User = this.userService.getUser(principal.getName());
         Post_CategoryDTO category = this.postCategoryService.getCategory(postForm.getCategory());
-        this.postService.create(postForm.getTitle(), postForm.getContent(), User, category, file);
+        this.postService.create(postForm.getTitle(), postForm.getContent(), User, category);
         return "redirect:/post/list";
         }
     
@@ -162,6 +163,14 @@ public class PostController {
     @GetMapping("/review/create")
     public String reviewCreate() {
     	return "write_form";
+    }
+    @PostMapping("/review/create")
+    public void reviewCreate(@ModelAttribute PostDTO dto) {
+    	System.out.println(dto.toString());
+    }
+    @GetMapping("/review/list")
+    public String reviewList() {
+    	return "Review_Main";
     }
     
     

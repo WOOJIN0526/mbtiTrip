@@ -28,17 +28,17 @@ public class AnswerDAO {
 
 	public AnswerDTO save(AnswerDTO answerDto) {
 		// TODO Auto-generated method stub
-		return null;
+		return answerDto;
 	}
 
 	public Optional<AnswerDTO> findById(Integer answerID) {
 		// TODO Auto-generated method stub
-		return null;
+		return sqlSessiontemplate.selectOne("answer.findById", answerID);
 	}
 
 	public void delete(AnswerDTO answerDto) {
 		// TODO Auto-generated method stub
-		
+		sqlSessiontemplate.delete("answer.delete", answerDto);
 	}
 
 	

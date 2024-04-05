@@ -23,22 +23,28 @@
 
 	<select id="detail" resultMap="userCartResult">
 	<![CDATA[
-		select uc.startDate, uc.endDate, uc.payment, 
-			   re.Replace_name, re.Replace_location, re.tel, re.price, re.replace_admin
-		from userCart uc
-		join `replace` re
+	select uc.userName, uc.startDate, uc.endDate,
+		   re.Replace_name, re.Replace_location, re.price, re.contents, re.rating_avg,
+       ad.adventureName, ad.adventureLocation, ad.adventurePrice, ad.adventureContent, ad.ratingAvg
+		from `replace` re
+		right join userCart uc
 		on uc.replaceId = re.Replace_key
-		where uc.userName = #{userName} and uc.payment = false 	
+		left   join Adventure ad 
+		on uc.adventureID = ad.adventureId  
+		where uc.userName = #{userName} and uc.payment = false; 	
 	]]>
 	</select>
 	<select id="detail_payment" resultMap="userCartResult">
 	 <![CDATA[
-		select uc.startDate, uc.endDate, uc.payment, 
-			   re.Replace_name, re.Replace_location, re.tel, re.price, re.replace_admin
-		from userCart uc
-		join `replace` re
+		select uc.userName, uc.startDate, uc.endDate,
+				   re.Replace_name, re.Replace_location, re.price, re.contents, re.rating_avg,
+		       ad.adventureName, ad.adventureLocation, ad.adventurePrice, ad.adventureContent, ad.ratingAvg
+		from `replace` re
+		right join userCart uc
 		on uc.replaceId = re.Replace_key
-		where uc.userName = #{userName} and uc.payment = true 	
+		left   join Adventure ad 
+		on uc.adventureID = ad.adventureId  
+		where uc.userName = #{userName} and uc.payment = true; 
 	]]>
 	</select>
 

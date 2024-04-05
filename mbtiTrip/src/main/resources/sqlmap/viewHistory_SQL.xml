@@ -25,7 +25,8 @@
  	]]>
 	</insert>
 
-	<select id="ReturnRE" resultType="com.example.test.replace.DTO.ReplaceDTO">
+	<select id="ReturnRE"
+		resultType="com.example.test.replace.DTO.ReplaceDTO">
 	<![CDATA[
 		select re.replace_name as replaceName, re.replace_location as replaceLocation,
 		 re.replace_admin as replaceAdmin, re.price as replacePrice, re.contents as replaceContents
@@ -36,7 +37,10 @@
 		limit 5
 	]]>
 	</select>
-	<select id="ReturnAD" resultType="com.example.test.Adventure.DTO.AdventureDTO">
+
+
+	<select id="ReturnAD"
+		resultType="com.example.test.Adventure.DTO.AdventureDTO">
 	<![CDATA[
 		select ad.adventureLocation as adventureLocation, ad.adventurename as adventureName, ad.adventurePrice, ad.adventureCOntent, ad.tel
 		from userView uv
@@ -46,7 +50,10 @@
 		limit 5
 	]]>
 	</select>
-	<select id="ReturnPO" resultType="com.example.test.POST.DTO.PostDTO">
+
+
+	<select id="ReturnPO"
+		resultType="com.example.test.POST.DTO.PostDTO">
 	<![CDATA[
 		select pt.userName, pt.title, pt.Content as content, pt.updateDate  
 		from userView uv
@@ -54,10 +61,13 @@
 		on  uv.Postid = pt.PostID
 		where uv.userName =#{userName} and pt.PostID
 		limit 5;
-	]]>	
+	]]>
 	</select>
 
-	<select id="userLikeMbti" parameterType="String"  resultType="hashMap">
+
+	<select id="userLikeMbti" parameterType="String"
+		resultType="hashMap">
+		<![CDATA[
 			select mb.mbti , (select count(re.MBTI_ID)
 							    from userView uv
 		        			    join `replace` re
@@ -79,19 +89,58 @@
 			group by mb.mbtiId
 			order by totalMBtiCnt desc
 			limit 2;
+		]]>
+	</select>
+	<select id="rutinALL" resultType="hashMap">
+		<![CDATA[
+		SELECT 
+		    mb.mbti AS mbti, 
+		    re.Replace_name, 
+		    re.Replace_location, 
+		    re.price, 
+		    re.rating_avg, 
+		    ad.adventureName,
+		    ad.adventureLocation,
+		    ad.adventurePrice,
+		    ad.ratingAvg
+		FROM `replace` re
+		RIGHT JOIN MBTi mb ON mb.mbtiId = re.MBTI_ID
+		LEFT JOIN Adventure ad ON ad.mbtiID = mb.mbtiId
+		WHERE mb.mbti = #{mbti}
+		ORDER BY RAND()
+		LIMIT 4;
+		]]>
+	</select>
+	<select id="rutinAD" resultType="hashMap">
+		<![CDATA[
+		SELECT 
+		    mb.mbti AS mbti, 
+		    ad.adventureName,
+		    ad.adventureLocation,
+		    ad.adventurePrice,
+		    ad.ratingAvg
+		From MBTi mb 
+		LEFT JOIN Adventure ad ON ad.mbtiID = mb.mbtiId
+		WHERE mb.mbti = #{mbti}
+		ORDER BY RAND()
+		LIMIT 4;
+		]]>
 	</select>
 
-	<select id="rutin" resultType = "hashMap">
-		select re.Replace_Key, ad.adventureID
-		from `replace` re
-		right join MBTi mb
-		on mb.mbtiId = re.MBTI_ID
-		left join Adventure ad
-		on ad.mbtiID = mb.mbtiId
-		where mb.mbtiId = #{mbti}
-		order By Rand()
-		limit 4;
+	<select id="rutinRE" resultType="hashMap">
+		<![CDATA[
+		SELECT 
+		    mb.mbti AS mbti, 
+		    re.Replace_name, 
+		    re.Replace_location, 
+		    re.price, 
+		    re.rating_avg
+		FROM `replace` re
+		RIGHT JOIN MBTi mb ON mb.mbtiId = re.MBTI_ID
+		WHERE mb.mbti = #{mbti}
+		ORDER BY RAND()
+		LIMIT 4;
+		]]>
 	</select>
-	
 
 </mapper>

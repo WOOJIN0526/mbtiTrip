@@ -1,6 +1,7 @@
 package com.example.test.POST.DTO;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 import com.example.test.User.DTO.UserDTO;
@@ -32,9 +33,8 @@ public class PostDTO {
 	
 	private LocalDateTime modifyDate;
 	
-	//private List<AnswerDTO> answerList;
+	private List<AnswerDTO> answerList;
 	
-	//private Post_CategoryDTO post_category;
 	
 	private UserDTO writer;
 	
@@ -43,5 +43,12 @@ public class PostDTO {
 
 	private String filename; // 파일 이름
     private String filepath; // 파일이 저장된 경로
-	
+    @Override
+    public String toString() {
+        return "Post{" +
+                "postCategoryID=" + postCategoryID +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }

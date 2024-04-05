@@ -65,7 +65,14 @@
                 <a href="#"><span class="tab">About the Site</span></a>
                 <a href="#"><span class="tab">How to Use</span></a>
                 <a th:href="@{/QnA}"><span class="tab">고객센터</span></a>
-                <a href="#"><span class="tab">커뮤니티</span></a>
+				<span class="tab">
+				    커뮤니티
+				    <ul class="cDropdownC">
+				        <li>
+				            <a href="/post/review/list">리뷰</a>
+				        </li>
+				    </ul>
+				</span>
                 <a sec:authorize="isAnonymous()" th:href="@{/login_A}"><span class="tab">로그인</span></a>
 
             <div sec:authorize="isAuthenticated()" class="userBox">

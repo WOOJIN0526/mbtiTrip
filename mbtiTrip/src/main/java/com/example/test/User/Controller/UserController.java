@@ -2,6 +2,8 @@ package com.example.test.User.Controller;
 
 import java.io.Console;
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.catalina.security.SecurityConfig;
@@ -25,11 +27,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.test.User.DAO.UserHistoryDAO;
 import com.example.test.User.DTO.QnADTO;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.DTO.User_Role;
 import com.example.test.User.Service.CustomLoginService;
 import com.example.test.User.Service.QnAService;
+import com.example.test.User.Service.UserHistoryService;
 import com.example.test.User.Service.UserService;
 import com.example.test.User.Service.UserServiceImpl;
 
@@ -50,6 +54,9 @@ public class UserController {
 	
 	@Autowired
 	private CustomLoginService loginservice;
+	
+	@Autowired
+	private UserHistoryService userHistoryService;
 	
 
 	private BCryptPasswordEncoder bcrypasswordEncoder = new BCryptPasswordEncoder(); 
@@ -79,6 +86,27 @@ public class UserController {
 		mav.setViewName("user_main");
 		return mav;
 	}
+	
+	
+	@RequestMapping("usertest")
+	public ModelAndView main(Principal principar, ModelAndView mav) {
+		List<HashMap<String, Object>> userUX = userHistoryService.uxRutin(principar.getName());
+		
+		log.info("UXINfo ==>{}", userUX);
+		mav.addObject("UserUXs", userUX);
+		mav.setViewName("MainTest");
+
+		return mav;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@RequestMapping(value = "/signup", method=RequestMethod.GET)
 	public String signUpSelect() {

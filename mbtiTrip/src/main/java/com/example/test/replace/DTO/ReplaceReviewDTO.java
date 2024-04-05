@@ -1,8 +1,11 @@
 package com.example.test.replace.DTO;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
+import com.example.test.POST.DTO.AnswerDTO;
+import com.example.test.ReplaceReviewAnswer.ReplaceReviewAnswerDTO;
 import com.example.test.User.DTO.UserDTO;
 
 import lombok.Getter;
@@ -38,5 +41,5 @@ public class ReplaceReviewDTO {
 	//조회수
 	private int views;
 
-
+	private List<ReplaceReviewAnswerDTO> answerList;
 }

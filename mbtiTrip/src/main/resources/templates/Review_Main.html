@@ -9,58 +9,59 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="Review_Main/Review_Main.css" />
+  <link rel="stylesheet" th:href="@{/common/common.css}">
+  <link rel="stylesheet" th:href="@{/Review_Main/Review_Main.css}" />
 
   <script src="https://kit.fontawesome.com/664a7b3827.js" crossorigin="anonymous"></script>
   <title>Document</title>
 </head>
 
 <body>
- 
 
-  <div class="category">
-    <!-- <div class="menu">
-      <p class="head">리뷰</p>
-    </div> -->
-  </div>
-  <section class="section2">
-    <div class="container">
-      <div class="title3">Recent Posts</div>
-      <div class="list">
-        <div class="post" th:each="post:${posts}">
-          <div class="postHead">
-            <div class="userContainer">
-              <div class="userImg"></div>
-              <div class="userName" th:text="${post.author}">User X</div>
-            </div>
-            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-            <div class="suggestion" th:text="${post.suggestion}"></div>
-          </div>
-          <div class="image-container">
-            <div th:each="image : ${post.images}" class="image">
-              <img th:src="${image.src}" th:alt="${image.alt}" />
-              <img src="../../../../../Forntend/img/lBGuML5Vlxh0ENQZ9oTJr_zpCQTs65WBMmQLyQxpj2Wl5K1vzNRXbSXdU15S_2RZPSm4uP1uccjGC6KhWTBAeYA9sMsJ1vEvW1zaqALhkGT9a23yMqvvkXi5OO-foaB87uuwQdB9ysREenNubJwxDQ.webp" alt="로딩에 실패하였습니다."/>
-            </div>
-            
-            <div class="pagination">
-              <div th:each="image, index : ${post.images}" class="rectangle"
-                th:classappend="${index.index == 0} ? 'active'">
-              </div>
-              
+	  <section class="reviewListBody"	  layout:fragment="content">
+	    <div class="container">
+	      <div class="rReview">Recent review<a class="create" th:href="@{/post/review/create}">작성</a></div>
+		  
+	      <div class="list">
+	        <div class="post" >
+				
+	          <div class="postHead">
+	            <div class="userContainer">
+	              <div class="userImg"></div>
+	              <a th:href="@{#}"><div class="userName" th:text="${#authentication.name}"></div></a>
+	            </div>
+	            <i class="fa fa-thumbs-up" aria-hidden="false"></i>
+	            <div class="suggestion" ></div>
+	          </div>
+	          <div class="image-container">
+	            <div  class="image">
+	              <img  />
+	              <img src="../../../../../Forntend/img/lBGuML5Vlxh0ENQZ9oTJr_zpCQTs65WBMmQLyQxpj2Wl5K1vzNRXbSXdU15S_2RZPSm4uP1uccjGC6KhWTBAeYA9sMsJ1vEvW1zaqALhkGT9a23yMqvvkXi5OO-foaB87uuwQdB9ysREenNubJwxDQ.webp" alt="로딩에 실패하였습니다."/>
+	            </div>
+	            
+	            <div class="pagination">
+	              <div  class="rectangle"
+	                >
+	              </div>
+	              
+	
+	            </div>
+	          </div>
+	          <div class="textContent">
+	            <p class="content" >
+	              Exciting news shared today by the community!
+	            </p>
+	            <i class="fa fa-heart-o" aria-hidden="false" id="heart"></i>
+	
+	          </div>
+	        </div>
+	      </div>
+		  <script th:src="@{/Review_Main/Review_Main.js}"></script>
+	  </section>
+		
 
-            </div>
-          </div>
-          <div class="textContent">
-            <p class="content" th:text="${post.content}">
-              Exciting news shared today by the community!
-            </p>
-            <i class="fa fa-heart-o" aria-hidden="true" id="heart"></i>
 
-          </div>
-        </div>
-      </div>
-  </section>
-	<script th:href="@{Review_MainReview_Main.js}"></script>
+  
 </body>
 
 </html>

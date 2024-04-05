@@ -25,16 +25,25 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class UserCartController {
 	
-
+	@Autowired
 	UserCartService userCartservice;
 	
 	@RequestMapping("")
 	public ModelAndView detail_Cart(Principal principal, UserCartDTO usercartDTO, ModelAndView mav) {		
 		List<UserCartDTO> userCart = userCartservice.detail(usercartDTO, principal);
 		Integer sumPrice = userCartservice.sumPrice(userCart);
+		log.info("message userCarts  => {}", userCart);
+		for(UserCartDTO cart : userCart) {
+			if(cart.getAdventureInfo() != null) {
+				log.info(cart.getAdventureInfo().toString());
+			}
+			if(cart.getReplaceInfo() != null) {
+				log.info(cart.getReplaceInfo().toString());
+			}
+		}
 		mav.addObject("sumPrice", sumPrice);
 		mav.addObject("userCarts", userCart);
-		mav.setViewName("Mycart_info");
+		mav.setViewName("Thtest");
 		return mav;
 	}
 	

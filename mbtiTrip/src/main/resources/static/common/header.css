@@ -168,4 +168,29 @@ body{
   font-weight: 3rem;
   display: flex;
   padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
+.tab > .cDropdownC {
+    position: absolute;
+    border: 1px solid black;
+    background-color: white;
+    transform: translateY(2rem);
+    width: 10rem;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    text-decoration: none;
+	list-style: none;
+}
+
+.tab:hover > .cDropdownC {
+    opacity: 1;
+    visibility: visible;
+}
+/*.cDropdonwC li{
+	text-decoration: none;
+	list-style: none;
+}*/

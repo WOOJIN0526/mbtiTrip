@@ -95,22 +95,28 @@ public class UserCartServiceImpl implements UserCartService{
 	@Override
 	public Integer sumPrice(List<UserCartDTO> userCart) {
 		Integer result = 0;
+		boolean replaceCk;
+		boolean adventrueCk ;
 		for(UserCartDTO cart : userCart) {
-			Integer replacePrice = cart.getReplaceInfo().getReplacePrice();
-			Integer adventurePrice = cart.getAdventureInfo().getAdventurePrice();
-			if(replacePrice!=null) {
+			log.info("Ck Cart ---->{}", cart.toString());
+			log.info("replaceCk ===>{}", cart.getReplaceInfo());
+			replaceCk = (cart.getReplaceInfo()!= null)? true : false;
+			adventrueCk =(cart.getAdventureInfo()!= null)? true : false; ;
+			if(replaceCk) {
+				Integer replacePrice = cart.getReplaceInfo().getReplacePrice();
 				result += replacePrice;
 			}
 			else {
-				new NullPointerException("알 수 없는 오류로 인해 수정 중입니다.");
+				continue;
 			}
-
-			if(adventurePrice!=null){
-				result += adventurePrice;
+			
+			if(adventrueCk) {
+				Integer adventurePrice = cart.getAdventureInfo().getAdventurePrice();
+				result+= adventurePrice;
 			}
-//			else {
-//				new NullPointerException("알 수 없는 오류로 인해 수정 중입니다.");
-//			}
+			else {
+				continue;
+			}
 		}
 		return result;
 	}

@@ -1,10 +1,13 @@
 package com.example.test.replace.DTO;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.test.POST.DTO.AnswerDTO;
+import com.example.test.ReplaceAnswer.ReplaceAnswerDTO;
 import com.example.test.User.DTO.UserDTO;
 
 import lombok.Getter;
@@ -60,10 +63,8 @@ public class ReplaceDTO {
 	//조회수
 	private int views;
 
- 
-    public void addViewCount() {
-        this.views++;
-    }
+	private List<ReplaceAnswerDTO> answerList;
+    
     @Override
     public String toString() {
         return "ReplaceDTO{" +

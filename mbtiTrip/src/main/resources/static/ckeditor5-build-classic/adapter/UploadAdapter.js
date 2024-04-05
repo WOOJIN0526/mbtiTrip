@@ -27,7 +27,7 @@ export default class UploadAdapter {
     _initRequest() {
         const xhr = this.xhr = new XMLHttpRequest();
         xhr.open('POST', '/api/gcs/upload', true);
-        xhr.responseType = 'text';
+        xhr.responseType = '';
     }
 	/**
      * XMLHttpRequest 이벤트 리스너를 초기화합니다.
@@ -44,12 +44,14 @@ export default class UploadAdapter {
         xhr.addEventListener('abort', () => reject())
         xhr.addEventListener('load', () => {
             const response = xhr.response
+            console.log(response);
             if(!response || response.error) {
                 return reject( response && response.error ? response.error.message : genericErrorText );
             }
 
             resolve({
-                default: response.url //업로드된 파일 주소
+                default: response
+                 //업로드된 파일 주소
             })
         })
     }
