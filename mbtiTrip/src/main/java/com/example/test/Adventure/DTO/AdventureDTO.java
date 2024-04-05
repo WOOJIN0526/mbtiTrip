@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.example.test.AdventureAnswer.AdventureAnswerDTO;
 
 import com.example.test.User.DTO.UserDTO;
@@ -35,6 +37,10 @@ public class AdventureDTO {
 	
 	private String adventureLocation; // 해당 어드벤쳐 위치
 	
+	private String adventurePostCode;
+	
+	private String locationdetail;
+	
 	private String adventureName; // 어드벤쳐 이름
 	
 	private Integer adventurePrice; // 어드벤쳐 가격
@@ -44,6 +50,8 @@ public class AdventureDTO {
 	private String tel; // 어드벤쳐 번호
 	
 	private String adventureAdmin; // 어드벤쳐 관리자 이름?
+	
+	private MultipartFile[] file;
 	
 	private double ratingAvg; // 해당 어드벤쳐 평점(추천)
 	

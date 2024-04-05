@@ -1,5 +1,7 @@
 package com.example.test.replace.DTO;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,4 +13,6 @@ public class ReplaceCategoryDTO {
 	
 	private String Replace_Category;
 	//분위기 등
+	
+	private List<ReplaceDTO> replaceList;
 }

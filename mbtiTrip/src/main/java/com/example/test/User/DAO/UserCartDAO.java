@@ -59,6 +59,11 @@ public class UserCartDAO {
 	//결제 완료된 내역 eq 예약 된 정보 
 	public List<UserCartDTO> detail_pay(UserCartDTO userCartDTO){
 		List<UserCartDTO> userCart = this.sqlSessiontemplate.selectList("userCart.detailPay", userCartDTO);
+		for(UserCartDTO cart : userCart) {
+			log.info("Ck Cart ---->{}", cart.toString());
+			log.info("replaceCk ===>{}", cart.getReplaceInfo());
+			log.info("adv ck ===>{}", cart.getAdventureInfo());
+		}
 		return userCart;
 	}
 

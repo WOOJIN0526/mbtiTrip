@@ -1,33 +1,33 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="en"
+	xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    **xmlns:sec="http://www.thymeleaf.org/extras/spring-security"**
     layout:decorate="~{layout.html}">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>쇼핑몰 관리자 등록 페이지</title>
-<link rel="stylesheet" th:href="@{/replace/replace_form.css}">
-<script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/replace/replace_form.css}">
+	<script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
 </head>
-<body>
 <section class="replaceBody" layout:fragment="content">
 	<div class="container">
-	    <h2>숙박업소 등록</h2>
+	    <h2>여행지 등록</h2>
 	    <form method="post" enctype="multipart/form-data" id="replaceForm">
 	        <fieldset>
 	
-	            <label for="businessName" class="head">상호명</label>
+<!--	            <label for="businessName" class="head">상호명</label>
 	            <input type="text" id="businessName" name="businessName" th:required="required">
 	            <br>
-	
-	            <label for="replaceName" class="head">업체이름</label>
-	            <input type="text" id="replaceName" name="replaceName" th:required="required">
+	-->
+	            <label for="adventureName" class="head">여행지 이름</label>
+	            <input type="text" id="adventureName" name="adventureName" th:required="required">
 	            <br>
 				<label class="head">위치 등록</label><br>
-				<input type="text" id="postcode" placeholder="우편번호" name="replacePostCode">
+				<input type="text" id="postcode" placeholder="우편번호" name="adventurePostCode">
 				<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" id="postCodeBtn"><br>
-				<input type="text" id="address" placeholder="주소" name="replaceLocation"><br>
+				<input type="text" id="address" placeholder="주소" name="adventureLocation"><br>
 				<input type="text" id="detailAddress" placeholder="상세주소" name="locationdetail">
 				<input type="text" id="extraAddress" placeholder="참고항목">
 				
@@ -36,11 +36,11 @@
 	            <br>
 				
 				
-	            <label for="replaceContents" class="head">소개글 등록</label><br>
-	            <textarea class="introduce" placeholder="소개글을 입력해주세요" name="replaceContents"></textarea>
+	            <label for="adventureContent" class="head">소개글 등록</label><br>
+	            <textarea class="introduce" placeholder="소개글을 입력해주세요" name="adventureContent"></textarea>
 	            <br>
 	
-	            <label for="replaceType" class="head">숙박 시설</label><br>
+<!--	            <label for="replaceType" class="head">숙박 시설</label><br>
 	            <input type="radio" id="motel" name="replaceType" value="1" th:required="required">
 	            <label for="motel">모텔</label><br>
 	            <input type="radio" id="hotel" name="replaceType" value="2">
@@ -50,7 +50,7 @@
 	            <input type="radio" id="resort" name="replaceType" value="4">
 	            <label for="resort">리조트</label><br>
 	            <br>
-				
+				-->
 				<select class="disActive" id="mbti" name="mbti">
                     <option>MBTI</option>
                     <option value="1">ISTJ</option>
@@ -87,7 +87,7 @@
 	        </fieldset>
 	    
 	</div>
-	<script th:src="@{/replace/replace_form.js}"></script>
+	<script th:src="@{/adventure_form/adventure_form.js}"></script>
 </section>
 </body>
 </html>

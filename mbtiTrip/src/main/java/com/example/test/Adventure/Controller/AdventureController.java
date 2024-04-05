@@ -73,7 +73,7 @@ public class AdventureController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
     public String Create(AdventureForm Form, Model model) {
-    	model.addAttribute("categoryList", adCategoryService.getList());
+    	//model.addAttribute("categoryList", adCategoryService.getList());
         return "adventure_form";
     }
 

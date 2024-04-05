@@ -34,6 +34,10 @@ public class PostDAO {
 		int result = sqlSessiontemplate.insert("post.insert", post);
 		return result;
 	}
+	
+	public int save(PostDTO postDto) {
+		return sqlSessiontemplate.insert("post.save", postDto);
+	}
 
 	public Optional<PostDTO> findById(Integer userid) {
 		
@@ -62,9 +66,7 @@ public class PostDAO {
 		sqlSessiontemplate.update("post.updateCount", postID);
 	}
 
-	public int save(PostDTO postDto) {
-		return sqlSessiontemplate.update("post.save", postDto);
-	}
+
 
 	
 
