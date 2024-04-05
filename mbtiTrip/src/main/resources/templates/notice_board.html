@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	**xmlns:sec="http://www.thymeleaf.org/extras/spring-security"**
+	layout:decorate="~{layout.html}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- <link rel="stylesheet" href="notice_board.css"> -->
-    <link rel="stylesheet" th:href="@{notice_board/notice_board.css}">
+    <link rel="stylesheet" th:href="@{/notice_board/notice_board.css}">
 </head>
 <body>
     <!-- main -->
-   <section>
+   <section layout:fragment="content">
     <div class="notice">
 
     <h1>게시판</h1>
@@ -17,7 +21,8 @@
     <h6></h6>
 
     <form action="">
-        <span>serch</span>
+		<!--검색기능 구현시 ajax로 받아와야할거 같음-->
+        <span>검색</span>
         <select>
             <option value="subject" name="제목">제목</option>
             <option value="writer" name ="작성자">작성자</option>
@@ -28,49 +33,33 @@
     </form>
    
 
-   <table>
-    <tr>
-        <th>번호</th>
-        <th>작성자</th>
-        <th>제목</th>
-        <th>날짜</th>
-        <th>조회수</th>
-        <th>추천수</th>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>이름</td>
-        <td>제목 작성</td>
-        <td>2024-03-22</td>
-        <td>13</td>
-        <td>5</td>        
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>이름</td>
-        <td>제목 작성</td>
-        <td>2024-03-22</td>
-        <td>13</td>
-        <td>5</td>        
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>이름</td>
-        <td>제목 작성</td>
-        <td>2024-03-22</td>
-        <td>13</td>
-        <td>5</td>        
-    </tr>
-   </table>
-   <div class="page">
+	<table border="1">
+	        <tr>
+	            <th>번호</th>
+	            <th>작성자</th>
+	            <th>제목</th>
+	            <th>날짜</th>
+	            <th>조회수</th>
+	            <th>추천수</th>
+	        </tr>
+	        <tr th:each="post, iterStat : ${postList}">
+	            <td th:text="${iterStat.index + 1}"></td>
+	            <td th:text="${post.author}"></td>
+	            <td th:text="${post.title}"></td>
+	            <td th:text="${post.date}"></td>
+	            <td th:text="${post.views}"></td>
+	            <td th:text="${post.likes}"></td>
+	        </tr>
+	    </table>
+<!--   <div class="page">
     <a href="">이전</a>
     <a href="">1</a>
     <a href="">2</a>
     <a href="">3</a>
     <a href="">다음</a>
-   </div>
+   </div>-->
    <span class="write_button">
-    <input type="button" class="write" value="글쓰기">
+    <a th:href="@{/post/noticeBord/create}"><input type="button" class="write" value="글쓰기"></a>
    </span>
 </div>
 </section>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
@@ -160,20 +161,38 @@ public class PostController {
 //        return "list";
 //    }
     
-    @GetMapping("/review/create")
-    public String reviewCreate() {
-    	return "write_form";
-    }
-    @PostMapping("/review/create")
-    public void reviewCreate(@ModelAttribute PostDTO dto) {
-    	System.out.println(dto.toString());
-    }
-    @GetMapping("/review/list")
-    public String reviewList() {
-    	return "Review_Main";
-    }
+//    @GetMapping("/review/create")
+//    public String reviewCreate() {
+//    	return "write_form";
+//    }
+//    @PostMapping("/review/create")
+//    @ResponseBody
+//    public void reviewCreate( PostDTO dto) {
+//    	System.out.println(dto.toString());
+//    	// DB에 연결할 후속작업 메서드 부탁드립니다.
+//    }
+//    @GetMapping("/review/list")
+//    public String reviewList() {
+//    	//게시글 불러와서 모델에 넣어주세요 list<PostDTO>로
+//    	return "Review_Main";
+//    }
+//    @GetMapping("/review/detail")
+//    public String reviewDetail() {
+//    	//게시글 디테일 모델에 넣어주세요 postCategoryID=1
+//    	return "review_detail";
+//    }
+//    리뷰말고 다른작업먼저 붙여주세요
     
-    
+    @GetMapping("/noticeBoard/list")//이거그냥 url무시하시고 postlist 보여주는거에 리턴만 이걸로 맞춰주세요
+    public String board() {
+    	//게시글 불러와서 모델에 넣어주세요 list<PostDTO>로 postCategoryID=2
+    	return"notice_board";
+    }
+    @GetMapping("/noticeBoard/create")//이거그냥 url무시하시고 postcreate 보여주는거에 리턴만 이걸로 맞춰주세요
+    public String boardCreate() {
+    	// DB에 연결할 후속작업 메서드 부탁드립니다.
+    	return"write_form";
+    }
 
     
 

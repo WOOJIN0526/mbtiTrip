@@ -17,13 +17,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
  document.querySelector('#Form').addEventListener('submit', (event) => {
-                event.preventDefault(); // 폼 제출 기본 동작 중지
+                // 폼 제출 기본 동작 중지
+                event.preventDefault(); 
+                // editor내부의 값을 가져옵니다
 				const content = CKEcontent.getData();
         		console.log(content);
                 const formData = new FormData(document.querySelector('#Form'));
+                //formData에 값을 등록합니다
+                formData.set("content",content);
 				console.log("==================");
                 // FormData에 있는 값을 확인합니다.
                 for (const [key, value] of formData.entries()) {
                     console.log(key, value);
                 }
-            });
+                if(formData.get('postCategoryID')==='1'){
+					
+					var url ="/post/review/create";
+					console.log(url);
+				}else{
+					var url="/post/noticeBoard/create";
+					console.log(url);
+				}
+				
+				
+				
+                fetch(url,{
+					method:"POST",
+					headers:{
+						"Content-Type":"multipart/form-data"
+					},
+					body:formData
+				})
+});
