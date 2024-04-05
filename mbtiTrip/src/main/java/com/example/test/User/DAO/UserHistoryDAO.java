@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.test.Adventure.DTO.AdventureDTO;
 import com.example.test.POST.DTO.PostDTO;
+import com.example.test.User.DTO.QnADTO;
 import com.example.test.User.DTO.UserHistoryDTO;
 import com.example.test.replace.DTO.ReplaceDTO;
 
@@ -22,6 +23,7 @@ public class UserHistoryDAO {
 
 	@Autowired
 	SqlSessionTemplate sqlsessiontemplate;
+	
 	/*사용자가 해당 게시글들을 조회할 때마다 기록 */
 	public void  viewCkRE(UserHistoryDTO userHistory) {
 		this.sqlsessiontemplate.insert("view.viewRE", userHistory);
@@ -34,6 +36,8 @@ public class UserHistoryDAO {
 	public void viewCkPO(UserHistoryDTO userHistoryDTO) {
 		this.sqlsessiontemplate.insert("view.viewPO", userHistoryDTO);
 	}
+	
+	
 	
 	//사용자가 조회한 숙소 정보 -> limit 통해서 최근 5개 건만
 	public List<ReplaceDTO> viewReturnRE(String userName) {
@@ -54,6 +58,16 @@ public class UserHistoryDAO {
 		return this.sqlsessiontemplate.selectList("view.ReturnPO", userName);
 	}
 
+	//사용자가 작성한 개시물 
+	public List<HashMap<String, Object>> userCreatePost(String userName){
+		return this.sqlsessiontemplate.selectList("view.userCreatePost", userName);
+	}
+	
+	public List<HashMap<String, Object>> userCreateQnA(String userName){
+		return this.sqlsessiontemplate.selectList("view.userCreateQnA", userName);
+	}
+	
+	
 	
 	/* UX를 위한 DB 정제, 사용자가 가장 많이 조회한 MBTI type*/
 	public List<HashMap<String, Object>> uxMbti(String userName){

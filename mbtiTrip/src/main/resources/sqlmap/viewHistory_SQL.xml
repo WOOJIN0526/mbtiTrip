@@ -63,6 +63,27 @@
 		limit 5;
 	]]>
 	</select>
+	
+	<select id="userCreatePost" resultType="hashMap">
+	<![CDATA[
+	select p.PostID, p.title , p.updateDate, p.PostCateGoryID, p.views, p.suggestion
+	from `User` u
+	join Post p
+	on u.userName = p.userName
+	where u.userName = #{userName}
+	]]>
+	</select>
+	
+	<select id="userCreateQnA" resultType ="hashMap">
+	<![CDATA[
+	select q.QID ,q.Qname , q.updateDate,  q.contents, IF(isNULL(q.Answer), "N", "Y") as Answer
+	from `User` u
+	join QnA q
+	on u.userName = q.userName
+	where u.userName = #{userName}
+	]]>
+	</select>
+	
 
 
 	<select id="userLikeMbti" parameterType="String"
