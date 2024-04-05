@@ -16,7 +16,7 @@ public class Post_CategoryDAO {
 	@Autowired
 	SqlSessionTemplate sqlSessiontemplate;
 	
-	public int insert(Map<String, Object> post_category) {
+	public int insert(Post_CategoryDTO  post_category) {
 		int result = sqlSessiontemplate.insert("post_category.insert", post_category);
 		return result;
 	}
