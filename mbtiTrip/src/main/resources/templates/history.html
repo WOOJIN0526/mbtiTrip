@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/664a7b3827.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="history.css">
+     <link rel="stylesheet" th:href="@{history/history.css}">
+</head>
+<body>
+    <div class="main">
+        <section>   
+            <div class="side" >
+                <aside class="side_bar">
+                    <ul>
+                        <li><a href="">마이페이지</a></li>
+                        <li><a href="">예약 내역</a></li>
+                        <li><a href="">고객문의</a></li>
+                        <li><a href="">게시판</a></li>
+                    </ul>           
+                </aside>
+            </div>
+        </section>
+        <section class="privacy_change">
+            <div class="guide">
+                <h1>안녕하세요 ***님</h1>
+                <a href=""><i class="fa-solid fa-user"></i>개인정보 수정</a>
+                
+                <a href=""><i class="fa-solid fa-lock"></i>비밀번호 변경</a>
+            </div>
+            <div class="total_history">
+                <h1>전체 내역</h1>
+                <table>
+                    <tr>
+                        <th>숙소</th>
+                        <th>관광지</th>
+                        <th>리뷰작성</th>
+                        <th>문의</th>
+                    </tr>
+                    <tr>
+                        <td>1건</td>
+                        <td>2건</td>
+                        <td>5건</td>
+                        <td>0건</td>
+                    </tr>
+                </table>
+
+            </div>
+        </section>   
+        <section class="my_history">
+            <div class="information">   
+                <div class="replace_reservation">
+                    <h1>나의 숙소 예약내역</h1>
+                    <form action="">              
+                        <input type="text" id="serch" placeholder="내 예약 찾기">
+                        <input type="button" value="검색">
+                    </form>
+                    <table class="repalce_information">
+                        <tr>
+                            <th>예약번호</th>
+                            <th>숙소명</th>
+                            <th>예약일</th>
+                            <th>결제</th>
+                            <th>예약진행상황</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>201654</td>
+                            <td>신라호텔</td>
+                            <td>2023.5.25~2023.5.29</td>
+                            <td>결제완료</td>
+                            <td>완료</td>
+                            <td>
+                                <button class="X">X</button>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="">
+                        <ul class="page">
+                            <li class="page-item"><a class="page-link" href="#">이전</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item"><a class="page-link" href="#">다음</a></li>
+                    </ul>        
+                    </div>
+                </div>  
+                <div class="replace_reservation">
+                    <h1>관광지 예약내역</h1>
+                    <form action="">              
+                        <input type="text" id="serch" placeholder="내 예약 찾기">
+                        <input type="button" value="검색">
+                    </form>
+                    <table class="repalce_information">
+                        <tr>
+                            <th>예약번호</th>
+                            <th>관광지명</th>
+                            <th>예약일</th>
+                            <th>결제</th>
+                            <th>예약진행상황</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>201654</td>
+                            <td>신라호텔</td>
+                            <td>2023.5.25</td>
+                            <td>결제완료</td>
+                            <td>완료</td>
+                            <td>
+                                <button class="X">X</button>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="">
+                        <ul class="page">
+                            <li class="page-item"><a class="page-link" href="#">이전</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item"><a class="page-link" href="#">다음</a></li>
+                    </ul>        
+                    </div>
+                </div>  
+                <div class="replace_reservation">
+                    <h1>글작성 내역</h1>
+                    <form action="">              
+                        <input type="text" id="serch" placeholder="작성 글 찾기">
+                        <input type="button" value="검색">
+                    </form>
+                    <table class="repalce_information">
+                        <tr>
+                            <th>작성일자</th>
+                            <th>제목</th>
+                            <th>작성 카테고리</th>
+                            <th>조회수</th>
+                            <th>추천수</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>2016.03.25</td>
+                            <td>작성ㅇㅎ</td>
+                            <td>숙소리뷰</td>
+                            <td>235</td>
+                            <td>0</td>
+                            <td>
+                                <button>삭제</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2011.03.25</td>
+                            <td>ㄴㅇㄴㅇ</td>
+                            <td>여행지 리뷰</td>
+                            <td>546</td>
+                            <td>0</td>
+                            <td>
+                                <button>삭제</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5315</td>
+                            <td>게시판에서</td>
+                            <td>게시판</td>
+                            <td>2455</td>
+                            <td>8</td>
+                            <td>
+                                <button>삭제</button>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="">
+                        <ul class="page">
+                            <li class="page-item"><a class="page-link" href="#">이전</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item"><a class="page-link" href="#">다음</a></li>
+                    </ul>        
+                    </div>
+                </div>
+          
+                <div class="replace_reservation">
+                    <h1>문의 내역</h1>
+                    <form action="">              
+                        <input type="text" id="serch" placeholder="작성 글 찾기">
+                        <input type="button" value="검색">
+                    </form>
+                    <table class="repalce_information">
+                        <tr>
+                            <th>작성일자</th>
+                            <th>제목</th>
+                            <th>작성 카테고리</th>
+                            <th>답변 상태</th>
+                        </tr>
+                        <tr>
+                            <td>작성하신 문의 내역이 없습니다</td>
+                        </tr>
+                    </table>
+                    <div class="">
+                        <ul class="page">
+                            <li class="page-item"><a class="page-link" href="#">이전</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item"><a class="page-link" href="#">다음</a></li>
+                    </ul>        
+                    </div>
+                </div>
+            </div> 
+        </section>  
+    </div>    
+     
+    
+    
+</body>
+</html>
