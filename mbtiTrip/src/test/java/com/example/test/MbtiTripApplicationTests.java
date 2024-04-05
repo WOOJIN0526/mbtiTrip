@@ -47,12 +47,57 @@ class MbtiTripApplicationTests {
 	@Test
 	void contextLoads() {
 		userHistoryDTO.setUserName("testUser4");
-		List<HashMap<String, Object>> ULM = userHistoryDAO.uxMbti(userHistoryDTO.getUserName());
+//		List<HashMap<String, Object>> ULM = userHistoryDAO.uxMbti(userHistoryDTO.getUserName());
+//		
+//		log.info("how key ===>{}", ULM.get(0).get("mbti"));
+
 		
-		log.info("how key ===>{}", ULM.get(0).get("mbti"));
+		/*이하 테스트 완료, 작업자 신성진*/
+//		String mbti = "ISTJ";
+//		//중복 값 때문에 2건 뜨는거 맞음 
+//		List<HashMap<String, Object>> rutinRE = userHistoryDAO.rutinREByUx(mbti);
+//		int d = 1;
+//		for(HashMap<String,Object> Day : rutinRE) {
+//		if(d==5) {
+//			d = 1;
+//		}
+//		log.info(String.format("Day%s RE ==> {}", d), Day);
+//		d++;
+//		}
+//		
+//		String mbti = "ISTJ";
+//		//중복 값 때문에 2건 뜨는거 맞음 
+//		List<HashMap<String, Object>> rutinAD = userHistoryDAO.rutinADByUx(mbti);
+//		int d = 1;
+//		for(HashMap<String,Object> Day : rutinAD) {
+//		if(d==5) {
+//			d = 1;
+//		}
+//		log.info(String.format("Day%s ADV ==> {}", d), Day);
+//		d++;
+//		}
 		
-		String largestMbti = (String) ULM.get(0).get("mbti");
-		log.info("ParsingString ==>{}", largestMbti);
+		
+		
+//		Test완
+//		String largestMbti = (String) ULM.get(0).get("mbti");
+//		log.info("ParsingString ==>{}", largestMbti);
+		String mbti = "ISTJ";
+		List<HashMap<String, Object>> rutin = userHistoryDAO.rutinByUx(mbti);
+		log.info("rutin info ====> {}", rutin);
+		int d = 1;
+		for(HashMap<String,Object> Day : rutin) {
+			
+			if(d==5) {
+				d = 1;
+			}
+			log.info(String.format("Day%s ==> {}", d), Day);
+			d++;
+			
+		}
+		/*UX 기반 사용자 추천 시스템 */
+		
+		
 //		userHistoryDTO.setReplaceid(2);
 //		userHistoryDAO.viewCkRE(userHistoryDTO);
 //		log.info("userName ==>{}", userHistoryDTO.getUserName());

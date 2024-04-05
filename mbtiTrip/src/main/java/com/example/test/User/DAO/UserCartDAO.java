@@ -22,7 +22,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @Repository
 public class UserCartDAO {
 
@@ -45,6 +47,12 @@ public class UserCartDAO {
 	public List<UserCartDTO> detail(UserCartDTO userCartDTO){
 		//payments가 false인경우만 조회 
 		List<UserCartDTO> userCart = this.sqlSessiontemplate.selectList("userCart.detail", userCartDTO);
+		for(UserCartDTO cart : userCart) {
+			log.info("Ck Cart ---->{}", cart.toString());
+			log.info("replaceCk ===>{}", cart.getReplaceInfo());
+			log.info("adv ck ===>{}", cart.getAdventureInfo());
+		}
+		
 		return userCart;
 	}
 	

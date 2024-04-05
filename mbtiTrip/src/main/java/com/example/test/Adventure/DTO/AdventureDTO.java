@@ -52,6 +52,15 @@ public class AdventureDTO {
 	//조회수
 	private int views;
 
-   
+	@Override
+	public String toString() {
+		return "AdventureDTO [adventureID=" + adventureID + ", adventureCategoryID=" + adventureCategoryID + ", mbtiID="
+				+ mbtiID + ", cityID=" + cityID + ", userId=" + userId + ", postCategoryID=" + postCategoryID
+				+ ", adventureTypeId=" + adventureTypeId + ", adventureLocation=" + adventureLocation
+				+ ", adventureName=" + adventureName + ", adventurePrice=" + adventurePrice + ", adventureContent="
+				+ adventureContent + ", tel=" + tel + ", adventureAdmin=" + adventureAdmin + ", ratingAvg=" + ratingAvg
+				+ ", suggestion=" + suggestion + ", updateDate=" + updateDate + ", modifyDate=" + modifyDate
+				+ ", views=" + views + "]";
+	}
 	
 }
