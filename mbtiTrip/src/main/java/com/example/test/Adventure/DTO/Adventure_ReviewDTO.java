@@ -1,14 +1,14 @@
 package com.example.test.Adventure.DTO;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
+
+import com.example.test.AdventureReviewAnswer.AdventureReviewAnswerDTO;
 
 import com.example.test.User.DTO.UserDTO;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,6 +38,8 @@ public class Adventure_ReviewDTO {
 	private LocalDateTime modifyDate;
 	
 	private Set<UserDTO> suggestion; // 추천수
+	
+	private List<AdventureReviewAnswerDTO> answerList;
 	
 	//조회수
 	private int views;
