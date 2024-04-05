@@ -34,7 +34,7 @@
 		where uc.userName = #{userName} and uc.payment = false; 	
 	]]>
 	</select>
-	<select id="detail_payment" resultMap="userCartResult">
+	<select id="detailPay" resultMap="userCartResult">
 	 <![CDATA[
 		select uc.userName, uc.startDate, uc.endDate,
 				   re.Replace_name, re.Replace_location, re.price, re.contents, re.rating_avg,

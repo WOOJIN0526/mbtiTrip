@@ -32,4 +32,5 @@ public interface UserCartService {
 	public boolean deleteReplace(Principal principal, ReplaceDTO replace);
 	public boolean deleteAD(Principal principal, AdventureDTO adventure);
 	public boolean deleteALL(Principal principal);
+	
 }
