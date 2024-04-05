@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@ToString
+@ToString    //JDOC
 public class Criteria {//검색기준
 	
 	 	private int page;                //현재 페이지 번호

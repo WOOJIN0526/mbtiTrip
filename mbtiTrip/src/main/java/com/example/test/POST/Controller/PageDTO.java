@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PageDTO {
+public class PageDTO { //JDOC
 
 	private Criteria cri;
     private int totalCount;

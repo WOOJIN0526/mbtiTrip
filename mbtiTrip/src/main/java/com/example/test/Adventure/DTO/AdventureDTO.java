@@ -3,7 +3,10 @@ package com.example.test.Adventure.DTO;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
+
+import com.example.test.AdventureAnswer.AdventureAnswerDTO;
 
 import com.example.test.User.DTO.UserDTO;
 
@@ -48,6 +51,8 @@ public class AdventureDTO {
 	
 	private LocalDateTime updateDate;
 	private LocalDateTime modifyDate;
+	
+	private List<AdventureAnswerDTO> answerList;
 	
 	//조회수
 	private int views;

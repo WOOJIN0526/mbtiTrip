@@ -17,13 +17,13 @@ public interface PostService {
 	 
 		 public PostDTO getPost(Integer postID);
 		 
-		 public PostDTO create(String title, String content, UserDTO user, Post_CategoryDTO category, MultipartFile file);
+		 public int create(String title, String content, UserDTO user, Post_CategoryDTO category);
 		 
-		 public PostDTO modify(PostDTO postDto, String title, String content);
+		 public int modify(PostDTO postDto, String title, String content);
 		 
 		 public void delete(PostDTO postDto);
 		 
-		 public PostDTO suggestion(PostDTO postDto, UserDTO userDto);
+		 public int suggestion(PostDTO postDto, UserDTO userDto);
 		 
 		 List<PostDTO> list(Criteria cri) throws Exception;
 
