@@ -17,14 +17,14 @@
 <section layout:fragment="content">
 <div class="container">
   
-  <form id="Form" th:action="@{/post/review/create}" method="POST">
+  <form id="Form"  method="POST">
    <select name="postCategoryID" id="category">
            <option value="1">리뷰</option>
            <option value="2">게시판</option>
        </select>
     <input type="text" name="title" id="title" placeholder="제목을 입력하세요" required>
     <textarea id="content" name="content"></textarea>
-    <button type="submit">작성</button>
+    <button type="submit" class="submitBtn">작성</button>
   </form>
 </div>
 <script type="module" th:src="@{/write/write_form.js}"></script>
