@@ -1,5 +1,6 @@
 package com.example.test.User.DAO;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.example.test.User.DTO.QAnswerDTO;
 import com.example.test.User.DTO.QnADTO;
 
 import jakarta.inject.Inject;
@@ -27,15 +29,20 @@ public class QnADAO {
 	 return result;
 	
 	}
-
-	public QnADTO getDetail(Integer qID) {
+	public Map<String, Object> getDetail(Integer qID) {
 		// TODO Auto-generated method stub
 		return this.sqlSessiontemplate.selectOne("qna.getDetail", qID);
 	}
 
-	public Map<String, Object> getMyQnA(String userName) {
+	public List<HashMap<String, Object>> getMyQnA(String userName) {
 		// TODO Auto-generated method stub
-		return this.sqlSessiontemplate.selectMap("qna.getMyQnA", userName);
+		return this.sqlSessiontemplate.selectList("qna.getMyQnA", userName);
+	}
+
+	public int createAnswer(QAnswerDTO answer) {
+		 int Ck = this.sqlSessiontemplate.insert("qna.createAnswer", answer);
+		 this.sqlSessiontemplate.update("qna.AnswerUpdate", answer);
+		 return Ck;
 	}
 
 	

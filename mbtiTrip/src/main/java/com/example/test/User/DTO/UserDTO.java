@@ -46,6 +46,8 @@ public class UserDTO implements UserDetails{
 	
 	private String userrole;
 	
+	private String userImg;
+	
 	private boolean loked;
 	
 	@Override
