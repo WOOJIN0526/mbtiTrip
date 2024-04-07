@@ -37,8 +37,6 @@ public  class PostServiceImpl implements PostService {
 	PostDAO postDAO;
 	
 
-	//@Autowired
-	//TagService tagService;
 
 
 	//해당게시글 가져옴, 조회수 증가
@@ -65,11 +63,6 @@ public  class PostServiceImpl implements PostService {
         postDto.setUpdateDate(LocalDateTime.now());
         postDto.setWriter(user);
         
-       
-        
-        // 생성된 post 객체에서 태그 리스트 생성하기
-
-       // tagService.createTagList(postDto);
 
         
         return this.postDAO.save(postDto);
@@ -91,7 +84,7 @@ public  class PostServiceImpl implements PostService {
 	public void delete(PostDTO postDto) {
 		 this.postDAO.delete(postDto);
 		
-		//tagService.deleteTagPost(postDto);
+		
 	}
 
 	//추천
@@ -147,6 +140,14 @@ public  class PostServiceImpl implements PostService {
 			        return new IllegalArgumentException("글 상세보기 실패: 아이디를 찾을 수 없습니다.");
 			    });
 			}
+
+		@Override
+		public List<PostDTO> findPostByCategoryID(Long postCategoryID) {
+			// 게시글 목록 조회
+	        List<PostDTO> post = postDAO.findByPostCategoryID(postCategoryID);
+			return post;
+	        
+	    }
 
 	
 	
