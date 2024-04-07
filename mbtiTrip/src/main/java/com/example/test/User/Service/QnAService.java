@@ -1,8 +1,11 @@
 package com.example.test.User.Service;
 
+import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.test.User.DTO.QAnswerDTO;
 import com.example.test.User.DTO.QnADTO;
 
 public interface QnAService {
@@ -11,8 +14,10 @@ public interface QnAService {
 
 	List<QnADTO> getList(QnADTO qna);
 
-	QnADTO QnAdetail(Integer qID);
+	Map<String, Object> QnAdetail(Integer qID);
 
-	Map<String, Object> getMyQnA(String userName);
+	List<HashMap<String, Object>> getMyQnA(String userName);
+
+	boolean updateAnswer(QAnswerDTO answer, Principal principal);
 
 }
