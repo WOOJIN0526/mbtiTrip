@@ -43,7 +43,7 @@ public class userHistoryController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView userHistory(Principal principal, ModelAndView mav,
 									UserCartDTO userCartDTO) {
-		List<UserCartDTO> reservation =userCartService.detail_Pay(userCartDTO, principal);
+		List<HashMap<String, Object>> reservation =userCartService.detail_Pay(userCartDTO, principal);
 		List<HashMap<String, Object>> userPost = userHistoryService.selectUserPost(principal);
 		List<HashMap<String, Object>> userQnA = userHistoryService.selectUserQnA(principal);
 		mav.addObject("reservation", reservation);
@@ -55,22 +55,14 @@ public class userHistoryController {
 	
 	
 	//history 주제별 삭제 기능 
-	@RequestMapping(value="delete/replace", method=RequestMethod.POST)
-	public boolean userHistoryReplaceDelet(@RequestBody Integer replaceId,
+	@RequestMapping(value="delete/item", method=RequestMethod.POST)
+	public boolean userHistoryReplaceDelet(@RequestBody Integer itemid,
 											Principal principal) {
 		ReplaceDTO replace = new ReplaceDTO();
-		replace.setReplaceID(replaceId);
-		boolean ck = userCartService.deleteReplace(principal, replace);	
+		boolean ck = userCartService.deleteItem(principal, itemid);	
 		return ck;
 	}
-	@RequestMapping(value="delete/adventure", method=RequestMethod.POST)
-	public boolean userHistoryADDelet(@RequestBody Integer adventuredID,
-											Principal principal) {
-		AdventureDTO ad = new AdventureDTO();
-		ad.setAdventureID(adventuredID);
-		boolean ck = userCartService.deleteAD(principal, ad);	
-		return ck;
-	}
+
 	@RequestMapping(value="delete/ALL", method=RequestMethod.POST)
 	public boolean userHistoryAllDelet(Principal principal) {
 		boolean ck = userCartService.deleteALL(principal);	
