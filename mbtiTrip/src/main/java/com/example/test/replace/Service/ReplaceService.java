@@ -4,25 +4,25 @@ import java.util.List;
 
 
 import com.example.test.User.DTO.UserDTO;
+import com.example.test.item.DTO.ItemDTO;
 import com.example.test.paging.Criteria;
-import com.example.test.replace.DTO.ReplaceCategoryDTO;
-import com.example.test.replace.DTO.ReplaceDTO;
+
 
 public interface ReplaceService {
 
-	public ReplaceDTO getPost(Integer replaceID);
+	public ItemDTO getPost(Integer itemid);
 	 
-	 public ReplaceDTO create(Integer postCategoryID, Integer mbtiID, Integer cityID, Integer replaceTypeId, 
-			 String replaceLocation, String replaceName, Integer replacePrice, String replaceContent, String tel, UserDTO replaceAdmin, ReplaceCategoryDTO replace_CategoryID);
+	 public int create(Integer mbtiID, Integer cityID, Integer replaceTypeId, 
+			 String replaceLocation, String replaceName, Integer replacePrice, String replaceContent, String tel, UserDTO userName);
 	 
-	 public ReplaceDTO modify(ReplaceDTO rpDto, Integer postCategoryID,  Integer mbtiID, Integer cityID, 
+	 public int modify(ItemDTO itemDto, Integer mbtiID, Integer cityID, 
 			 Integer replaceTypeId, String replaceLocation, String replaceName, Integer replacePrice, String replaceContent, String tel);
 	 
-	 public void delete(ReplaceDTO rpDto);
+	 public void delete(ItemDTO itemDto);
 	 
-	 public ReplaceDTO suggestion(ReplaceDTO rpDto, UserDTO user);
+	 public int suggestion(ItemDTO rpDto, UserDTO user);
 	 
-	 List<ReplaceDTO> list(Criteria cri) throws Exception;
+	 List<ItemDTO> list(Criteria cri) throws Exception;
 
 	 public int listCount(Criteria cri) throws Exception;
 }

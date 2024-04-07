@@ -30,7 +30,7 @@ public class ItemDTO {
 	
 	private LocalDateTime updateDate;
 	
-	private Integer up; //추천수 
+	private Integer upratring; //추천수 
 	
 	private String[] ImgeUrl; //사진 저장 Xml 쿼리 작성시 아마 따로 불러와서 set 하던지 해야 함 
 }
