@@ -2,6 +2,8 @@ package com.example.test.replace;
 
 
 
+import com.example.test.item.ItemType;
+
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -42,5 +44,11 @@ public class ReplaceForm {
 	@NotEmpty(message = "제목은 필수항목입니다.")
     @Size(max = 200)
     private String replaceName;
+	
+	@NotEmpty(message = "타입은 필수입니다")
+	private ItemType Type;
+	
+	
+	private String[] file;
 	
 }
