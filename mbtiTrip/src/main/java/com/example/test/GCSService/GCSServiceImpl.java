@@ -61,8 +61,6 @@ public class GCSServiceImpl implements GCSService{
 	}
 
 
-
-
 	@Override
 	/**
 	 * 주어진 MultipartFile 객체를 사용하여 파일을 버킷에 업로드합니다.
@@ -92,8 +90,6 @@ public class GCSServiceImpl implements GCSService{
 		String url=defaultUrl+bucket+"/"+fileName;
 		return url;
 	}
-
-
 
 
 	@Override

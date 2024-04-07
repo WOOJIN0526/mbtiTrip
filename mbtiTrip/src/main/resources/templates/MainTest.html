@@ -1,0 +1,34 @@
+<!--UX TEST -->
+<h1>사용자 맞춤형 루틴 정보</h1>
+<form th:object="${UserUXs}">
+	<div th:each="ux : ${UserUXs}">
+		<span th:text="${ux['Replace_name']}"></span><span>	&nbsp;</span>
+		<span th:text="${ux['Replace_location']}"></span><span>&nbsp;</span>
+		<span th:text="${ux['price']}"></span><span>&nbsp;</span>
+		<span th:text="${ux['adventureName']}"></span><span>&nbsp;</span>
+		<span th:text="${ux['adventureLocation']}"></span><span>&nbsp;</span>
+		<span th:text="${ux['adventurePrice']}"></span><span>&nbsp;</span>
+	</div>	
+</form>
+
+<section th:object="${userUxRe}">
+	<div th:each="re: ${userUxRe}">
+		<span th:text="${re['Replace_name']}"></span><span>	&nbsp;</span>
+		<span th:text="${re['Replace_location']}"></span><span>&nbsp;</span>
+		<span th:text="${re['price']}"></span><span>&nbsp;</span>
+<!--<span th:text="${ux['adventureName']}"></span><span>&nbsp;</span>
+		<span th:text="${ux['adventureLocation']}"></span><span>&nbsp;</span>
+		<span th:text="${ux['adventurePrice']}"></span><span>&nbsp;</span> -->
+	</div>	
+</section>
+<div>
+	<br>
+</div>
+
+<section th:object = "${userUxadv}">
+	<div th:each = "adv : ${userUxadv}">
+		<span th:text="${adv['adventureName']}"></span><span>&nbsp;</span>
+				<span th:text="${adv['adventureLocation']}"></span><span>&nbsp;</span>
+				<span th:text="${adv['adventurePrice']}"></span><span>&nbsp;</span>
+	</div>
+</section>

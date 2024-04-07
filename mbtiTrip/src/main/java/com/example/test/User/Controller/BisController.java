@@ -21,7 +21,7 @@ import com.example.test.User.Service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j2;
 
-@PreAuthorize("hasRole('ROLE_BIS') and hasRole('ROLE_ADMIN')")
+
 @Controller
 @RequestMapping("/bis")
 @Log4j2
@@ -76,6 +76,7 @@ public class BisController {
 		return mav;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_BIS') and hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public ModelAndView main(Principal principar,
 							ModelAndView mav) {
@@ -88,9 +89,11 @@ public class BisController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/mypage/{UID}", method = RequestMethod.GET)
-	public ModelAndView mypageBis(@PathVariable("UID") Integer UID, UserDTO userdto, ModelAndView mav){
-		Map<String, Object> map = userService.getInfo(UID);
+	@PreAuthorize("hasRole('ROLE_BIS') and hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
+	public ModelAndView mypageBis(Principal principal, UserDTO userdto, ModelAndView mav){
+		Integer userUID = userService.findByUID(principal.getName());
+		Map<String, Object> map = userService.getInfo(userUID);
 		mav.addObject("map", map);
 		mav.setViewName("mypage");
 		return mav;

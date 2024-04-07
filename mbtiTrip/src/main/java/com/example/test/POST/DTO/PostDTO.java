@@ -41,8 +41,7 @@ public class PostDTO {
 	//조회수
 	private int views;
 
-	private String filename; // 파일 이름
-    private String filepath; // 파일이 저장된 경로
+	
     @Override
     public String toString() {
         return "Post{" +

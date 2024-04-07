@@ -1,0 +1,33 @@
+<!--cart Main Th test-->
+<h1>장바구니 내역</h1>
+<div th:object="${userCarts}">
+    <h1 th:text="${userCarts.size}"></h1>
+    <table>
+        <tr th:each="cart : ${userCarts}">
+            <td th:text="${cart.userName}">이름</td>
+
+			<div th:if="${cart.replaceInfo} != null">
+				<div>숙소 정보</div>
+				<span>시작 날짜</span><span th:text="${cart.startDate}"></span>
+				<span>종료 날짜</span><span th:text="${cart.endDate}"></span>
+						<span th:text="${cart.replaceInfo.replaceName}"></span><sapn>&nbsp;</sapn>
+						<span th:text="${cart.replaceInfo.replaceLocation}">&nbsp;</span><sapn>&nbsp;</sapn>
+						<span th:text="${cart.replaceInfo.replacePrice}">&nbsp;</span><sapn>&nbsp;</sapn>
+						<span th:text="${cart.replaceInfo.replaceContents}">&nbsp;</span><sapn>&nbsp;</sapn>
+						<span th:text="${cart.replaceInfo.R_rating_avg}">&nbsp;</span><sapn>&nbsp;</sapn>
+					</div>
+					<div th:unless="${cart.replaceInfo != null}">&nbsp;</div>
+        <div th:if="${cart.adventureInfo != null}">
+			<div>adventure 정보</div>	
+			<span>시작 날짜</span><span th:text="${cart.startDate}"></span>
+			<span>종료 날짜</span><span th:text="${cart.endDate}"></span>
+			<span th:text="${cart.adventureInfo.adventureName}"></span><sapn>&nbsp;</sapn>
+			<span th:text="${cart.adventureInfo.adventureLocation}">&nbsp;</span><sapn>&nbsp;</sapn>
+			<span th:text="${cart.adventureInfo.adventurePrice}">&nbsp;</span><sapn>&nbsp;</sapn>
+			<span th:text="${cart.adventureInfo.adventureContent}">&nbsp;</span><sapn>&nbsp;</sapn>
+			<span th:text="${cart.adventureInfo.ratingAvg}">&nbsp;</span><sapn>&nbsp;</sapn>
+		</div>
+		<div th:unless="${cart.adventureInfo != null}">&nbsp;</div>
+    </table>
+</div>
+<h1 th:text="${sumPrice}"></h1><span>원</span>

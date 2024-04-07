@@ -7,7 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.test.GCSService.GCSService;
 import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DTO.UserDTO;
 
@@ -18,6 +20,9 @@ import lombok.extern.log4j.Log4j2;
 @Service 
 public class UserServiceImpl implements UserService{
 
+	@Autowired
+	private GCSService gcsService;
+	
 	private BCryptPasswordEncoder bcrypasswordEncoder = new BCryptPasswordEncoder();
 	
 	@Autowired
@@ -39,20 +44,6 @@ public class UserServiceImpl implements UserService{
 		int result = this.userDao.insertBis(userdto);
 		return result;
 	}
-
-	@Override
-	public void updateUser(Map<String, Object> user) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public String findByUserName(UserDAO user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	
 	@Override
 	public  Map<String, Object> login(UserDTO userdto) {
@@ -60,10 +51,17 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public int userUpdate(UserDTO userdto, Principal principal) {
+	public int userUpdate(UserDTO userdto, Principal principal, MultipartFile mpf) {
 		Integer UID = princeUID(principal);
 		userdto.setUID(UID);
 		userdto.setPassword(bcrypasswordEncoder.encode(userdto.getPassword()));
+		if(!mpf.isEmpty()) {
+			String userImg = gcsService.uploadObject(mpf);
+			userdto.setUserImg(userImg);
+		}
+		else {
+			userdto.setUserImg(null);
+		}
 		int result =userDao.userUpdate(userdto);
 		return result;
 	}
@@ -78,7 +76,7 @@ public class UserServiceImpl implements UserService{
 	public Map<String, Object> getInfo(Integer uID) {
 		return userDao.getInfo(uID);
 	}
-
+	
 	@Override
 	public Integer findByUID(String userName) {
 		log.info("User Service {}", userName);
@@ -104,6 +102,7 @@ public class UserServiceImpl implements UserService{
 		boolean ck = bcrypasswordEncoder.matches(inputPw, target);
 		return ck;
 	}
+
 
 
 }
