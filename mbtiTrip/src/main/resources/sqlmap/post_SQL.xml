@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="post">
+	
 	<insert id="insert" parameterType="hashMap" useGeneratedKeys="true"
 		keyProperty="UID">  
 	    <![CDATA[
@@ -10,10 +11,75 @@
 	    (#{PostId},#{PostCateGoryID},#{userName},#{title},#{Content},#{suggestion},#{views},#{UpdateDate},#{modifyDate}, #{writer})
 	]]>
 	</insert>
+	
+	
+	<insert id="save" parameterType="hashMap" useGeneratedKeys="true"
+		keyProperty="UID">  
+	    <![CDATA[
+	    insert into Post
+	    (postID,postCategoryID,userName,title,content,suggestion,views,updateDate,modifyDate,writer) 
+	    values
+	    (#{PostId},#{PostCateGoryID},#{userName},#{title},#{Content},#{suggestion},#{views},#{UpdateDate},#{modifyDate}, #{writer})
+	]]>
+	</insert>
 
+	
+	<select id="listCount" resultType="int">
+	 <![CDATA[
+		SELECT count(PostID)
+		FROM Post
+		WHERE <if test="option == 'ID'"> userName like CONCAT('%',#{keyword},'%')</if>
+           	  <if test="option == 'SUBJECT'"> title like CONCAT('%',#{keyword},'%')</if>
+           	  <if test="option == 'CONTENT'"> content like CONCAT('%',#{keyword},'%')</if>
+           	  <if test="option == 'SUBJECT,CONTENT'"> title like CONCAT('%',#{keyword},'%')
+                                                 				    or content like CONCAT('%',#{keyword},'%')</if>
+              <if test="option == null or option == ''">1=1</if>
+	]]>
+	</select>
+	
+	
+	
+	<select id="list" resultType="com.example.test.POST.DTO.PostDTO">
+	<![CDATA[   
+  	select PostID, PostCateGoryID, userName, title, Content, suggestion, views, UpdateDate, modifyDate, writer
+     from QNA
+     where <if test="option == 'ID'"> userName like CONCAT('%',#{keyword},'%')</if>
+           <if test="option == 'SUBJECT'"> title like CONCAT('%',#{keyword},'%')</if>
+           <if test="option == 'CONTENT'"> Content like CONCAT('%',#{keyword},'%')</if>
+           <if test="option == 'SUBJECT,CONTENT'"> title like CONCAT('%',#{keyword},'%')
+                                                 or Content like CONCAT('%',#{keyword},'%')</if>		        
+           <if test="option == null or option == ''">1=1</if>
+     order by PostID desc
+     limit #{pageStart}, #{perPageNum}
+	]]>
+	</select>
+	
+	<select id="findByPostCategoryID" resultType="hashmap">
+	 <![CDATA[
+		SELECT * 
+		FROM Post
+		WHERE postID = #{PostID} And userName=#{userName}; 
+	]]>
+	</select>
 
-
-
+	<update id="updateCount">
+	<![CDATA[
+			Update Post 
+			set
+			views = #{views},
+			where postID = #{PostID};
+		]]>
+	</update>
+	
+	
+	<delete id="delete">
+	<![CDATA[
+		
+			delete from Post 
+			where userName = #{userName} and postID = #{PostID};	
+	]]>
+	</delete>
+	
 
 
 

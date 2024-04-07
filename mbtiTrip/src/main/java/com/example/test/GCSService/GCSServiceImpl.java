@@ -61,9 +61,12 @@ public class GCSServiceImpl implements GCSService{
 	}
 
 
-
-
 	@Override
+	/**
+	 * 주어진 MultipartFile 객체를 사용하여 파일을 버킷에 업로드합니다.
+	 * @param {String} originalName 업로드할 파일의 고유 이름입니다.
+	 * @return {String} fielName UUID와 등록날짜를 추가하여 GCS에 업로드할 최종 파일명입니다.
+	 */
 	public String getFileName(String originalName) {
 		UUID uid =UUID.randomUUID();
 		Calendar cal = Calendar.getInstance();
@@ -76,13 +79,17 @@ public class GCSServiceImpl implements GCSService{
 
 
 	@Override
+	/**
+	 * 주어진 MultipartFile 객체를 사용하여 파일을 버킷에 업로드합니다.
+	 * @param {String} bucket 업로드에 사용하는 버켓명입니다.
+	 * @param {String} fileName getFileName()에서 리턴한 등록할 파일의 이름입니다.
+	 * @return {String} url GCS에 이미지가 등록된 주소입니다.
+	 */
 	public String getUrl(String bucket, String fileName) {
 		String defaultUrl ="https://storage.googleapis.com/";
 		String url=defaultUrl+bucket+"/"+fileName;
 		return url;
 	}
-
-
 
 
 	@Override

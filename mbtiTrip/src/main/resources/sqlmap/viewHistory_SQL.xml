@@ -2,19 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="view">
 
-	<insert id="viewRE" parameterType="hashMap"
-		useGeneratedKeys="true">  
-	<![CDATA[
-		insert into userView (userName, Replace_key)
-		value (#{userName}, #{replaceid})
- 	]]>
-	</insert>
 
-	<insert id="viewAD" parameterType="hashMap"
+	<insert id="viewitem" parameterType="hashMap"
 		useGeneratedKeys="true">  
 	<![CDATA[
-		insert into userView (userName, AdventureID)
-		value (#{userName}, #{adventureid})
+		insert into userView (userName, itemID)
+		value (#{userName}, #{itemID})
  	]]>
 	</insert>
 	<insert id="viewPO" parameterType="hashMap"
@@ -25,32 +18,31 @@
  	]]>
 	</insert>
 
+
 	<select id="ReturnRE"
-		resultType="com.example.test.replace.DTO.ReplaceDTO">
+		resultType="com.example.test.item.DTO.ItemDTO">
 	<![CDATA[
-		select re.replace_name as replaceName, re.replace_location as replaceLocation,
-		 re.replace_admin as replaceAdmin, re.price as replacePrice, re.contents as replaceContents
+		select i.itemName, i.location, i.userName, i.price, i.contents
 		from userView uv
-		join `replace` re
-		on  uv.Replace_key = re.replace_key
-		where uv.userName =#{userName} and uv.replace_Key
-		limit 5
+		join Item i 
+		on uv.itemId = i.itemId
+		where i.Type = "replace"  and i.userName = #{userName}
+		limit 5;
 	]]>
 	</select>
 
 
 	<select id="ReturnAD"
-		resultType="com.example.test.Adventure.DTO.AdventureDTO">
+		resultType="com.example.test.item.DTO.ItemDTO">
 	<![CDATA[
-		select ad.adventureLocation as adventureLocation, ad.adventurename as adventureName, ad.adventurePrice, ad.adventureCOntent, ad.tel
+		select i.itemName, i.location, i.userName, i.price, i.contents
 		from userView uv
-		join Adventure ad
-		on  uv.AdventureID = ad.AdventureID
-		where uv.userName =#{userName} and uv.AdventureID
-		limit 5
+		join Item i 
+		on uv.itemId = i.itemId
+		where i.Type = "adventure"  and i.userName = #{userName}
+		limit 5;
 	]]>
 	</select>
-
 
 	<select id="ReturnPO"
 		resultType="com.example.test.POST.DTO.PostDTO">
@@ -64,64 +56,94 @@
 	]]>
 	</select>
 
+	<select id="userCreatePost" resultType="hashMap">
+	<![CDATA[
+		select p.PostID, p.title , p.updateDate, p.PostCateGoryID, p.views, p.suggestion
+		from `User` u
+		join Post p
+		on u.userName = p.userName
+		where u.userName = #{userName}
+	]]>
+	</select>
+
+
+	<select id="userCreateQnA" resultType="hashMap">
+	<![CDATA[
+	select q.QID ,q.Qname , q.updateDate,  q.contents, IF(isNULL(q.Answer), "N", "Y") as Answer
+	from `User` u
+	join QnA q
+	on u.userName = q.userName
+	where u.userName = #{userName}
+	]]>
+	</select>
+
+
 
 	<select id="userLikeMbti" parameterType="String"
 		resultType="hashMap">
 		<![CDATA[
-			select mb.mbti , (select count(re.MBTI_ID)
-							    from userView uv
-		        			    join `replace` re
-		        				  on uv.Replace_key = re.Replace_key
-						        join MBTi m
-						        on re.MBTI_ID = m.mbtiId
-						        where m.mbtiId = mb.mbtiId
-								and uv.userName = #{userName}) +
-						        (select count(ad.mbtiId)
-								from userView uv
-								join Adventure ad
-						        on uv.AdventureID = ad.AdventureID
-						        join MBTi mt
-						        on ad.mbtiId = mt.mbtiId
-						        where mt.mbtiId = mb.mbtiId
-						        and uv.userName = #{userName}) 
-						        as totalMBtiCnt
-			from MBTi mb
-			group by mb.mbtiId
-			order by totalMBtiCnt desc
-			limit 2;
+			SELECT 
+		    mb.mbti, 
+		    (SELECT 
+		            COUNT(CASE WHEN i.Type = 'replace' THEN 1 END)
+		            FROM userView uv
+		            JOIN Item i ON uv.itemId = i.itemId
+		            JOIN MBTi m ON i.mbti = m.mbtiId
+		            WHERE m.mbtiId = mb.mbtiId
+		            AND uv.userName = #{userName}
+		        ) + 
+		        (SELECT 
+		            COUNT(CASE WHEN i.Type = 'adventure' THEN 1 END)
+		            FROM userView uv
+		            JOIN Item i ON uv.itemId = i.itemId
+		            JOIN MBTi m ON i.mbti = m.mbtiId
+		            WHERE m.mbtiId = mb.mbtiId
+		            AND uv.userName = #{userName}
+		        ) AS totalMBtiCnt
+		FROM MBTi mb
+		GROUP BY mb.mbtiId
+		ORDER BY totalMBtiCnt DESC
+		LIMIT 2;
 		]]>
 	</select>
+
 	<select id="rutinALL" resultType="hashMap">
-		<![CDATA[
-		SELECT 
-		    mb.mbti AS mbti, 
-		    re.Replace_name, 
-		    re.Replace_location, 
-		    re.price, 
-		    re.rating_avg, 
-		    ad.adventureName,
-		    ad.adventureLocation,
-		    ad.adventurePrice,
-		    ad.ratingAvg
-		FROM `replace` re
-		RIGHT JOIN MBTi mb ON mb.mbtiId = re.MBTI_ID
-		LEFT JOIN Adventure ad ON ad.mbtiID = mb.mbtiId
-		WHERE mb.mbti = #{mbti}
-		ORDER BY RAND()
-		LIMIT 4;
-		]]>
+	<![CDATA[
+		SELECT
+		mb.mbti AS mbti,
+		COALESCE(r.itemName, a.itemName) AS itemName,
+		COALESCE(r.location, a.location) AS location,
+		COALESCE(r.price, a.price) AS price,
+		COALESCE(r.ratingAvg, a.ratingAvg) AS ratingAvg
+		FROM (
+		SELECT * FROM (
+		SELECT * FROM Item WHERE Type = 'replace' AND mbti =#{mbti} ORDER BY RAND() LIMIT 4
+		) AS temp1
+		UNION ALL
+		SELECT * FROM (
+		SELECT * FROM Item WHERE Type = 'adventure' AND mbti =#{mbti} ORDER BY RAND() LIMIT 4
+		) AS temp2
+		) AS temp
+		LEFT JOIN MBTi mb ON mb.mbtiId = temp.#{mbti}
+		LEFT JOIN
+		Item r ON r.itemId = temp.itemId AND r.Type = 'replace'
+		LEFT JOIN Item a
+		ON a.itemId = temp.itemId AND a.Type = 'adventure'
+		ORDER BY RAND();
+	]]>
 	</select>
+
 	<select id="rutinAD" resultType="hashMap">
 		<![CDATA[
 		SELECT 
 		    mb.mbti AS mbti, 
-		    ad.adventureName,
-		    ad.adventureLocation,
-		    ad.adventurePrice,
-		    ad.ratingAvg
+		    a.itemName,
+		    a.location,
+		    a.price,
+		    a.ratingAvg
 		From MBTi mb 
-		LEFT JOIN Adventure ad ON ad.mbtiID = mb.mbtiId
-		WHERE mb.mbti = #{mbti}
+		LEFT JOIN Item a ON a.mbti = mb.mbtiId
+		WHERE a.mbti = #{mbti} and a.Type = "adventure"
 		ORDER BY RAND()
 		LIMIT 4;
 		]]>
@@ -131,13 +153,13 @@
 		<![CDATA[
 		SELECT 
 		    mb.mbti AS mbti, 
-		    re.Replace_name, 
-		    re.Replace_location, 
-		    re.price, 
-		    re.rating_avg
-		FROM `replace` re
-		RIGHT JOIN MBTi mb ON mb.mbtiId = re.MBTI_ID
-		WHERE mb.mbti = #{mbti}
+		    a.itemName, 
+		    a.location, 
+		    a.price, 
+		    a.rating_avg
+		FROM Item a
+		RIGHT JOIN MBTi mb ON mb.mbtiId = a.mbti
+		WHERE a.mbti = #{mbti} and a.Type = "replace"
 		ORDER BY RAND()
 		LIMIT 4;
 		]]>

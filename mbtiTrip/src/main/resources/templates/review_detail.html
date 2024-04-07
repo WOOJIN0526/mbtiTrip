@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	**xmlns:sec="http://www.thymeleaf.org/extras/spring-security"**
+	layout:decorate="~{layout.html}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/664a7b3827.js" crossorigin="anonymous"></script>
     <title>Review Detail</title>
-    <link rel="stylesheet" href="../static/Review_detail/review_detail.css">
+    <link rel="stylesheet" th:href="@{/Review_detail/review_detail.css}">
 </head>
 <body>
-    <section>
+    <section layout:fragment="content">
         <div class="Review_container">
             <div class="Review_header">
                 <div class="Review_header_left">
@@ -52,7 +56,8 @@
                 <div class="upload_date">업로드 날짜: 2024년 3월 17일</div>
                 <div class="update_date">수정 날짜: 2024년 3월 18일</div>
             </div>
+			<script th:src="@{/Review_detail/review_detail.js}"></script>
     </section>
-    <script src="../static/Review_detail/review_detail.js"></script>
+    
 </body>
 </html>

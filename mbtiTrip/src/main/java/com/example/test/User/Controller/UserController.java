@@ -25,8 +25,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.test.GCSService.GCSService;
 import com.example.test.User.DAO.UserHistoryDAO;
 import com.example.test.User.DTO.QnADTO;
 import com.example.test.User.DTO.UserDTO;
@@ -43,7 +45,6 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Controller
-
 public class UserController {
 
 	@Autowired
@@ -57,6 +58,8 @@ public class UserController {
 	
 	@Autowired
 	private UserHistoryService userHistoryService;
+	
+
 	
 
 	private BCryptPasswordEncoder bcrypasswordEncoder = new BCryptPasswordEncoder(); 
@@ -88,26 +91,35 @@ public class UserController {
 	}
 	
 	
+	/*UX 관련 테스트 진행 완료, TH 문법 적용 완료 */
 	@RequestMapping("usertest")
 	public ModelAndView main(Principal principar, ModelAndView mav) {
-		List<HashMap<String, Object>> userUX = userHistoryService.uxRutin(principar.getName());
+		String userName = principar.getName();
 		
-		log.info("UXINfo ==>{}", userUX);
+		List<HashMap<String, Object>> userUX = userHistoryService.uxRutin(userName);
+		for(HashMap<String, Object> user : userUX) {
+			log.info(user);
+		}
+		
+		List<HashMap<String, Object>> userUXreplace = userHistoryService.uxReplace(userName);
+		for(HashMap<String, Object> userre : userUXreplace) {
+			log.info(" ");
+			log.info("message userRE ====>{}",userre);
+		}
+			
+		List<HashMap<String, Object>> userPlace = userHistoryService.uxAdventure(userName);
+		for(HashMap<String, Object> userad : userPlace) {
+			log.info(" ");
+			log.info("message userRE ====>{}",userad);
+		}
 		mav.addObject("UserUXs", userUX);
+		mav.addObject("userUxRe", userUXreplace);
+		mav.addObject("userUxadv", userPlace);
 		mav.setViewName("MainTest");
-
 		return mav;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	@RequestMapping(value = "/signup", method=RequestMethod.GET)
 	public String signUpSelect() {
 		return "sign_up_select";
@@ -207,10 +219,10 @@ public class UserController {
 	
 	@PreAuthorize("isAuthenticated() and  hasRole('ROLE_USER')")
 	@RequestMapping(value = "/user/mypage/update", method = RequestMethod.POST) 
-	public ModelAndView update_ck(@RequestParam("password") String password,   
+	public ModelAndView update_ck(@RequestParam("password") String password,    
 								Principal principal, ModelAndView mav) throws Exception{
-		
 		log.info("message ={}", principal.getName());
+		
 		boolean passwordCheck = userService.passwordCK(principal, password);
 		if(passwordCheck) {
 			log.info("message 인증성공");
@@ -240,10 +252,11 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/mypage/update/ck", method = RequestMethod.POST)
 	public ModelAndView update(@ModelAttribute UserDTO userdto,
+								@RequestParam("userImg") MultipartFile mpf,
 								Principal principal, ModelAndView mav) {
 		log.info("message POST ONE ={}", userdto.toString());
 		try {
-			int result= userService.userUpdate(userdto, principal);
+			int result= userService.userUpdate(userdto, principal, mpf);
 			if(result == 1) {
 				Map<String, Object> user = userService.getInfo(userdto.getUID());
 				mav.addObject(user);

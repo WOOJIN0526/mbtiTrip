@@ -28,4 +28,6 @@ public interface PostService {
 		 List<PostDTO> list(Criteria cri) throws Exception;
 
 		 public int listCount(Criteria cri) throws Exception;
+
+		public List<PostDTO> findPostByCategoryID(Long postCategoryID);
 }

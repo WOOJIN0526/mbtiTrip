@@ -18,7 +18,7 @@
 
 <body>
 
-	  <section class="reviewListBody"	  layout:fragment="content">
+	  <section class="reviewListBody" layout:fragment="content">
 	    <div class="container">
 	      <div class="rReview">Recent review<a class="create" th:href="@{/post/review/create}">작성</a></div>
 		  
@@ -28,7 +28,7 @@
 	          <div class="postHead">
 	            <div class="userContainer">
 	              <div class="userImg"></div>
-	              <a th:href="@{#}"><div class="userName" th:text="${#authentication.name}"></div></a>
+	              <a th:href="@{/post/review/detail}"><div class="userName" th:text="${#authentication.name}"></div></a>
 	            </div>
 	            <i class="fa fa-thumbs-up" aria-hidden="false"></i>
 	            <div class="suggestion" ></div>

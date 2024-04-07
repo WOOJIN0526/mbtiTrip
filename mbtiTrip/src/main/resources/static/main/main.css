@@ -1,0 +1,320 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+header {
+    background-image: url("../images/kumiko-shimizu-TCl6He6cjY4-unsplash.jpg");
+    height: 880px;
+    background-size: 100% 100%;
+}
+
+nav {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    padding: 20px 20px;
+}
+
+.logo {
+    color: white;
+    font-size: 35px;
+    font-weight: 800;
+}
+
+.menu ul{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    grid-gap: 30px;
+    list-style-type: none;
+}
+
+.menu ul a {
+    text-decoration: none;
+    color: white;
+    font-weight: 800;
+}
+
+.search__box {
+    width: 430px;
+    display: inline-block;
+    padding: 20px 30px;
+    background-color: white;
+    position: relative  ;
+    top: 10px;
+    left: 50px;
+    border-radius: 6px;
+    box-shadow: 0 2px 2px 0 rgb(214, 214, 214);
+   
+}
+
+.search__title {
+    padding: 10px 0;
+    font-size: 30px;
+    font-weight: 800;
+    color:rgb(75, 74, 74);
+}
+
+table {
+    width: 100%;
+}
+
+.search__sub__title {
+    padding: 10px 0;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.search__input {
+    height: 45px;
+    width: 100%;
+    color: rgb(100, 98, 98);
+    font-size: 15px;
+    border: 1px solid rgb(230, 227, 227);
+}
+
+.search__button {
+    display: grid;
+    justify-content: end;
+    padding: 20px 0;
+}
+
+.search__button button{
+    background-color: #FF5A5F;
+    color:white;
+    width: 70px;
+    height: 45px;
+    font-size: 15px;
+    font-weight: 700; /*굵기*/
+    border-radius: 6px;
+    border: 0;
+    cursor: pointer;
+}
+
+main {  
+    margin: 30px 80px;
+}
+
+section {
+    margin: 30px 0;
+}
+.sec__title2 {
+    font-size: 25px;
+    font-weight: 800;
+    color:rgb(68, 66, 66);
+}
+
+.card__img1 {
+    background-image: url("../images/card1.jpg");
+    height: 70px;
+    background-size: 100% 100%;
+}
+.card__img2 {
+    background-image: url("../images/card2.jpg");
+    height: 70px;
+    background-size: 100% 100%;
+}
+.card__img3 {
+    background-image: url("../images/card3.jpg");
+    height: 70px;
+    background-size: 100% 100%;
+}
+.card__img4 {
+    background-image: url("../images/card4.jpg");
+    height: 70px;
+    background-size: 100% 100%;
+}
+
+.card__content {
+    display: grid;
+    align-items: center;
+    font-weight: 600;
+    margin: 0 0 0 10px;
+}
+.card__box {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+}
+
+.card {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    border: 1px solid rgb(212, 210, 210);
+    border-radius: 6px;
+    box-shadow: 0 0 3px 0 rgb(172, 170, 170);
+}
+
+
+
+.ad1 {
+    margin: 20px 0;
+    background-image: url("../images/image-210.png");
+    height: 380px;
+    background-size: 100% 100%;
+    display: flex;
+    border-radius: 20px;
+}
+
+.choo__box {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+}
+
+.choo_img1 {
+    background-image: url("../images/1.jpg");
+    height: 250px;
+    background-size: 100% 100%;
+}
+
+.choo_img2 {
+    background-image: url("../images/2.jpg");
+    height: 250px;
+    background-size: 100% 100%;
+}
+
+.choo_img3 {
+    background-image: url("../images/3.jpg");
+    height: 250px;
+    background-size: 100% 100%;
+}
+
+.choo_img4 {
+    background-image: url("../images/4.jpg");
+    height: 250px;
+    background-size: 100% 100%;
+}
+
+.choo_img5 {
+    background-image: url("../images/5.jpg");
+    height: 250px;
+    background-size: 100% 100%;
+}
+.choo_img6 {
+    background-image: url("../images/6.jpg");
+    height: 250px;
+    background-size: 100% 100%;
+}
+
+.choo_img7 {
+    background-image: url("../images/7.jpg");
+    height: 250px;
+    background-size: 100% 100%;
+}
+
+.choo_img8 {
+    background-image: url("../images/8.jpg");
+    height: 250px;
+    background-size: 100% 100%;
+}
+
+.choo_img9 {
+    background-image: url("../images/9.jpg");
+    height: 250px;
+    background-size: 100% 100%;
+}
+
+.choo_img10 {
+    background-image: url("../images/10.jpg");
+    height: 250px;
+    background-size: 100% 100%;
+}
+
+.home__box {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+}
+
+.home__img1 {
+    background-image: url("../images/home1.png");
+    height: 180px;
+    background-size: 100% 100%;
+}
+
+.home__img2 {
+    background-image: url("../images/home2.png");
+    height: 180px;
+    background-size: 100% 100%;
+}
+
+.home__img3 {
+    background-image: url("../images/home3.png");
+    height: 180px;
+    background-size: 100% 100%;
+}
+
+.home__img4 {
+    background-image: url("../images/home4.png");
+    height: 180px;
+    background-size: 100% 100%;
+}
+
+.home__img5 {
+    background-image: url("../images/home5.png");
+    height: 180px;
+    background-size: 100% 100%;
+}
+
+.home__img6 {
+    background-image: url("../images/home6.png");
+    height: 180px;
+    background-size: 100% 100%;
+}
+
+.home__img7 {
+    background-image: url("../images/home7.png");
+    height: 180px;
+    background-size: 100% 100%;
+}
+
+.home__img8 {
+    background-image: url("../images/home8.png");
+    height: 180px;
+    background-size: 100% 100%;
+}
+
+.info1 {
+    margin: 5px 0;
+    font-size: 13px;
+    color:gray;
+}
+
+.info2 {
+    font-size: 18px;
+    font-weight: 600;
+    color:rgb(61, 60, 60); 
+}
+
+.star {
+    font-size: 12px;
+    color:rgb(30, 119, 115);
+    font-weight: 800;
+}
+
+.count, .type {
+    font-size: 12px;
+}
+
+.image-13 {
+    border-radius: 70%;
+    width: 8rem;
+    height: 8em;
+    position: relative;
+    object-fit: cover;
+    
+}
+.image-14{
+
+    width: 8rem;
+    height: 8em;
+    position: relative;
+    object-fit: cover;
+    background-image: url(/images/image-210.png);
+}
+.review{
+    height: 14.5625rem;
+    border: 1px solid black;
+}

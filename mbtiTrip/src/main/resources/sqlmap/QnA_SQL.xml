@@ -3,25 +3,46 @@
 <mapper namespace="qna">
 	<insert id="create">
 		insert into QnA
-		(QName, contents, userName, updateDate)
+		(QName, contents, userName,
+		updateDate)
 		values
 		(#{title},#{contents},#{userName}, #{updateDate})
 	</insert>
 
+	<insert id="createAnswer">
+		insert Into QAnswer (QID, userName , A_content,
+		updateDate)
+		value (#{QID}, #{userName}, #{A_content}, #{AupdateDate});
+	</insert>
+
 	<select id="getlist" resultType="hashmap">
-		select QID, QName as title,  contents, userName, updateDate
+		select QID, QName as title,
+		contents, userName, updateDate
 		from QnA
 	</select>
-	
-	<select id= "getDetail" resultType="list">
-		select * 
-		from QnA
+
+	<select id="getDetail" resultType="hashMap">
+		select q.QID, q.QName as title, q.userName, q.contents, q.updateDate,
+		a.userName as adminName, a.A_content, a.updateDate as AupdateDate
+		from QnA q
+		join QAnswer a
+		on q.QID = a.QID
 		where QID = #{qID}
 	</select>
-	
+
 	<select id="getMyQnA" resultType="hashmap">
-		select * 
-		from QnA
-		where userName = #{userName};
+		select q.QName as title, q.userName, q.contents, q.updateDate,
+		a.userName as adminName , a.A_content, a.updateDate as AupdateDate 
+		from QnA q
+		join QAnswer a
+		on q.QID = a.QID
+		where q.userName = #{userName};
 	</select>
+
+	<update id="AnswerUpdate">
+		update QnA q join QAnswer a
+		on q.QID = a.QID
+		set q.Answer = a.aid
+		where q.QID = #{QID};
+	</update>
 </mapper>

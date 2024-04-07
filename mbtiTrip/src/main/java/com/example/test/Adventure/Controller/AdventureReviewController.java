@@ -24,6 +24,7 @@ import com.example.test.Adventure.DTO.Adventure_ReviewDTO;
 import com.example.test.Adventure.Service.Adventure_CategoryService;
 import com.example.test.Adventure.Service.Adventure_ReviewService;
 import com.example.test.POST.Controller.PageDTO;
+import com.example.test.POST.DTO.PostDTO;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.Service.UserService;
 import com.example.test.paging.Criteria;
@@ -44,6 +45,8 @@ public class AdventureReviewController {
 	@Autowired
 	Adventure_CategoryService adCategoryService;
 	
+
+	
 	@RequestMapping("/list")
 	public ModelAndView List(ModelAndView mv, Criteria cri) throws Exception {
 
@@ -63,7 +66,7 @@ public class AdventureReviewController {
 	
     @RequestMapping(value = "/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer adventureReviewID) {
-        Adventure_ReviewDTO adr = this.adrService.getPost(adventureReviewID);
+        Adventure_ReviewDTO adr = this.adrService.getPost(adventureReviewID);        
         model.addAttribute("adventure", adr);
         return "adventureReview_detail";
     }

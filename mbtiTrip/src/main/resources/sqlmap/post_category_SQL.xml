@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="post_category">
+
+	<insert id="insert" parameterType="hashMap" useGeneratedKeys="true"
+		keyProperty="PostID">  
+	    <![CDATA[
+	    insert into post_Category
+	    (postCategoryID, postCategory) 
+	    values
+	    (#{postCategoryID},#{postCategory})
+		]]>
+	</insert>
+
+	<select id="getList" resultType="int">
+	 	<![CDATA[ 
+		select * 
+     	from post_Category
+		where postCategoryID = #{postCategoryID} and postCategory = #{postCategory}
+		]]>
+    </select>
+</mapper>

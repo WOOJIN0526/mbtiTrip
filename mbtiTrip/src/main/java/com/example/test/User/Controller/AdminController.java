@@ -46,9 +46,10 @@ public class AdminController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/admin/mypage/{UID}", method = RequestMethod.GET)
-	public ModelAndView mypageadmin(@PathVariable("UID") Integer UID, UserDTO userdto, ModelAndView mav){
-		Map<String, Object> map = userService.getInfo(UID);
+	@RequestMapping(value = "/admin/mypage", method = RequestMethod.GET)
+	public ModelAndView mypageadmin(Principal principal, UserDTO userdto, ModelAndView mav){
+		Integer userUID = userService.findByUID(principal.getName());
+		Map<String, Object> map = userService.getInfo(userUID);
 		Integer mbti = (Integer) map.get("mbti");
 		
 		//사이트 관리 페이지에 필요한 정보들 들어갈 예정 

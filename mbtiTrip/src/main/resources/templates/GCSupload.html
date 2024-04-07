@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이미지 업로드</title>
+</head>
+<body>
+    <h2>이미지 업로드하기</h2>
+    <form th::action="@{/api/gcs/upload}" method="post" enctype="multipart/form-data" id="Form">
+        <input type="file" name="file" accept="image/*">
+        <input type="submit" value="업로드">
+    </form>
+	<script>
+
+	</script>
+</body>
+</html>

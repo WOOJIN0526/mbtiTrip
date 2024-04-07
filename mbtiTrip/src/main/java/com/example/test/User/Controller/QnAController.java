@@ -2,6 +2,7 @@ package com.example.test.User.Controller;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.test.User.DTO.QAnswerDTO;
 import com.example.test.User.DTO.QnADTO;
 import com.example.test.User.Service.QnAService;
 import com.example.test.User.Service.UserService;import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -38,8 +40,6 @@ public class QnAController {
 	
 	@Autowired
 	QnAService qnaService;
-	
-	
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView QAndA(ModelAndView mav, QnADTO qna) {
@@ -82,19 +82,33 @@ public class QnAController {
 	@RequestMapping(value = "/detail/{QID}", method = RequestMethod.GET)
 	public ModelAndView QAndA(@PathVariable  Integer QID, ModelAndView mav,
 							QnADTO qna) {
-		QnADTO qnaDetail =qnaService.QnAdetail(QID);
+		Map<String, Object> qnaDetail =qnaService.QnAdetail(QID);
 		return mav;
 	}
 	
 	@RequestMapping(value = "/myQnA", method= RequestMethod.GET)
 	public ModelAndView myQnA(HttpServletRequest session , Principal prin, QnADTO qna, ModelAndView mav) {
 		String userName = prin.getName();
-		Map<String , Object> qnaList = qnaService.getMyQnA(userName);
+		List<HashMap<String, Object>> qnaList = qnaService.getMyQnA(userName);
 		mav.addObject("currentUrl", session.getRequestURL());
-		mav.addAllObjects(qnaList);
-		mav.setViewName("내가 쓴 QnA");
+		mav.addObject("qnaList", qnaList);
+		mav.setViewName("QAnswerTh");
 		return mav;
 	}
 	
 	
+	@RequestMapping(value = "/admin", method=RequestMethod.GET)
+	public ModelAndView adminQnA(Principal principal, ModelAndView mav) {
+		String adminName = principal.getName();
+		mav.addObject("adminName" , adminName);
+		mav.setViewName("QnAAnswerCreateForm");
+		return mav;
+	}
+	
+	@RequestMapping(value="/admin", method=RequestMethod.POST)
+	public boolean adminQnA(@RequestBody QAnswerDTO answer, Principal principal ) {
+		boolean ck = qnaService.updateAnswer(answer, principal);
+		return ck;
+	}
+
 }

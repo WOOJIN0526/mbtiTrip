@@ -1,0 +1,14 @@
+<div th:each= "qnaMap :${qnaList}">
+	<div>
+		<span th:text="${qnaMap['title']}"></span>
+		<span th:text="${qnaMap['userName']}"></span>
+		<span th:text="${qnaMap['contents']}"></span>
+		<span th:text="${qnaMap['updateDate']}"></span>
+		<div th:if="${qnaMap['adminName'] != null}">
+			<span th:text="${qnaMap['adminName']}"></span>
+			<span th:text="${qnaMap['A_content']}"></span>
+			<span th:text="${qnaMap['AupdateDate']}"></span>
+		</div>
+		
+	</div>
+</div>
