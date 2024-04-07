@@ -2,6 +2,7 @@ package com.example.test.User.Service;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.example.test.Adventure.DTO.AdventureDTO;
 import com.example.test.User.DAO.UserCartDAO;
 import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DTO.UserCartDTO;
+import com.example.test.item.DTO.ItemDTO;
 import com.example.test.replace.DTO.ReplaceDTO;
 import com.google.api.client.http.HttpResponse;
 
@@ -26,14 +28,12 @@ public class UserCartServiceImpl implements UserCartService{
 	UserCartDAO userCartDAO;
 	
 	@Override
-	public boolean insertReplace(UserCartDTO userCartDTO,  ReplaceDTO replaceDTO, 
+	public boolean insertItem(UserCartDTO userCartDTO,  ItemDTO ItemDTO, 
 									Principal principal )throws Exception{
 		//4.3 test끝 	
 		//URL  = /replace/cart Post
-		 List<ReplaceDTO> replaceInfo = new ArrayList();
-		 replaceInfo.add(replaceDTO);
 		userCartDTO.setUserName(principal.getName());
-		userCartDTO.setReplaceInfo(replaceDTO);
+		userCartDTO.setItemId(ItemDTO.getItemID());
 		userCartDTO.setPayment(false);
 		log.info("message {}", userCartDTO.toString());
 		int result = 0;
@@ -45,7 +45,7 @@ public class UserCartServiceImpl implements UserCartService{
 			throw new Exception("예약 날짜를 확인해주세요");
 			}
 		else {
-			 result = userCartDAO.insertRepace(userCartDTO);
+			 result = userCartDAO.insertItem(userCartDTO);
 		}
 		
 		if(result ==1) {
@@ -56,77 +56,39 @@ public class UserCartServiceImpl implements UserCartService{
 		return ck;
 	}
 
-	@Override
-	public boolean insertAD(UserCartDTO userCartDTO,AdventureDTO adventureDTO,
-							 Principal principal) throws Exception {
-		//URL  = /adventure/cart Post
-		
-		userCartDTO.setUserName(principal.getName());
-		userCartDTO.setAdventureInfo(adventureDTO);
-		userCartDTO.setPayment(false);
-		log.info("message {}", userCartDTO.toString());
-		int result = 0;
-		boolean ck = false;
-		if(userCartDTO.getStartDate() == null) {
-			throw new Exception("예약 날짜를 확인해주세요");
-			}
-		else if(userCartDTO.getEndDate() == null) {
-			throw new Exception("예약 날짜를 확인해주세요");
-			}
-		else {
-			 result = userCartDAO.insertAD(userCartDTO);
-		} 		
-		
-		if(result ==1) {
-			ck = true;
-		}
-		return ck;
-	}
 
+
+	
+	//수정 필요
 	@Override
-	public List<UserCartDTO> detail(UserCartDTO usercartdto ,Principal principal) {
+	public List<HashMap<String, Object>> detail(UserCartDTO usercartdto ,Principal principal) {
 		//url = mypage/ myCart
 		//payments get false;
 		usercartdto.setUserName(principal.getName());
-		List<UserCartDTO> userCart = this.userCartDAO.detail(usercartdto);
+		List<HashMap<String,Object>> userCart = this.userCartDAO.detail(usercartdto);
 		return userCart;
 	}
 	
+	
+	
+	// 수정 필요
 	@Override
-	public Integer sumPrice(List<UserCartDTO> userCart) {
+	public Integer sumPrice(List<HashMap<String, Object>> userCart) {
 		Integer result = 0;
 		boolean replaceCk;
 		boolean adventrueCk ;
-		for(UserCartDTO cart : userCart) {
-			log.info("Ck Cart ---->{}", cart.toString());
-			log.info("replaceCk ===>{}", cart.getReplaceInfo());
-			replaceCk = (cart.getReplaceInfo()!= null)? true : false;
-			adventrueCk =(cart.getAdventureInfo()!= null)? true : false; ;
-			if(replaceCk) {
-				Integer replacePrice = cart.getReplaceInfo().getReplacePrice();
-				result += replacePrice;
-			}
-			else {
-				continue;
-			}
-			
-			if(adventrueCk) {
-				Integer adventurePrice = cart.getAdventureInfo().getAdventurePrice();
-				result+= adventurePrice;
-			}
-			else {
-				continue;
-			}
-		}
+
+		
 		return result;
 	}
 
+	//수정 필요
 	@Override
-	public List<UserCartDTO> detail_Pay(UserCartDTO usercartdto ,Principal principal) {
+	public List<HashMap<String, Object>>  detail_Pay(UserCartDTO usercartdto ,Principal principal) {
 		//url = mypage/ myPayments
 		//payments get true;
 		usercartdto.setUserName(principal.getName());
-		List<UserCartDTO> userCart = this.userCartDAO.detail(usercartdto);
+		List<HashMap<String, Object>> userCart = this.userCartDAO.detail(usercartdto);
 		return userCart;
 	}
 
@@ -153,24 +115,15 @@ public class UserCartServiceImpl implements UserCartService{
 	}
 
 	@Override
-	public boolean deleteReplace(Principal principal, ReplaceDTO replace) {
+	public boolean deleteItem(Principal principal, Integer itemID) {
 		UserCartDTO userCart = new UserCartDTO();
 		userCart.setUserName(principal.getName());
-		userCart.setReplaceInfo(replace);
-		Integer result = userCartDAO.deleteReplace(userCart);
+		userCart.setItemId(itemID);
+		Integer result = userCartDAO.deleteItem(userCart);
 		boolean ck = (result == 1) ? true : false; 		
 		return ck;
 	}
 
-	@Override
-	public boolean deleteAD(Principal principal, AdventureDTO adventure) {
-		UserCartDTO userCart = new UserCartDTO();
-		userCart.setUserName(principal.getName());
-		userCart.setAdventureInfo(adventure);
-		Integer result = userCartDAO.deleteAD(userCart);
-		boolean ck = (result == 1) ? true : false; 		
-		return ck;
-	}
 
 	@Override
 	public boolean deleteALL(Principal principal) {

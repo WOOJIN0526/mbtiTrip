@@ -3,7 +3,7 @@
 <mapper namespace="post_category">
 
 	<insert id="insert" parameterType="hashMap" useGeneratedKeys="true"
-		keyProperty="UID">  
+		keyProperty="PostID">  
 	    <![CDATA[
 	    insert into post_Category
 	    (postCategoryID, postCategory) 
@@ -15,9 +15,8 @@
 	<select id="getList" resultType="int">
 	 	<![CDATA[ 
 		select * 
-     	 from post_Category
+     	from post_Category
 		where postCategoryID = #{postCategoryID} and postCategory = #{postCategory}
 		]]>
     </select>
-
 </mapper>

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.example.test.Adventure.DTO.AdventureDTO;
+import com.example.test.item.DTO.ItemDTO;
 import com.example.test.replace.DTO.ReplaceDTO;
 
 import lombok.Getter;
@@ -18,12 +19,8 @@ public class UserCartDTO {
 	private String userName;  //Fk
 	
 	private Integer finalPrice;
-	
-	//UserCartRePlace
-	private ReplaceDTO replaceInfo;
-	
-	//UserCartAdventrud
-	private AdventureDTO adventureInfo;  //FK
+
+	private Integer itemId;  //FK
 	
 	private LocalDateTime StartDate;
 

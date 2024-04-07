@@ -1,6 +1,7 @@
 package com.example.test.User.Controller;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import com.example.test.Adventure.DTO.AdventureDTO;
 import com.example.test.User.DTO.UserCartDTO;
 import com.example.test.User.Service.UserCartService;
 import com.example.test.User.Service.UserService;
+import com.example.test.item.DTO.ItemDTO;
 import com.example.test.replace.DTO.ReplaceDTO;
 
 import lombok.extern.log4j.Log4j2;
@@ -30,17 +32,9 @@ public class UserCartController {
 	
 	@RequestMapping("")
 	public ModelAndView detail_Cart(Principal principal, UserCartDTO usercartDTO, ModelAndView mav) {		
-		List<UserCartDTO> userCart = userCartservice.detail(usercartDTO, principal);
+		List<HashMap<String, Object>> userCart = userCartservice.detail(usercartDTO, principal);
 		Integer sumPrice = userCartservice.sumPrice(userCart);
 		log.info("message userCarts  => {}", userCart);
-		for(UserCartDTO cart : userCart) {
-			if(cart.getAdventureInfo() != null) {
-				log.info(cart.getAdventureInfo().toString());
-			}
-			if(cart.getReplaceInfo() != null) {
-				log.info(cart.getReplaceInfo().toString());
-			}
-		}
 		mav.addObject("sumPrice", sumPrice);
 		mav.addObject("userCarts", userCart);
 		mav.setViewName("Thtest");
@@ -49,7 +43,7 @@ public class UserCartController {
 	
 	@RequestMapping("/pay")
 	public ModelAndView detail_Pay(Principal principal, UserCartDTO usercartDTO, ModelAndView mav) {
-		List<UserCartDTO> userCart = userCartservice.detail_Pay(usercartDTO, principal);
+		List<HashMap<String, Object>> userCart = userCartservice.detail_Pay(usercartDTO, principal);
 		log.info("userCartController {}", userCart.toString());
 		mav.addObject("userCarts", userCart);
 		mav.setViewName("Mycart_info");
@@ -58,13 +52,13 @@ public class UserCartController {
 	
 
 	@RequestMapping(value="/replace/input" , method=RequestMethod.POST)
-	public boolean insertReplace(@RequestBody ReplaceDTO replaceDTO,
+	public boolean insertReplace(@RequestBody ItemDTO itemDTO,
 								@RequestBody UserCartDTO userCartDTO
 								,Principal principal
 								,ModelAndView mav){
 		boolean ck = false;
 		try {
-			 ck = userCartservice.insertReplace(userCartDTO, replaceDTO, principal);
+			 ck = userCartservice.insertItem(userCartDTO, itemDTO, principal);
 		} catch (NullPointerException e) {
 			mav.addObject("error", e.getMessage());
 		}
@@ -75,13 +69,13 @@ public class UserCartController {
 	}
 	
 	@RequestMapping(value="/adventure/input" , method=RequestMethod.POST)
-	public boolean insertReplace(@RequestBody AdventureDTO adventureDTO,
+	public boolean inserItem(@RequestBody ItemDTO itemDTO,
 								@RequestBody UserCartDTO userCartDTO
 								,Principal principal
 								,ModelAndView mav){
 		boolean ck = false;
 		try {
-			 ck = userCartservice.insertAD(userCartDTO, adventureDTO, principal);
+			 ck = userCartservice.insertItem(userCartDTO, itemDTO, principal);
 		} catch (NullPointerException e) {
 			mav.addObject("error", e.getMessage());
 		}
@@ -91,18 +85,13 @@ public class UserCartController {
 		return  ck;
 	}
 	
-	@RequestMapping(value="replace/delte", method=RequestMethod.POST)
-	public boolean deleteReplace(@RequestBody ReplaceDTO replace,
+	@RequestMapping(value="item/delte", method=RequestMethod.POST)
+	public boolean deleteReplace(@RequestBody Integer itemId,
 								Principal principal) {
-		boolean ck = userCartservice.deleteReplace(principal, replace);
+		boolean ck = userCartservice.deleteItem(principal, itemId);
 		return ck;
 	}
 	
-	@RequestMapping(value="Adventure/delte", method=RequestMethod.POST)
-	public boolean deleteAdventure(@RequestBody AdventureDTO adventure, Principal principal) {
-		boolean ck = userCartservice.deleteAD(principal, adventure);
-		return ck;
-	}
 	@RequestMapping(value="/delte", method=RequestMethod.POST)
 	public boolean deleteALL(Principal principal) {
 		boolean ck = userCartservice.deleteALL(principal);

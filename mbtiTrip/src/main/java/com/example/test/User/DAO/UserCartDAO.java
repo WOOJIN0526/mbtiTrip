@@ -2,6 +2,7 @@ package com.example.test.User.DAO;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -32,38 +33,25 @@ public class UserCartDAO {
 	SqlSessionTemplate sqlSessiontemplate;
 	
 	//insert하는 정보에 따른 분할
-	public int insertRepace(UserCartDTO userCartDTO) {
-		int result = sqlSessiontemplate.insert("userCart.insertReplace", userCartDTO);
+	public int insertItem(UserCartDTO userCartDTO) {
+		int result = sqlSessiontemplate.insert("userCart.insertItem", userCartDTO);
 		return result;
 	}
 	
-	public int insertAD(UserCartDTO userCartDTO) {
-		int result = this.sqlSessiontemplate.insert("userCart.insertAD", userCartDTO) ;
 
-		return result;
-	}
-	
 	//사용자에게 보여 질 userCart
-	public List<UserCartDTO> detail(UserCartDTO userCartDTO){
+	public List<HashMap<String, Object>> detail(UserCartDTO userCartDTO){
 		//payments가 false인경우만 조회 
-		List<UserCartDTO> userCart = this.sqlSessiontemplate.selectList("userCart.detail", userCartDTO);
-		for(UserCartDTO cart : userCart) {
-			log.info("Ck Cart ---->{}", cart.toString());
-			log.info("replaceCk ===>{}", cart.getReplaceInfo());
-			log.info("adv ck ===>{}", cart.getAdventureInfo());
-		}
-		
+		List<HashMap<String, Object>> userCart = this.sqlSessiontemplate.selectList("userCart.detail", userCartDTO);
+		log.info("messsage ===> userCart Detail_Pay {}", userCart);
 		return userCart;
 	}
 	
+	
 	//결제 완료된 내역 eq 예약 된 정보 
-	public List<UserCartDTO> detail_pay(UserCartDTO userCartDTO){
-		List<UserCartDTO> userCart = this.sqlSessiontemplate.selectList("userCart.detailPay", userCartDTO);
-		for(UserCartDTO cart : userCart) {
-			log.info("Ck Cart ---->{}", cart.toString());
-			log.info("replaceCk ===>{}", cart.getReplaceInfo());
-			log.info("adv ck ===>{}", cart.getAdventureInfo());
-		}
+	public List<HashMap<String, Object>> detail_pay(UserCartDTO userCartDTO){
+		List<HashMap<String, Object>> userCart = this.sqlSessiontemplate.selectList("userCart.detailPay", userCartDTO);
+		log.info("messsage ===> userCart Detail_Pay {}", userCart);
 		return userCart;
 	}
 
@@ -80,12 +68,9 @@ public class UserCartDAO {
 		return result;
 	}
 	
-	public int deleteReplace(UserCartDTO userCart) {
-		int result = this.sqlSessiontemplate.delete("userCart.deletRE", userCart);
-		return result;
-	}
 	
-	public int deleteAD(UserCartDTO userCart) {
+	
+	public int deleteItem(UserCartDTO userCart) {
 		int result = this.sqlSessiontemplate.delete("userCart.deletRE", userCart);
 		return result;
 	}

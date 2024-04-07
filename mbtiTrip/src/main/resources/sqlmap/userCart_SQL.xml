@@ -2,49 +2,57 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userCart">
 
-	<insert id="insertReplace" parameterType="hashMap"
+	<insert id="insertItem" parameterType="hashMap"
 		useGeneratedKeys="true">  
 	<![CDATA[
-		insert into userCart (userName, startDate, endDate, replaceID, payment)
+		insert into userCart (userName, startDate, endDate, itemID, payment)
 	    values
-        (#{userName}, #{StartDate}, #{endDate}, #{replaceInfo.replaceID}, #{payment})
+        (#{userName}, #{StartDate}, #{endDate}, #{itemId}, #{payment})
    	]]>
 	</insert>
 
-	<insert id="insertAD" parameterType="hashMap"
-		useGeneratedKeys="true">  
-	<![CDATA[
-		insert into userCart (userName, startDate, endDate, adventureID, payment)
-	    values
-        (#{userName}, #{StartDate}, #{endDate}, #{adventureInfo.adventureID}, #{payment})
- 	]]>
-	</insert>
 
-
-	<select id="detail" resultMap="userCartResult">
+	<select id="detail" resultMap="hashMap">
 	<![CDATA[
-	select uc.userName, uc.startDate, uc.endDate,
-		   re.Replace_name, re.Replace_location, re.price, re.contents, re.rating_avg,
-       ad.adventureName, ad.adventureLocation, ad.adventurePrice, ad.adventureContent, ad.ratingAvg
-		from `replace` re
-		right join userCart uc
-		on uc.replaceId = re.Replace_key
-		left   join Adventure ad 
-		on uc.adventureID = ad.adventureId  
-		where uc.userName = #{userName} and uc.payment = false; 	
+		SELECT 
+		    uc.userName, 
+		    uc.startDate, 
+		    uc.endDate,
+		    COALESCE(re.itemName, ad.itemName) AS itemName,
+		    COALESCE(re.location, ad.location) AS location,
+		    COALESCE(re.price, ad.adventurePrice) AS price,
+		    COALESCE(re.contents, ad.contents) AS content,
+		    COALESCE(re.ratingAvg, ad.ratingAvg) AS ratingAvg
+		FROM 
+		    userCart uc
+		LEFT JOIN 
+		    Item re ON uc.replaceId = re.itemId AND re.Type = 'replace'
+		LEFT JOIN 
+		    Item ad ON uc.adventureID = ad.itemId AND ad.Type = 'adventure'
+		WHERE 
+		    uc.userName = #{userName} AND uc.payment = false;	
 	]]>
 	</select>
-	<select id="detailPay" resultMap="userCartResult">
+	
+	<select id="detailPay" resultMap="hashMap">
 	 <![CDATA[
-		select uc.userName, uc.startDate, uc.endDate,
-				   re.Replace_name, re.Replace_location, re.price, re.contents, re.rating_avg,
-		       ad.adventureName, ad.adventureLocation, ad.adventurePrice, ad.adventureContent, ad.ratingAvg
-		from `replace` re
-		right join userCart uc
-		on uc.replaceId = re.Replace_key
-		left   join Adventure ad 
-		on uc.adventureID = ad.adventureId  
-		where uc.userName = #{userName} and uc.payment = true; 
+		SELECT 
+		    uc.userName, 
+		    uc.startDate, 
+		    uc.endDate,
+		    COALESCE(re.itemName, ad.itemName) AS itemName,
+		    COALESCE(re.location, ad.location) AS location,
+		    COALESCE(re.price, ad.price) AS price,
+		    COALESCE(re.contents, ad.contents) AS content,
+		    COALESCE(re.ratingAvg, ad.ratingAvg) AS ratingAvg
+		FROM 
+		    userCart uc
+		LEFT JOIN 
+		    Item re ON uc.replaceId = re.itemId AND re.Type = 'replace'
+		LEFT JOIN 
+		    Item ad ON uc.adventureID = ad.itemId AND ad.Type = 'adventure'
+		WHERE 
+		    uc.userName = #{userName} AND uc.payment = true;
 	]]>
 	</select>
 
@@ -66,17 +74,10 @@
 		]]>
 	</update>
 
-	<delete id="deletRE">
+	<delete id="deletItem">
 	<![CDATA[
 			delete from userCart 
-			where userName = #{userName} and replaceId = #{replaceInfo.replaceID};	
-	]]>
-	</delete>
-
-	<delete id="deletAD">
-	<![CDATA[
-			delete from userCart 
-			where userName = #{userName} and replaceId = #{replaceInfo.replaceID};	
+			where userName = #{userName} and itemId = #{itemId};	
 	]]>
 	</delete>
 
@@ -87,41 +88,5 @@
 	]]>
 	</delete>
 
-	<resultMap id="userCartResult"
-		type="com.example.test.User.DTO.UserCartDTO">
-		<result property="startDate" column="startDate" />
-		<result property="endDate" column="endDate" />
-		<result property="payment" column="payment" />
-		<association property="replaceInfo"
-			javaType="com.example.test.replace.DTO.ReplaceDTO">
-			<result column="Replace_key" property="replaceId" />
-			<result column="MBTI_ID" property="mbtiID" />
-			<result column="City_Key" property="cityID" />
-			<result column="Post_CateGory_ID" property="postCategoryID" />
-			<result column="RE_type_key" property="replaceType" />
-			<result column="Replace_name" property="replaceName" />
-			<result column="Replace_location" property="replaceLocation" />
-			<result column="price" property="replacePrice" />
-			<result column="contents" property="replaceContents" />
-			<result column="tel" property="tel" />
-			<result column="replace_admin" property="replaceAdmin" />
-		</association>
-		<association property="adventureInfo"
-			javaType="com.example.test.Adventure.DTO.AdventureDTO">
-			<result column="adventureID" property="adventureID" />
-			<result column="adventureCategoryID"
-				property="adventureCategoryID" />
-			<result column="MBTI_ID" property="mbtiID" />
-			<result column="City_Key" property="cityID" />
-			<result column="Post_CateGory_ID" property="postCategoryID" />
-			<result column="adventureTypeId" property="adventureTypeId" />
-			<result column="adventureName" property="adventureName" />
-			<result column="adventureLocation"
-				property="adventureLocation" />
-			<result column="adventurePrice" property="adventurePrice" />
-			<result column="adventureContent" property="adventureContent" />
-			<result column="tel" property="tel" />
-			<result column="adventureAdmin" property="adventureAdmin" />
-		</association>
-	</resultMap>
+
 </mapper>

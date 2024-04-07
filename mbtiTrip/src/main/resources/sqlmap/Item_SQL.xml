@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="item">
+
+	<insert id="create">
+	insert into Item(Type, mbti, userName, price, itemName, location, tel, contents, ratingAvg, updateDate, uprating, imgUrl)
+	value(#{Type},#{mbti}, #{userName}, #{price}, #{itemName},#{location}, #{tel}, #{contents}, #{ratingAvg},  #{updateDate}, #{uprating}, #{imgUrl})
+	</insert>
+
+
+	<select id="replaceList" resultType="hashMap">
+		select * from Item
+		where Type ="replace"
+	</select>
+	
+	<select id="adventure" resultType ="hashMap">
+		select * from Item
+		where Type ="adventure"
+	</select>
+	
+	<select id="myItem" resultType = "hashMap">
+		select * from Item
+		where userName = #{userName}
+	</select>
+
+	<select id="itemByMbti" resultType ="hashMap">
+		select * from Item
+		where mbti = #{mbti}
+	</select>
+
+	<select id="itemByLocation" resultType ="hashMap">
+		select * from Item
+		where location like #{location}%
+	</select>
+
+	<select id="mbtiAndLocation" resultType ="hashMap">
+		selct * from Item
+		where mbti =#{mbti} and location Like #{location}%
+	</select>
+	
+	
+	
+	<delete id="deleteItem">
+		delete from Item 
+		where itemId = #{itemID}
+	</delete>
+ 
+</mapper>
