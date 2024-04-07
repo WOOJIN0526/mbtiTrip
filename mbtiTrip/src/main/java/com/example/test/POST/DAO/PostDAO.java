@@ -66,6 +66,11 @@ public class PostDAO {
 		sqlSessiontemplate.update("post.updateCount", postID);
 	}
 
+	public List<PostDTO> findByPostCategoryID(Long postCategoryID) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectOne("post.findByPostCategoryID", postCategoryID);
+	}
+
 
 
 	

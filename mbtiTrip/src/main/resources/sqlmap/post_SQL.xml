@@ -53,6 +53,14 @@
      limit #{pageStart}, #{perPageNum}
 	]]>
 	</select>
+	
+	<select id="findByPostCategoryID" resultType="hashmap">
+	 <![CDATA[
+		SELECT * 
+		FROM Post
+		WHERE postID = #{PostID} And userName=#{userName}; 
+	]]>
+	</select>
 
 	<update id="updateCount">
 	<![CDATA[

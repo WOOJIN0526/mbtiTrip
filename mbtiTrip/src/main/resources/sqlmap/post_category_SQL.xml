@@ -12,11 +12,11 @@
 		]]>
 	</insert>
 
-	<select id="getList" resultType="com.example.test.POST.DTO.Post_CategoryDTO">
+	<select id="getList" resultType="int">
 	 	<![CDATA[ 
-		select postCategoryID 
+		select * 
      	 from post_Category
-		where postCategory = ${postCategory}
+		where postCategoryID = #{postCategoryID} and postCategory = #{postCategory}
 		]]>
     </select>
 
