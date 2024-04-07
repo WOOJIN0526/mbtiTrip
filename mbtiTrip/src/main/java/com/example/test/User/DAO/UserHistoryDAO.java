@@ -12,6 +12,7 @@ import com.example.test.Adventure.DTO.AdventureDTO;
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.User.DTO.QnADTO;
 import com.example.test.User.DTO.UserHistoryDTO;
+import com.example.test.item.DTO.ItemDTO;
 import com.example.test.replace.DTO.ReplaceDTO;
 
 import lombok.Data;
@@ -25,12 +26,8 @@ public class UserHistoryDAO {
 	SqlSessionTemplate sqlsessiontemplate;
 	
 	/*사용자가 해당 게시글들을 조회할 때마다 기록 */
-	public void  viewCkRE(UserHistoryDTO userHistory) {
+	public void  viewCkItem(UserHistoryDTO userHistory) {
 		this.sqlsessiontemplate.insert("view.viewRE", userHistory);
-	}
-	
-	public void viewCkAD(UserHistoryDTO userHistoryDTO) {
-		this.sqlsessiontemplate.insert("view.viewAD", userHistoryDTO);
 	}
 	
 	public void viewCkPO(UserHistoryDTO userHistoryDTO) {
@@ -40,14 +37,14 @@ public class UserHistoryDAO {
 	
 	
 	//사용자가 조회한 숙소 정보 -> limit 통해서 최근 5개 건만
-	public List<ReplaceDTO> viewReturnRE(String userName) {
+	public List<ItemDTO> viewReturnRE(String userName) {
 		log.info("HIStoryDAO => {}", userName);
-		List<ReplaceDTO> returnvalue =this.sqlsessiontemplate.selectList("view.ReturnRE", userName);
+		List<ItemDTO> returnvalue =this.sqlsessiontemplate.selectList("view.ReturnRE", userName);
 		return returnvalue;
 	}
 	
 	//사용자가 조회한 놀거리 정보 -> limit 통해서 최근 5개 건만
-	public List<AdventureDTO> viewReturnAD(String userName) {
+	public List<ItemDTO> viewReturnAD(String userName) {
 		log.info("HIStoryDAO => {}", userName);
 		return this.sqlsessiontemplate.selectList("view.ReturnAD", userName);
 	}
@@ -58,6 +55,7 @@ public class UserHistoryDAO {
 		return this.sqlsessiontemplate.selectList("view.ReturnPO", userName);
 	}
 
+	
 	//사용자가 작성한 개시물 
 	public List<HashMap<String, Object>> userCreatePost(String userName){
 		return this.sqlsessiontemplate.selectList("view.userCreatePost", userName);

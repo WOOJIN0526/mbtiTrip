@@ -1,6 +1,7 @@
 package com.example.test.item.DTO;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -26,11 +27,21 @@ public class ItemDTO {
 	
 	private String contents;
 	
-	private double ratingAvg;
+	private double ratingAvg = 0;
 	
 	private LocalDateTime updateDate;
 	
-	private Integer up; //추천수 
+	private Integer uprating = 0; //추천수 
 	
-	private String[] ImgeUrl; //사진 저장 Xml 쿼리 작성시 아마 따로 불러와서 set 하던지 해야 함 
+	private String[] ImgeUrl = null; //사진 저장 Xml 쿼리 작성시 아마 따로 불러와서 set 하던지 해야 함 
+
+	@Override
+	public String toString() {
+		return "ItemDTO [itemID=" + itemID + ", Type=" + Type + ", mbti=" + mbti + ", Username=" + Username + ", price="
+				+ price + ", itemName=" + itemName + ", location=" + location + ", tel=" + tel + ", contents="
+				+ contents + ", ratingAvg=" + ratingAvg + ", updateDate=" + updateDate + ", uprating=" + uprating
+				+ ", ImgeUrl=" + Arrays.toString(ImgeUrl) + "]";
+	}
 }
+
+

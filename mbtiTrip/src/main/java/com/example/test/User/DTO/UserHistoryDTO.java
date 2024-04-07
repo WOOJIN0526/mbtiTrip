@@ -16,19 +16,18 @@ public class UserHistoryDTO {
 	
 	private Integer postid;
 
-	private Integer replaceid;
-	
-	private Integer adventureid;
+	private Integer itemId;
 	
 	private LocalDateTime viewDate;
-	
-	
+
 	@Override
 	public String toString() {
-		return "{userName ="+userName+", post ="+
-				postid.toString() + ", replace ="+ replaceid.toString() + 
-	", adventure =" + adventureid.toString() +", viewDate ="+ viewDate + "}" ;
+		return "UserHistoryDTO [userName=" + userName + ", postid=" + postid + ", itemId=" + itemId + ", viewDate="
+				+ viewDate + "]";
 	}
+	
+	
+
 
 }
 
