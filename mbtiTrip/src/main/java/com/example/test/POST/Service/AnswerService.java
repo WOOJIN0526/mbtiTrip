@@ -6,6 +6,7 @@ import com.example.test.POST.DTO.AnswerDTO;
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.DTO.PostReviewDTO;
 import com.example.test.User.DTO.UserDTO;
+import com.example.test.item.DTO.ItemDTO;
 
 public interface AnswerService {
 
@@ -18,6 +19,8 @@ public interface AnswerService {
 	 public void delete(AnswerDTO answerDto);
 
 	public AnswerDTO create(PostReviewDTO postDto, String content, UserDTO userDto);
+
+	public AnswerDTO create(ItemDTO postDto, String content, UserDTO userDto);
 	 
 	
 	
