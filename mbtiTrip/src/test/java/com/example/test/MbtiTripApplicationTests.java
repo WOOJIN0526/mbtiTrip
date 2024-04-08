@@ -48,10 +48,13 @@ class MbtiTripApplicationTests {
 	void contextLoads() {
 		userHistoryDTO.setUserName("testUser4");
 		
+		String userName = "testUser4";
 		List<HashMap<String, Object>> userpost = userHistoryDAO.userCreatePost("testUser4");
 		for(HashMap<String, Object> up: userpost) {
 			log.info("usercreatePost : ===>{}", up);
 		}
+		
+		List<HashMap<String, Object>> userQnA = userHistoryDAO.userCreateQnA("testUser4");
 		
 		
 		
