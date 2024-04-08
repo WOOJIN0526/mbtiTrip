@@ -85,6 +85,27 @@ a{
     justify-content:flex-end;
     text-align: center;
 }
+.adventure_reservation{
+    width: 55rem;
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-end;
+    text-align: center;
+}
+.post_reservation{
+    width: 55rem;
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-end;
+    text-align: center;
+}
+.qna_reservation{
+    width: 55rem;
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-end;
+    text-align: center;
+}
 
 form{
     display: flex;
@@ -92,6 +113,18 @@ form{
 }
 
 .repalce_information{
+    border: 1px solid;
+    border-collapse: collapse;
+}
+.adventure_information{
+    border: 1px solid;
+    border-collapse: collapse;
+}
+.post_information{
+    border: 1px solid;
+    border-collapse: collapse;
+}
+.qna_information{
     border: 1px solid;
     border-collapse: collapse;
 }
@@ -108,13 +141,13 @@ td{
 }
 
 .√{
-    padding-inline: 15px;
+    padding-inline: 1rem;
     border-radius: 0.4rem;
     background-color: skyblue;
 }
 
 .X{
-    padding-inline: 15px;
+    padding-inline: 1rem;
     border-radius: 0.4rem;
     background-color: red;
 }
