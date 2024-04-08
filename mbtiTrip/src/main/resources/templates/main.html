@@ -1,19 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	**xmlns:sec="http://www.thymeleaf.org/extras/spring-security"**
+	layout:decorate="~{layout.html}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>main</title>
-    <link rel="stylesheet" href="css/main.css">
-
+	<link rel="stylesheet" th:href="@{/common/common.css}">
+	<link rel="stylesheet" th:href="@{/sakuraJS/sakura.min.css}">
+    <link rel="stylesheet" th:href="@{/main/main.css}">
+	<script th:src="@{/sakuraJS/sakura.min.js}"></script>
 </head>
 
 <body>
-
-    <header>
-        <nav>
+<section class="mainBG" layout:fragment="content">
+    <header class="mainHeader">
+        <!--<nav>
             <div class="logo">
                 
             </div>
@@ -26,7 +32,7 @@
                     <li><a href="#">로그인</a></li>
                 </ul>
             </div>
-        </nav>
+        </nav>-->
         <section>
             <div class="search__box">
                 <div class="search__title">자기 성형에 맞는 숙소를 예약하세요
@@ -66,7 +72,7 @@
         </section>
     </header>
 
-    <main>
+    <main class="mainCon">
         <section>
             <div class="sec__title">
                 즐길거리 둘러보기
@@ -92,19 +98,19 @@
 
             <!-- 사용자 추천 기능 들어갈곳 -->
         <section>
-            <div class="review">123</div>
-            <!--UX TEST -->
-<h1>사용자 맞춤형 루틴 정보</h1>
-<form th:object="${UserUXs}">
-   <div th:each="ux : ${UserUXs}">
-      <span th:text="${ux['Replace_name']}"></span><span>   &nbsp;</span>
-      <span th:text="${ux['Replace_location']}"></span><span>&nbsp;</span>
-      <span th:text="${ux['price']}"></span><span>&nbsp;</span>
-      <span th:text="${ux['adventureName']}"></span><span>&nbsp;</span>
-      <span th:text="${ux['adventureLocation']}"></span><span>&nbsp;</span>
-      <span th:text="${ux['adventurePrice']}"></span><span>&nbsp;</span>
-   </div>   
-</form>
+			            <div class="review">123</div>
+			            <!--UX TEST -->
+			<h1>사용자 맞춤형 루틴 정보</h1>
+			<form th:object="${UserUXs}">
+			   <div th:each="ux : ${UserUXs}">
+			      <span th:text="${ux['Replace_name']}"></span><span>   &nbsp;</span>
+			      <span th:text="${ux['Replace_location']}"></span><span>&nbsp;</span>
+			      <span th:text="${ux['price']}"></span><span>&nbsp;</span>
+			      <span th:text="${ux['adventureName']}"></span><span>&nbsp;</span>
+			      <span th:text="${ux['adventureLocation']}"></span><span>&nbsp;</span>
+			      <span th:text="${ux['adventurePrice']}"></span><span>&nbsp;</span>
+			   </div>   
+			</form>
 
 <section th:object="${userUxRe}">
    <div th:each="re: ${userUxRe}">
@@ -135,7 +141,7 @@
                 <div class="choo_img4"></div>
                 <div class="choo_img5"></div>
             </div>
-        </section>
+        
         <section>
             <div class="choo__box">
                 <div class="choo_img6"></div>
@@ -242,6 +248,9 @@
 
         
     </main>
+	
+	<script th:scr="@{/main/main.js}"></script>
+	</section>
 </body>
 
 </html>
