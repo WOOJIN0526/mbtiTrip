@@ -12,8 +12,9 @@ import java.util.Optional;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
 
@@ -71,6 +72,13 @@ public class PostDAO {
 		return sqlSessiontemplate.selectOne("post.findByPostCategoryID", postCategoryID);
 	}
 
+	public Page<PostDTO> findAll(Specification<PostDTO> spec, Pageable pageable) {
+		// TODO Auto-generated method stub
+		
+		return sqlSessiontemplate.selectOne("post.findAll", pageable);
+	}
+
+	
 
 
 	

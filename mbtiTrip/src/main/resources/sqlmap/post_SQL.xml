@@ -28,7 +28,7 @@
 	 <![CDATA[
 		SELECT count(PostID)
 		FROM Post
-		WHERE <if test="option == 'ID'"> userName like CONCAT('%',#{keyword},'%')</if>
+		WHERE <if test="option == 'ID'"> writer like CONCAT('%',#{keyword},'%')</if>
            	  <if test="option == 'SUBJECT'"> title like CONCAT('%',#{keyword},'%')</if>
            	  <if test="option == 'CONTENT'"> content like CONCAT('%',#{keyword},'%')</if>
            	  <if test="option == 'SUBJECT,CONTENT'"> title like CONCAT('%',#{keyword},'%')
@@ -42,8 +42,8 @@
 	<select id="list" resultType="hashMap">
 	<![CDATA[   
   	select PostID, PostCateGoryID, userName, title, Content, suggestion, views, UpdateDate, modifyDate, writer
-     from QNA
-     where <if test="option == 'ID'"> userName like CONCAT('%',#{keyword},'%')</if>
+     from Post
+     where <if test="option == 'ID'"> writer like CONCAT('%',#{keyword},'%')</if>
            <if test="option == 'SUBJECT'"> title like CONCAT('%',#{keyword},'%')</if>
            <if test="option == 'CONTENT'"> Content like CONCAT('%',#{keyword},'%')</if>
            <if test="option == 'SUBJECT,CONTENT'"> title like CONCAT('%',#{keyword},'%')

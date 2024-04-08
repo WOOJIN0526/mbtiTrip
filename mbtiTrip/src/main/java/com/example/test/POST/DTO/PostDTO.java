@@ -4,7 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
+import com.example.test.POST.Controller.PageDTO;
 import com.example.test.User.DTO.UserDTO;
+import com.example.test.paging.Criteria;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -34,6 +36,12 @@ public class PostDTO {
 	private LocalDateTime modifyDate;
 	
 	private List<AnswerDTO> answerList;
+	
+	private Criteria keyword;
+	
+	private Criteria perPageNum;
+	
+	private PageDTO pageStart;
 	
 	
 	private UserDTO writer;
