@@ -1,4 +1,4 @@
-package com.example.test.AdventureAnswer;
+package com.example.test.POST.Controller;
 
 import java.security.Principal;
 
@@ -14,48 +14,46 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 
-
-
 import com.example.test.POST.AnswerForm;
 import com.example.test.POST.DTO.AnswerDTO;
+
 import com.example.test.POST.DTO.PostReviewDTO;
 import com.example.test.POST.Service.AnswerService;
 import com.example.test.POST.Service.PostReviewService;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.Service.UserService;
 
-
 import jakarta.validation.Valid;
 
-@RequestMapping("/adventure/answer")
-@Controller
-public class AdventureAnswerController {
 
-			@Autowired
-			AnswerService answerService;
+@RequestMapping("/review/answer")
+@Controller
+public class ReviewAnswerController {
+
+	@Autowired
+	AnswerService answerService;
 	
-			@Autowired
-			PostReviewService prService;
+	@Autowired
+	PostReviewService prService;
 	
-			@Autowired
-			UserService userService;
+	@Autowired
+	UserService userService;
 	
-			// 답변등록
+	// 답변등록
 			@PreAuthorize("isAuthenticated()")
-			@PostMapping("/create/{id}")
-			public String createAnswer(Model model, @PathVariable("id") Integer answerID, 
-		            @Valid AnswerForm answerForm, BindingResult bindingResult, Principal principal) 
-		{
-		   PostReviewDTO postDto = this.prService.getPost(answerID);
-		   UserDTO UserDto = this.userService.getUser(principal.getName());
-		   if (bindingResult.hasErrors()) {
-		       model.addAttribute("adventure", postDto);
-		            return "adventure_detail";
-		   }
-		     AnswerDTO answerDto = this.answerService.create(postDto, 
-		     answerForm.getContent(), UserDto);
-		     return String.format("redirect:/adventure/detail/%s#answer_%s", 
-		     answerDto.getPrID().getItemID(), answerDto.getAnswerID());
+		    @PostMapping("/create/{id}")
+		    public String createAnswer(Model model, @PathVariable("id") Integer answerID, 
+		            @Valid AnswerForm answerForm, BindingResult bindingResult, Principal principal) {
+		        PostReviewDTO postDto = this.prService.getPost(answerID);
+		        UserDTO UserDto = this.userService.getUser(principal.getName());
+		        if (bindingResult.hasErrors()) {
+		            model.addAttribute("postReview", postDto);
+		            return "review_detail";
+		        }
+		        AnswerDTO answerDto = this.answerService.create(postDto, 
+		                answerForm.getContent(), UserDto);
+		        return String.format("redirect:/post/detail/%s#answer_%s", 
+		                answerDto.getPrID().getItemID(), answerDto.getAnswerID());
 		    }
 		    
 			//답변수정된것 가져옴
@@ -83,7 +81,7 @@ public class AdventureAnswerController {
 		            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
 		        }
 		        this.answerService.modify(answerDto, answerForm.getContent());
-		        return String.format("redirect:/adventure/detail/%s#answer_%s", 
+		        return String.format("redirect:/post/review/detail/%s#answer_%s", 
 		                answerDto.getPrID().getWriter(), answerDto.getAnswerID());
 		    }
 		    
@@ -96,7 +94,7 @@ public class AdventureAnswerController {
 		            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
 		        }
 		        this.answerService.delete(answerDto);
-		        return String.format("redirect:/adventure/detail/%s", answerDto.getPrID().getItemID());
+		        return String.format("redirect:/post/review/detail/%s", answerDto.getPrID().getItemID());
 		    }
-    
+	
 }

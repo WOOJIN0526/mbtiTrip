@@ -4,6 +4,8 @@ import java.util.Map;
 
 import org.springframework.context.annotation.Bean;
 
+import com.example.test.User.DTO.AdminDTO;
+
 public interface adminService {
 
 	public boolean userBaned(String username); 
@@ -22,5 +24,7 @@ public interface adminService {
 	public int adventureCnt();
 	//각각의 detail 
 	@Bean
-	public void dailyrating(); 
+	public void dailyrating();
+
+	
 }

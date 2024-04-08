@@ -2,29 +2,31 @@ package com.example.test.Adventure.Service;
 
 import java.util.List;
 
-import com.example.test.Adventure.DTO.AdventureDTO;
-import com.example.test.Adventure.DTO.Adventure_CategoryDTO;
-import com.example.test.POST.DTO.PostDTO;
-import com.example.test.POST.DTO.Post_CategoryDTO;
+
+import com.example.test.User.DTO.AdminDTO;
 import com.example.test.User.DTO.UserDTO;
+import com.example.test.item.ItemType;
+import com.example.test.item.DTO.ItemDTO;
 import com.example.test.paging.Criteria;
 
 public interface AdventureService {
 
 
-	 public AdventureDTO getPost(Integer adventureID);
+ public ItemDTO getPost(Integer itemID);
 	 
-	 public AdventureDTO create(Integer postCategoryID, Integer mbtiID, Integer cityID, Integer adventureTypeId, 
-			 String adventureLocation, String adventureName, Integer adventurePrice, String adventureContent, String tel, String adventureAdmin, String adventure_CategoryID);
+	 public int create(ItemType Type, Integer mbti, AdminDTO Username,Integer price, 
+			 String itemName,String location, String tel, String contents, String[] ImgeUrl);
 	 
-	 public AdventureDTO modify(AdventureDTO adDto, Integer postCategoryID,  Integer mbtiID, Integer cityID, 
-			 Integer adventureTypeId, String adventureLocation, String adventureName, Integer adventurePrice, String adventureContent, String tel);
+	 public int modify(ItemDTO itemdto,ItemType Type, Integer mbti, Integer price, 
+			 String itemName,String location, String tel, String contents, String[] ImgeUrl );
 	 
-	 public void delete(AdventureDTO adDto);
+	 public void delete(ItemDTO itemDto);
 	 
-	 public AdventureDTO suggestion(AdventureDTO adDto, UserDTO user);
+	 public int suggestion(ItemDTO itemDto, UserDTO user);
 	 
-	 List<AdventureDTO> list(Criteria cri) throws Exception;
+	 List<ItemDTO> list(Criteria cri) throws Exception;//검색 조건에 따라 게시글 목록을 가져오는 역할
 
-	 public int listCount(Criteria cri) throws Exception;
+	 public int listCount(Criteria cri) throws Exception;//검색 조건에 부합하는 게시글의 총 수를 반환
+
+	 public void setRating(Integer itemID);
 }
