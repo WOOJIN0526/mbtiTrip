@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="view">
-<!-- 
+ 
 
 	<insert id="viewitem" parameterType="hashMap"
 		useGeneratedKeys="true">  
@@ -56,7 +56,7 @@
 	]]>
 	</select>
 
-	<select id="userCreatePost" resultType="list">
+	<select id="userCreatePost" resultType="hashMap">
 	<![CDATA[
 		select p.PostID, p.title , p.updateDate, p.PostCateGoryID, p.views, p.suggestion
 		from `User` u
@@ -164,5 +164,5 @@
 		LIMIT 4;
 		]]>
 	</select>
- -->
+
 </mapper>

@@ -30,7 +30,7 @@ public class UserDTO implements UserDetails{
 	
 	private Integer mbti;   //FK
 	
-	private String BNum;
+	private String bisNum;
 	
 	private String password;
 
@@ -56,7 +56,7 @@ public class UserDTO implements UserDetails{
 	         + "userName=" + userName + ", mail=" + mail
 	         + ", phone=" + phone+ 
 	         ", mbti=" +mbti+ ", admin= "+ userrole
-	         + ", BNum =" + BNum + "loked =" + loked+"]";    
+	         + ", BNum =" + bisNum + "loked =" + loked+", userRoele="+ userrole+"]";    
 	   }
 
 	@Override
