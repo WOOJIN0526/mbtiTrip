@@ -36,6 +36,7 @@ import com.example.test.User.DTO.User_Role;
 import com.example.test.User.Service.CustomLoginService;
 import com.example.test.User.Service.QnAService;
 import com.example.test.User.Service.UserHistoryService;
+import com.example.test.User.Service.UserHistoryService;
 import com.example.test.User.Service.UserService;
 import com.example.test.User.Service.UserServiceImpl;
 
@@ -56,7 +57,7 @@ public class UserController {
 	@Autowired
 	private CustomLoginService loginservice;
 	
-	@Autowired
+
 	private UserHistoryService userHistoryService;
 	
 
@@ -91,33 +92,33 @@ public class UserController {
 	}
 	
 	
-	/*UX 관련 테스트 진행 완료, TH 문법 적용 완료 */
-	@RequestMapping("usertest")
-	public ModelAndView main(Principal principar, ModelAndView mav) {
-		String userName = principar.getName();
-		
-		List<HashMap<String, Object>> userUX = userHistoryService.uxRutin(userName);
-		for(HashMap<String, Object> user : userUX) {
-			log.info(user);
-		}
-		
-		List<HashMap<String, Object>> userUXreplace = userHistoryService.uxReplace(userName);
-		for(HashMap<String, Object> userre : userUXreplace) {
-			log.info(" ");
-			log.info("message userRE ====>{}",userre);
-		}
-			
-		List<HashMap<String, Object>> userPlace = userHistoryService.uxAdventure(userName);
-		for(HashMap<String, Object> userad : userPlace) {
-			log.info(" ");
-			log.info("message userRE ====>{}",userad);
-		}
-		mav.addObject("UserUXs", userUX);
-		mav.addObject("userUxRe", userUXreplace);
-		mav.addObject("userUxadv", userPlace);
-		mav.setViewName("MainTest");
-		return mav;
-	}
+//	/*UX 관련 테스트 진행 완료, TH 문법 적용 완료 */
+//	@RequestMapping("usertest")
+//	public ModelAndView main(Principal principar, ModelAndView mav) {
+//		String userName = principar.getName();
+//		
+//		List<HashMap<String, Object>> userUX = userHistoryService.uxRutin(userName);
+//		for(HashMap<String, Object> user : userUX) {
+//			log.info(user);
+//		}
+//		
+//		List<HashMap<String, Object>> userUXreplace = userHistoryService.uxReplace(userName);
+//		for(HashMap<String, Object> userre : userUXreplace) {
+//			log.info(" ");
+//			log.info("message userRE ====>{}",userre);
+//		}
+//			
+//		List<HashMap<String, Object>> userPlace = userHistoryService.uxAdventure(userName);
+//		for(HashMap<String, Object> userad : userPlace) {
+//			log.info(" ");
+//			log.info("message userRE ====>{}",userad);
+//		}
+//		mav.addObject("UserUXs", userUX);
+//		mav.addObject("userUxRe", userUXreplace);
+//		mav.addObject("userUxadv", userPlace);
+//		mav.setViewName("MainTest");
+//		return mav;
+//	}
 	
 
 	@RequestMapping(value = "/signup", method=RequestMethod.GET)

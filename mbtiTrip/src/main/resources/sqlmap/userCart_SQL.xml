@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userCart">
 
-	<insert id="insertItem" parameterType="hashMap"
+	<insert id="insertItem" parameterType="com.example.test.User.DTO.UserCartDTO"
 		useGeneratedKeys="true">  
 	<![CDATA[
 		insert into userCart (userName, startDate, endDate, itemID, payment)
@@ -12,7 +12,7 @@
 	</insert>
 
 
-	<select id="detail" resultMap="hashMap">
+	<select id="detail" resultType="com.example.test.User.DTO.UserCartDTO">
 	<![CDATA[
 		SELECT 
 		    uc.userName, 
@@ -34,7 +34,7 @@
 	]]>
 	</select>
 	
-	<select id="detailPay" resultMap="hashMap">
+	<select id="detailPay" resultType="hashMap">
 	 <![CDATA[
 		SELECT 
 		    uc.userName, 

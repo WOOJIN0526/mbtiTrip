@@ -65,7 +65,7 @@ public class UserCartServiceImpl implements UserCartService{
 		//url = mypage/ myCart
 		//payments get false;
 		usercartdto.setUserName(principal.getName());
-		List<HashMap<String,Object>> userCart = this.userCartDAO.detail(usercartdto);
+		List<HashMap<String, Object>> userCart = this.userCartDAO.detail(usercartdto);
 		return userCart;
 	}
 	
