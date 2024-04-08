@@ -38,19 +38,21 @@ nav {
 }
 
 .search__box {
-    width: 430px;
+    /* width: 430px; */
     display: inline-block;
     padding: 20px 30px;
     background-color: white;
     position: relative  ;
     top: 10px;
     left: 50px;
-    border-radius: 6px;
+    border-radius: 50px;
+    margin-top: 3rem;
     box-shadow: 0 2px 2px 0 rgb(214, 214, 214);
-   
+  
 }
 
 .search__title {
+    font-family: 'NanumSquareNeo';
     padding: 10px 0;
     font-size: 30px;
     font-weight: 800;
@@ -94,9 +96,13 @@ table {
 }
 
 .mainCon {  
-    margin: 30px 80px;
+    margin: 30px 80px
 }
-
+.sec__title{
+    font-family: 'NanumSquareNeo';
+    font-weight: 400px;
+    font-size: 30px;
+}
 
 .sec__title2 {
     font-size: 25px;
@@ -204,18 +210,6 @@ table {
 }
 
 .choo_img8 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 250px;
-    background-size: 100% 100%;
-}
-
-.choo_img9 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 250px;
-    background-size: 100% 100%;
-}
-
-.choo_img10 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
     height: 250px;
     background-size: 100% 100%;
