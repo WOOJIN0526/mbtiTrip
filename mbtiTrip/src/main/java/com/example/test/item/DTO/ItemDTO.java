@@ -34,6 +34,8 @@ public class ItemDTO {
 	
 	private String contents;
 	
+	private Integer view;
+	
 	private double ratingAvg = 0;
 	
 	private Set<UserDTO> suggestion;
