@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="sqlmap.postReview_SQL">
+<mapper  namespace="postReview">
 
 	<insert id="create" parameterType="hashMap" useGeneratedKeys="true"
 		keyProperty="UID">  
 	    <![CDATA[
 	    insert into PostReview
-	    (itemID,postCategoryID,userName,title,content,suggestion,views,updateDate,modifyDate,writer) 
+	    (itemID,category,title,content,suggestion,views,updateDate,modifyDate,writer) 
 	    values
-	    (#{ItemId},#{PostCateGoryID},#{userName},#{title},#{Content},#{suggestion},#{views},#{UpdateDate},#{modifyDate}, #{writer})
+	    (#{ItemID},#{Category},#{title},#{Content},#{suggestion},#{views},#{UpdateDate},#{modifyDate}, #{writer})
 	]]>
 	</insert>
 
@@ -20,36 +20,52 @@
 	]]>
 	</select>
 
+	<sql id="search">
+        <if test="type != null and keyword != null">
+            <trim prefix="(" suffix=") AND " prefixOverrides="OR">
+                <foreach item="type" collection="typeArr">
+                    <trim prefix="OR">
+                        <choose>
+                            <when test="type =='t'.toString()">
+                                (TITLE LIKE '%'||#{keyword})||'%')
+                            </when>
+                            <when test="type =='c'.toString()">
+                                (CONTENT LIKE '%'||#{keyword})||'%')
+                            </when>
+                            <when test="type =='w'.toString()">
+                                (WRITER LIKE '%'||#{keyword})||'%')
+                            </when>
+                        </choose>
+                    </trim>
+                </foreach>
+            </trim>
+        </if>
+    </sql>
 
-	<select id="listCount" resultType="hashMap">
-	 <![CDATA[
-		SELECT count(PostID)
-		FROM Post
-		WHERE <if test="option == 'ID'"> userName like CONCAT('%',#{keyword},'%')</if>
-           	  <if test="option == 'SUBJECT'"> title like CONCAT('%',#{keyword},'%')</if>
-           	  <if test="option == 'CONTENT'"> content like CONCAT('%',#{keyword},'%')</if>
-           	  <if test="option == 'SUBJECT,CONTENT'"> title like CONCAT('%',#{keyword},'%')
-                                                 				    or content like CONCAT('%',#{keyword},'%')</if>
-              <if test="option == null or option == ''">1=1</if>
-	]]>
-	</select>
+	<!--    게시글 목록 가져오기-->
+    <select id="getList" resultType="com.example.test.POST.DTO.PostReviewDTO">
+        <![CDATA[
+        SELECT ItemID, Category, title, content, suggestion, views, updateDate, modifyDate, writer 
+        FROM
+        (
+            SELECT /*+ INDEX_DESC(TBL_postReview PK_postReview) */
+            ROWNUM R, ItemID, Category, title, content, suggestion, views, updateDate, modifyDate, writer
+            FROM TBL_postReview
+            WHERE ROWNUM <= #{pageNum} * #{amount}
+        )
+           WHERE R> (#{pageNum}-1) * #{amount}
+        ]]>
+
+    </select>
 	
-	
-	
-	<select id="list" resultType="hashMap">
-	<![CDATA[   
-  	select ItemID, PostCateGoryID, userName, title, Content, suggestion, views, UpdateDate, modifyDate, writer
-     from QNA
-     where <if test="option == 'ID'"> userName like CONCAT('%',#{keyword},'%')</if>
-           <if test="option == 'SUBJECT'"> title like CONCAT('%',#{keyword},'%')</if>
-           <if test="option == 'CONTENT'"> Content like CONCAT('%',#{keyword},'%')</if>
-           <if test="option == 'SUBJECT,CONTENT'"> title like CONCAT('%',#{keyword},'%')
-                                                 or Content like CONCAT('%',#{keyword},'%')</if>		        
-           <if test="option == null or option == ''">1=1</if>
-     order by PostID desc
-     limit #{pageStart}, #{perPageNum}
-	]]>
-	</select>
+	<select id="getTotal" resultType="_int">
+      <![CDATA[
+        SELECT COUNT(ItemID) FROM TBL_postReview
+       <where>
+         <include refid="search"></include>
+       </where>
+        ]]>
+    </select>
 
 	<update id="updateCount">
 	<![CDATA[
@@ -64,7 +80,7 @@
 	<![CDATA[
 		
 			delete from PostReview 
-			where userName = #{userName} and itemID = #{ItemID};	
+			where writer = #{writer} and itemID = #{ItemID};	
 	]]>
 	</delete>
 

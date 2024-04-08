@@ -14,35 +14,23 @@
 	<link rel="stylesheet" th:href="@{/sakuraJS/sakura.min.css}">
     <link rel="stylesheet" th:href="@{/main/main.css}">
 	<script th:src="@{/sakuraJS/sakura.min.js}"></script>
+    <link href="https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo.css" rel="stylesheet">
+
 </head>
 
 <body>
 <section class="mainBG" layout:fragment="content">
     <header class="mainHeader">
-        <!--<nav>
-            <div class="logo">
-                
-            </div>
-            <div class="menu">
-                <ul>
-                    <li><a href="#">About the Site</a></li>
-                    <li><a href="#">How to Use</a></li>
-                    <li><a href="#">고객센터</a></li>
-                    <li><a href="#">커뮤니티</a></li>
-                    <li><a href="#">로그인</a></li>
-                </ul>
-            </div>
-        </nav>-->
         <section class="mainHeaderSec">
             <div class="search__box">
-                <div class="search__title">자기 성형에 맞는 숙소를 예약하세요
+                <div class="search__title">자기 성향에 맞는 숙소를 예약하세요
                     <br /> 
                     즐길거리를 예약하세요.
                 </div>
 
                 <table>
                     <tr>
-                        <td colspan="2" class="search__sub__title">목적지</td>
+                        <td colspan="2" class="search__sub__title">여행지</td>
                     </tr>
                     <tr>
                         <td colspan="2"><input class="search__input" type="text" placeholder=" 모든 위치"></td>
@@ -62,6 +50,9 @@
                         <td colspan="2">
                             <select class="search__input" >
                                 <option>인원</option>
+                                <option>1명</option>
+                                <option>2명</option>
+                                <option>3명</option>
                             </select>
                         </td>
                     </tr>
@@ -80,19 +71,23 @@
             <div class="card__box">
                 <div class="card">
                     <div class="card__img1 card__img"></div>
-                    <div class="card__content">숙소 및 부티크 호텔</div>
+                    <div class="card__content">
+                         <a href="#"></a> 숙소 및 부티크 호텔</div>
                 </div>
                 <div class="card">
                     <div class="card__img2 card__img"></div>
-                    <div class="card__content">트립</div>
+                    <div class="card__content">
+                        <a href="#"></a >트립</div>
                 </div>
                 <div class="card">
                     <div class="card__img3 card__img"></div>
-                    <div class="card__content">어드벤처</div>
+                    <div class="card__content">
+                        <a href="#"></a> 어드벤처</div>
                 </div>
                 <div class="card">
                     <div class="card__img4 card__img"></div>
-                    <div class="card__content">레스토랑</div>
+                    <div class="card__content">
+                        <a href="#"></a> 레스토랑</div>
                 </div>
             </div>
 
@@ -101,6 +96,7 @@
 			            <div class="review">123</div>
 			            <!--UX TEST -->
 			<h1>사용자 맞춤형 루틴 정보</h1>
+
 			<form th:object="${UserUXs}">
 			   <div th:each="ux : ${UserUXs}">
 			      <span th:text="${ux['Replace_name']}"></span><span>   &nbsp;</span>
@@ -131,24 +127,25 @@
    </div>
 </section>
    
-        </section>
+ 
              <!-- 사용자 추천 기능 들어갈곳 -->
-        </section>
+   
+        <section class="choo">
             <div class="choo__box">
                 <div class="choo_img1"></div>
                 <div class="choo_img2"></div>
                 <div class="choo_img3"></div>
                 <div class="choo_img4"></div>
-                <div class="choo_img5"></div>
             </div>
-        
+        </section>
+
         <section>
             <div class="choo__box">
+                <div class="choo_img5"></div>
                 <div class="choo_img6"></div>
                 <div class="choo_img7"></div>
                 <div class="choo_img8"></div>
-                <div class="choo_img9"></div>
-                <div class="choo_img10"></div>
+           
             </div>
         </section>
 

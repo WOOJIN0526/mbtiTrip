@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.Service.DataNotFoundException;
 import com.example.test.User.DTO.AdminDTO;
 import com.example.test.User.DTO.UserDTO;
@@ -26,6 +26,20 @@ public class AdventureServiceImpl implements AdventureService{
 
 	@Autowired
 	ItemDAO itemDAO;
+
+	
+	
+	@Override
+	public List<ItemDTO> getList(Criteria criteria) {
+		// TODO Auto-generated method stub
+		return itemDAO.getList(criteria);
+	}
+
+	@Override
+	public int getTotal(Criteria criteria) {
+		// TODO Auto-generated method stub
+		return itemDAO.getTotal(criteria);
+	}
 
 	@Override
 	public ItemDTO getPost(Integer itemid) {
@@ -89,17 +103,7 @@ public class AdventureServiceImpl implements AdventureService{
         return this.itemDAO.create(itemDto);
 	}
 
-	@Override
-	public List<ItemDTO> list(Criteria cri) throws Exception {
-		// TODO Auto-generated method stub
-		return itemDAO.adventureList(cri);
-	}
 
-	@Override
-	public int listCount(Criteria cri) throws Exception {
-		// TODO Auto-generated method stub
-		return itemDAO.adventurelistCount(cri);
-	}
 
 			// 게시물을 조회하고 조회수 증가
 			@Transactional

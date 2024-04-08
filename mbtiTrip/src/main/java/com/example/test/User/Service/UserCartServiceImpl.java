@@ -56,9 +56,6 @@ public class UserCartServiceImpl implements UserCartService{
 		return ck;
 	}
 
-
-
-	
 	//수정 필요
 	@Override
 	public List<HashMap<String, Object>> detail(UserCartDTO usercartdto ,Principal principal) {
@@ -88,7 +85,7 @@ public class UserCartServiceImpl implements UserCartService{
 		//url = mypage/ myPayments
 		//payments get true;
 		usercartdto.setUserName(principal.getName());
-		List<HashMap<String, Object>> userCart = this.userCartDAO.detail(usercartdto);
+		List<HashMap<String, Object>> userCart = this.userCartDAO.detail_pay(usercartdto);
 		return userCart;
 	}
 

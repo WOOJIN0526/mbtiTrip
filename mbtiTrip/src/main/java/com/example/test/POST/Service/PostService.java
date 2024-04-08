@@ -2,6 +2,7 @@ package com.example.test.POST.Service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.test.POST.DTO.PostDTO;
@@ -13,7 +14,9 @@ import com.example.test.paging.Criteria;
 public interface PostService {
 
 	 
-		
+		 public List<PostDTO> getList(Criteria criteria);
+		 
+		 public int getTotal(Criteria cri);
 	 
 		 public PostDTO getPost(Integer postID);
 		 
@@ -25,9 +28,10 @@ public interface PostService {
 		 
 		 public int suggestion(PostDTO postDto, UserDTO userDto);
 		 
-		 List<PostDTO> list(Criteria cri) throws Exception;
-
-		 public int listCount(Criteria cri) throws Exception;
+		
 
 		public List<PostDTO> findPostByCategoryID(Long postCategoryID);
+
+		
+		
 }

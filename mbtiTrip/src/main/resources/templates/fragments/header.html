@@ -15,10 +15,7 @@
    <div th:fragment="header">
       
        <div sec:authorize="isAuthenticated()" class="profile disActive">
-         <!-- <div class="profileBox">
-           <div class="userImg"></div>
-           <p class="userName">User X</p>
-         </div> -->
+
          <div class="profileItems" id="topless">
            <a th:href="@{/user/mypage}">
              <p>마이페이지</p>
@@ -69,10 +66,10 @@
 				    커뮤니티
 				    <ul class="cDropdownC">
 				        <li>
-				            <a href="/post/review/list">리뷰</a>
+				            <a class="dropA" href="/post/review/list">리뷰</a>
 				        </li>
 				        <li>
-				            <a href="/post/noticeBoard/list">자유게시판</a>
+				            <a class="dropA"ef="/post/noticeBoard/list">자유게시판</a>
 				        </li>
 				    </ul>
 				</span>
