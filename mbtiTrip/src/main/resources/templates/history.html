@@ -9,7 +9,7 @@
      <link rel="stylesheet" th:href="@{history/history.css}">
 </head>
 <body>
-    <div class="main">
+    <div class="main" th:object="${reservation}">
         <section>   
             <div class="side" >
                 <aside class="side_bar">
@@ -39,7 +39,7 @@
                         <th>문의</th>
                     </tr>
                     <tr>
-                        <td>1건</td>
+                        <td th:text="${reservation.size}">건</td>
                         <td>2건</td>
                         <td>5건</td>
                         <td>0건</td>
@@ -58,17 +58,20 @@
                     </form>
                     <table class="repalce_information">
                         <tr>
-                            <th>예약번호</th>
+                            <th>지역</th>
                             <th>숙소명</th>
                             <th>예약일</th>
                             <th>결제</th>
                             <th>예약진행상황</th>
                             <th></th>
                         </tr>
-                        <tr>
-                            <td>201654</td>
-                            <td>신라호텔</td>
-                            <td>2023.5.25~2023.5.29</td>
+                        <tr th:each="cart : ${reservation}">
+                            <td th:text="${cart.replaceInfo.replaceLocation}">201654</td>
+                            <td th:text="${cart.replaceInfo.replaceName}">신라호텔</td>
+                            <td>2023.5.25~2023.5.29
+                                <span>시작 날짜</span><span th:text="${cart.startDate}"></span><br>
+                                <span>종료 날짜</span><span th:text="${cart.endDate}"></span>
+                            </td>
                             <td>결제완료</td>
                             <td>완료</td>
                             <td>
@@ -88,25 +91,28 @@
                     </ul>        
                     </div>
                 </div>  
-                <div class="replace_reservation">
+                <div th:unless="${cart.replaceInfo != null}">&nbsp;</div>
+                <div class="adventure_reservation">
                     <h1>관광지 예약내역</h1>
                     <form action="">              
                         <input type="text" id="serch" placeholder="내 예약 찾기">
                         <input type="button" value="검색">
                     </form>
-                    <table class="repalce_information">
+                    <table class="adventure_information">
                         <tr>
-                            <th>예약번호</th>
+                            <th>지역</th>
                             <th>관광지명</th>
                             <th>예약일</th>
                             <th>결제</th>
                             <th>예약진행상황</th>
                             <th></th>
                         </tr>
-                        <tr>
-                            <td>201654</td>
-                            <td>신라호텔</td>
-                            <td>2023.5.25</td>
+                        <tr th:if="${cart.adventureInfo != null}">
+                            <td th:text="${cart.adventureInfo.adventureLocation}">201654</td>
+                            <td th:text="${cart.adventureInfo.adventureName}">신라호텔</td>
+                            <td><span>시작 날짜</span><span th:text="${cart.startDate}"></span><br>
+                                <span>종료 날짜</span><span th:text="${cart.endDate}"></span>
+                            </td>
                             <td>결제완료</td>
                             <td>완료</td>
                             <td>
@@ -126,13 +132,13 @@
                     </ul>        
                     </div>
                 </div>  
-                <div class="replace_reservation">
+                <div class="post_reservation" th:object="${userPosts}">
                     <h1>글작성 내역</h1>
                     <form action="">              
                         <input type="text" id="serch" placeholder="작성 글 찾기">
                         <input type="button" value="검색">
                     </form>
-                    <table class="repalce_information">
+                    <table class="post_information">
                         <tr>
                             <th>작성일자</th>
                             <th>제목</th>
@@ -141,12 +147,12 @@
                             <th>추천수</th>
                             <th></th>
                         </tr>
-                        <tr>
-                            <td>2016.03.25</td>
-                            <td>작성ㅇㅎ</td>
-                            <td>숙소리뷰</td>
-                            <td>235</td>
-                            <td>0</td>
+                        <tr th:each="userPo :    ${userPosts}">
+                            <td th:text="${userPo['updateDate']}">2016.03.25</td>
+                            <td th:text="${userPo['title']}">작성ㅇㅎ</td>
+                            <td th:text="${userPo['PostCateGoryID']}">숙소리뷰</td>
+                            <td th:text="${userPo['views']}">235</td>
+                            <td th:text="${userPo['suggestion']}">0</td>
                             <td>
                                 <button>삭제</button>
                             </td>
@@ -185,21 +191,26 @@
                     </div>
                 </div>
           
-                <div class="replace_reservation">
+                <div class="qna_reservation" th:object="${userPosts}">
                     <h1>문의 내역</h1>
                     <form action="">              
                         <input type="text" id="serch" placeholder="작성 글 찾기">
                         <input type="button" value="검색">
                     </form>
-                    <table class="repalce_information">
+                    <table class="qna_information">
                         <tr>
+                            <th>아이디</th>
                             <th>작성일자</th>
                             <th>제목</th>
                             <th>작성 카테고리</th>
                             <th>답변 상태</th>
                         </tr>
-                        <tr>
-                            <td>작성하신 문의 내역이 없습니다</td>
+                        <tr th:each="qna :   ${userQnAs}">
+                            <td th:text="${userPo['PostCateGoryID']}"></td>
+                            <td th:text="${qna['updateDate']}"></td>
+                            <td th:text="${qna['Qname']}"></td>
+                            <td th:text="${qna['contents']}"></td>
+                            <td th:text="${qna['Answer']}"></td>
                         </tr>
                     </table>
                     <div class="">
