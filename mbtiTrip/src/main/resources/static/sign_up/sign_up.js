@@ -153,7 +153,7 @@ document.getElementById("sign_up_btn").addEventListener("click",()=>{
 		userId:id,
 		password:pwd,
 		userName:name,
-		BNum:bisNumber,
+		bisNum:bisNumber,
 		mail:email,
 		phone:phone}
 		var url='/bis/signup';

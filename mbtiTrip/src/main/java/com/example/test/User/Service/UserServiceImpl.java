@@ -41,6 +41,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public int createBis(UserDTO userdto) {
+		String userPassword = userdto.getPassword();
+		String encodePassword = bcrypasswordEncoder.encode(userPassword);
+		userdto.setPassword(encodePassword);
 		int result = this.userDao.insertBis(userdto);
 		return result;
 	}

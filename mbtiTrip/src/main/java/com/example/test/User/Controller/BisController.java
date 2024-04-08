@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -52,9 +53,13 @@ public class BisController {
 	
 	@RequestMapping(value = "/signup", method=RequestMethod.POST)
 	@ResponseBody
-	public boolean singupUserBis(@RequestBody UserDTO userdto) {		
+	public boolean singupUserBis(@RequestBody UserDTO userdto
+			 					) {
+		log.info("Bunm ===>{}", userdto.getBisNum());
 		//ModelAndView mav = new ModelAndView();     // 아직 비번 암 복호화 안됌 ㅋㅌ
-		userdto.setUserrole("BIS");		
+		log.info("BisDTO get  ==>{}", userdto);
+		userdto.setUserrole(User_Role.bis.getValue());
+		log.info("userDTO BIS  SignUP ===>", userdto);
 		int result = userService.createBis(userdto);
 		boolean chk = false;
 		if(result == 1) {
