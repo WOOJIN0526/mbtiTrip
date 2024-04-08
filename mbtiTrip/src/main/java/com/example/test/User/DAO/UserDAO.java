@@ -11,7 +11,9 @@ import org.springframework.stereotype.Repository;
 import com.example.test.User.DTO.UserDTO;
 
 import jakarta.inject.Inject;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @Repository
 public class UserDAO {
 
@@ -21,8 +23,7 @@ public class UserDAO {
 	SqlSessionTemplate sqlSessiontemplate ;
 	
 
-	
-	
+
 	public int insert(UserDTO userDto) {
 		int result = this.sqlSessiontemplate.insert("user.insert", userDto);
 		return result;
@@ -66,7 +67,11 @@ public class UserDAO {
 	}
 	
 	public UserDTO getByUserId(String userId) {
+		log.info("userID  ==> {}", userId);
+		log.info(sqlSessiontemplate.getClass());
 		UserDTO result = this.sqlSessiontemplate.selectOne("user.getbyuserId", userId);
+		log.info("userDTO  ==> {}", result);
+		
 		return result;
 	}
 //	

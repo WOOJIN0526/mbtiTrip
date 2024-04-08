@@ -76,6 +76,7 @@ public class CustomLoginService implements UserDetailsService{
 		
 		} catch (Exception e) {
 			log.info("tryCatch {}", e.getClass());
+			e.printStackTrace();
 		}		
 	return null;
 			
