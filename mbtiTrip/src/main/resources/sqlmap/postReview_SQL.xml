@@ -1,29 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="post">
-	
-	<insert id="insert" parameterType="hashMap" useGeneratedKeys="true"
+<mapper namespace="sqlmap.postReview_SQL">
+
+	<insert id="create" parameterType="hashMap" useGeneratedKeys="true"
 		keyProperty="UID">  
 	    <![CDATA[
-	    insert into Post
-	    (postID,postCategoryID,userName,title,content,suggestion,views,updateDate,modifyDate,writer) 
+	    insert into PostReview
+	    (itemID,postCategoryID,userName,title,content,suggestion,views,updateDate,modifyDate,writer) 
 	    values
-	    (#{PostId},#{PostCateGoryID},#{userName},#{title},#{Content},#{suggestion},#{views},#{UpdateDate},#{modifyDate}, #{writer})
-	]]>
-	</insert>
-	
-	
-	<insert id="save" parameterType="hashMap" useGeneratedKeys="true"
-		keyProperty="UID">  
-	    <![CDATA[
-	    insert into Post
-	    (postID,postCategoryID,userName,title,content,suggestion,views,updateDate,modifyDate,writer) 
-	    values
-	    (#{PostId},#{PostCateGoryID},#{userName},#{title},#{Content},#{suggestion},#{views},#{UpdateDate},#{modifyDate}, #{writer})
+	    (#{ItemId},#{PostCateGoryID},#{userName},#{title},#{Content},#{suggestion},#{views},#{UpdateDate},#{modifyDate}, #{writer})
 	]]>
 	</insert>
 
-	
+	<select id="findByID" resultType="hashMap">
+	 <![CDATA[
+		SELECT ItemID 
+		FROM PostReview
+		WHERE userName=#{userName}; 
+	]]>
+	</select>
+
+
 	<select id="listCount" resultType="hashMap">
 	 <![CDATA[
 		SELECT count(PostID)
@@ -41,7 +38,7 @@
 	
 	<select id="list" resultType="hashMap">
 	<![CDATA[   
-  	select PostID, PostCateGoryID, userName, title, Content, suggestion, views, UpdateDate, modifyDate, writer
+  	select ItemID, PostCateGoryID, userName, title, Content, suggestion, views, UpdateDate, modifyDate, writer
      from QNA
      where <if test="option == 'ID'"> userName like CONCAT('%',#{keyword},'%')</if>
            <if test="option == 'SUBJECT'"> title like CONCAT('%',#{keyword},'%')</if>
@@ -53,37 +50,22 @@
      limit #{pageStart}, #{perPageNum}
 	]]>
 	</select>
-	
-	<select id="findByPostCategoryID" resultType="hashmap">
-	 <![CDATA[
-		SELECT PostCateGoryID 
-		FROM Post
-		WHERE postID = #{PostID} And userName=#{userName}; 
-	]]>
-	</select>
 
 	<update id="updateCount">
 	<![CDATA[
-			Update Post 
+			Update PostReview 
 			set
 			views = #{views},
-			where postID = #{PostID};
+			where itemID = #{ItemID};
 		]]>
 	</update>
-	
 	
 	<delete id="delete">
 	<![CDATA[
 		
-			delete from Post 
-			where userName = #{userName} and postID = #{PostID};	
+			delete from PostReview 
+			where userName = #{userName} and itemID = #{ItemID};	
 	]]>
 	</delete>
-	
-
-
-
-
-
 
 </mapper>

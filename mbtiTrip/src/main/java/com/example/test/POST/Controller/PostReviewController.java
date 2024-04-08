@@ -51,7 +51,7 @@ public class PostReviewController {
 	    mv.addObject("pageMaker", pageMaker);
 	    mv.addObject("data", prService.list(cri)); //현재페이지에 표시할 게시글 목록 가져옴
 
-	    mv.setViewName("review_list");
+	    mv.setViewName("Review_Main");
 
 	    return mv;
 	    }
@@ -98,7 +98,7 @@ public class PostReviewController {
         }
         postForm.setTitle(postDto.getTitle());
         postForm.setContent(postDto.getContent());
-        return "post_form";
+        return "write_form";
     }
     
     //수정
@@ -107,14 +107,14 @@ public class PostReviewController {
     public String postModify(@Valid PostForm postForm, BindingResult bindingResult, 
             Principal principal, @PathVariable("id") Integer itemID) {
         if (bindingResult.hasErrors()) {
-            return "post_form";
+            return "write_form";
         }
         PostReviewDTO postDto = this.prService.getPost(itemID);
         if (!postDto.getWriter().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         this.prService.modify(postDto, postForm.getTitle(), postForm.getContent());
-        return String.format("redirect:/post/detail/%s", itemID);
+        return String.format("redirect:/post/review/detail/%s", itemID);
     }
     
     //삭제
