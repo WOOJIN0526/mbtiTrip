@@ -12,8 +12,9 @@ import java.util.Optional;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
 
@@ -51,14 +52,8 @@ public class PostDAO {
 		
 	}
 
-	public List<PostDTO> list(Criteria cri) {
-		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectList("post.list", cri);
-	}
-
-	public int listCount(Criteria cri) {
-		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectOne("post.listCount", cri);
+	public List<PostDTO> getList(Criteria cri){
+		return sqlSessiontemplate.selectList("post.getList", cri);
 	}
 
 	public void updateCount(Integer postID) {
@@ -71,6 +66,14 @@ public class PostDAO {
 		return sqlSessiontemplate.selectOne("post.findByPostCategoryID", postCategoryID);
 	}
 
+	public int getTotal(Criteria cri) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectOne("post.total", cri);
+	}
+
+
+
+	
 
 
 	

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -32,7 +33,9 @@ import com.example.test.POST.Service.Post_CategoryService;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.Service.UserService;
 import com.example.test.paging.Criteria;
+import com.example.test.paging.PageDTO;
 
+import org.springframework.data.domain.Page;
 import jakarta.validation.Valid;
 
 
@@ -52,22 +55,29 @@ public class PostController {
 	@Autowired
 	Post_CategoryService postCategoryService;
 	
+@GetMapping("/list")
+public String list(Criteria cri, Model model) {
 	
-	@RequestMapping("/list")
-	public ModelAndView postList(ModelAndView mv, Criteria cri) throws Exception {
-
-	    PageDTO pageMaker = new PageDTO();
-	    pageMaker.setCri(cri); //page, perpagenum 셋팅
-	    pageMaker.setTotalCount(postService.listCount(cri)); //총 게시글 수 셋팅
-
-	    //View에 페이징 처리를 위한 조건 및 그에 맞는 게시판 리스트 전송
-	    mv.addObject("pageMaker", pageMaker);
-	    mv.addObject("data", postService.list(cri)); //현재페이지에 표시할 게시글 목록 가져옴
-
-	    mv.setViewName("post_list");
-
-	    return mv;
-	    }
+	model.addAttribute("list", postService.getList(cri));
+	model.addAttribute("pageMaker", new PageDTO(postService.getTotal(cri), 10, cri));
+	return "post_main";
+}
+	
+//	@RequestMapping("/list")
+//	public String postList(Model mv, Criteria cri) throws Exception {
+//
+//	    PageDTO pageMaker = new PageDTO();
+//	    pageMaker.setCri(cri); //page, perpagenum 셋팅
+//	    pageMaker.setTotalCount(postService.listCount(cri)); //총 게시글 수 셋팅
+//
+//	    //View에 페이징 처리를 위한 조건 및 그에 맞는 게시판 리스트 전송
+//	    mv.addAttribute("pageMaker", pageMaker);
+//	    mv.addAttribute("data", postService.list(cri)); //현재페이지에 표시할 게시글 목록 가져옴
+//
+//	    
+//
+//	    return "post_list";
+//	    }
 	
 	
     @RequestMapping(value = "/detail/{id}")

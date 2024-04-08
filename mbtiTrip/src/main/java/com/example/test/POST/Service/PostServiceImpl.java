@@ -4,6 +4,7 @@ package com.example.test.POST.Service;
 
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-//import com.example.test.HashTag.TagService;
+
 import com.example.test.POST.DAO.PostDAO;
 
 import com.example.test.POST.DTO.PostDTO;
@@ -28,14 +29,29 @@ import jakarta.transaction.Transactional;
 
 
 
-
-
 @Service
 public  class PostServiceImpl implements PostService {
 
 	@Autowired
 	PostDAO postDAO;
 	
+
+
+
+
+	@Override
+	public List<PostDTO> getList(Criteria criteria) {
+		// TODO Auto-generated method stub
+		return postDAO.getList(criteria);
+	}
+
+
+
+	@Override
+	public int getTotal(Criteria cri) {
+		// TODO Auto-generated method stub
+		return postDAO.getTotal(cri);
+	}
 
 
 
@@ -95,19 +111,7 @@ public  class PostServiceImpl implements PostService {
         return this.postDAO.save(postDto);
 	}
 
-	// 페이징 처리된 게시물 목록을 반환	
-	@Override
-	public List<PostDTO> list(Criteria cri) throws Exception {
 
-		return postDAO.list(cri);
-	}
-
-	// 페이지 수를 계산하기 위해 사용
-	@Override
-	public int listCount(Criteria cri) throws Exception {
-		// TODO Auto-generated method stub
-		return postDAO.listCount(cri);
-	}
 	
 	// 게시물을 조회하고 조회수 증가
 		@Transactional
@@ -148,6 +152,8 @@ public  class PostServiceImpl implements PostService {
 			return post;
 	        
 	    }
+
+	
 
 	
 	

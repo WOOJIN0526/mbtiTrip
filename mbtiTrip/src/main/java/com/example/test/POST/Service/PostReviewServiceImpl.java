@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.test.POST.DAO.PostReviewDAO;
+import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.DTO.PostReviewDTO;
 import com.example.test.POST.DTO.Post_CategoryDTO;
 import com.example.test.User.DTO.UserDTO;
@@ -24,6 +25,18 @@ public class PostReviewServiceImpl implements PostReviewService{
 	@Autowired
 	PostReviewDAO prDAO;
 
+	@Override
+	public List<PostReviewDTO> getList(Criteria criteria) {
+		// TODO Auto-generated method stub
+		return prDAO.getList(criteria);
+	}
+
+	@Override
+	public int getTotal(Criteria cri) {
+		// TODO Auto-generated method stub
+		return prDAO.getTotal(cri);
+	}
+	
 	@Override
 	public PostReviewDTO getPost(Integer itemID) {
 		 Optional<PostReviewDTO> post = this.prDAO.findById(itemID);
@@ -72,17 +85,7 @@ public class PostReviewServiceImpl implements PostReviewService{
         return this.prDAO.create(postDto);
 	}
 
-	@Override
-	public List<PostReviewDTO> list(Criteria cri) throws Exception {
-		// TODO Auto-generated method stub
-		return prDAO.list(cri);
-	}
-
-	@Override
-	public int listCount(Criteria cri) throws Exception {
-		// TODO Auto-generated method stub
-		return prDAO.listCount(cri);
-	}
+	
 	
 	// 게시물을 조회하고 조회수 증가
 			@Transactional

@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-
+import com.example.test.POST.DTO.PostReviewDTO;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.paging.Criteria;
 
@@ -89,5 +89,15 @@ public class ItemDAO {
 	public int updateRating(ItemDTO item) {
 		return sqlSessiontemplate.update("item.updateRating", item);
 		
+	}
+	
+	public List<ItemDTO> getList(Criteria criteria) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectList("item.getList", criteria);
+	}
+
+	public int getTotal(Criteria cri) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectOne("item.getTotal", cri);
 	}
 }
