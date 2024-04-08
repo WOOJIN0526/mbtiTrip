@@ -18,15 +18,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
-
-
-import com.example.test.POST.Controller.PageDTO;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.Service.UserService;
 import com.example.test.User.Service.adminService;
 import com.example.test.item.ItemType;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.paging.Criteria;
+import com.example.test.paging.PageDTO;
 import com.example.test.replace.ReplaceForm;
 
 import com.example.test.replace.Service.ReplaceCategoryService;
@@ -51,21 +49,29 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
 	@Autowired
 	ReplaceCategoryService rpCategoryService;
 	
-	@RequestMapping("/list")
-	public ModelAndView List(ModelAndView mv, Criteria cri) throws Exception {
-
-	    PageDTO pageMaker = new PageDTO();
-	    pageMaker.setCri(cri); //page, perpagenum 셋팅
-	    pageMaker.setTotalCount(rpService.listCount(cri)); //총 게시글 수 셋팅
-
-	    //View에 페이징 처리를 위한 조건 및 그에 맞는 게시판 리스트 전송
-	    mv.addObject("pageMaker", pageMaker);
-	    mv.addObject("data", rpService.list(cri)); //현재페이지에 표시할 게시글 목록 가져옴
-
-	    mv.setViewName("replace_list");
-
-	    return mv;
-	    }
+	@GetMapping("/list")
+	public String list(Criteria cri, Model model) {
+		
+		model.addAttribute("list", rpService.getList(cri));
+		model.addAttribute("pageMaker", new PageDTO(rpService.getTotal(cri), 10, cri));
+		return "Review_main";
+	}
+	
+//	@RequestMapping("/list")
+//	public ModelAndView List(ModelAndView mv, Criteria cri) throws Exception {
+//
+//	    PageDTO pageMaker = new PageDTO();
+//	    pageMaker.setCri(cri); //page, perpagenum 셋팅
+//	    pageMaker.setTotalCount(rpService.listCount(cri)); //총 게시글 수 셋팅
+//
+//	    //View에 페이징 처리를 위한 조건 및 그에 맞는 게시판 리스트 전송
+//	    mv.addObject("pageMaker", pageMaker);
+//	    mv.addObject("data", rpService.list(cri)); //현재페이지에 표시할 게시글 목록 가져옴
+//
+//	    mv.setViewName("replace_list");
+//
+//	    return mv;
+//	    }
 	
 	
     @RequestMapping(value = "/detail/{id}")

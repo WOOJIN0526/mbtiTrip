@@ -52,14 +52,8 @@ public class PostDAO {
 		
 	}
 
-	public List<PostDTO> list(Criteria cri) {
-		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectList("post.list", cri);
-	}
-
-	public int listCount(Criteria cri) {
-		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectOne("post.listCount", cri);
+	public List<PostDTO> getList(Criteria cri){
+		return sqlSessiontemplate.selectList("post.getList", cri);
 	}
 
 	public void updateCount(Integer postID) {
@@ -72,11 +66,12 @@ public class PostDAO {
 		return sqlSessiontemplate.selectOne("post.findByPostCategoryID", postCategoryID);
 	}
 
-	public Page<PostDTO> findAll(Specification<PostDTO> spec, Pageable pageable) {
+	public int getTotal(Criteria cri) {
 		// TODO Auto-generated method stub
-		
-		return sqlSessiontemplate.selectOne("post.findAll", pageable);
+		return sqlSessiontemplate.selectOne("post.total", cri);
 	}
+
+
 
 	
 

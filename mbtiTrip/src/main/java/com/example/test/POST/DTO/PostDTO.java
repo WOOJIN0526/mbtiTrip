@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
-import com.example.test.POST.Controller.PageDTO;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.paging.Criteria;
+import com.example.test.paging.PageDTO;
 
 import lombok.Getter;
 import lombok.Setter;

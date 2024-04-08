@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.example.test.POST.DAO.PostDAO;
-import com.example.test.POST.DTO.AnswerDTO;
+
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.DTO.Post_CategoryDTO;
 import com.example.test.User.DTO.UserDTO;
@@ -25,19 +25,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.JoinType;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
-import javassist.SerialVersionUID;
 
 
 
@@ -47,6 +35,24 @@ public  class PostServiceImpl implements PostService {
 	@Autowired
 	PostDAO postDAO;
 	
+
+
+
+
+	@Override
+	public List<PostDTO> getList(Criteria criteria) {
+		// TODO Auto-generated method stub
+		return postDAO.getList(criteria);
+	}
+
+
+
+	@Override
+	public int getTotal(Criteria cri) {
+		// TODO Auto-generated method stub
+		return postDAO.getTotal(cri);
+	}
+
 
 
 	//해당게시글 가져옴, 조회수 증가
@@ -105,19 +111,7 @@ public  class PostServiceImpl implements PostService {
         return this.postDAO.save(postDto);
 	}
 
-	// 페이징 처리된 게시물 목록을 반환	
-	@Override
-	public List<PostDTO> list(Criteria cri) throws Exception {
 
-		return postDAO.list(cri);
-	}
-
-	// 페이지 수를 계산하기 위해 사용
-	@Override
-	public int listCount(Criteria cri) throws Exception {
-		// TODO Auto-generated method stub
-		return postDAO.listCount(cri);
-	}
 	
 	// 게시물을 조회하고 조회수 증가
 		@Transactional

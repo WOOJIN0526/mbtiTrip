@@ -32,19 +32,21 @@ public class PostReviewDAO {
 		this.sqlSessiontemplate.delete("postReview.delete", postDto);
 	}
 
-	public List<PostReviewDTO> list(Criteria cri) {
-		// TODO Auto-generated method stub
-		return this.sqlSessiontemplate.selectList("postReview.list", cri);
-	}
-
-	public int listCount(Criteria cri) {
-		// TODO Auto-generated method stub
-		return this.sqlSessiontemplate.selectOne("postReview.listCount", cri);
-	}
+	
 
 	public void updateCount(Integer itemID) {
 		// TODO Auto-generated method stub
 		this.sqlSessiontemplate.update("postReview.updateCount", itemID);
+	}
+
+	public List<PostReviewDTO> getList(Criteria criteria) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectList("postReview.getList", criteria);
+	}
+
+	public int getTotal(Criteria cri) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectOne("postReview.getTotal", cri);
 	}
 
 }
