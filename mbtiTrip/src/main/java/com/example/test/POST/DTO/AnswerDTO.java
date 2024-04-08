@@ -14,6 +14,7 @@ public class AnswerDTO {
 
 	private Integer answerID;
 	private PostDTO postID;
+	private PostReviewDTO prID;
 	private String content;
 	private LocalDateTime updateDate;
 	private LocalDateTime modifyDate;

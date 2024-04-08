@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.example.test.POST.DAO.AnswerDAO;
 import com.example.test.POST.DTO.AnswerDTO;
 import com.example.test.POST.DTO.PostDTO;
+import com.example.test.POST.DTO.PostReviewDTO;
 import com.example.test.User.DTO.UserDTO;
 
 
@@ -52,6 +53,17 @@ public  class AnswerServiceImpi implements AnswerService {
 	@Override
 	public void delete(AnswerDTO answerDto) {
 		this.answerDAO.delete(answerDto);
+	}
+
+	@Override
+	public AnswerDTO create(PostReviewDTO postDto, String content, UserDTO userDto) {
+		AnswerDTO answerDto = new AnswerDTO();
+        answerDto.setContent(content);
+        answerDto.setUpdateDate(LocalDateTime.now());
+        answerDto.setPrID(postDto);;
+        answerDto.setWriter(userDto);
+        
+        return this.answerDAO.save(answerDto);
 	}
 
 

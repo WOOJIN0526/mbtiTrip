@@ -2,6 +2,13 @@ package com.example.test.item.DTO;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Set;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import com.example.test.User.DTO.AdminDTO;
+import com.example.test.User.DTO.UserDTO;
+import com.example.test.item.ItemType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,11 +18,11 @@ public class ItemDTO {
 
 	private Integer itemID;
 	
-	private String Type;
+	private ItemType Type;
 	
 	private Integer mbti;
 	
-	private String Username; //admin과 동일
+	private AdminDTO Username; //admin과 동일
 	
 	private Integer price;
 
@@ -27,13 +34,19 @@ public class ItemDTO {
 	
 	private String contents;
 	
+	private Integer view;
+	
 	private double ratingAvg = 0;
+	
+	private Set<UserDTO> suggestion;
 	
 	private LocalDateTime updateDate;
 	
-
+	private LocalDateTime modifyDate;
+	
 	private Integer uprating = 0; //추천수 
 
+	private MultipartFile[] file;
 	
 	private String[] ImgeUrl = null; //사진 저장 Xml 쿼리 작성시 아마 따로 불러와서 set 하던지 해야 함 
 
