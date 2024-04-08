@@ -1,0 +1,59 @@
+.recommend_adventure{
+    display: flex;
+    
+    justify-content: center;
+}
+
+a{
+    font-weight: 700;
+    color: black;
+}
+
+.more-btn{
+    font-weight: 700;
+    color: black;
+    border: none;
+    background-color:transparent;
+}
+
+#more-btn.hidden{
+    display: none;
+}
+.adventure{
+    width: 56rem;
+   
+}
+
+.image_left{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.image_right{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: end;
+}
+
+.image{
+    width: 37.5rem;
+    
+    display: flex;
+    flex-direction: row;
+}
+
+.image_size{
+    width: 18.75rem;
+    max-height: 30rem;  
+    > img {
+    	width: 300px;
+        height: 250px;
+    }  
+   
+}
+
+li{
+    list-style-type: none;
+}
