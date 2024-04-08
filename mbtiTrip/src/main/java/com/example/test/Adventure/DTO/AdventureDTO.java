@@ -8,7 +8,7 @@ import java.util.Set;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.test.AdventureAnswer.AdventureAnswerDTO;
+
 
 import com.example.test.User.DTO.UserDTO;
 
@@ -60,7 +60,7 @@ public class AdventureDTO {
 	private LocalDateTime updateDate;
 	private LocalDateTime modifyDate;
 	
-	private List<AdventureAnswerDTO> answerList;
+	
 	
 	//조회수
 	private int views;
