@@ -21,6 +21,7 @@ import com.example.test.POST.Service.AnswerService;
 import com.example.test.POST.Service.PostReviewService;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.Service.UserService;
+import com.example.test.item.DTO.ItemDTO;
 import com.example.test.replace.DTO.ReplaceDTO;
 import com.example.test.replace.Service.ReplaceService;
 
@@ -34,7 +35,7 @@ public class ReplaceAnswerController {
 	AnswerService answerService;
 
 	@Autowired
-	PostReviewService prService;
+	ReplaceService rpService;
 
 	@Autowired
 	UserService userService;
@@ -45,7 +46,7 @@ public class ReplaceAnswerController {
 	public String createAnswer(Model model, @PathVariable("id") Integer answerID, 
             @Valid AnswerForm answerForm, BindingResult bindingResult, Principal principal) 
   {
-   PostReviewDTO postDto = this.prService.getPost(answerID);
+   ItemDTO postDto = this.rpService.getPost(answerID);
    UserDTO UserDto = this.userService.getUser(principal.getName());
    if (bindingResult.hasErrors()) {
        model.addAttribute("postReview", postDto);

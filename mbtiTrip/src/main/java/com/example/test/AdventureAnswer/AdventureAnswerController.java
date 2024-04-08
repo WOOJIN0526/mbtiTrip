@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 
-
-
+import com.example.test.Adventure.DTO.AdventureDTO;
+import com.example.test.Adventure.Service.AdventureService;
 import com.example.test.POST.AnswerForm;
 import com.example.test.POST.DTO.AnswerDTO;
 import com.example.test.POST.DTO.PostReviewDTO;
@@ -23,7 +23,7 @@ import com.example.test.POST.Service.AnswerService;
 import com.example.test.POST.Service.PostReviewService;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.Service.UserService;
-
+import com.example.test.item.DTO.ItemDTO;
 
 import jakarta.validation.Valid;
 
@@ -35,7 +35,7 @@ public class AdventureAnswerController {
 			AnswerService answerService;
 	
 			@Autowired
-			PostReviewService prService;
+			AdventureService adService;
 	
 			@Autowired
 			UserService userService;
@@ -46,7 +46,7 @@ public class AdventureAnswerController {
 			public String createAnswer(Model model, @PathVariable("id") Integer answerID, 
 		            @Valid AnswerForm answerForm, BindingResult bindingResult, Principal principal) 
 		{
-		   PostReviewDTO postDto = this.prService.getPost(answerID);
+		   ItemDTO postDto = this.adService.getPost(answerID);
 		   UserDTO UserDto = this.userService.getUser(principal.getName());
 		   if (bindingResult.hasErrors()) {
 		       model.addAttribute("adventure", postDto);
