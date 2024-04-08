@@ -35,7 +35,7 @@ public class CustomLoginFailhandelr implements AuthenticationFailureHandler  {
 	
 		else if(exception instanceof  InternalAuthenticationServiceException ) {
 			errorMessage = "사용자 계정을 찾을 수 없습니다. 아이디와 비밀번호를 다시 확인해주세요";
-			
+		
 		}
 		else if (exception instanceof UsernameNotFoundException) {
 			errorMessage = "존재하지 않는 계정입니다. 회원가입 후 로그인해주세요.";

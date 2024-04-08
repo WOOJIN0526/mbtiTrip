@@ -15,6 +15,7 @@ import com.example.test.POST.DTO.AnswerDTO;
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.DTO.PostReviewDTO;
 import com.example.test.User.DTO.UserDTO;
+import com.example.test.item.DTO.ItemDTO;
 
 
 @Service
@@ -64,6 +65,16 @@ public  class AnswerServiceImpi implements AnswerService {
         answerDto.setWriter(userDto);
         
         return this.answerDAO.save(answerDto);
+	}
+
+	@Override
+	public AnswerDTO create(ItemDTO postDto, String content, UserDTO userDto) {
+		AnswerDTO answerDto= new AnswerDTO();
+		answerDto.setContent(content);
+		answerDto.setUpdateDate(LocalDateTime.now());
+		answerDto.setItemID(postDto);
+		answerDto.setWriter(userDto);
+		return null;
 	}
 
 

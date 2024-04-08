@@ -47,6 +47,17 @@ class MbtiTripApplicationTests {
 	@Test
 	void contextLoads() {
 		userHistoryDTO.setUserName("testUser4");
+		
+		List<HashMap<String, Object>> userpost = userHistoryDAO.userCreatePost("testUser4");
+		for(HashMap<String, Object> up: userpost) {
+			log.info("usercreatePost : ===>{}", up);
+		}
+		
+		
+		
+		
+		
+		
 //		List<HashMap<String, Object>> ULM = userHistoryDAO.uxMbti(userHistoryDTO.getUserName());
 //		
 //		log.info("how key ===>{}", ULM.get(0).get("mbti"));
@@ -82,19 +93,19 @@ class MbtiTripApplicationTests {
 //		Test완
 //		String largestMbti = (String) ULM.get(0).get("mbti");
 //		log.info("ParsingString ==>{}", largestMbti);
-		String mbti = "ISTJ";
-		List<HashMap<String, Object>> rutin = userHistoryDAO.rutinByUx(mbti);
-		log.info("rutin info ====> {}", rutin);
-		int d = 1;
-		for(HashMap<String,Object> Day : rutin) {
-			
-			if(d==5) {
-				d = 1;
-			}
-			log.info(String.format("Day%s ==> {}", d), Day);
-			d++;
-			
-		}
+//		String mbti = "ISTJ";
+//		List<HashMap<String, Object>> rutin = userHistoryDAO.rutinByUx(mbti);
+//		log.info("rutin info ====> {}", rutin);
+//		int d = 1;
+//		for(HashMap<String,Object> Day : rutin) {
+//			
+//			if(d==5) {
+//				d = 1;
+//			}
+//			log.info(String.format("Day%s ==> {}", d), Day);
+//			d++;
+//			
+//		}
 		/*UX 기반 사용자 추천 시스템 */
 		
 		

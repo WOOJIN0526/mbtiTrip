@@ -58,6 +58,8 @@ public class UserHistoryDAO {
 	
 	//사용자가 작성한 개시물 
 	public List<HashMap<String, Object>> userCreatePost(String userName){
+		log.info("userCreatePostMethod =>>> {}", userName);
+		
 		return this.sqlsessiontemplate.selectList("view.userCreatePost", userName);
 	}
 	
