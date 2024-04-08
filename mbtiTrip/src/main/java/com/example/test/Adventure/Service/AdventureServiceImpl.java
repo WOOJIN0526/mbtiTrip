@@ -32,7 +32,7 @@ public class AdventureServiceImpl implements AdventureService{
 	@Override
 	public List<ItemDTO> getList(Criteria criteria) {
 		// TODO Auto-generated method stub
-		return itemDAO.getList(criteria);
+		return itemDAO.adventureList(criteria);
 	}
 
 	@Override

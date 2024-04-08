@@ -44,5 +44,29 @@
 		delete from Item 
 		where itemId = #{itemID}
 	</delete>
+	
+	<select id="findById" resultType="int">
+       <![CDATA[
+		select ItemID
+		from Item 
+		where userName = #{userName}
+       ]]>
+    </select>
+    
+    <update id="updateCount">
+	<![CDATA[
+			Update Item 
+			set
+			views=#{views}
+			where UID = #{UID};
+		]]>
+	</update>
+ 
+ 	<select id="getTotal" resultType="int">
+       <![CDATA[
+		select COUNT(ItemID)
+		from Item 
+       ]]>
+    </select>
  
 </mapper>

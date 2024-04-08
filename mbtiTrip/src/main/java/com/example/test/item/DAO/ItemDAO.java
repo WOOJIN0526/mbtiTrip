@@ -27,8 +27,8 @@ public class ItemDAO {
 		 return result;
 	}
 	
-	public List<ItemDTO> adventureList(ItemDTO itemdto){
-		List<ItemDTO> result = this.sqlSessiontemplate.selectList("item.adventure", itemdto);
+	public List<ItemDTO> adventureList(Criteria criteria){
+		List<ItemDTO> result = this.sqlSessiontemplate.selectList("item.adventure", criteria);
 		return result;
 	}
 	
@@ -57,10 +57,7 @@ public class ItemDAO {
 		return result;
 	}
 
-	public int replacelistCount(Criteria cri) {
-		// TODO Auto-generated method stub
-		return this.sqlSessiontemplate.selectOne("item.replacelistCount", cri);
-	}
+
 
 	public Optional<ItemDTO> findById(Integer itemid) {
 		// TODO Auto-generated method stub
@@ -72,15 +69,6 @@ public class ItemDAO {
 		this.sqlSessiontemplate.update("item.updateCount", itemID);
 	}
 
-	public List<ItemDTO> adventureList(Criteria cri) {
-		// TODO Auto-generated method stub
-		return this.sqlSessiontemplate.selectList("item.adventureList", cri);
-	}
-
-	public int adventurelistCount(Criteria cri) {
-		// TODO Auto-generated method stub
-		return this.sqlSessiontemplate.selectOne("item.adventurelistCount", cri);
-	}
 	
 	public double getRatingAverage(Integer itemID) {
 		return sqlSessiontemplate.selectOne("item.getRatingAverage", itemID);
@@ -91,10 +79,6 @@ public class ItemDAO {
 		
 	}
 	
-	public List<ItemDTO> getList(Criteria criteria) {
-		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectList("item.getList", criteria);
-	}
 
 	public int getTotal(Criteria cri) {
 		// TODO Auto-generated method stub
