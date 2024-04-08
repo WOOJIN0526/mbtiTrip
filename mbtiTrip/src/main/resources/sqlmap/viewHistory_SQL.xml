@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="view">
- 
 
-	<insert id="viewitem" parameterType="hashMap"
+
+	<insert id="viewItem" parameterType="hashMap"
 		useGeneratedKeys="true">  
 	<![CDATA[
 		insert into userView (userName, itemID)
-		value (#{userName}, #{itemID})
+		value (#{userName}, #{itemId})
  	]]>
 	</insert>
 	<insert id="viewPO" parameterType="hashMap"
@@ -22,7 +22,7 @@
 	<select id="ReturnRE"
 		resultType="com.example.test.item.DTO.ItemDTO">
 	<![CDATA[
-		select i.itemName, i.location, i.userName, i.price, i.contents
+		select  i.itemID, i.Type, i.mbti, i.tel ,i.itemName, i.location, i.userName, i.price, i.contents
 		from userView uv
 		join Item i 
 		on uv.itemId = i.itemId
@@ -35,7 +35,7 @@
 	<select id="ReturnAD"
 		resultType="com.example.test.item.DTO.ItemDTO">
 	<![CDATA[
-		select i.itemName, i.location, i.userName, i.price, i.contents
+		select i.itemID, i.Type, i.mbti, i.tel ,i.itemName, i.location, i.userName, i.price, i.contents
 		from userView uv
 		join Item i 
 		on uv.itemId = i.itemId
@@ -109,59 +109,49 @@
 
 	<select id="rutinALL" resultType="hashMap">
 	<![CDATA[
-		SELECT
-		mb.mbti AS mbti,
-		COALESCE(r.itemName, a.itemName) AS itemName,
-		COALESCE(r.location, a.location) AS location,
-		COALESCE(r.price, a.price) AS price,
-		COALESCE(r.ratingAvg, a.ratingAvg) AS ratingAvg
-		FROM (
-		SELECT * FROM (
-		SELECT * FROM Item WHERE Type = 'replace' AND mbti =#{mbti} ORDER BY RAND() LIMIT 4
-		) AS temp1
-		UNION ALL
-		SELECT * FROM (
-		SELECT * FROM Item WHERE Type = 'adventure' AND mbti =#{mbti} ORDER BY RAND() LIMIT 4
-		) AS temp2
-		) AS temp
-		LEFT JOIN MBTi mb ON mb.mbtiId = temp.#{mbti}
-		LEFT JOIN
-		Item r ON r.itemId = temp.itemId AND r.Type = 'replace'
-		LEFT JOIN Item a
-		ON a.itemId = temp.itemId AND a.Type = 'adventure'
-		ORDER BY RAND();
+		select a.itemName as replaceName, b.itemName as adventure,
+		a.userName as replaceAdmin, b.userName as adventureAdmin,
+	    a.price as replacePrice , b.price as adventurePrice,
+	    a.location as replaceLocation, b.location as adventureLocation, 
+	    a.tel as replaceTel , b.tel as adventureTel ,
+	    a.contents as replaceContents, b.contents as adventureContents, 
+	    a.ratingAvg as replaceRating, b.ratingAvg as adventureRatring
+		from Item a
+		inner join Item b 
+		on a.mbti = b.mbti 
+		join MBTi mb 
+		on b.mbti = mb.mbtiId
+		where mb.mbti = #{mbti} and a.Type = "replace" and( b.TYPE = "adventure"  or b.Type is null)
+		order by rand();
 	]]>
 	</select>
 
 	<select id="rutinAD" resultType="hashMap">
 		<![CDATA[
-		SELECT 
+		select
 		    mb.mbti AS mbti, 
 		    a.itemName,
 		    a.location,
 		    a.price,
 		    a.ratingAvg
-		From MBTi mb 
-		LEFT JOIN Item a ON a.mbti = mb.mbtiId
-		WHERE a.mbti = #{mbti} and a.Type = "adventure"
-		ORDER BY RAND()
-		LIMIT 4;
+			from Item a
+			join MBTi mb on a.mbti = mb.mbtiId
+			where a.Type = "adventure" and mb.mbti = #{mbti}
+			Limit 4;
 		]]>
 	</select>
 
 	<select id="rutinRE" resultType="hashMap">
 		<![CDATA[
-		SELECT 
-		    mb.mbti AS mbti, 
-		    a.itemName, 
-		    a.location, 
-		    a.price, 
-		    a.rating_avg
-		FROM Item a
-		RIGHT JOIN MBTi mb ON mb.mbtiId = a.mbti
-		WHERE a.mbti = #{mbti} and a.Type = "replace"
-		ORDER BY RAND()
-		LIMIT 4;
+			select
+			mb.mbti AS mbti, 
+		    a.itemName,
+		    a.location,
+		    a.price,
+		    a.ratingAvg
+			from Item a
+			join MBTi mb on a.mbti = mb.mbtiId
+			where a.Type = "replace" and mb.mbti = #{mbti};
 		]]>
 	</select>
 

@@ -14,45 +14,25 @@
 
 	<select id="detail" resultType="com.example.test.User.DTO.UserCartDTO">
 	<![CDATA[
-		SELECT 
-		    uc.userName, 
-		    uc.startDate, 
-		    uc.endDate,
-		    COALESCE(re.itemName, ad.itemName) AS itemName,
-		    COALESCE(re.location, ad.location) AS location,
-		    COALESCE(re.price, ad.adventurePrice) AS price,
-		    COALESCE(re.contents, ad.contents) AS content,
-		    COALESCE(re.ratingAvg, ad.ratingAvg) AS ratingAvg
-		FROM 
-		    userCart uc
-		LEFT JOIN 
-		    Item re ON uc.replaceId = re.itemId AND re.Type = 'replace'
-		LEFT JOIN 
-		    Item ad ON uc.adventureID = ad.itemId AND ad.Type = 'adventure'
-		WHERE 
-		    uc.userName = #{userName} AND uc.payment = false;	
+		select uc.startDate, uc.endDate, uc.payments , i.itemName, i.userName as admin, i.price, i.location, i.tel, mb.mbti 
+		from userCart uc
+		join Item i
+		on uc.itemId = i.itemId
+		join MBTi mb
+		on i.mbti = mb.mbtiId
+		where uc.userName = #{userName}  and uc.payments = false;	
 	]]>
 	</select>
 	
 	<select id="detailPay" resultType="hashMap">
 	 <![CDATA[
-		SELECT 
-		    uc.userName, 
-		    uc.startDate, 
-		    uc.endDate,
-		    COALESCE(re.itemName, ad.itemName) AS itemName,
-		    COALESCE(re.location, ad.location) AS location,
-		    COALESCE(re.price, ad.price) AS price,
-		    COALESCE(re.contents, ad.contents) AS content,
-		    COALESCE(re.ratingAvg, ad.ratingAvg) AS ratingAvg
-		FROM 
-		    userCart uc
-		LEFT JOIN 
-		    Item re ON uc.replaceId = re.itemId AND re.Type = 'replace'
-		LEFT JOIN 
-		    Item ad ON uc.adventureID = ad.itemId AND ad.Type = 'adventure'
-		WHERE 
-		    uc.userName = #{userName} AND uc.payment = true;
+		select uc.startDate, uc.endDate, uc.payments , i.itemName, i.userName as admin, i.price, i.location, i.tel, mb.mbti 
+		from userCart uc
+		join Item i
+		on uc.itemId = i.itemId
+		join MBTi mb
+		on i.mbti = mb.mbtiId
+		where uc.userName = #{userName}  and uc.payments = true;	
 	]]>
 	</select>
 
