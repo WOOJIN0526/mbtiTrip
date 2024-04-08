@@ -10,15 +10,16 @@
 	    (#{userId},#{userName},#{mbti},#{password},#{phone},#{mail}, #{userrole})
 	]]>
 	</insert>
-	<insert id="insertBis" parameterType="hashMap" useGeneratedKeys="true"
-		keyProperty="UID">  
+	
+	<insert id="insertBis"  useGeneratedKeys="true">  
 	    <![CDATA[
 	    insert into User
-	    (userId,userName,Bnum,password,phone,mail, userrole) 
+	    (userId,userName,BNum,password,phone,mail, userrole , mbti) 
 	    values
-	    (#{userId},#{userName},#{Bnum},#{password},#{phone},#{mail}, #{userrole})
+	    (#{userId},#{userName},#{bisNum},#{password},#{phone},#{mail}, #{userrole}, 17)
 	]]>
 	</insert>
+	
 	<select id="login" resultType="hashmap">
 	 <![CDATA[
 		SELECT * 
