@@ -20,6 +20,7 @@ import com.example.test.User.DAO.UserHistoryDAO;
 import com.example.test.User.DTO.UserCartDTO;
 import com.example.test.User.DTO.UserHistoryDTO;
 import com.example.test.User.Service.UserCartService;
+import com.example.test.item.DTO.ItemDTO;
 import com.example.test.replace.DTO.ReplaceDTO;import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 
 import lombok.extern.log4j.Log4j2;
@@ -49,14 +50,67 @@ class MbtiTripApplicationTests {
 		userHistoryDTO.setUserName("testUser4");
 		
 		String userName = "testUser4";
+		UserHistoryDTO userHIs = new UserHistoryDTO();
+		userHIs.setItemId(33);
+		userHIs.setUserName(userName);
+		userHistoryDAO.viewCkItem(userHIs);
+		
+		
+		/*
 		List<HashMap<String, Object>> userpost = userHistoryDAO.userCreatePost("testUser4");
 		for(HashMap<String, Object> up: userpost) {
-			log.info("usercreatePost : ===>{}", up);
+			log.info("usercreatePost  ===>{}", up);
 		}
 		
 		List<HashMap<String, Object>> userQnA = userHistoryDAO.userCreateQnA("testUser4");
+		for(HashMap<String, Object> up: userQnA) {
+			log.info("userQnAㅋㅅ : ===>{}", up);
+		}
+
+		
+		log.info("UXMbti ===>{}", userHistoryDAO.uxMbti(userName));
+		
+		List<HashMap<String, Object>> UXs1=userHistoryDAO.rutinADByUx("ENFP");
+		List<HashMap<String, Object>> UXs2=userHistoryDAO.rutinREByUx("ISTJ");
+			for(HashMap<String, Object> up: UXs1) {
+			log.info("rutinADByUx : ===>{}", up);
+		}
+		for(HashMap<String, Object> up: UXs2) {
+			log.info("rutinREByUx : ===>{}", up);
+		}
+		*/
+//		
 		
 		
+//		List<PostDTO> userViewPost = userHistoryDAO.viewReturnPO(userName);
+//		for(PostDTO userView : userViewPost) {
+//			log.info("userVeiw Post ===> {}", userView);
+//		}
+		
+//		List<ItemDTO> userViewReplace = userHistoryDAO.viewReturnRE(userName);
+//		for(ItemDTO userView : userViewReplace) {
+//			log.info("userVeiw RE ===> {}", userViewReplace);
+//		}
+//		List<ItemDTO> userViewAdventure = userHistoryDAO.viewReturnAD(userName);
+//		for(ItemDTO userView : userViewAdventure) {
+//			log.info("userVeiw AD ===> {}", userViewAdventure);
+//		}
+		
+//		String mbti = "ISTJ";
+//		
+//		List<HashMap<String, Object>> userLikeMBti = userHistoryDAO.uxMbti(userName);
+//		log.info(userLikeMBti);
+//
+//		for(HashMap<String, Object> up: userLikeMBti) {
+//			log.info("rutinByUx : ===>{}", up);
+//		}
+//		
+		
+//		List<HashMap<String, Object>> UXs3=userHistoryDAO.rutinByUx("ENFP");
+//	
+//		for(HashMap<String, Object> up: UXs3) {
+//			log.info("rutinByUx : ===>{}", up);
+//		}
 		
 		
 		

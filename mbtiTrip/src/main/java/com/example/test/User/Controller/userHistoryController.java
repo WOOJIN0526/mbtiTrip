@@ -17,6 +17,7 @@ import com.example.test.User.DTO.QnADTO;
 import com.example.test.User.DTO.UserCartDTO;
 import com.example.test.User.Service.UserCartService;
 import com.example.test.User.Service.UserHistoryService;
+import com.example.test.item.DTO.ItemDTO;
 import com.example.test.replace.DTO.ReplaceDTO;
 
 import lombok.extern.log4j.Log4j2;
@@ -40,12 +41,26 @@ public class userHistoryController {
 	@Autowired
 	UserHistoryService userHistoryService;
 	
+	
+	//4.8 test 신성진 완료 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView userHistory(Principal principal, ModelAndView mav,
 									UserCartDTO userCartDTO) {
 		List<HashMap<String, Object>> reservation =userCartService.detail_Pay(userCartDTO, principal);
+		for(HashMap<String,Object> reserv : reservation) {
+			log.info("userUX rutin   ==>{}", reserv);
+		}
+		
 		List<HashMap<String, Object>> userPost = userHistoryService.selectUserPost(principal);
+		for(HashMap<String,Object> reserv : userPost) {
+			log.info("userUX rutin   ==>{}", reserv);
+		}
+		
 		List<HashMap<String, Object>> userQnA = userHistoryService.selectUserQnA(principal);
+		for(HashMap<String,Object> reserv : userQnA) {
+			log.info("userUX rutin   ==>{}", reserv);
+		}
+		
 		mav.addObject("reservation", reservation);
 		mav.addObject("userPosts", userPost);
 		mav.addObject("userQnAs", userQnA);
@@ -58,7 +73,7 @@ public class userHistoryController {
 	@RequestMapping(value="delete/item", method=RequestMethod.POST)
 	public boolean userHistoryReplaceDelet(@RequestBody Integer itemid,
 											Principal principal) {
-		ReplaceDTO replace = new ReplaceDTO();
+		ItemDTO replace = new ItemDTO();
 		boolean ck = userCartService.deleteItem(principal, itemid);	
 		return ck;
 	}

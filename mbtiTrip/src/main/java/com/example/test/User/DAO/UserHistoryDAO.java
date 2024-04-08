@@ -26,10 +26,11 @@ public class UserHistoryDAO {
 	SqlSessionTemplate sqlsessiontemplate;
 	
 	/*사용자가 해당 게시글들을 조회할 때마다 기록 */
+	//servic단에서 userHistory에 itemID 기록 필요 
 	public void  viewCkItem(UserHistoryDTO userHistory) {
-		this.sqlsessiontemplate.insert("view.viewRE", userHistory);
+		this.sqlsessiontemplate.insert("view.viewItem", userHistory);
 	}
-	
+	//servic단에서 userHistory에 itemID 기록 필요 
 	public void viewCkPO(UserHistoryDTO userHistoryDTO) {
 		this.sqlsessiontemplate.insert("view.viewPO", userHistoryDTO);
 	}

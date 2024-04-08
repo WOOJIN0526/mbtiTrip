@@ -13,6 +13,8 @@ import com.example.test.Adventure.DTO.AdventureDTO;
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.User.DAO.UserHistoryDAO;
 import com.example.test.User.DTO.QnADTO;
+import com.example.test.User.DTO.UserHistoryDTO;
+import com.example.test.item.DTO.ItemDTO;
 import com.example.test.replace.DTO.ReplaceDTO;
 
 import lombok.extern.log4j.Log4j2;
@@ -25,13 +27,26 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 	@Autowired
 	UserHistoryDAO userhistoryDAO;
 	
+	public void userViewItem(ItemDTO itemDTO, Principal principal) {
+		UserHistoryDTO userItemView = new UserHistoryDTO();
+		userItemView.setItemId(itemDTO.getItemID());
+		userItemView.setUserName(principal.getName());
+		userhistoryDAO.viewCkItem(userItemView);
+	}
+	public void userViewPost(PostDTO PostDTO, Principal principal) {
+		UserHistoryDTO userPostView = new UserHistoryDTO();
+		userPostView.setItemId(PostDTO.getPostID());
+		userPostView.setUserName(principal.getName());
+		userhistoryDAO.viewCkItem(userPostView);
+	}
+	
+	
 	@Override
 	public List<HashMap<String,Object>> uxReplace(String userName) {
 		List<HashMap<String, Object>> ULM = userhistoryDAO.uxMbti(userName);
 		String largestMbti = (String) ULM.get(0).get("mbti");
 		log.info("mbti 값 고정 되어 있음 변경 필요 ");
-		String testMbti = "ISTJ";
-		List<HashMap<String,Object>> adRutin = userhistoryDAO.rutinREByUx(testMbti);
+		List<HashMap<String,Object>> adRutin = userhistoryDAO.rutinREByUx(largestMbti);
 		return adRutin;
 	}
 
@@ -39,9 +54,7 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 	public List<HashMap<String,Object>> uxAdventure(String userName) {
 		List<HashMap<String, Object>> ULM = userhistoryDAO.uxMbti(userName);
 		String largestMbti = (String) ULM.get(0).get("mbti");
-		log.info("mbti 값 고정 되어 있음 변경 필요 ");
-		String testMbti = "ISTJ";
-		List<HashMap<String,Object>> adRutin = userhistoryDAO.rutinADByUx(testMbti);
+		List<HashMap<String,Object>> adRutin = userhistoryDAO.rutinADByUx(largestMbti);
 		return adRutin;
 	}
 	
@@ -52,10 +65,10 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 		String largestMbti = (String) ULM.get(0).get("mbti");
 		
 		log.info("아래 rutinbyUX MBTI 값 수정해야 됨");
-		List<HashMap<String, Object>> rutin = userhistoryDAO.rutinByUx("ISTJ");		
+		List<HashMap<String, Object>> rutin = userhistoryDAO.rutinByUx(largestMbti);		
 		return rutin;
 	}
-
+	
 	@Override
 	public List<HashMap<String, Object>> selectUserPost(Principal principal) {
 		String userName = principal.getName();
