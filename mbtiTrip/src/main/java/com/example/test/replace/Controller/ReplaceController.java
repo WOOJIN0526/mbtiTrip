@@ -40,8 +40,6 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
 	@Autowired
 	ReplaceService rpService;
 	
-	@Autowired
-	adminService adService;
 	
 	@Autowired
 	UserService userService;
@@ -103,7 +101,7 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
 //        if (bindingResult.hasErrors()) {
 //            return "replace_form";
 //        }
-//        AdminDTO admin = this.adService.getadmin(principal.getName());
+//        UserDTO admin = this.userService.getUser(principal.getName());
 //    
 //        this.rpService.create(replaceForm.getType(), replaceForm.getMbtiID(), admin,replaceForm.getReplacePrice(), replaceForm.getReplaceName(), replaceForm.getReplaceContents(), 
 //        					  replaceForm.getTel(), replaceForm.getReplaceLocation(),  replaceForm.getFile() );

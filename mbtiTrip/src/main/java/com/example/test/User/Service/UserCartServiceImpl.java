@@ -36,7 +36,12 @@ public class UserCartServiceImpl implements UserCartService{
 									Principal principal) throws Exception{
 		//4.3 test끝 	
 		//URL  = /replace/cart Post
-		
+
+		userCartDTO.setUserName(principal.getName());
+		userCartDTO.setItemId(ItemDTO.getItemID());
+		userCartDTO.setPayments(false);
+		log.info("message {}", userCartDTO.toString());
+
 		int result = 0;
 		boolean ck;
 		if(userCartDTO.getStartDate() == null) {

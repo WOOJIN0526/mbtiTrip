@@ -55,4 +55,13 @@
 	]]>
 	</delete>
 
+	<update id="update">
+	<![CDATA[
+			Update PostReview 
+			set
+			itemID=#{ItemID},category=#{category},title=#{title},content=#{content},modifyDate=#{modifyDate}
+			views = #{views},
+			where itemID = #{ItemID};
+		]]>
+	</update>
 </mapper>

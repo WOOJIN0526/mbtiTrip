@@ -14,7 +14,7 @@ public interface AnswerService {
 
 	 public AnswerDTO getAnswer(Integer answerID);
 	 
-	 public AnswerDTO modify(AnswerDTO answerDto, String content);
+	 public int modify(AnswerDTO answerDto, String content);
 	 
 	 public void delete(AnswerDTO answerDto);
 
