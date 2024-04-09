@@ -1,12 +1,14 @@
 package com.example.test.User.Service;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.test.Adventure.DTO.AdventureDTO;
@@ -15,6 +17,8 @@ import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DTO.UserCartDTO;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.replace.DTO.ReplaceDTO;
+import com.example.testExcepion.ErrorCode;
+import com.example.testExcepion.ErrorRespone;
 import com.google.api.client.http.HttpResponse;
 
 import lombok.extern.log4j.Log4j2;
@@ -29,30 +33,41 @@ public class UserCartServiceImpl implements UserCartService{
 	
 	@Override
 	public boolean insertItem(UserCartDTO userCartDTO,  ItemDTO ItemDTO, 
-									Principal principal )throws Exception{
+									Principal principal) throws Exception{
 		//4.3 test끝 	
 		//URL  = /replace/cart Post
+
 		userCartDTO.setUserName(principal.getName());
 		userCartDTO.setItemId(ItemDTO.getItemID());
 		userCartDTO.setPayments(false);
 		log.info("message {}", userCartDTO.toString());
+
 		int result = 0;
-		boolean ck = false;
+		boolean ck;
 		if(userCartDTO.getStartDate() == null) {
-			throw new Exception("예약 날짜를 확인해주세요");
+			throw new Exception("시작 날짜를 선택해주세요");
 			}
 		else if(userCartDTO.getEndDate() == null) {
-			throw new Exception("예약 날짜를 확인해주세요");
+			throw new Exception("종료 날짜를 선택 해주세요");
 			}
+		else if(userCartDTO.getStartDate().isAfter(LocalDate.now())){
+			throw new IllegalArgumentException("시작 날짜가 지났습니다. 다시 확인해주세요.");
+		}
+		else if(userCartDTO.getEndDate().isBefore(userCartDTO.getStartDate())) {
+			throw new IllegalAccessError("종료 날짜가 시작날보다 빠릅니다. 다시 확인해주세요");
+		}
 		else {
-			 result = userCartDAO.insertItem(userCartDTO);
+			userCartDTO.setUserName(principal.getName());
+			userCartDTO.setItemId(ItemDTO.getItemID());
+			userCartDTO.setPayments(false);
+			log.info("message {}", userCartDTO.toString());
+			result = userCartDAO.insertItem(userCartDTO);	
+			if(result == 0) {
+				throw new Exception();
+			}
 		}
+		ck = (result != 0) ? true : false;
 		
-		if(result ==1) {
-			ck = true;
-		}
-		
-		//controller에서 result가 0일 때 처리 + nullPointException 처리 
 		return ck;
 	}
 
@@ -63,6 +78,7 @@ public class UserCartServiceImpl implements UserCartService{
 		//payments get false;
 		usercartdto.setUserName(principal.getName());
 		List<HashMap<String, Object>> userCart = this.userCartDAO.detail(usercartdto);
+		usercartdto.setFinalPrice(sumPrice(userCart));
 		return userCart;
 	}
 	
@@ -72,10 +88,9 @@ public class UserCartServiceImpl implements UserCartService{
 	@Override
 	public Integer sumPrice(List<HashMap<String, Object>> userCart) {
 		Integer result = 0;
-		boolean replaceCk;
-		boolean adventrueCk ;
-
-		
+		for(HashMap<String, Object> item : userCart) {
+			result += (int) item.get("price");
+		}		
 		return result;
 	}
 
@@ -90,25 +105,20 @@ public class UserCartServiceImpl implements UserCartService{
 	}
 
 	@Override
-	public String updatePaymentsSuccess(Principal prince) {
+	public boolean updatePaymentsSuccess(Principal prince) {
 		String userName = prince.getName();
-		String message = null;
 		boolean ck = (userCartDAO.updatePaymentsSuccess(userName) == 1) ? true : false;
-		if(ck) {
-			message = "결제가 완료되었습니다";
-		}
-		return message;
+		//ck가 false일 때 예오ㅓㅣ처리
+		
+		return ck;
 	}
 
 	@Override
-	public String updatePaymentFalse(Principal prince) {
+	public boolean updatePaymentFalse(Principal prince) {
 		String userName = prince.getName();
-		String message = null;
 		boolean ck = (userCartDAO.updatePaymentFalse(userName) == 1) ? true : false;
-		if(ck) {
-			message = "결제가 취소되었습니다";
-		}
-		return message;
+		//ck가 false일 때 예오ㅓㅣ처리
+		return ck;
 	}
 
 	@Override
@@ -118,6 +128,7 @@ public class UserCartServiceImpl implements UserCartService{
 		userCart.setItemId(itemID);
 		Integer result = userCartDAO.deleteItem(userCart);
 		boolean ck = (result == 1) ? true : false; 		
+		//ck가 false일 때 예오ㅓㅣ처리
 		return ck;
 	}
 
@@ -128,6 +139,7 @@ public class UserCartServiceImpl implements UserCartService{
 		userCart.setUserName(principal.getName());
 		Integer result = userCartDAO.deleteALL(userCart);
 		boolean ck = (result == 1) ? true : false; 		
+		//ck가 false일 때 예오ㅓㅣ처리 
 		return ck;
 	}
 

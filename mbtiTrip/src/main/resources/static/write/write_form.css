@@ -5,13 +5,9 @@
     box-sizing: border-box; /* 상자 모델을 사용하여 padding과 border를 포함한 크기 설정 */
   }
   
-  .body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-  }
-  
+.writeBody{
+	padding-top: 7rem;
+}
    #category{
     width: 100%;
     font-size: 1.5rem;

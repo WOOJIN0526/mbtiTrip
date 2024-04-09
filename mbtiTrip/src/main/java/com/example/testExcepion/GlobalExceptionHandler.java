@@ -1,28 +1,28 @@
-package com.example.test;
-
-
-import java.nio.charset.Charset;
-
-
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.web.ErrorResponse;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.resource.NoResourceFoundException;
-
-
-
-import groovy.util.logging.Slf4j;
-import lombok.extern.log4j.Log4j2;
-
+//package com.example.testExcepion;
+//
+//
+//import java.nio.charset.Charset;
+//
+//
+//import org.aspectj.lang.annotation.Aspect;
+//import org.aspectj.lang.annotation.Before;
+//import org.springframework.http.HttpHeaders;
+//import org.springframework.http.HttpStatus;
+//import org.springframework.http.HttpStatusCode;
+//import org.springframework.http.MediaType;
+//import org.springframework.http.ResponseEntity;
+//import org.springframework.stereotype.Component;
+//import org.springframework.web.ErrorResponse;
+//import org.springframework.web.bind.annotation.ExceptionHandler;
+//import org.springframework.web.bind.annotation.RestController;
+//import org.springframework.web.bind.annotation.RestControllerAdvice;
+//import org.springframework.web.servlet.resource.NoResourceFoundException;
+//
+//
+//
+//import groovy.util.logging.Slf4j;
+//import lombok.extern.log4j.Log4j2;
+//
 //@Log4j2
 //@RestController
 //public class GlobalExceptionHandler {
@@ -63,10 +63,15 @@ import lombok.extern.log4j.Log4j2;
 //        ErrorRespone response = new ErrorRespone(e.toString(), "IllegalArgumentException" );
 //        return new ResponseEntity("BAD",HttpStatus.BAD_REQUEST);
 //    }
+//    
+//    @ExceptionHandler()
+//    public ResponseEntity<ErrorResponse> updateFailHandle(){
+//    	
+//    }
 //}
-
-
-
-
-
-
+//
+//
+//
+//
+//
+//

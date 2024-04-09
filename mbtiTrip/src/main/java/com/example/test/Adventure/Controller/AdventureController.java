@@ -58,9 +58,10 @@ public class AdventureController {
 
 	
     @RequestMapping(value = "/detail/{id}")
-    public String detail(Model model, @PathVariable("id") Integer itemID) {
-        ItemDTO item = this.adService.getPost(itemID);
-        model.addAttribute("adventure", item);
+    public String detail(Model model, @PathVariable("id") Integer itemID,
+    					Principal principal) {
+        ItemDTO item = this.adService.getPost(itemID, principal);
+        model.addAttribute("replace", item);
         return "adventure_detail";
     }
 

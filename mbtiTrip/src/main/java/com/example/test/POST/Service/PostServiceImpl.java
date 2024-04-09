@@ -3,6 +3,7 @@ package com.example.test.POST.Service;
 
 
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import com.example.test.POST.DAO.PostDAO;
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.DTO.Post_CategoryDTO;
 import com.example.test.User.DTO.UserDTO;
+import com.example.test.User.Service.UserHistoryService;
 import com.example.test.paging.Criteria;
 
 import jakarta.servlet.http.Cookie;
@@ -35,7 +37,8 @@ public  class PostServiceImpl implements PostService {
 	@Autowired
 	PostDAO postDAO;
 	
-
+	@Autowired
+	UserHistoryService userHistoryService;
 
 
 
@@ -80,7 +83,7 @@ public  class PostServiceImpl implements PostService {
         postDto.setWriter(user);
         
 
-        
+         
         return this.postDAO.save(postDto);
 	}
 
@@ -115,7 +118,8 @@ public  class PostServiceImpl implements PostService {
 	
 	// 게시물을 조회하고 조회수 증가
 		@Transactional
-		public PostDTO detail(Integer postID, HttpServletRequest request, HttpServletResponse response) {
+		public PostDTO detail(Integer postID, HttpServletRequest request, HttpServletResponse response
+				, Principal principal) {
 			 Cookie oldCookie = null;
 			    Cookie[] cookies = request.getCookies();
 			    if (cookies != null)
@@ -139,7 +143,10 @@ public  class PostServiceImpl implements PostService {
 			        newCookie.setMaxAge(60 * 60 * 24);
 			        response.addCookie(newCookie);
 			    }
-
+			    PostDTO userCount = new PostDTO();
+			    userCount.setPostID(postID);
+			    userHistoryService.userViewPost(userCount, principal);
+			    
 			    return postDAO.findById(postID).orElseThrow(() -> {
 			        return new IllegalArgumentException("글 상세보기 실패: 아이디를 찾을 수 없습니다.");
 			    });

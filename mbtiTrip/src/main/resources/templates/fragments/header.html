@@ -26,6 +26,10 @@
 			    <p>마이페이지</p>
 			    <i class="fa-solid fa-gear"></i>
 			</a>
+			<a th:if="${#authorization.expression('hasRole(''BIS'')')}" th:href="@{/bis/mypage}">
+			    <p>마이페이지</p>
+			    <i class="fa-solid fa-gear"></i>
+			</a>
          </div>
          <div class="profileItems">
            <a th:href="@{/mypage/cart}">
@@ -62,7 +66,8 @@
    
 
         <div  class="headerCon">
-            <div class="title">Trip to track</div>
+            <a th:href="@{/user/main}" sec:authorize="hasAuthority('ROLE_USER')"><div class="title">Trip to track</div></a>
+            <a th:href="@{/bis/main}" sec:authorize="hasAuthority('ROLE_BIS')"><div class="title">Trip to track</div></a>
            
                 <a href="#"><span class="tab">About the Site</span></a>
                 <a href="#"><span class="tab">How to Use</span></a>
@@ -71,10 +76,10 @@
 				    커뮤니티
 				    <ul class="cDropdownC">
 				        <li>
-				            <a class="dropA" href="/post/review/list">리뷰</a>
+				            <a class="dropA" th:href="@{/post/review/list}">리뷰</a>
 				        </li>
 				        <li>
-				            <a class="dropA"ef="/post/noticeBoard/list">자유게시판</a>
+				            <a class="dropA"th:href="@{/post/noticeBoard/list}">자유게시판</a>
 				        </li>
 				    </ul>
 				</span>
@@ -84,7 +89,9 @@
                <!-- 유저 박스 보더 -->
                
                  <div class="profileBox">
-                   <div class="userImg" ></div>
+                   <img class="userImg"	th:if="${user!= null}" th:src="${user['userImg']}" alt="프로필"></img>
+				   <img class="userImg" th:unless="${user!= null}" alt="프로필 이미지" ></img>
+  					<!--<div class="userName" th:text="${user['userImg']}"></div>-->
   					<div class="userName" th:text="${#authentication.name}"></div>
            		 </div>
 				 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon-menu" onclick="toggleSVG()">

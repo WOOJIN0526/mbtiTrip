@@ -27,4 +27,13 @@ public interface UserService {
 
 	public UserDTO getUser(String name);
 
+
+	public Integer princeUID(Principal principar);
+
+
+	public boolean passwordCK(Principal principal, String password);
+
+
+	public Map<String, Object> getMyItem(Principal principal);
+
 }

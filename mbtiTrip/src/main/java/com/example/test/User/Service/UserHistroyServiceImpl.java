@@ -1,4 +1,4 @@
-package com.example.test.User.Service;
+ package com.example.test.User.Service;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -27,20 +27,28 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 	@Autowired
 	UserHistoryDAO userhistoryDAO;
 	
+	
+	// 사용자의 userView에 조회한 ITem 정보 삽입
 	public void userViewItem(ItemDTO itemDTO, Principal principal) {
 		UserHistoryDTO userItemView = new UserHistoryDTO();
 		userItemView.setItemId(itemDTO.getItemID());
 		userItemView.setUserName(principal.getName());
 		userhistoryDAO.viewCkItem(userItemView);
+		//viewItem에 viewRating 값 증가 
+		userhistoryDAO.viewRatingIT(itemDTO);
 	}
+	// 사용자의 userView에 조회한 Post 정보 삽입
 	public void userViewPost(PostDTO PostDTO, Principal principal) {
 		UserHistoryDTO userPostView = new UserHistoryDTO();
-		userPostView.setItemId(PostDTO.getPostID());
+		userPostView.setPostid(PostDTO.getPostID());
 		userPostView.setUserName(principal.getName());
-		userhistoryDAO.viewCkItem(userPostView);
+		userhistoryDAO.viewCkPO(userPostView);
+		//viewPost에 viewRating 값 증가 
+		userhistoryDAO.viewRatingPO(PostDTO);
 	}
 	
 	
+	/*사용자가 가장 많이 조회한 mbti 유형을 분석하고, 그에 따라 replace 추천*/
 	@Override
 	public List<HashMap<String,Object>> uxReplace(String userName) {
 		List<HashMap<String, Object>> ULM = userhistoryDAO.uxMbti(userName);
@@ -50,6 +58,7 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 		return adRutin;
 	}
 
+	/*사용자가 가장 많이 조회한 mbti 유형을 분석하고, 그에 따라 Adventure 추천*/
 	@Override
 	public List<HashMap<String,Object>> uxAdventure(String userName) {
 		List<HashMap<String, Object>> ULM = userhistoryDAO.uxMbti(userName);
@@ -58,6 +67,7 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 		return adRutin;
 	}
 	
+	//사용자가 가장 많이 조호한 mbti 유형을 기준으로 4일치의 루틴 제공
 	@Override
 	public List<HashMap<String, Object>> uxRutin(String userName) {
 		List<HashMap<String, Object>> ULM = userhistoryDAO.uxMbti(userName);
@@ -69,6 +79,8 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 		return rutin;
 	}
 	
+	
+	/*user가 작성한 Post*/
 	@Override
 	public List<HashMap<String, Object>> selectUserPost(Principal principal) {
 		String userName = principal.getName();
@@ -76,11 +88,33 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 		return userPost;
 	}
 
+	
+	/*user가 작성한 QnA*/
 	@Override
 	public List<HashMap<String, Object>> selectUserQnA(Principal principal) {
 		String userName = principal.getName();
 		List<HashMap<String, Object>> userQnA = userhistoryDAO.userCreateQnA(userName);
 		return userQnA;
 	}
+	
+	
+	//viewPost, viewItem 테이블에 각각의 정보가 새로 생길 때마다 새로 생긴 Pk 값을 저장
+	@Override
+	public void ViewCreateItem() {
+		ItemDTO creatTarget = new ItemDTO();
+		int lastIdx =userhistoryDAO.lastIdxItem();
+		creatTarget.setItemID(lastIdx);
+		userhistoryDAO.insertViewTableItem(creatTarget);
+	}
+	
+	@Override
+	public void ViewCreatePost() {
+		PostDTO postDTO = new PostDTO();
+		int lastIdx = userhistoryDAO.lastIdxPost();
+		postDTO.setPostID(lastIdx);
+		userhistoryDAO.insertViewTablePost(postDTO);
+	}
+
+	
 
 }

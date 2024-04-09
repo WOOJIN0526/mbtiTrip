@@ -21,7 +21,7 @@
 <section class="mainBG" layout:fragment="content">
     <header class="mainHeader">
         <section class="mainHeaderSec">
-            <div class="search__box">
+            <div class="search__box" th:if="${replace!=null}">
                 <div class="search__title">장소 관리</div> <!-- 변경된 부분 -->
 				
 				<div class="replaceCon">
@@ -33,7 +33,9 @@
 					<div></div>
 				</div>
             </div>
-
+			<div class="search__box" th:unless="${replace!=null}">
+				<a th:href="@{/replace/create}"><button>숙소 등록하기</button></a>
+			</div>
 		<!--	<button class="after"><i class="fa-solid fa-chevron-right"></i></button>-->
         </section>
 		

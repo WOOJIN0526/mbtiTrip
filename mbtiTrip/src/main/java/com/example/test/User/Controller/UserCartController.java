@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,72 +32,73 @@ public class UserCartController {
 	@Autowired
 	UserCartService userCartservice;
 	
-	@RequestMapping("")
+	@RequestMapping(value = "",  method =RequestMethod.GET)
 	public ModelAndView detail_Cart(Principal principal, UserCartDTO usercartDTO, ModelAndView mav) {		
 		List<HashMap<String, Object>> userCart = userCartservice.detail(usercartDTO, principal);
 		Integer sumPrice = userCartservice.sumPrice(userCart);
 		log.info("message userCarts  => {}", userCart);
 		mav.addObject("sumPrice", sumPrice);
 		mav.addObject("userCarts", userCart);
-		mav.setViewName("Thtest");
+		//mav.setViewName("Thtest");
+		mav.setViewName("cart");
 		return mav;
 	}
 	
-	@RequestMapping("/pay")
+	@RequestMapping(value = "/pay", method =RequestMethod.GET)
 	public ModelAndView detail_Pay(Principal principal, UserCartDTO usercartDTO, ModelAndView mav) {
 		List<HashMap<String, Object>> userCart = userCartservice.detail_Pay(usercartDTO, principal);
 		log.info("userCartController {}", userCart.toString());
 		mav.addObject("userCarts", userCart);
-		mav.setViewName("Mycart_info");
+		mav.setViewName("Thtest");
 		return mav;
 	}
 	
 
 	@RequestMapping(value="/replace/input" , method=RequestMethod.POST)
-	public boolean insertReplace(@RequestBody ItemDTO itemDTO,
+	public ResponseEntity<?> insertReplace(@RequestBody ItemDTO itemDTO,
 								@RequestBody UserCartDTO userCartDTO
 								,Principal principal
 								,ModelAndView mav){
-		boolean ck = false;
 		try {
-			 ck = userCartservice.insertItem(userCartDTO, itemDTO, principal);
+			//장바구니에 item 넣기 
+			boolean ck = userCartservice.insertItem(userCartDTO, itemDTO, principal);
+		
 		} catch (NullPointerException e) {
-			mav.addObject("error", e.getMessage());
+			return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 정보를 찾을 수 없습니다.");
 		}
 		catch (Exception e) {
-			mav.addObject("error", e.getMessage());
+			return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("정보가 정상적으로 저장되지 않았습니다.");
 		}
-		return  ck;
+		return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body("정보가 정상적으로 저장되지 않았습니다.");
 	}
+	
+	
 	
 	@RequestMapping(value="/adventure/input" , method=RequestMethod.POST)
 	public boolean inserItem(@RequestBody ItemDTO itemDTO,
 								@RequestBody UserCartDTO userCartDTO
 								,Principal principal
-								,ModelAndView mav){
+								,ModelAndView mav) throws Exception{
 		boolean ck = false;
-		try {
+
 			 ck = userCartservice.insertItem(userCartDTO, itemDTO, principal);
-		} catch (NullPointerException e) {
-			mav.addObject("error", e.getMessage());
-		}
-		catch (Exception e) {
-			mav.addObject("error", e.getMessage());
-		}
-		return  ck;
+		
+		return ck;
 	}
 	
 	@RequestMapping(value="item/delte", method=RequestMethod.POST)
-	public boolean deleteReplace(@RequestBody Integer itemId,
+	public ResponseEntity<?> deleteItem(@RequestBody Integer itemId,
 								Principal principal) {
 		boolean ck = userCartservice.deleteItem(principal, itemId);
-		return ck;
+		//실패시 globalException Return 
+		return ResponseEntity.status(HttpStatus.OK).body("장바구니에서 삭제되었습니다.");
 	}
 	
 	@RequestMapping(value="/delte", method=RequestMethod.POST)
-	public boolean deleteALL(Principal principal) {
+	public ResponseEntity<?> deleteALL(Principal principal) {
 		boolean ck = userCartservice.deleteALL(principal);
-		return ck;
+		//실패시 globalException Return 
+		return ResponseEntity.status(HttpStatus.OK).body("장바구니에서 삭제되었습니다.");
 	}
 	
 	

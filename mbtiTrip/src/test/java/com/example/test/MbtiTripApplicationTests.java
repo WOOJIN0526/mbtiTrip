@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -19,6 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.example.test.Adventure.DTO.AdventureDTO;
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.User.DAO.UserCartDAO;
+import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DAO.UserHistoryDAO;
 import com.example.test.User.DTO.UserCartDTO;
 import com.example.test.User.DTO.UserHistoryDTO;
@@ -49,11 +51,22 @@ class MbtiTripApplicationTests {
 	
 	UserHistoryDTO userHistoryDTO = new UserHistoryDTO();
 	
+	@Autowired
+	UserDAO userDAO;
+	
 	@Test
 	void contextLoads() {
 		userHistoryDTO.setUserName("testUser4");
 		
 		String userName = "testUser4";
+		
+		/*@param 4.9 신성진 Bis 유저 관련한 기능 테스트*/
+		int cnt = 1 ;
+		List<HashMap<String, Object>> userItems =userDAO.getMyItem(userName);
+		for(HashMap<String,Object> userItem : userItems) {
+			log.info("userItem ==> {}", userItem);
+		}
+		
 		/*4/9 신성진 userCart TEST 진행 */
 		/*insert TEst 완료 */
 //		DateTimeFormatter dateformatter =  DateTimeFormatter.ofPattern("yyyy-mm-dd");	
@@ -66,25 +79,29 @@ class MbtiTripApplicationTests {
 //		int result = userCartDAO.insertItem(userCartDTO);
 //		log.info("cartInsertTEst ==> {}", (result==1) ? true : false);
 		
-		userCartDTO.setUserName(userName);
-		List<HashMap<String,Object>> userCarts = userCartDAO.detail(userCartDTO);
-//		for(HashMap<String,Object> userCart : userCarts) {
-//			log.info("message userCart -=> {}", userCart);
+//		userCartDTO.setUserName(userName);
+//	
+//
+//		
+//		int result = userCartDAO.updatePaymentsSuccess(userCartDTO.getUserName());
+//		log.info("updateCk ==> {}", (result ==0)? "예약 실패" : "예약 됨 ");
+//		List<HashMap<String,Object>> userpays = userCartDAO.detail_pay(userCartDTO);
+//		if(userpays.isEmpty()) {
+//			log.info("예약된 항목 없음");
 //		}
-		
-		int result = userCartDAO.updatePaymentsSuccess(userCartDTO.getUserName());
-		log.info("updateCk ==> {}", (result == 1)? "예약 됨" : "예약 실패 ");
-		List<HashMap<String,Object>> userpays = userCartDAO.detail_pay(userCartDTO);
-		if(userpays.isEmpty()) {
-			log.info("예약된 항목 없음");
-		}
-		else {
-			for(HashMap<String, Object> userpay :userpays) {
-				log.info(userpay);
-			}
-		}
-		
-		
+//		else {
+//			for(HashMap<String, Object> userpay :userpays) {
+//				log.info(userpay);
+//			}
+//		}
+//		
+//		int falseResult = userCartDAO.updatePaymentFalse(userName);
+//		
+//		List<HashMap<String,Object>> userCarts = userCartDAO.detail(userCartDTO);
+//		log.info("updateCk ==> {}", (falseResult ==0)? "예약취소 실패" : "예약취소ㅠ 됨 ");
+//		for(HashMap<String,Object> userCart : userCarts) {
+//		log.info("message userCart -=> {}", userCart);
+//	}
 		/*최근 조회 게시물 viewReturn~ 테스트 끝 */
 //		String userName = "testUser4";
 //		List<PostDTO> userViewPO = 	userHistoryDAO.viewReturnPO(userName);

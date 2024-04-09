@@ -1,8 +1,10 @@
-package com.example.test;
+package com.example.testExcepion;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+@AllArgsConstructor
 @Getter
 @Setter
 public class ErrorRespone {
@@ -12,14 +14,14 @@ public class ErrorRespone {
 	private String code;
 	
 	
-	ErrorRespone(ErrorCode errorCode){
+	public ErrorRespone(ErrorCode errorCode){
 		this.status = errorCode.getStatus();
 		this.message = errorCode.getMessage();
 		this.code = errorCode.getErrorCode();
 	}
 	
 	
-	ErrorRespone(String err , String mesage){
+	public ErrorRespone(String err , String mesage){
 		this.message = err;
 		this.code = mesage;
 	}

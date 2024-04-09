@@ -41,16 +41,16 @@
 	<![CDATA[
 			Update userCart
 			set
-			payment = true
-			where userName = #{userName};
+			payments = true
+			where userName = #{userName} and payments = false;
 		]]>
 	</update>
 	<update id="updatePaymentFalse">
 	<![CDATA[
 			Update userCart
 			set
-			payment = false
-			where userName = #{userName};
+			payments = false
+			where userName = #{userName} and payments = true;
 		]]>
 	</update>
 

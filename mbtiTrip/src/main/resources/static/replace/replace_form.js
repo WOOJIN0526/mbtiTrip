@@ -1,3 +1,6 @@
+ /**
+ * 다음 우편번호 서비스 API를 사용하여 주소 검색 팝업을 띄우고, 사용자가 선택한 주소를 입력 필드에 적절히 채웁니다.
+ */
  function execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -49,7 +52,10 @@
 var fileNo = 0;
 var filesArr = new Array();
 
-/* 첨부파일 추가 */
+/**
+ * 파일 입력 요소에서 선택된 파일을 처리하여 첨부파일 목록에 추가합니다.
+ * @param {object} obj - 파일 입력 요소(input[type=file]) 객체
+ */
 function addFile(obj){
     var maxFileCnt = 5;   // 첨부파일 최대 개수
     var attFileCnt = document.querySelectorAll('.filebox').length;    // 기존 추가된 첨부파일 개수
@@ -88,7 +94,11 @@ function addFile(obj){
     document.querySelector("input[type=file]").value = "";
 }
 
-/* 첨부파일 검증 */
+/**
+ * 파일을 검증하여 유효성을 확인합니다.
+ * @param {object} obj - 검증할 파일 객체
+ * @returns {boolean} - 파일이 유효한 경우 true, 그렇지 않은 경우 false를 반환합니다.
+ */
 function validation(obj){
     const fileTypes = ['application/pdf', 'image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif', 'application/haansofthwp', 'application/x-hwp'];
     if (obj.name.length > 100) {
@@ -108,23 +118,32 @@ function validation(obj){
     }
 }
 
-/* 첨부파일 삭제 */
+/**
+ * 지정된 파일 번호에 해당하는 파일 요소를 삭제하고, 파일 배열에서 해당 파일을 삭제합니다.
+ * @param {number} num - 삭제할 파일 번호
+ */ㄴ
 function deleteFile(num) {
     document.querySelector("#file" + num).remove();
     filesArr[num].is_delete = true;
 }
+/**
+ * 폼의 제출을 중단하고 대신 submitForm() 함수를 실행합니다.
+ */
 document.getElementById("replaceForm").addEventListener("submit", function(event) {
   // 기본 제출 동작을 중단합니다.
   event.preventDefault();
+  // submitForm() 함수를 실행합니다.
   submitForm();
 });
-/* 폼 전송 */
+
+/**
+ * 폼 데이터를 수집하여 서버로 전송합니다.
+ */
 function submitForm() {
-    // 폼데이터 담기
     var form = document.querySelector("form");
     var formData = new FormData(form);
+    // 파일 배열을 순회하며 삭제되지 않은 파일만 FormData에 추가
     for (var i = 0; i < filesArr.length; i++) {
-        // 삭제되지 않은 파일만 폼데이터에 담기
         if (filesArr[i].name !== '' && !filesArr[i].is_delete) {
             formData.append("file", filesArr[i]);
         }
