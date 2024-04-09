@@ -15,7 +15,7 @@ public interface UserService {
 
 	public Map<String, Object> login(UserDTO userdto);
 
-    int userUpdate(UserDTO userdto, Principal principal, MultipartFile mpf);
+    int userUpdate(UserDTO userdto, Principal principal);
 
 	public Map<String, Object> getInfo(Integer uID);
 

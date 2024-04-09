@@ -39,7 +39,7 @@
 
 	<select id="getInfo" resultType="hashmap">
 	 <![CDATA[
-		SELECT  userID, userName, m.mbti, phone, mail, UID
+		SELECT  userID, userName, m.mbti, phone, mail, UID,userImg
 		FROM User u
 		join MBTi m
 		on u.mbti = m.mbtiId
@@ -71,7 +71,7 @@
 			mbti = #{mbti},
 			password = #{password},
 			phone = #{phone},
-			mail =#{mail}
+			mail =#{mail},
 			userImg = #{userImg}
 			where UID = #{UID};
 		]]>

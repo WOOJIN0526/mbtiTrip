@@ -20,50 +20,21 @@
 	]]>
 	</select>
 
-	<sql id="search">
-        <if test="type != null and keyword != null">
-            <trim prefix="(" suffix=") AND " prefixOverrides="OR">
-                <foreach item="type" collection="typeArr">
-                    <trim prefix="OR">
-                        <choose>
-                            <when test="type =='t'.toString()">
-                                (TITLE LIKE '%'||#{keyword})||'%')
-                            </when>
-                            <when test="type =='c'.toString()">
-                                (CONTENT LIKE '%'||#{keyword})||'%')
-                            </when>
-                            <when test="type =='w'.toString()">
-                                (WRITER LIKE '%'||#{keyword})||'%')
-                            </when>
-                        </choose>
-                    </trim>
-                </foreach>
-            </trim>
-        </if>
-    </sql>
+	
 
 	<!--    게시글 목록 가져오기-->
     <select id="getList" resultType="com.example.test.POST.DTO.PostReviewDTO">
         <![CDATA[
-        SELECT ItemID, Category, title, content, suggestion, views, updateDate, modifyDate, writer 
-        FROM
-        (
-            SELECT /*+ INDEX_DESC(TBL_postReview PK_postReview) */
-            ROWNUM R, ItemID, Category, title, content, suggestion, views, updateDate, modifyDate, writer
-            FROM TBL_postReview
-            WHERE ROWNUM <= #{pageNum} * #{amount}
-        )
-           WHERE R> (#{pageNum}-1) * #{amount}
+        select ItemID,Category,title,Content,suggestion,views,UpdateDate,modifyDate, writer
+        from postReview
         ]]>
 
     </select>
 	
 	<select id="getTotal" resultType="_int">
       <![CDATA[
-        SELECT COUNT(ItemID) FROM TBL_postReview
-       <where>
-         <include refid="search"></include>
-       </where>
+     	select count(ItemID)
+     	from postReview
         ]]>
     </select>
 

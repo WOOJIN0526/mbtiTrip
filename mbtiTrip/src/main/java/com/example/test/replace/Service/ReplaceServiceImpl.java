@@ -37,7 +37,7 @@ public class ReplaceServiceImpl implements ReplaceService{
 	@Override
 	public List<ItemDTO> getList(Criteria criteria) {
 		// TODO Auto-generated method stub
-		return itemDAO.getList(criteria);
+		return itemDAO.replaceList(criteria);
 	}
 
 	@Override

@@ -8,128 +8,128 @@
     <link rel="stylesheet" th:href="@{cart/adventure.css}">
 </head>
 <body>
-    <section class="cart">
-        <div class="cart_main">
-            <h1 th:text="${cart.userName}">님</h1>
+	<section class="cart">
+	    <div class="cart_main">
+	        <h1 th:text="${cart.userName}">님</h1>
 			<h1>장바구니 내역</h1>
 			<div th:object="${userCarts}">
 			    <h1 th:text="${userCarts.size}"></h1>
-            <div class="guide">
-                <ul>
-                    <li>상품은 최대 30일간 저장됩니다.</li>
-                    <li>상품 등록자가 가격, 옵션 등 정보가 변경된 경우 주문이 불가할 수 있습니다.</li>
-                </ul>
-            </div>
-            <!-- 삭제 버튼 -->
-            <div class="detail">
-                <div class="optionbtn">
-                    <button class="cart_list_optionbtn">선택 상품 삭제</button>
-                    <button class="cart_list_optionbtn">전체 상품 삭제</button>
-                </div>
-                <!-- 숙소 정보 -->
-                <table class="cart_list" tr th:each="cart : ${userCarts}">
-                    <form>                                                              
-                        <thead>
-                            <tr>
-                                <th><input type="checkbox"></th>
-                                <th>숙소</th>
-                                <th>숙소이름</th>
-                                <th>지역</th>
-                                <th>옵션</th>
-                                <th>날짜</th>
-                                <th>상품금액</th>
-                                <th>별점</th>
-                            </tr>
-                        </thead>
-                    
-                        <tbody th:each="cart : ${userCarts}">
-                            <tr class="cart_list_detail" th:if="${cart.replaceInfo} != null">
-                                <td><input type="checkbox"></td>
-                                <td >
-                                    <img src="제주도/제주_카멜리아힐.jpg" alt=""> 
-                                </td>
-                                <td>
-                                                         
-                                    <span th:text="${cart.replaceInfo.replaceName}"></span><sapn>&nbsp;</sapn>    
-                                </td>
-                                <td>
-                                    <span th:text="${cart.replaceInfo.replaceLocation}">&nbsp;</span><sapn>&nbsp;</sapn>
-                                </td>
-
-                                <td class="cart_list_option" >
-                                    <p></p>
-                                    <span class="" th:text="${cart.replaceInfo.replaceContents}">&nbsp;</span><sapn>&nbsp;</sapn>                            
-                                </td>
-                                <td class="date">
-                                    <span>시작 날짜</span><br><span th:text="${cart.startDate}"></span><br>
-                                    <span>종료 날짜</span><br><span th:text="${cart.endDate}"></span><br>
-                                </td>
-                                <td><span class="price"th:text="${cart.replaceInfo.replacePrice}">&nbsp;</span><sapn>&nbsp;</sapn>
-                                </td>
-                                <td>
-                                    <span th:text="${cart.replaceInfo.R_rating_avg}">&nbsp;</span><sapn>&nbsp;</sapn>
-                                </td>                               
-                            </tr>
-                            <div th:unless="${cart.replaceInfo != null}">&nbsp;</div>
-                        </tbody>
-                    </form>
-                </table>
-                <table class="cart_list"  th:if="${cart.adventureInfo != null}">
-                    <form>                                                              
-                        <thead>
-                            <tr>
-                                <th><input type="checkbox"></th>
-                                <th>관광지</th>
-                                <th>관광지이름</th>
-                                <th>주소</th>
-                                <th>내용</th>
-                                <th>날짜</th>
-                                <th>상품금액</th>
-                                <th>별점</th>
-                            </tr>
-                        </thead>
-                        <tbody th:each="cart : ${userCarts}">
-                            <tr class="cart_list_detail" th:if="${cart.adventureInfo != null}">
-                                <td><input type="checkbox"></td>
-                                <td>
-                                    <img src="제주도/제주_카멜리아힐.jpg" alt="">  
-                                </td>
-                                <td>                                    
-                                    <span th:text="${cart.adventureInfo.adventureName}"></span><sapn>&nbsp;</sapn>  
-                                </td>
-                                <td>
-                                    <span th:text="${cart.adventureInfo.adventureLocation}">&nbsp;</span><sapn>&nbsp;</sapn>
-                                </td>
-
-                                <td class="cart_list_option" >
-                                    <p></p>
-                                    <span class="" th:text="${cart.adventureInfo.adventureContent}">&nbsp;</span><sapn>&nbsp;</sapn>                            
-                                </td>
-                                <td class="date">
-                                    <span>시작 날짜</span><br><span th:text="${cart.startDate}"></span><br>
-                                    <span>종료 날짜</span><br><span th:text="${cart.endDate}"></span><br>
-                                </td>
-                                <td><span class="price" th:text="${cart.adventureInfo.adventurePrice}">&nbsp;</span><sapn>&nbsp;</sapn>
-                                </td>
-                                <td>
-                                    <span th:text="${cart.adventureInfo.ratingAvg}">&nbsp;</span><sapn>&nbsp;</sapn>
-                                </td>                               
-                            </tr>
-                            <div th:unless="${cart.adventureInfo != null}">&nbsp;</div>
-                        </tbody>  
-                                              
-                    </form>
-                </table>
-                <h1 th:text="${sumPrice}"></h1><span>원</span> 
-
-            </div>
-            <!--예약버튼-->
-            <div class="cart_mainbtns">
-                <a th:href="">더 둘러보기</a>
-                <a th:href="">에약하기</a>
-            </div>
-                
-		</div>
-    </section>
+	        <div class="guide">
+	            <ul>
+	                <li>상품은 최대 30일간 저장됩니다.</li>
+	                <li>상품 등록자가 가격, 옵션 등 정보가 변경된 경우 주문이 불가할 수 있습니다.</li>
+	            </ul>
+	        </div>
+	        <!-- 삭제 버튼 -->
+	        <div class="detail">
+	            <div class="optionbtn">
+	                <button class="cart_list_optionbtn">선택 상품 삭제</button>
+	                <button class="cart_list_optionbtn">전체 상품 삭제</button>
+	            </div>
+	            <!-- 숙소 정보 -->
+	            <table class="cart_list">
+	                <form>                                                              
+	                    <thead>
+	                        <tr>
+	                            <th><input type="checkbox"></th>
+	                            <th>숙소</th>
+	                            <th>숙소이름</th>
+	                            <th>지역</th>
+	                            <th>추천 mbti</th>
+	                            <th>날짜</th>
+	                            <th>상품금액</th>
+	                            <th>결제여부</th>
+	                        </tr>
+	                    </thead>
+	                
+	                    <tbody th:each="pay : ${userCarts}">
+	                        <tr class="cart_list_detail" th:if="${cart.replaceInfo} != null">
+	                            <td><input type="checkbox"></td>
+	                            <td >
+	                                <img src="제주도/제주_카멜리아힐.jpg" alt=""> 
+	                            </td>
+	                            <td>
+	                                                     
+	                                <span  th:text="${pay['itemName']}"></span><sapn>&nbsp;</sapn>    
+	                            </td>
+	                            <td>
+	                                <span th:text="${pay['location']}">&nbsp;</span><sapn>&nbsp;</sapn>
+	                            </td>
+	
+	                            <td class="cart_list_option" >
+	                                <p></p>
+	                                <span class="" th:text="${pay['mbti']}">&nbsp;</span><sapn>&nbsp;</sapn>                            
+	                            </td>
+	                            <td class="date">
+	                                <span>시작 날짜</span><br><span th:text="${pay['startDate']}"></span><br>
+	                                <span>종료 날짜</span><br><span th:text="${pay['endDate']}"></span><br>
+	                            </td>
+	                            <td><span class="price"th:text="${pay['price']}">&nbsp;</span><sapn>&nbsp;</sapn>
+	                            </td>
+	                            <td>
+	                                <span th:text="${pay['payments']}? 'finish': 'pay' ">&nbsp;</span><sapn>&nbsp;</sapn>
+	                            </td>                               
+	                        </tr>
+	                        <div th:unless="${cart.replaceInfo != null}">&nbsp;</div>
+	                    </tbody>
+	                </form>
+	            </table>
+	            <table class="cart_list"  th:if="${cart.adventureInfo != null}">
+	                <form>                                                              
+	                    <thead>
+	                        <tr>
+	                            <th><input type="checkbox"></th>
+	                            <th>관광지</th>
+	                            <th>관광지이름</th>
+	                            <th>지역</th>
+	                            <th>추천 mbti</th>
+	                            <th>날짜</th>
+	                            <th>상품금액</th>
+	                            <th>결제여부</th>
+	                        </tr>
+	                    </thead>
+	                    <tbody th:each="cart : ${userCarts}">
+	                        <tr class="cart_list_detail" th:if="${cart.adventureInfo != null}">
+	                            <td><input type="checkbox"></td>
+	                            <td>
+	                                <img src="제주도/제주_카멜리아힐.jpg" alt="">  
+	                            </td>
+	                            <td>                                    
+	                                <span th:text="${pay['itemName']}"></span><sapn>&nbsp;</sapn>  
+	                            </td>
+	                            <td>
+	                                <span th:text="${pay['location']}">&nbsp;</span><sapn>&nbsp;</sapn>
+	                            </td>
+	
+	                            <td class="cart_list_option" >
+	                                <p></p>
+	                                <span class="" th:text="${pay['mbti']}">&nbsp;</span><sapn>&nbsp;</sapn>                            
+	                            </td>
+	                            <td class="date">
+	                                <span>시작 날짜</span><br><span th:text="${pay['startDate']}"></span><br>
+	                                <span>종료 날짜</span><br><span th:text="${pay['endDate']}"></span><br>
+	                            </td>
+	                            <td><span class="price" th:text="${pay['price']}">&nbsp;</span><sapn>&nbsp;</sapn>
+	                            </td>
+	                            <td>
+	                                <span th:text="${pay['payments']}? 'finish': 'pay' ">&nbsp;</span><sapn>&nbsp;</sapn>
+	                            </td>                               
+	                        </tr>
+	                        <div th:unless="${cart.adventureInfo != null}">&nbsp;</div>
+	                    </tbody>  
+	                                          
+	                </form>
+	            </table>
+	            <h1 th:text="${sumPrice}"></h1><span>원</span> 
+	
+	        </div>
+	        <!--예약버튼-->
+	        <div class="cart_mainbtns">
+	            <a th:href="">더 둘러보기</a>
+	            <a th:href="">에약하기</a>
+	        </div>
+	            
+	    </div>
+	</section>
 </body>
 </html>

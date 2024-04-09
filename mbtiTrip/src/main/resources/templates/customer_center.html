@@ -270,15 +270,17 @@
                 </details>
 				<div th:each="question : ${qnaList}">
 					<details class="question" data-value="own">
-						<summary>
-							<span th:text="${question.title}"></span>
-							<span th:text="${question.userName}"></span>
-							<span th:text="${question.updateDate}"></span>
+						<summary class="userQuestion">
+							<span th:text="${question.contents}" class="con"></span>
+							<span th:text="${question.userName}" class="author"></span>
+							<span th:text="${question.updateDate}" class="date"></span>
+							
 						</summary>
 						<div>
 							<p>
-								<span th:text="${question.contents}"></span>
+								<span th:text="${question.title}"></span>
 							</p>
+							<button class="reple">답변</button>
 						</div>
 					</details>
 				</div>

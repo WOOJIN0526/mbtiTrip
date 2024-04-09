@@ -17,10 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.ModelAndView;
 
 
-
+import com.example.test.Adventure.AdventureForm;
 import com.example.test.Adventure.Service.AdventureService;
 import com.example.test.Adventure.Service.Adventure_CategoryService;
 import com.example.test.User.DTO.UserDTO;
@@ -30,7 +29,7 @@ import com.example.test.item.ItemType;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.paging.Criteria;
 import com.example.test.paging.PageDTO;
-import com.example.test.replace.ReplaceForm;
+
 
 import jakarta.validation.Valid;
 
@@ -56,25 +55,10 @@ public class AdventureController {
 		
 		model.addAttribute("list", adService.getList(cri));
 		model.addAttribute("pageMaker", new PageDTO(adService.getTotal(cri), 10, cri));
-		return "Review_main";
+		return "adventure";
 	}
 	
-//	@RequestMapping("/list")
-//	public ModelAndView List(ModelAndView mv, Criteria cri) throws Exception {
-//
-//	    PageDTO pageMaker = new PageDTO();
-//	    pageMaker.setCri(cri); //page, perpagenum 셋팅
-//	    pageMaker.setTotalCount(adService.listCount(cri)); //총 게시글 수 셋팅
-//
-//	    //View에 페이징 처리를 위한 조건 및 그에 맞는 게시판 리스트 전송
-//	    mv.addObject("pageMaker", pageMaker);
-//	    mv.addObject("data", adService.list(cri)); //현재페이지에 표시할 게시글 목록 가져옴
-//
-//	    mv.setViewName("adventure_list");
-//
-//	    return mv;
-//	    }
-//	
+
 	
     @RequestMapping(value = "/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer itemID) {
@@ -87,9 +71,9 @@ public class AdventureController {
     //따라서 전체 카테고리 중에서 알맞는 카테고리를 선택할 수 있어야 한다. 즉, 아래와 같이 게시물 등록 폼에서 전체 카테고리를 조회한다.
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
-    public String Create(ReplaceForm Form, Model model) {
+    public String Create(AdventureForm Form, Model model) {
     	//model.addAttribute("categoryList", rpCategoryService.getList());
-        return "replace_form";
+        return "adventure_form";
     }
 
    
@@ -122,38 +106,38 @@ public class AdventureController {
     
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
-    public String Modify(ReplaceForm postForm, @PathVariable("id") Integer itemID, Principal principal) {
+    public String Modify(AdventureForm postForm, @PathVariable("id") Integer itemID, Principal principal) {
         ItemDTO itemDto = this.adService.getPost(itemID);
         if(!itemDto.getUsername()
         		.equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
-        postForm.setReplaceName(itemDto.getItemName());
-        postForm.setReplaceContents(itemDto.getContents());
+        postForm.setAdventureName(itemDto.getItemName());
+        postForm.setAdventureContent(itemDto.getContents());
         postForm.setMbtiID(itemDto.getMbti());
-        postForm.setReplaceLocation(itemDto.getLocation());
+        postForm.setAdventureLocation(itemDto.getLocation());
         postForm.setTel(itemDto.getTel());
-        postForm.setReplacePrice(itemDto.getPrice());
+        postForm.setAdventurePrice(itemDto.getPrice());
         postForm.setType(itemDto.getType());
         postForm.setFile(itemDto.getImgeUrl());
         
-        return "replace_form";
+        return "adventure_form";
     }
     
     //수정
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/modify/{id}")
-    public String Modify(@Valid ReplaceForm postForm, BindingResult bindingResult, 
+    public String Modify(@Valid AdventureForm postForm, BindingResult bindingResult, 
             Principal principal, @PathVariable("id") Integer itemID) {
         if (bindingResult.hasErrors()) {
-            return "replace_form";
+            return "adventure_form";
         }
         ItemDTO itemDto = this.adService.getPost(itemID);
         if (!itemDto.getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
-        this.adService.modify(itemDto, postForm.getType(),postForm.getMbtiID(), postForm.getReplacePrice(), postForm.getReplaceName(),
-        					postForm.getReplaceLocation(), postForm.getTel(), postForm.getReplaceContents(), postForm.getFile());
+        this.adService.modify(itemDto, postForm.getType(),postForm.getMbtiID(), postForm.getAdventurePrice(), postForm.getAdventureName(),
+        					postForm.getAdventureLocation(), postForm.getTel(), postForm.getAdventureContent(), postForm.getFile());
         return String.format("redirect:/adventure/detail/%s", itemID);
     }
     

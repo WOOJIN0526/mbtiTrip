@@ -11,6 +11,8 @@ import org.hibernate.validator.internal.util.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -251,17 +253,20 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/user/mypage/update/ck", method = RequestMethod.POST)
-	public ModelAndView update(@ModelAttribute UserDTO userdto,
-								@RequestParam("userImg") MultipartFile mpf,
+	@ResponseBody
+	public ResponseEntity<String> update(@ModelAttribute UserDTO userdto,
 								Principal principal, ModelAndView mav) {
 		log.info("message POST ONE ={}", userdto.toString());
 		try {
-			int result= userService.userUpdate(userdto, principal, mpf);
+			int result= userService.userUpdate(userdto, principal);
+			System.out.println("result : "+result);
 			if(result == 1) {
-				Map<String, Object> user = userService.getInfo(userdto.getUID());
-				mav.addObject(user);
-				mav.addObject("message", "회원정보가 수정 되었습니다");
-				mav.setViewName("redirect:/user/mypage");
+				/*
+				 * Map<String, Object> user = userService.getInfo(userdto.getUID());
+				 * mav.addObject(user); mav.addObject("message", "회원정보가 수정 되었습니다");
+				 * mav.setViewName("redirect:/user/mypage");
+				 */
+				return ResponseEntity.ok("회원정보가 수정 되었습니다");
 			}
 			else {
 				log.info("post, else");
@@ -273,7 +278,8 @@ public class UserController {
 	
 		}
 		log.info("POst retrun {}", mav.toString());
-		return mav;
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원정보 수정에 실패했습니다.");
+
 	}
 }
 

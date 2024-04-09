@@ -170,3 +170,11 @@ a {
   width: 10rem;
  
 }
+.userQuestion{
+	display: flex;	
+	flex-direction: row;
+
+}
+.con{
+	flex: 1;
+}

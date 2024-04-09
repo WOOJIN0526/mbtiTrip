@@ -1,5 +1,6 @@
 package com.example.test.User.DTO;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,11 +23,11 @@ public class UserCartDTO {
 
 	private Integer itemId;  //FK
 	
-	private LocalDateTime StartDate;
+	private LocalDate StartDate;
 
-	private LocalDateTime endDate;
-
-	private boolean payment;
+	private LocalDate endDate;
+	
+	private boolean payments;
 
 	
 }
