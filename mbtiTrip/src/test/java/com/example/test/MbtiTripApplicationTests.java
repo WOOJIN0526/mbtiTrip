@@ -25,6 +25,7 @@ import com.example.test.User.DAO.UserHistoryDAO;
 import com.example.test.User.DTO.UserCartDTO;
 import com.example.test.User.DTO.UserHistoryDTO;
 import com.example.test.User.Service.UserCartService;
+import com.example.test.User.Service.UserService;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.replace.DTO.ReplaceDTO;import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 
@@ -37,6 +38,8 @@ class MbtiTripApplicationTests {
 
 	UserCartService userCartService;
 	
+	@Autowired
+	UserService userService;
 	
 	UserCartDTO userCartDTO =new UserCartDTO() ;
 
@@ -59,6 +62,8 @@ class MbtiTripApplicationTests {
 		userHistoryDTO.setUserName("testUser4");
 		
 		String userName = "testUser4";
+		Integer userUID = userService.findByUID(userName);
+		Map<String, Object> user = userService.getInfo(userUID);
 		
 		/*@param 4.9 신성진 Bis 유저 관련한 기능 테스트*/
 		int cnt = 1 ;

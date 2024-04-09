@@ -62,7 +62,6 @@ public class ReplaceServiceImpl implements ReplaceService{
 	        }	
 	}
 
-	@Override
 	public int create(ItemType Type, Integer mbti, UserDTO Username,Integer price, 
 			 String itemName,String location, String tel, String contents, String[] ImgeUrl) {
 		
@@ -174,6 +173,15 @@ public class ReplaceServiceImpl implements ReplaceService{
 			            throw new DataNotFoundException("question not found");
 			        }	
 			}
+
+			@Override
+			public int create(ItemType Type, Integer mbti, AdminDTO Username, Integer price, String itemName,
+					String location, String tel, String contents, String[] ImgeUrl) {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+		
 	
 	
 	
