@@ -58,7 +58,7 @@
 			Update Item 
 			set
 			views=#{views}
-			where UID = #{UID};
+			where itemId = #{itemID};
 		]]>
 	</update>
  
@@ -66,7 +66,24 @@
        <![CDATA[
 		select COUNT(ItemID)
 		from Item 
+		where itemId = #{itemID}
        ]]>
     </select>
  
+ 	<select id="getRatingAverage" resultType="int">
+       <![CDATA[
+		select avg(ratingAvg)
+		from Item 
+		where itemId = #{itemID}
+       ]]>
+    </select>
+    
+    <update id="updateRating">
+	<![CDATA[
+			Update Item 
+			set
+			ratingAvg=#{ratingAvg}
+			where itemId = #{itemID};
+		]]>
+	</update>
 </mapper>

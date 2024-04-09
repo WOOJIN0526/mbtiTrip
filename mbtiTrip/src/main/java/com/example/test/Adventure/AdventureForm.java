@@ -1,5 +1,7 @@
 package com.example.test.Adventure;
 
+import com.example.test.item.ItemType;
+
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -42,6 +44,11 @@ public class AdventureForm {
 	    @Size(max = 200)
 	    private String adventureName;
 		
+		@NotEmpty(message = "타입은 필수입니다")
+		private ItemType Type;
+		
+		
+		private String[] file;
 		
 
 	   
