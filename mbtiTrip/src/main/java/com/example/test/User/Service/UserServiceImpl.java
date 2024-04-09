@@ -54,17 +54,11 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public int userUpdate(UserDTO userdto, Principal principal, MultipartFile mpf) {
+	public int userUpdate(UserDTO userdto, Principal principal) {
 		Integer UID = princeUID(principal);
 		userdto.setUID(UID);
 		userdto.setPassword(bcrypasswordEncoder.encode(userdto.getPassword()));
-		if(!mpf.isEmpty()) {
-			String userImg = gcsService.uploadObject(mpf);
-			userdto.setUserImg(userImg);
-		}
-		else {
-			userdto.setUserImg(null);
-		}
+		
 		int result =userDao.userUpdate(userdto);
 		return result;
 	}

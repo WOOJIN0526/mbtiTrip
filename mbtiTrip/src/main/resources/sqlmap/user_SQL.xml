@@ -71,7 +71,7 @@
 			mbti = #{mbti},
 			password = #{password},
 			phone = #{phone},
-			mail =#{mail}
+			mail =#{mail},
 			userImg = #{userImg}
 			where UID = #{UID};
 		]]>

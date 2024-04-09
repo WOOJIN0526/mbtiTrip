@@ -10,11 +10,12 @@
 
 <div class="container">
     <h2>개인정보 수정</h2>
-    <form th:action="@{/user/mypage/update/ck}" method="post">
-		<div class="profileImgCon">
-			<div class="selectedImgView"></div>
-			<input type="file" id="profileImg" name="profileImg" onchange="loadImg(this)">
-		</div>
+	<div class="profileImgCon">
+		<div class="selectedImgView"></div>
+		<input type="file" id="profileImg" name="profileImg" onchange="loadImg(this)">
+	</div>
+    <form id="Form">
+		
 		
         <div class="form-group">
             <label for="name">이름:</label>
@@ -57,7 +58,8 @@
             <input type="submit" value="저장">
         </div>
     </form>
+	<script th:src="@{/user_update/user_update.js}"></script>
 </div>
-<script th:src="@{/user_update/user_update.js}"></script>
+
 </body>
 </html>
