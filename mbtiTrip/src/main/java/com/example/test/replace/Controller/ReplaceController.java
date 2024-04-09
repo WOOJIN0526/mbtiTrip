@@ -61,8 +61,9 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
 	
 	
     @RequestMapping(value = "/detail/{id}")
-    public String detail(Model model, @PathVariable("id") Integer itemID) {
-        ItemDTO item = this.rpService.getPost(itemID);
+    public String detail(Model model, @PathVariable("id") Integer itemID,
+    		Principal principla) {
+        ItemDTO item = this.rpService.getPost(itemID, principla);
         model.addAttribute("replace", item);
         return "replace_detail";
     }

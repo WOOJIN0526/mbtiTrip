@@ -1,5 +1,7 @@
 package com.example.test.User.DAO;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -74,43 +76,6 @@ public class UserDAO {
 		
 		return result;
 	}
-//	
-//	@Id @GeneratedValue
-//	@Column(name = "User_ID")
-//	private Integer id;
-//	
-//	@NotNull
-//	@Column(name = "Mbti_ID", unique = true)
-//	private Integer mbtiID;
-//	
-//	@NotNull
-//	@Column(unique =true)
-//	@Size(max=15)
-//	private String userName;
-//	
-//	@NotNull
-//	@Size(min=8, max=20)
-//	@NotEmpty(message = "비밀번호는 필수입니다.")
-//	private String password;
-//	
-//	@Column(unique = true)
-//	private String PhoneNumber;
-//	
-//	//Rank구현 방안 고민 필요 회원등급 => 이게 필요할려면 누적금액 atrr  
-//	//주말 회의 
-//	private String Rank;
-//	
-//	@Email
-//	private String mail; 
-//	
-//	@OneToMany
-//	private String cart;
-//	
-//	@OneToMany 
-//	private String history;
-//	
-//	
-//	private boolean admin;
 
 	public UserDTO findByUsername(String name) {
 		// TODO Auto-generated method stub 
@@ -118,6 +83,12 @@ public class UserDAO {
 		UserDTO user = this.sqlSessiontemplate.selectOne("user.getUsername", name);
 	
 		return user;
+	}
+
+	public List<HashMap<String, Object>> getMyItem(String userName) {
+		log.info("getMyItem userName = > {}" , userName);
+		List<HashMap<String, Object>> myItem = this.sqlSessiontemplate.selectList("user.getMyItem", userName); 
+		return myItem;
 	}
 	
 	

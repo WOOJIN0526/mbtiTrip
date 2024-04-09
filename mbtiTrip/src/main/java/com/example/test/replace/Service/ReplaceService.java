@@ -1,5 +1,6 @@
 package com.example.test.replace.Service;
 
+import java.security.Principal;
 import java.util.List;
 
 import com.example.test.POST.DTO.PostDTO;
@@ -13,6 +14,8 @@ import com.example.test.paging.Criteria;
 public interface ReplaceService {
 
 	 public ItemDTO getPost(Integer itemID);
+	 
+	 public ItemDTO getPost(Integer itemID, Principal principal);
 	 
 	 public int create(ItemType Type, Integer mbti, AdminDTO Username,Integer price, 
 			 String itemName,String location, String tel, String contents, String[] ImgeUrl);

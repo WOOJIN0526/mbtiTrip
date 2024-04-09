@@ -105,15 +105,66 @@ public class BisController {
 	}
 	
 	
-	@RequestMapping(value = "/mypage/update/{UID}", method = RequestMethod.POST)
-	public ModelAndView Bisupdate(@ModelAttribute UserDTO userdto, ModelAndView mav) {
+//	@RequestMapping(value = "/mypage/update/", method = RequestMethod.GET)
+//	public ModelAndView update(Principal principal, UserDTO userdto, ModelAndView mav){
+////		String Uid = userdto.getUID();
+////		mav.addObject(userdto);
+//// 0321 최우진 유저데이터가 들어가야 될거같아서 주석하고 밑으로 바꿔봄
+//		Integer UID = userService.princeUID(principal);		
+//		Map<String, Object> map = userService.getInfo(UID);
+//		mav.addObject("map", map);
+//		mav.setViewName("user_update");
+//		return mav;
+//	}
+	
+	
+	
+	@RequestMapping(value = "/mypage/update", method = RequestMethod.GET)
+	public ModelAndView update_ck(Principal principal, ModelAndView mav){
+		log.info("cheak");
+		mav.addObject("userName", principal.getName());
+		mav.setViewName("user_update_ck");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/mypage/update", method = RequestMethod.POST) 
+	public ModelAndView update_ck(@RequestParam("password") String password,    
+								Principal principal, ModelAndView mav) throws Exception{
+		log.info("message ={}", principal.getName());
 		
+		boolean passwordCheck = userService.passwordCK(principal, password);
+		if(passwordCheck) {
+			log.info("message 인증성공");
+			mav.addObject("userName", principal.getName());
+			mav.setViewName("redirect:/user/mypage/update/ck");	
+		}
+		else {
+			throw new Exception("비밀번호가 일치 하지 않습니다.");
+		}
+		return mav;
+	} 
+	
+	@RequestMapping(value = "/mypage/update/ck", method = RequestMethod.GET)
+	public ModelAndView Bisupdate(Principal principal, UserDTO userdto, ModelAndView mav){
+		Integer UID = userService.princeUID(principal);		
+		Map<String, Object> map = userService.getInfo(UID);
+		Map<String, Object> myItem = userService.getMyItem(principal);
+		mav.addObject("map", map);
+		mav.addObject("myItem", myItem);
+		mav.setViewName("user_update");
+		return mav;
+	}
+	
+	
+	
+	@RequestMapping(value = "/mypage/update/ck", method = RequestMethod.POST)
+	public ModelAndView Bisupdate(@ModelAttribute UserDTO userdto, ModelAndView mav) {
 		try {
 			int result= userService.BisUpdate(userdto);
 			if(result == 1) {
 				mav.addObject(userdto);
 				mav.addObject("message", "회원정보가 수정 되었습니다");
-				mav.setViewName(String.format("redirect:/mypage/%s", userdto.getUID()));
+				mav.setViewName(String.format("redirect:bis/mypage/%s", userdto.getUID()));
 			}
 			else {
 				throw new Exception();

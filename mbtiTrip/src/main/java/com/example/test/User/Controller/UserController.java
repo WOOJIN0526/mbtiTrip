@@ -41,6 +41,8 @@ import com.example.test.User.Service.UserHistoryService;
 import com.example.test.User.Service.UserHistoryService;
 import com.example.test.User.Service.UserService;
 import com.example.test.User.Service.UserServiceImpl;
+import com.example.testExcepion.ErrorCode;
+import com.example.testExcepion.ErrorRespone;
 
 import groovy.transform.ToString;
 import jakarta.servlet.http.HttpServletRequest;
@@ -51,7 +53,7 @@ import lombok.extern.log4j.Log4j2;
 public class UserController {
 
 	@Autowired
-	private UserServiceImpl userService; 
+	private UserService userService; 
 	
 	@Autowired
 	private QnAService qnaService;
@@ -71,6 +73,14 @@ public class UserController {
 //	public String DeniedPage  {       
 //		return "access_denied_page";  
 //	}
+	
+	/*추후 진행*/
+//	@RequestMapping("globalecptionTest") 
+//	public void globalExceptionTest() {
+//		new ErrorRespone(ErrorCode.updateFailException);
+//	}
+	
+	
 	
 	@RequestMapping(value ="/" , method = RequestMethod.GET)
 	public ModelAndView main(ModelAndView mv) {
@@ -260,7 +270,7 @@ public class UserController {
 		try {
 			int result= userService.userUpdate(userdto, principal);
 			System.out.println("result : "+result);
-			if(result == 1) {
+			if(result != 0) {
 				/*
 				 * Map<String, Object> user = userService.getInfo(userdto.getUID());
 				 * mav.addObject(user); mav.addObject("message", "회원정보가 수정 되었습니다");
@@ -273,13 +283,13 @@ public class UserController {
 				mav.addObject(userdto);
 				throw new Exception("정보가 정상적으로 수정되지 않았습니다");	
 			}
-		} catch (Exception e) {
-			mav.addObject("message", e.getClass());
-	
 		}
-		log.info("POst retrun {}", mav.toString());
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원정보 수정에 실패했습니다.");
 
+		catch (Exception e) {
+			mav.addObject("message", e.getClass());
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원정보를 다시 확인해주세요");
+		}
+		
 	}
 }
 

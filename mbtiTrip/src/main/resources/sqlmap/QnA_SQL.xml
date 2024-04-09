@@ -12,7 +12,7 @@
 	<insert id="createAnswer">
 		insert Into QAnswer (QID, userName , A_content,
 		updateDate)
-		value (#{QID}, #{userName}, #{A_content}, #{AupdateDate});
+		value (#{QID}, #{adminName}, #{A_content}, #{AupdateDate});
 	</insert>
 
 	<select id="getlist" resultType="hashmap">

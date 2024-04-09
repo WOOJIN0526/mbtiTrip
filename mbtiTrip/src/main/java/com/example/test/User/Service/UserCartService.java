@@ -20,10 +20,10 @@ public interface UserCartService {
 	public List<HashMap<String, Object>>  detail_Pay(UserCartDTO usercartdto ,Principal principal);
 
 	//결제에서 호출 될 method
-	public String updatePaymentsSuccess(Principal prince);
+	public boolean updatePaymentsSuccess(Principal prince);
 
 	//예약 취소 
-	public String updatePaymentFalse(Principal prince);
+	public boolean updatePaymentFalse(Principal prince);
 
 	Integer sumPrice(List<HashMap<String, Object>> userCart);
 	

@@ -100,6 +100,13 @@ public class UserServiceImpl implements UserService{
 		return ck;
 	}
 
+	@Override
+	public Map<String, Object> getMyItem(Principal principal) {
+		String userName = principal.getName();
+		Map<String, Object> myItem = userDao.getMyItem(userName);
+		return myItem;
+	}
+
 
 
 }
