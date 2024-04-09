@@ -32,6 +32,7 @@ import com.example.test.POST.DTO.Post_CategoryDTO;
 import com.example.test.POST.Service.PostService;
 import com.example.test.POST.Service.Post_CategoryService;
 import com.example.test.User.DTO.UserDTO;
+import com.example.test.User.Service.UserHistoryService;
 import com.example.test.User.Service.UserService;
 import com.example.test.paging.Criteria;
 import com.example.test.paging.PageDTO;
@@ -55,6 +56,9 @@ public class PostController {
 	
 	@Autowired
 	Post_CategoryService postCategoryService;
+	
+	@Autowired
+	UserHistoryService userHistoryService;
 	
 @GetMapping("/list")
 public String list(Criteria cri, Model model) {

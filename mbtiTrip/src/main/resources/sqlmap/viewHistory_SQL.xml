@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="view">
-
+	
+	<insert id="insertItemTable" parameterType="hashMap"
+		useGeneratedKeys="true">  
+	<![CDATA[
+		insert into iTemView (itemId)
+		value (#itemId);
+ 	]]>
+	</insert>
+		<insert id="insertPostTable" parameterType="hashMap"
+		useGeneratedKeys="true">  
+			<![CDATA[
+		insert into PostView (PostId)
+		value (#{PostID});
+ 			]]>
+	</insert>
 
 	<insert id="viewItem" parameterType="hashMap"
 		useGeneratedKeys="true">  
@@ -152,6 +166,36 @@
 			from Item a
 			join MBTi mb on a.mbti = mb.mbtiId
 			where a.Type = "replace" and mb.mbti = #{mbti};
+		]]>
+	</select>
+
+	<update id="ratingItem">
+		<![CDATA[
+		update iTemView 
+		set viewRating = viewRating +1
+		where itemId = #{itemId};
+		]]>
+	</update>
+	
+	<update id="ratingPost">
+		<![CDATA[
+		update PostView 
+		set viewRating = viewRating+1
+		where PostId = #{PostID};
+		]]>
+	</update>
+
+	<select id="insertPostViewIdx">
+	<![CDATA[
+		select max(PostID)
+		from Post;
+		]]>
+	</select>
+
+	<select id="insertItemViewIdx">
+		<![CDATA[
+			select max(itemId)
+			from Item;
 		]]>
 	</select>
 

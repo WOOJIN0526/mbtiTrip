@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.example.test.POST.DTO.PostReviewDTO;
+import com.example.test.User.DAO.UserHistoryDAO;
+import com.example.test.User.Service.UserHistoryService;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.paging.Criteria;
 
@@ -17,9 +19,13 @@ public class ItemDAO {
 	@Autowired
 	SqlSessionTemplate sqlSessiontemplate;
 	
+	@Autowired
+	UserHistoryService userHistoryService;
+	
 	public int create(ItemDTO itemdto){
 		 int result = this.sqlSessiontemplate.insert("item.create", itemdto);
-		return result;
+		 userHistoryService.ViewCreateItem();
+		 return result;
 	}
 	
 	public List<ItemDTO> replaceList(Criteria cri){

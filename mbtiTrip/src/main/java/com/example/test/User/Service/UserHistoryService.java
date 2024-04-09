@@ -24,5 +24,9 @@ public interface UserHistoryService {
 	public List<HashMap<String, Object>> selectUserQnA(Principal principal);
 
 	public void userViewItem(ItemDTO itemDTO, Principal principal);
+	
 	public void userViewPost(PostDTO PostDTO, Principal principal);
+	
+	public void ViewCreateItem();
+	public void ViewCreatePost();
 }
