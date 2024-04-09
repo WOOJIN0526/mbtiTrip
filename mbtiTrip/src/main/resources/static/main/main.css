@@ -147,7 +147,7 @@ table {
     display: grid;
     grid-template-columns: 1fr 3fr;
     border: 1px solid rgb(212, 210, 210);
-    border-radius: 6px;
+    border-radius: 30px;
     box-shadow: 0 0 3px 0 rgb(172, 170, 170);
 }
 
@@ -156,7 +156,7 @@ table {
 .ad1 {
     margin: 20px 0;
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_10.png");
-    height: 380px;
+    height: 300px;
     background-size: 100% 100%;
     display: flex;
     border-radius: 20px;
@@ -164,54 +164,31 @@ table {
 
 .choo__box {
     display:grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 10px;
 }
 
 .choo_img1 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 250px;
+    height: 350px;
     background-size: 100% 100%;
 }
 
 .choo_img2 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 250px;
+    height: 350px;
     background-size: 100% 100%;
 }
 
 .choo_img3 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 250px;
+    height: 350px;
     background-size: 100% 100%;
 }
 
 .choo_img4 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 250px;
-    background-size: 100% 100%;
-}
-
-.choo_img5 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 250px;
-    background-size: 100% 100%;
-}
-.choo_img6 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 250px;
-    background-size: 100% 100%;
-}
-
-.choo_img7 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 250px;
-    background-size: 100% 100%;
-}
-
-.choo_img8 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 250px;
+    height: 350px;
     background-size: 100% 100%;
 }
 
@@ -223,49 +200,49 @@ table {
 
 .home__img1 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
-    height: 180px;
+    height: 280px;
     background-size: 100% 100%;
 }
 
 .home__img2 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
-    height: 180px;
+    height: 280px;
     background-size: 100% 100%;
 }
 
 .home__img3 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
-    height: 180px;
+    height: 280px;
     background-size: 100% 100%;
 }
 
 .home__img4 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
-    height: 180px;
+    height: 280px;
     background-size: 100% 100%;
 }
 
 .home__img5 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
-    height: 180px;
+    height: 280px;
     background-size: 100% 100%;
 }
 
 .home__img6 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
-    height: 180px;
+    height: 280px;
     background-size: 100% 100%;
 }
 
 .home__img7 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
-    height: 180px;
+    height: 280px;
     background-size: 100% 100%;
 }
 
 .home__img8 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
-    height: 180px;
+    height: 280px;
     background-size: 100% 100%;
 }
 

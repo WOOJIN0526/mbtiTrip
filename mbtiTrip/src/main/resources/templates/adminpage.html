@@ -13,8 +13,8 @@
   <!-- 구글 차트 Api -->
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-  <link rel="stylesheet" href="admin_user.css">
-  <title>어드민 게시글</title>
+  <link rel="stylesheet" th:href="@{/Users/user1/git/mbtiTrip/mbtiTrip/src/main/resources/static/adminpage/adminpage.css}">
+  <title>어드민 관리 페이지</title>
 
 </head>
 
@@ -313,11 +313,6 @@
 				<input type="text" class="addr addr1" name="addr1" readonly><br>
 				<input type="text" class="addr addr2" name="addr2" readonly>
 			  </div>
-			  <!--현재 상태 구분-->
-			  <div class="job_box">
-				&nbsp;<p>현재 상태</p>
-				&nbsp;&nbsp;<span id="job-stat">취업준비생</span>
-			  </div>
 
 			</div>
 			<div class="close_btn">
@@ -337,11 +332,11 @@
 
 	function drawChart() {
 	  var data = google.visualization.arrayToDataTable([
-		['Month', '게시물수',  '', '회원수'],
-		['1월', 87, 160, 10],
-		['2월', 120, 220, 20],
-		['3월', 200, 400, 30],
-		['4월', 50, 500, 100]
+		['Month', '게시물수',  '회원수'],
+		['1월', 10, 20 ],
+		['2월', 15, 30],
+		['3월', 7, 40],
+		['4월', 20, 50]
 	  ]);
 
 	  var options = {
@@ -390,7 +385,7 @@
 	//검색
 	$('.search_onclick_submit').click(
 	  function () {
-		alert('검색되니?')
+		alert('돌아가~')
 		location.href = "" + "검색어 이름" + "" + "검색어 아이디";
 	  }
 	);

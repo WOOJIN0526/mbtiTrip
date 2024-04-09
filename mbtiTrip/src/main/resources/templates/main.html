@@ -25,7 +25,7 @@
             <div class="search__box">
                 <div class="search__title">자기 성향에 맞는 숙소를 예약하세요
                     <br /> 
-                    즐길거리를 예약하세요.
+                
                 </div>
 
                 <table>
@@ -87,7 +87,7 @@
                 <div class="card">
                     <div class="card__img4 card__img"></div>
                     <div class="card__content">
-                        <a href="#"></a> 레스토랑</div>
+                        <a href="#"></a> 음식점</div>
                 </div>
             </div>
 
@@ -129,6 +129,19 @@
    
  
              <!-- 사용자 추천 기능 들어갈곳 -->
+    <div class=" kakaomap">
+        <div id="map" class="kakao"></div>
+	    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=103f462b173bc7ee73367e429ae889d0">            
+        </script>
+	    <script>
+		var container = document.getElementById('map');
+		var options = {
+			center: new kakao.maps.LatLng(33.450701, 126.570667),
+			level: 3
+		};
+
+		var map = new kakao.maps.Map(container, options);
+	    </script>
    
         <section class="choo">
             <div class="choo__box">
@@ -137,18 +150,10 @@
                 <div class="choo_img3"></div>
                 <div class="choo_img4"></div>
             </div>
+            <h1>123456</h1>
         </section>
-
-        <section>
-            <div class="choo__box">
-                <div class="choo_img5"></div>
-                <div class="choo_img6"></div>
-                <div class="choo_img7"></div>
-                <div class="choo_img8"></div>
-           
-            </div>
-        </section>
-
+    </div>
+ 
         <!-- 광고 배너 -->
         <section>
             <div class="ad1"></div>
