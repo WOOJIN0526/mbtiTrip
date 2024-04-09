@@ -91,7 +91,7 @@
                  <div class="profileBox">
                    <img class="userImg"	th:if="${user!= null}" th:src="${user['userImg']}" alt="프로필"></img>
 				   <img class="userImg" th:unless="${user!= null}" alt="프로필 이미지" ></img>
-  					<!--<div class="userName" th:text="${user['userImg']}"></div>-->
+  					<div th:if="${user!= null}" id="imgSeed" th:text="${user['userImg']}"></div>
   					<div class="userName" th:text="${#authentication.name}"></div>
            		 </div>
 				 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon-menu" onclick="toggleSVG()">

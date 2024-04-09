@@ -185,18 +185,18 @@ public String list(Criteria cri, Model model) {
     public String board(Model model) {
     	//게시글 불러와서 모델에 넣어주세요 list<PostDTO>로 postCategoryID=2
     	// postCategoryID=2인 게시글 목록 조회
-        List<PostDTO> postDTOList = postService.findPostByCategoryID(2L);
+        //List<PostDTO> postDTOList = postService.findPostByCategoryID(2L);
 
         // 모델에 게시글 목록 추가
-        model.addAttribute("postList", postDTOList);
+        //model.addAttribute("postList", postDTOList);
     	return"notice_board";
     }
     
 
     @GetMapping("/noticeBoard/create")//이거그냥 url무시하시고 postcreate 보여주는거에 리턴만 이걸로 맞춰주세요
-   public String boardCreate(PostForm postForm,Model model) {
+   public String boardCreate() {
    	// DB에 연결할 후속작업 메서드 부탁드립니다.
-   	model.addAttribute("categoryList", postCategoryService.getList());
+   //	model.addAttribute("categoryList", postCategoryService.getList());
    	return"write_form";
    }
 
@@ -208,19 +208,19 @@ public String list(Criteria cri, Model model) {
     }
 
 
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping("/noticeBoard/create")
-    public String boardCreate(Model model, @Valid PostForm postForm, 
-   	BindingResult bindingResult, Principal principal) {
-        if (bindingResult.hasErrors()) {
-        	
-           return "write_form";
-        }
-        UserDTO User = this.userService.getUser(principal.getName());
-        Post_CategoryDTO category = this.postCategoryService.getCategory(postForm.getCategory());
-        this.postService.create(postForm.getTitle(), postForm.getContent(), User, category);
-        return "redirect:/post/noticeBoard/list";
-        }
+	/*
+	 * @PreAuthorize("isAuthenticated()")
+	 * 
+	 * @PostMapping("/noticeBoard/create") public String boardCreate(Model
+	 * model, @Valid PostForm postForm, BindingResult bindingResult, Principal
+	 * principal) { if (bindingResult.hasErrors()) {
+	 * 
+	 * return "write_form"; } UserDTO User =
+	 * this.userService.getUser(principal.getName()); Post_CategoryDTO category =
+	 * this.postCategoryService.getCategory(postForm.getCategory());
+	 * this.postService.create(postForm.getTitle(), postForm.getContent(), User,
+	 * category); return "redirect:/post/noticeBoard/list"; }
+	 */
 
     
 }

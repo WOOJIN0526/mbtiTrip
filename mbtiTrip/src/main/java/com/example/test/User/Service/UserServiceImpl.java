@@ -1,6 +1,8 @@
 package com.example.test.User.Service;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -101,9 +103,9 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public Map<String, Object> getMyItem(Principal principal) {
+	public List<HashMap<String, Object>> getMyItem(Principal principal) {
 		String userName = principal.getName();
-		Map<String, Object> myItem = userDao.getMyItem(userName);
+		List<HashMap<String, Object>> myItem = userDao.getMyItem(userName);
 		return myItem;
 	}
 
