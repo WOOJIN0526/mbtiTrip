@@ -34,7 +34,7 @@ public class UserCartServiceImpl implements UserCartService{
 		//URL  = /replace/cart Post
 		userCartDTO.setUserName(principal.getName());
 		userCartDTO.setItemId(ItemDTO.getItemID());
-		userCartDTO.setPayment(false);
+		userCartDTO.setPayments(false);
 		log.info("message {}", userCartDTO.toString());
 		int result = 0;
 		boolean ck = false;

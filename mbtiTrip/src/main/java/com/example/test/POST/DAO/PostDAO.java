@@ -68,7 +68,7 @@ public class PostDAO {
 
 	public int getTotal(Criteria cri) {
 		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectOne("post.total", cri);
+		return sqlSessiontemplate.selectOne("post.getTotal", cri);
 	}
 
 

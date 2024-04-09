@@ -60,7 +60,7 @@ public String list(Criteria cri, Model model) {
 	
 	model.addAttribute("list", postService.getList(cri));
 	model.addAttribute("pageMaker", new PageDTO(postService.getTotal(cri), 10, cri));
-	return "post_main";
+	return "notice_board";
 }
 	
 
@@ -107,7 +107,7 @@ public String list(Criteria cri, Model model) {
         }
         postForm.setTitle(postDto.getTitle());
         postForm.setContent(postDto.getContent());
-        return "post_form";
+        return "write_form";
     }
     
     //수정
@@ -116,7 +116,7 @@ public String list(Criteria cri, Model model) {
     public String postModify(@Valid PostForm postForm, BindingResult bindingResult, 
             Principal principal, @PathVariable("id") Integer postID) {
         if (bindingResult.hasErrors()) {
-            return "post_form";
+            return "write_form";
         }
         PostDTO postDto = this.postService.getPost(postID);
         if (!postDto.getWriter().getUsername().equals(principal.getName())) {
@@ -188,12 +188,25 @@ public String list(Criteria cri, Model model) {
     }
     
     @GetMapping("/noticeBoard/create")//이거그냥 url무시하시고 postcreate 보여주는거에 리턴만 이걸로 맞춰주세요
-    public String boardCreate() {
-    	// DB에 연결할 후속작업 메서드 부탁드립니다.
-    	return"write_form";
-    }
+   public String boardCreate(PostForm postForm,Model model) {
+   	// DB에 연결할 후속작업 메서드 부탁드립니다.
+   	model.addAttribute("categoryList", postCategoryService.getList());
+   	return"write_form";
+   }
 
-    
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/noticeBoard/create")
+    public String boardCreate(Model model, @Valid PostForm postForm, 
+   	BindingResult bindingResult, Principal principal) {
+        if (bindingResult.hasErrors()) {
+        	
+           return "write_form";
+        }
+        UserDTO User = this.userService.getUser(principal.getName());
+        Post_CategoryDTO category = this.postCategoryService.getCategory(postForm.getCategory());
+        this.postService.create(postForm.getTitle(), postForm.getContent(), User, category);
+        return "redirect:/post/noticeBoard/list";
+        }
 
     
 }
