@@ -44,5 +44,46 @@
 		delete from Item 
 		where itemId = #{itemID}
 	</delete>
+	
+	<select id="findById" resultType="int">
+       <![CDATA[
+		select ItemID
+		from Item 
+		where userName = #{userName}
+       ]]>
+    </select>
+    
+    <update id="updateCount">
+	<![CDATA[
+			Update Item 
+			set
+			views=#{views}
+			where itemId = #{itemID};
+		]]>
+	</update>
  
+ 	<select id="getTotal" resultType="int">
+       <![CDATA[
+		select COUNT(ItemID)
+		from Item 
+		where itemId = #{itemID}
+       ]]>
+    </select>
+ 
+ 	<select id="getRatingAverage" resultType="int">
+       <![CDATA[
+		select avg(ratingAvg)
+		from Item 
+		where itemId = #{itemID}
+       ]]>
+    </select>
+    
+    <update id="updateRating">
+	<![CDATA[
+			Update Item 
+			set
+			ratingAvg=#{ratingAvg}
+			where itemId = #{itemID};
+		]]>
+	</update>
 </mapper>

@@ -63,21 +63,7 @@ public String list(Criteria cri, Model model) {
 	return "post_main";
 }
 	
-//	@RequestMapping("/list")
-//	public String postList(Model mv, Criteria cri) throws Exception {
-//
-//	    PageDTO pageMaker = new PageDTO();
-//	    pageMaker.setCri(cri); //page, perpagenum 셋팅
-//	    pageMaker.setTotalCount(postService.listCount(cri)); //총 게시글 수 셋팅
-//
-//	    //View에 페이징 처리를 위한 조건 및 그에 맞는 게시판 리스트 전송
-//	    mv.addAttribute("pageMaker", pageMaker);
-//	    mv.addAttribute("data", postService.list(cri)); //현재페이지에 표시할 게시글 목록 가져옴
-//
-//	    
-//
-//	    return "post_list";
-//	    }
+
 	
 	
     @RequestMapping(value = "/detail/{id}")
