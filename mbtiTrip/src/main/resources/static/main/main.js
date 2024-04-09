@@ -3,7 +3,7 @@
  * 현재 사용자 이미지의 소스를 sessionStorage에 저장합니다.
  * @param {string} ImgClass - 사용자 이미지를 나타내는 CSS 클래스 이름
  */
-sessionStorage.setItem("Img",document.querySelector('.userImg').currentSrc);
+sessionStorage.setItem("Img",document.querySelector('#imgSeed').textContent);
 console.log(sessionStorage.getItem("Img"));
 /**
  * 지정된 옵션을 사용하여 Sakura 인스턴스를 생성합니다.
