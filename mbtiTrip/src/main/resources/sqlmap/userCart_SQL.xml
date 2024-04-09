@@ -5,14 +5,14 @@
 	<insert id="insertItem" parameterType="com.example.test.User.DTO.UserCartDTO"
 		useGeneratedKeys="true">  
 	<![CDATA[
-		insert into userCart (userName, startDate, endDate, itemID, payment)
+		insert into userCart (userName, startDate, endDate, itemID, payments)
 	    values
-        (#{userName}, #{StartDate}, #{endDate}, #{itemId}, #{payment})
+        (#{userName}, #{StartDate}, #{endDate}, #{itemId}, false)
    	]]>
 	</insert>
 
 
-	<select id="detail" resultType="com.example.test.User.DTO.UserCartDTO">
+	<select id="detail" resultType="hashMap">
 	<![CDATA[
 		select uc.startDate, uc.endDate, uc.payments , i.itemName, i.userName as admin, i.price, i.location, i.tel, mb.mbti 
 		from userCart uc
@@ -56,8 +56,9 @@
 
 	<delete id="deletItem">
 	<![CDATA[
-			delete from userCart 
+			delete from userCart 	
 			where userName = #{userName} and itemId = #{itemId};	
+			and payments=false;
 	]]>
 	</delete>
 

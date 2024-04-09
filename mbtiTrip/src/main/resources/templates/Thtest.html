@@ -1,5 +1,5 @@
-<!--cart Main Th test-->
-<h1>장바구니 내역</h1>
+<!--cart Main Th test
+
 <div th:object="${userCarts}">
     <h1 th:text="${userCarts.size}"></h1>
     <table>
@@ -30,4 +30,34 @@
 		<div th:unless="${cart.adventureInfo != null}">&nbsp;</div>
     </table>
 </div>
+-->
+
+
+
+
+
+
+
+
+
+
+
+<h1>장바구니 내역</h1>
+<div th:object="${userCarts}">
+	<table th:each="pay : ${userCarts}">
+			<p> 장소 이름</p><span th:text="${pay['itemName']}"></span><sapn>&nbsp;</sapn>
+			<p> 주인쟝</p><span th:text="${pay['admin']}"></span><sapn>&nbsp;</sapn>
+			<p> 장소</p><span th:text="${pay['location']}"></span><sapn>&nbsp;</sapn>
+			<p> 추천 타입</p><span th:text="${pay['mbti']}"></span><sapn>&nbsp;</sapn>
+			<p> 출발일</p><span th:text="${pay['startDate']}"></span><sapn>&nbsp;</sapn>
+			<p> 도착일</p><span th:text="${pay['endDate']}"></span><sapn>&nbsp;</sapn>
+			<p> 결제 여부 </p><span th:text="${pay['payments']}? 'finish': 'pay' "></span><sapn>&nbsp;</sapn>
+			<p> 전화번호</p><span th:text="${pay['tel']}"></span><sapn>&nbsp;</sapn>
+			<p> 가격</p><span th:text="${pay['price']}"></span><sapn>&nbsp;</sapn>
+		</table>
+</div>
+
+
+
+
 <h1 th:text="${sumPrice}"></h1><span>원</span>
