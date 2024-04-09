@@ -43,11 +43,11 @@ public class UserCartDAO {
 	public List<HashMap<String, Object>> detail(UserCartDTO userCartDTO){
 		//payments가 false인경우만 조회 
 		List<HashMap<String, Object>> userCart = this.sqlSessiontemplate.selectList("userCart.detail", userCartDTO);
-		log.info("messsage ===> userCart Detail_Pay {}", userCart);
+		log.info("DAO ===> userCart Detail_Pay {}", userCart);
 		return userCart;
 	}
 	
-	
+
 	//결제 완료된 내역 eq 예약 된 정보 
 	public List<HashMap<String, Object>> detail_pay(UserCartDTO userCartDTO){
 		List<HashMap<String, Object>> userCart = this.sqlSessiontemplate.selectList("userCart.detailPay", userCartDTO);

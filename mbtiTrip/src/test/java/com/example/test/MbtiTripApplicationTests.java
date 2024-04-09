@@ -1,8 +1,11 @@
 package com.example.test;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +25,7 @@ import com.example.test.User.DTO.UserHistoryDTO;
 import com.example.test.User.Service.UserCartService;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.replace.DTO.ReplaceDTO;import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+
 
 import lombok.extern.log4j.Log4j2;
 
@@ -50,11 +54,57 @@ class MbtiTripApplicationTests {
 		userHistoryDTO.setUserName("testUser4");
 		
 		String userName = "testUser4";
-		UserHistoryDTO userHIs = new UserHistoryDTO();
-		userHIs.setItemId(33);
-		userHIs.setUserName(userName);
-		userHistoryDAO.viewCkItem(userHIs);
+		/*4/9 신성진 userCart TEST 진행 */
+		/*insert TEst 완료 */
+//		DateTimeFormatter dateformatter =  DateTimeFormatter.ofPattern("yyyy-mm-dd");	
+//		LocalDate lday = LocalDate.now();
+//		LocalDate end =lday.plusDays(1);
+//		userCartDTO.setUserName(userName);
+//		userCartDTO.setStartDate(lday);
+//		userCartDTO.setEndDate(end);
+//		userCartDTO.setItemId(1);
+//		int result = userCartDAO.insertItem(userCartDTO);
+//		log.info("cartInsertTEst ==> {}", (result==1) ? true : false);
 		
+		userCartDTO.setUserName(userName);
+		List<HashMap<String,Object>> userCarts = userCartDAO.detail(userCartDTO);
+//		for(HashMap<String,Object> userCart : userCarts) {
+//			log.info("message userCart -=> {}", userCart);
+//		}
+		
+		int result = userCartDAO.updatePaymentsSuccess(userCartDTO.getUserName());
+		log.info("updateCk ==> {}", (result == 1)? "예약 됨" : "예약 실패 ");
+		List<HashMap<String,Object>> userpays = userCartDAO.detail_pay(userCartDTO);
+		if(userpays.isEmpty()) {
+			log.info("예약된 항목 없음");
+		}
+		else {
+			for(HashMap<String, Object> userpay :userpays) {
+				log.info(userpay);
+			}
+		}
+		
+		
+		/*최근 조회 게시물 viewReturn~ 테스트 끝 */
+//		String userName = "testUser4";
+//		List<PostDTO> userViewPO = 	userHistoryDAO.viewReturnPO(userName);
+//		for(PostDTO userView : userViewPO ) {
+//			log.info("userViewPO =>  {}"+userView);
+//		}
+		
+		
+
+		
+		
+		
+		/*4/8 userHistory Test 작업자 신성진*/
+		/*viewCK 사용자가 조회한 아이템, 게시글 확인 가능 */
+//		UserHistoryDTO userHIs = new UserHistoryDTO();
+//		userHIs.setPostid(3);
+//		userHIs.setUserName(userName);
+//		
+//		userHistoryDAO.viewCkPO(userHIs);
+//		
 		
 		/*
 		List<HashMap<String, Object>> userpost = userHistoryDAO.userCreatePost("testUser4");
