@@ -41,5 +41,10 @@ public class AnswerDAO {
 		sqlSessiontemplate.delete("answer.delete", answerDto);
 	}
 
+	public int update(AnswerDTO answerDto) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.update("answer.update", answerDto);
+	}
+
 	
 }

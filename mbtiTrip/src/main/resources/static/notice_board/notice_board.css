@@ -2,7 +2,9 @@
     padding: 0;
     margin: 0;
 }
-
+.noticeBody{
+	padding-top: 7rem;
+}
 .notice{
     margin: 3.12rem;
 }

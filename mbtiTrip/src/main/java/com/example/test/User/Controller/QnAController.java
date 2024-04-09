@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -106,9 +107,12 @@ public class QnAController {
 	}
 	
 	@RequestMapping(value="/admin", method=RequestMethod.POST)
-	public boolean adminQnA(@RequestBody QAnswerDTO answer, Principal principal ) {
+	@ResponseBody
+	public ResponseEntity<String> adminQnA(QAnswerDTO answer, Principal principal ) {
+		
+		
 		boolean ck = qnaService.updateAnswer(answer, principal);
-		return ck;
+		return ResponseEntity.ok("답변이 성공적으로 등록되었습니다.");
 	}
 
 }

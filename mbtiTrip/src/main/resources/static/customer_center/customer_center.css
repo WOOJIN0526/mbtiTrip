@@ -178,3 +178,8 @@ a {
 .con{
 	flex: 1;
 }
+.repleArea{
+	width: 800px; height: 95px;
+	float: left;
+	font-size: 1.2rem;
+}

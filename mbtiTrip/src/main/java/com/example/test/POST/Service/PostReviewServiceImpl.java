@@ -69,7 +69,7 @@ public class PostReviewServiceImpl implements PostReviewService{
 		pr.setContent(content);
 		pr.setModifyDate(LocalDateTime.now());
 		
-		return this.prDAO.create(pr);
+		return this.prDAO.update(pr);
 	}
 
 	@Override

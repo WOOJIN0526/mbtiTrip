@@ -1,4 +1,4 @@
-
+document.querySelector('.userImg').src=sessionStorage.getItem("Img");
 
 document.querySelector('.icon-menu').addEventListener('click', function(){
     document.querySelector('.profile').classList.toggle('disActive');

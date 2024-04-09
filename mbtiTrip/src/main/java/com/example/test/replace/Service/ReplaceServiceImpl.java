@@ -1,6 +1,7 @@
 package com.example.test.replace.Service;
 
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +13,7 @@ import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.Service.DataNotFoundException;
 import com.example.test.User.DTO.AdminDTO;
 import com.example.test.User.DTO.UserDTO;
+import com.example.test.User.Service.UserHistoryService;
 import com.example.test.item.ItemType;
 import com.example.test.item.DAO.ItemDAO;
 import com.example.test.item.DTO.ItemDTO;
@@ -32,7 +34,8 @@ public class ReplaceServiceImpl implements ReplaceService{
 	ItemDAO itemDAO;
 
 	
-	
+	@Autowired
+	UserHistoryService userHistoryService;
 	
 	@Override
 	public List<ItemDTO> getList(Criteria criteria) {
@@ -60,7 +63,7 @@ public class ReplaceServiceImpl implements ReplaceService{
 	}
 
 	@Override
-	public int create(ItemType Type, Integer mbti, AdminDTO Username,Integer price, 
+	public int create(ItemType Type, Integer mbti, UserDTO Username,Integer price, 
 			 String itemName,String location, String tel, String contents, String[] ImgeUrl) {
 		
 		ItemDTO item = new ItemDTO();
@@ -92,7 +95,7 @@ public class ReplaceServiceImpl implements ReplaceService{
 		itemdto.setImgeUrl(ImgeUrl);
 		itemdto.setModifyDate(LocalDateTime.now());
 		
-		return this.itemDAO.create(itemdto);
+		return this.itemDAO.update(itemdto);
 	}
 
 	@Override
@@ -156,6 +159,20 @@ public class ReplaceServiceImpl implements ReplaceService{
 				
 				
 			
+			}
+
+			@Override
+			public ItemDTO getPost(Integer itemID, Principal principal) {
+				Optional<ItemDTO> replace = this.itemDAO.findById(itemID);
+				  if (replace.isPresent()) {
+			        	ItemDTO itemDto = replace.get();        	
+			        	itemDto.setUprating(itemDto.getUprating()+1);        	
+			        	this.itemDAO.create(itemDto);
+			        	userHistoryService.userViewItem(itemDto, principal);
+			        	return itemDto;
+			        } else {
+			            throw new DataNotFoundException("question not found");
+			        }	
 			}
 	
 	

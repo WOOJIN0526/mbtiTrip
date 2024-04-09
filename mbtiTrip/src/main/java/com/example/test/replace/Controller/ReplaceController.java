@@ -33,15 +33,13 @@ import com.example.test.replace.Service.ReplaceService;
 
 import jakarta.validation.Valid;
 
-@RequestMapping("/replace/")
+@RequestMapping("/replace")
 @Controller
 public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(admin?) 모르겠음
 
 	@Autowired
 	ReplaceService rpService;
 	
-	@Autowired
-	adminService adService;
 	
 	@Autowired
 	UserService userService;
@@ -61,8 +59,9 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
 	
 	
     @RequestMapping(value = "/detail/{id}")
-    public String detail(Model model, @PathVariable("id") Integer itemID) {
-        ItemDTO item = this.rpService.getPost(itemID);
+    public String detail(Model model, @PathVariable("id") Integer itemID,
+    		Principal principla) {
+        ItemDTO item = this.rpService.getPost(itemID, principla);
         model.addAttribute("replace", item);
         return "replace_detail";
     }
@@ -102,7 +101,7 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
 //        if (bindingResult.hasErrors()) {
 //            return "replace_form";
 //        }
-//        AdminDTO admin = this.adService.getadmin(principal.getName());
+//        UserDTO admin = this.userService.getUser(principal.getName());
 //    
 //        this.rpService.create(replaceForm.getType(), replaceForm.getMbtiID(), admin,replaceForm.getReplacePrice(), replaceForm.getReplaceName(), replaceForm.getReplaceContents(), 
 //        					  replaceForm.getTel(), replaceForm.getReplaceLocation(),  replaceForm.getFile() );

@@ -1,5 +1,6 @@
 package com.example.test.Adventure.Service;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +12,7 @@ import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.Service.DataNotFoundException;
 import com.example.test.User.DTO.AdminDTO;
 import com.example.test.User.DTO.UserDTO;
+import com.example.test.User.Service.UserHistoryService;
 import com.example.test.item.ItemType;
 import com.example.test.item.DAO.ItemDAO;
 import com.example.test.item.DTO.ItemDTO;
@@ -27,6 +29,8 @@ public class AdventureServiceImpl implements AdventureService{
 	@Autowired
 	ItemDAO itemDAO;
 
+	@Autowired
+	UserHistoryService userHistoryService;
 	
 	
 	@Override
@@ -43,11 +47,27 @@ public class AdventureServiceImpl implements AdventureService{
 
 	@Override
 	public ItemDTO getPost(Integer itemid) {
+		Optional<ItemDTO> adventure = this.itemDAO.findById(itemid);
+		  if (adventure.isPresent()) {
+	        	ItemDTO itemDto = adventure.get();        	
+	        	itemDto.setUprating(itemDto.getUprating()+1);        	
+	        	this.itemDAO.create(itemDto);
+	        	
+	            	return itemDto;
+	        } else {
+	            throw new DataNotFoundException("question not found");
+	        }	
+	}
+	
+	
+	@Override
+	public ItemDTO getPost(Integer itemid, Principal principal) {
 		Optional<ItemDTO> replace = this.itemDAO.findById(itemid);
 		  if (replace.isPresent()) {
 	        	ItemDTO itemDto = replace.get();        	
 	        	itemDto.setUprating(itemDto.getUprating()+1);        	
 	        	this.itemDAO.create(itemDto);
+	        	userHistoryService.userViewItem(itemDto, principal);
 	            	return itemDto;
 	        } else {
 	            throw new DataNotFoundException("question not found");
@@ -55,7 +75,7 @@ public class AdventureServiceImpl implements AdventureService{
 	}
 
 	@Override
-	public int create(ItemType Type, Integer mbti, AdminDTO Username,Integer price, 
+	public int create(ItemType Type, Integer mbti, UserDTO Username,Integer price, 
 			 String itemName,String location, String tel, String contents, String[] ImgeUrl) {
 		
 		ItemDTO item = new ItemDTO();
@@ -87,7 +107,7 @@ public class AdventureServiceImpl implements AdventureService{
 		itemdto.setImgeUrl(ImgeUrl);
 		itemdto.setModifyDate(LocalDateTime.now());
 		
-		return this.itemDAO.create(itemdto);
+		return this.itemDAO.update(itemdto);
 	}
 
 	@Override

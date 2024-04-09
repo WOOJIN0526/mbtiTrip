@@ -42,15 +42,12 @@ public class AdventureController {
 	AdventureService adService;
 	
 	@Autowired
-	adminService admService;
-	
-	@Autowired
 	UserService userService;
 	
 	@Autowired
 	Adventure_CategoryService adCategoryService;
 	
-	@GetMapping("/list")
+	@GetMapping("/list") 
 	public String list(Criteria cri, Model model) {
 		
 		model.addAttribute("list", adService.getList(cri));
@@ -61,18 +58,18 @@ public class AdventureController {
 
 	
     @RequestMapping(value = "/detail/{id}")
-    public String detail(Model model, @PathVariable("id") Integer itemID) {
-        ItemDTO item = this.adService.getPost(itemID);
+    public String detail(Model model, @PathVariable("id") Integer itemID,
+    					Principal principal) {
+        ItemDTO item = this.adService.getPost(itemID, principal);
         model.addAttribute("replace", item);
         return "adventure_detail";
     }
 
-    //게시물을 작성할 때도 카테고리를 선택해서 게시물을 생성해야 한다. 
-    //따라서 전체 카테고리 중에서 알맞는 카테고리를 선택할 수 있어야 한다. 즉, 아래와 같이 게시물 등록 폼에서 전체 카테고리를 조회한다.
+    
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
     public String Create(AdventureForm Form, Model model) {
-    	//model.addAttribute("categoryList", rpCategoryService.getList());
+    	
         return "adventure_form";
     }
 
@@ -80,22 +77,22 @@ public class AdventureController {
     
 //    @PreAuthorize("isAuthenticated()")
 //    @PostMapping("/create")
-//    public String Create(@Valid ReplaceForm replaceForm, 
+//    public String Create(@Valid AdventureForm replaceForm, 
 //            BindingResult bindingResult, Principal principal, ItemDTO itemdto) {
 //    	itemdto.setType(ItemType.replace);
 //        if (bindingResult.hasErrors()) {
 //            return "replace_form";
 //        }
-//        AdminDTO admin = this.adService.getadmin(principal.getName());
+//        UserDTO bis = this.userService.getUser(principal.getName());
 //    
-//        this.rpService.create(replaceForm.getType(), replaceForm.getMbtiID(), admin,replaceForm.getReplacePrice(), replaceForm.getReplaceName(), replaceForm.getReplaceContents(), 
-//        					  replaceForm.getTel(), replaceForm.getReplaceLocation(),  replaceForm.getFile() );
+//        this.adService.create(replaceForm.getType(), replaceForm.getMbtiID(), bis,replaceForm.getAdventurePrice(), replaceForm.getAdventureName(), replaceForm.getAdventureContent(), 
+//        					  replaceForm.getTel(), replaceForm.getAdventureLocation(),  replaceForm.getFile() );
 //        return "redirect:/question/list";
 //    }
     @PostMapping("/create")
     @ResponseBody
     public ResponseEntity<String> create(ItemDTO itemdto){
-    	itemdto.setType(ItemType.replace);
+    	itemdto.setType(ItemType.adventure);
     	
     	System.out.println(itemdto.toString());
     	for(MultipartFile file : itemdto.getFile()) {
@@ -104,6 +101,7 @@ public class AdventureController {
     	return ResponseEntity.ok().body("Success message");
     }
     
+   
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
     public String Modify(AdventureForm postForm, @PathVariable("id") Integer itemID, Principal principal) {

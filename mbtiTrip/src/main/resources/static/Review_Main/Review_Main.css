@@ -12,7 +12,7 @@
 
 .reviewListBody {
   background:white;
-  padding: 3.75rem 10.625rem 3.75rem 10.625rem;
+  padding: 10rem 10.625rem 3.75rem 10.625rem;
   display: flex;
   flex-direction: row;
   gap: 3.75rem;

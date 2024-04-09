@@ -50,24 +50,20 @@ public class userHistoryController {
 		for(HashMap<String,Object> reserv : reservation) {
 			log.info("userUX rutin   ==>{}", reserv);
 		}
-		
 		List<HashMap<String, Object>> userPost = userHistoryService.selectUserPost(principal);
 		for(HashMap<String,Object> reserv : userPost) {
 			log.info("userUX rutin   ==>{}", reserv);
 		}
-		
 		List<HashMap<String, Object>> userQnA = userHistoryService.selectUserQnA(principal);
 		for(HashMap<String,Object> reserv : userQnA) {
 			log.info("userUX rutin   ==>{}", reserv);
 		}
-		
 		mav.addObject("reservation", reservation);
 		mav.addObject("userPosts", userPost);
 		mav.addObject("userQnAs", userQnA);
 		mav.setViewName("testHistory");
 		return mav;
 	}
-	
 	
 	//history 주제별 삭제 기능 
 	@RequestMapping(value="delete/item", method=RequestMethod.POST)

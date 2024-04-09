@@ -49,4 +49,9 @@ public class PostReviewDAO {
 		return sqlSessiontemplate.selectOne("postReview.getTotal", cri);
 	}
 
+	public int update(PostReviewDTO pr) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.update("postReview.update", pr);
+	}
+
 }

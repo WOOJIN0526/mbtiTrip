@@ -45,10 +45,10 @@ public  class AnswerServiceImpi implements AnswerService {
 	}
 
 	@Override
-	public AnswerDTO modify(AnswerDTO answerDto, String content) {
+	public int modify(AnswerDTO answerDto, String content) {
 		answerDto.setContent(content);
 		answerDto.setModifyDate(LocalDateTime.now());
-		return this.answerDAO.save(answerDto);
+		return this.answerDAO.update(answerDto);
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public  class AnswerServiceImpi implements AnswerService {
 		answerDto.setUpdateDate(LocalDateTime.now());
 		answerDto.setItemID(postDto);
 		answerDto.setWriter(userDto);
-		return null;
+		return this.answerDAO.save(answerDto);
 	}
 
 

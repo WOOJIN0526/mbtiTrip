@@ -17,6 +17,7 @@ body{
 	position: absolute;
 	flex-direction: row;
 	justify-content: right;
+	z-index: 100;
 }
 
 .tab:hover{

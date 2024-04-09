@@ -19,6 +19,7 @@ import org.springframework.stereotype.Repository;
 
 
 import com.example.test.POST.DTO.PostDTO;
+import com.example.test.User.Service.UserHistoryService;
 import com.example.test.paging.Criteria;
 
 
@@ -31,10 +32,16 @@ public class PostDAO {
 	@Autowired
 	SqlSessionTemplate sqlSessiontemplate;
 	
+
+	@Autowired
+	UserHistoryService userHistoryService;
+	
 	public int insert(PostDTO post) {
 		int result = sqlSessiontemplate.insert("post.insert", post);
+		userHistoryService.ViewCreatePost();
 		return result;
 	}
+
 	
 	public int save(PostDTO postDto) {
 		return sqlSessiontemplate.insert("post.save", postDto);
@@ -68,7 +75,12 @@ public class PostDAO {
 
 	public int getTotal(Criteria cri) {
 		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectOne("post.total", cri);
+		return sqlSessiontemplate.selectOne("post.getTotal", cri);
+	}
+
+	public int update(PostDTO postDto) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.update("post.update", postDto);
 	}
 
 
