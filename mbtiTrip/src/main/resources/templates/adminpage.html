@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+  <!-- 구글 차트 Api -->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+  <link rel="stylesheet" href="admin_user.css">
+  <title>어드민 게시글</title>
+
+</head>
+
+
+<body>
+  <header id="admin_header">
+	<script>
+	  $(document).ready(function () {
+		$('#admin_header').load("admin_header_ver2.html");
+	  });
+	</script>
+  </header>
+
+  <div class="member">
+	<div class="member_title">
+	  <h2>관 리 자 </h2>
+	</div>
+	<br>
+	<!-- 이름 & 아이디로 서치 -->
+	<form>
+	  <div class="list">
+		  <div class="sec">
+			<button type="button" class="sec_btn" onclick="location.href = '#' ">123</button>
+			<button type="button" class="sec_btn" onclick="location.href = '#' ">123</button>
+			<button type="button" class="sec_btn" onclick="location.href = '#' ">총 금액</button>
+			<button type="button" class="sec_btn" onclick="location.href = '#' ">고객</button>
+			<button type="button" class="sec_btn" onclick="location.href = '#' ">숙박</button>
+		  </div>
+		  <div class="sec-option" >
+			<select name="condition">
+			  <option value="id" ${ }>아이디</option>
+			  <option value="name" ${ }>이름</option>
+			  <option value="idName" ${}>아이디 + 이름</option>
+			</select>
+			<input type="text" class="search-input" placeholder="검색" name="search" size="10">
+			<button type="submit" class="search_onclick_submit">검색</button>
+			
+		  </div>
+	  </div>
+
+
+	</form>
+
+	<div class="member_list">
+	  <table class="admin_board_wrap">
+		<tbody class="admin_boardList">
+		  <th class="admin_board_head">이름</th>
+		  <th class="admin_board_head">닉네임</th>
+		  <th class="admin_board_head">MBTI</th>
+
+		  <th class="admin_board_head">게시글수</th>
+		  <th class="admin_board_head">경고 횟수</th>
+		</tbody>
+		<tbody>
+		  <tr class="admin_board_content">
+			<td class="admin_board_content_nm"><a href="#" class="mypageModal">성진</a> </td>
+			<td class="admin_board_content_nm">zi존성진</td>
+			<td class="admin_board_content_nm">INTJ</td>
+			<td class="admin_board_content_nm"><a href="#" class="modal_boardList_admin">9999</a></td>
+			<td class="admin_board_content_nm"><a href="#" class="modal_reply_admin">1</a></td>
+		  </tr>
+		  <tr class="admin_board_content">
+			<td class="admin_board_content_nm"><a href="#" class="mypageModal">우진</a></td>
+			<td class="admin_board_content_nm">블루아카이브</td>
+			<td class="admin_board_content_nm">INTP</td>
+			<td class="admin_board_content_nm"><a href="#" class="modal_boardList_admin">4</a></td>
+			<td class="admin_board_content_nm"><a href="#" class="modal_reply_admin">2</a></td>
+		  </tr>
+		  <tr class="admin_board_content">
+			<td class="admin_board_content_nm"><a href="#" class="mypageModal"></a>형진</td>
+			<td class="admin_board_content_nm">앙 김옥찌</td>
+			<td class="admin_board_content_nm">ENFP</td>
+			<td class="admin_board_content_nm"><a href="#" class="modal_boardList_admin">4</a></td>
+			<td class="admin_board_content_nm"><a href="#" class="modal_reply_admin">2</a></td>
+		  </tr>
+		  <tr class="admin_board_content">
+			<td class="admin_board_content_nm"><a href="#" class="mypageModal">희정</a></td>
+			<td class="admin_board_content_nm">몰?루</td>
+			<td class="admin_board_content_nm">INFJ</td>
+			<td class="admin_board_content_nm"><a href="#" class="modal_boardList_admin">4</a></td>
+			<td class="admin_board_content_nm"><a href="#" class="modal_reply_admin">2</a></td>
+		  </tr>
+		  <tr class="admin_board_content">
+			<td class="admin_board_content_nm"><a href="#" class="mypageModal">현석</a></td>
+			<td class="admin_board_content_nm">모른다니까</td>
+			<td class="admin_board_content_nm">INFJ</td>
+			<td class="admin_board_content_nm"><a href="#" class="modal_boardList_admin">4</a></td>
+			<td class="admin_board_content_nm"><a href="#" class="modal_reply_admin">5</a></td>
+		  </tr>
+
+		</tbody>
+	  </table>
+
+	  <!-- 페이징 버튼 -->
+	  <s_paging>
+		<div id="paging">
+		  <br>
+		  <a href="#" class="prev" title="이전페이지">◀ PREV </a>
+		  <s_paging_rep><a href="#" class="num">1</a></s_paging_rep>
+		  <s_paging_rep><a href="#" class="num">2</a></s_paging_rep>
+		  <s_paging_rep><a href="#" class="num">3</a></s_paging_rep>
+		  <a href="#" class="prev" title="다음페이지">NEXT ▶</a>
+		  <br />&nbsp;
+		</div>
+	  </s_paging>
+	</div>
+   <!-- 구글 차트  -->
+	<div class="chart_zone">
+	  <div class="chart_box"></div>
+	 <div id="columnchart_material" class="googlechart" style="width: 800px; height: 500px;"></div>
+	</div>
+
+  </div> <!-- class member -->
+
+   
+
+   
+  <!--
+		  <td><c:choose>
+			<c:when test="">
+			  <input <c: value="" />>취준생
+			  <input <c: value="" />>재직자
+			</c:when>
+			
+		  </c:choose></td>
+		  재직자 취준생 분류 쓰기
+		-->
+  <!-- 게시글 모달로 가져오기-->
+  <div class="modal_list">
+	<div class="modal_boradlist">
+	  <div class="reply_listWrap">
+
+		<div class="modal_wrap">
+		  <h3>000님이 작성하신 글입니다.</h3>
+		  <p>작성한 게시글 수 : 총 01개</p>
+		  <div class="tableleng">
+			<table class="admin_boardM_wrap">
+			<tbody class="admin_boardMList">
+			  <th class="admin_boardM_title">작성글 번호</th>
+			  <th class="admin_boardM_title leng">글 내용</th>
+			  <th class="admin_boardM_title">작성일</th>
+			  <th class="admin_boardM_title">좋아요</th>
+			</tbody>
+			</tbody>
+			<tbody>
+			  <tr class="admin_boardM_content">
+				<td class="admin_boardM_nm"><a href="#">11</a></td>
+				<td class="admin_boardM_nm"><a href="">둘리 나가라</a></td>
+				<td class="admin_boardM_nm">2022.03.03</td>
+				<td class="admin_boardM_nm">7</td>
+			  </tr>
+			  <tr class="admin_boardM_content">
+				<td class="admin_boardM_nm"><a href="#">11</a></td>
+				<td class="admin_boardM_nm"><a href="">둘리 나가라</a></td>
+				<td class="admin_boardM_nm">2022.03.03</td>
+				<td class="admin_boardM_nm">7</td>
+			  </tr>
+			  <tr class="admin_boardM_content">
+				<td class="admin_boardM_nm"><a href="#">11</a></td>
+				<td class="admin_boardM_nm"><a href="">둘리 나가라</a></td>
+				<td class="admin_boardM_nm">2022.03.03</td>
+				<td class="admin_boardM_nm">7</td>
+			  </tr>
+			  <tr class="admin_boardM_content">
+				<td class="admin_boardM_nm"><a href="#">11</a></td>
+				<td class="admin_boardM_nm"><a href="">둘리 나가라</a></td>
+				<td class="admin_boardM_nm">2022.03.03</td>
+				<td class="admin_boardM_nm">7</td>
+			  </tr>
+			  <tr class="admin_boardM_content">
+				<td class="admin_boardM_nm"><a href="#">11</a></td>
+				<td class="admin_boardM_nm"><a href="">둘리 나가라</a></td>
+				<td class="admin_boardM_nm">2022.03.03</td>
+				<td class="admin_boardM_nm">7</td>
+			  </tr>
+			</tbody>
+		  </table>
+		  </div>
+		  <!-- 모달 페이징 -->
+		  <s_paging>
+			<div id="pagingM">
+			  <br>
+			  <a href="#" class="prev" title="이전페이지">◀ PREV </a>
+			  <s_paging_rep><a href="#" class="num">1</a></s_paging_rep>
+			  <s_paging_rep><a href="#" class="num">2</a></s_paging_rep>
+			  <s_paging_rep><a href="#" class="num">3</a></s_paging_rep>
+			  <a href="#" class="prev" title="다음페이지">NEXT ▶</a>
+			  <br />&nbsp;
+			</div>
+		  </s_paging>
+		  <div class="close_modal_btn">
+			<button class="modal_list_end_btn">닫기</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+  </div>
+
+  <div class="modal_reply">
+	<div class="modal_replylist">
+	  <div class="reply_listWrap">
+		<div class="modal_wrap">
+		  <div>
+			<h3>000님이 작성하신 댓글입니다.</h3>
+			<p>작성한 글 댓글수 : 총 01개</p>
+		  </div>
+
+		  <table class="admin_reply_wrap">
+			<tbody class="admin_replyList">
+			  <th class="admin_reply_title leng">작성한 댓글</th>
+			  <th class="admin_reply_title">글번호</th>
+			  <th class="admin_reply_title">작성한 일자</th>
+			</tbody>
+			<tbody>
+			  <tr class="admin_reply_content">
+				<td class="admin_reply_con"><a href="#">끄아ㅣㅇ라미</a></td><!-- 댓글로 이동 -->
+				<td class="admin_reply_con"><a href="#">12</a></td><!-- 댓글을 작성한 글로 이동 -->
+				<td class="admin_reply_con">2022.03.03</td>
+			  </tr>
+			  <tr class="admin_reply_content">
+				<td class="admin_reply_con"><a href="#">아라리료</a></td><!-- 댓글로 이동 -->
+				<td class="admin_reply_con"><a href="#">12</a></td><!-- 댓글을 작성한 글로 이동 -->
+				<td class="admin_reply_con">2022.03.03</td>
+			  </tr>
+			  <tr class="admin_reply_content">
+				<td class="admin_reply_con"><a href="#">쁴뿌ㅖㅂ뽀</a></td><!-- 댓글로 이동 -->
+				<td class="admin_reply_con"><a href="#">3</a></td><!-- 댓글을 작성한 글로 이동 -->
+				<td class="admin_reply_con">2022.03.03</td>
+			  </tr>
+			  <tr class="admin_reply_content">
+				<td class="admin_reply_con"><a href="#">가나다</a></td><!-- 댓글로 이동 -->
+				<td class="admin_reply_con"><a href="#">10</a></td><!-- 댓글을 작성한 글로 이동 -->
+				<td class="admin_reply_con">2022.03.03</td>
+			  </tr>
+			  <tr class="admin_reply_content">
+				<td class="admin_reply_con"><a href="#">머버ㅓㅅ</a></td><!-- 댓글로 이동 -->
+				<td class="admin_reply_con"><a href="#">89</a></td><!-- 댓글을 작성한 글로 이동 -->
+				<td class="admin_reply_con">2022.03.03</td>
+			  </tr>
+			</tbody>
+		  </table>
+		  <!-- 모달 페이징 -->
+		  <div>
+
+			<s_paging>
+			  <div id="pagingM">
+				<br>
+				<a href="#" class="prev" title="이전페이지">◀ PREV </a>
+				<s_paging_rep><a href="#" class="num">1</a></s_paging_rep>
+				<s_paging_rep><a href="#" class="num">2</a></s_paging_rep>
+				<s_paging_rep><a href="#" class="num">3</a></s_paging_rep>
+				<a href="#" class="prev" title="다음페이지">NEXT ▶</a>
+				<br />&nbsp;
+			  </div>
+			</s_paging>
+			<div class="close_modal_btn">
+			  <button class="modal_reply_end_btn">닫기</button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </div>
+
+  <!-- 회원관리 모달 -->
+  <div class="mypage_modal">
+	<div class="service_box">
+	  <div class="mem_box_inner">
+		<div class="mypage">
+		  <div class="mypage_form">
+			<h3>000님의 회원정보</h3>
+			<div class="insert">
+			  <!--이름-->
+			  <div class="name_box">
+				&nbsp;&nbsp;<p>이름</p> <input type="text" name="name" readonly value="홍길동"><br>
+			  </div>
+			  <!--아이디-->
+			  <div class="id_box">
+				&nbsp;&nbsp;<p>아이디</p> <input type="text" name="id" readonly value="abc1234"><br>
+
+			  </div>
+			  <!--비밀번호-->
+			  <div class="pw_box">
+				&nbsp; <p>비밀번호</p> <input type="password" name="pw" readonly><br>
+
+			  </div>
+			  <!--전화번호-->
+			  <div class="tel_box">
+				&nbsp; <p>전화번호</p> <input type="tel" name="phone" readonly><br>
+			  </div>
+			  <!--주소-->
+			  <div class="addr_box">
+				&nbsp; <p>주소</p> <input type="text" name="addr_num" readonly>
+
+				<input type="text" class="addr addr1" name="addr1" readonly><br>
+				<input type="text" class="addr addr2" name="addr2" readonly>
+			  </div>
+			  <!--현재 상태 구분-->
+			  <div class="job_box">
+				&nbsp;<p>현재 상태</p>
+				&nbsp;&nbsp;<span id="job-stat">취업준비생</span>
+			  </div>
+
+			</div>
+			<div class="close_btn">
+			  <button class="close">닫기</button>
+			</div>
+		  </div>
+
+		</div>
+	  </div>
+	</div>
+  </div>
+
+  <!-- 구글차트 스크립트 -->
+  <script type="text/javascript">
+	google.charts.load('current', {'packages':['bar']});
+	google.charts.setOnLoadCallback(drawChart);
+
+	function drawChart() {
+	  var data = google.visualization.arrayToDataTable([
+		['Month', '게시물수',  '', '회원수'],
+		['1월', 87, 160, 10],
+		['2월', 120, 220, 20],
+		['3월', 200, 400, 30],
+		['4월', 50, 500, 100]
+	  ]);
+
+	  var options = {
+		chart: {
+		  title: '	게시판 및 회원 동향',
+		  subtitle: ' 2024.03.01 ~ 2024.04.19',
+		}
+	  };
+
+	  var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+	  chart.draw(data, google.charts.Bar.convertOptions(options));
+	}
+  </script>
+
+  <!-- 구글 차트 종료! -->
+  
+  <script>
+	/* header */
+	$(document).ready(function () {
+	  $('#header').load("admin_header_ver2.html");
+	});
+
+	// 모달 스크립트 
+	$(function () {
+	  $('.modal_boardList_admin').click(function () {
+		$('.modal_list').fadeIn();
+	  }); // open modal end
+	  $('.modal_reply_admin').click(function () {
+		$('.modal_reply').fadeIn();
+	  });
+	  $('.modal_list_end_btn').click(function () {
+		$('.modal_list').fadeOut();
+	  });
+	  $('.modal_reply_end_btn').click(function () {
+		$('.modal_reply').fadeOut();
+	  });
+	  $('.mypageModal').click(function () {
+		$('.mypage_modal').fadeIn();
+	  });
+	  $('.close').click(function () {
+		$('.mypage_modal').fadeOut();
+	  });
+	});
+
+	//검색
+	$('.search_onclick_submit').click(
+	  function () {
+		alert('검색되니?')
+		location.href = "" + "검색어 이름" + "" + "검색어 아이디";
+	  }
+	);
+	// 엔터키누를시 검색버튼 눌리기
+	$('.search-input').keypress(function (e) {
+	  if (e.keyCode == 13) {
+		//실행할 function작성
+		alert("엔터 잘 실행되니?");
+	  }
+	});
+  </script>

@@ -1,0 +1,473 @@
+body {
+    margin: 80px;
+    height: 100%
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  h2 {
+    margin: 0 auto;
+    display: inline-block;
+  }
+  
+  h3 {
+    padding-left: 221px;
+    margin: 0 auto;
+    padding-top: 14px;
+    margin-bottom: 10px;
+  }
+  
+  table {
+    border-collapse: collapse;
+  }
+  
+  p {
+    padding: 0 0 10px 5px;
+    width: 500px;
+    margin: 0;
+    font-size: 13px;
+  }
+  
+  th,
+  td {
+    border-radius: 0;
+  }
+  
+  .mem_box_inner {
+    margin-top: 10px;
+  }
+  
+  /* 서치 */
+  .search-container>input {
+    border: 1px solid gray;
+    position: relative;
+    height: 26px;
+  }
+  
+  .search-option {
+    width: 70px;
+    border-radius: 5px;
+    padding: 1.5px 0;
+  }
+  
+  .search_onclick_submit {
+    margin-left: -2px;
+  }
+  .search-input{
+    border-radius: 5px;
+  }
+  .search_onclick_submit{
+    box-shadow:inset 0px 1px 0px 0px pink;
+      background:linear-gradient(to bottom, pink, pink 100%);
+      background-color: pink;
+      border-radius:5px;
+      border:1px solid pink;
+      display:inline-block;
+      cursor:pointer;
+      color:white;
+      font-family:Arial;
+      font-size:10px;
+      font-weight:bold;
+      padding:5px 8px;
+      text-decoration:none;
+      text-shadow:0px 1px 0px gray;
+  }
+  
+  .search_keyword {
+    position: absolute;
+    width: 250px;
+    height: 100px;
+    right: 87px;
+    top: 50px;
+  }
+  
+  /* 테이블 */
+  .admin_board_head,
+  .admin_board_content_nm {
+    font-size: 18px;
+  }
+  
+  .admin_boardList,
+  .admin_replyList,
+  .admin_boardMList {
+    border-bottom: 1px solid #ccc;
+    background-color: pink;
+  }
+  
+  .admin_replyList,
+  .admin_boardMList {
+    font-size: 1px;
+  }
+  
+  .admin_board_wrap {
+    margin: 0 auto;
+    border-top: 5px solid pink;
+    border-bottom: 1px solid #ccc;
+    width: 1000px;
+    text-align: center;
+  }
+  
+  .admin_board_content {
+    padding: 10px 0;
+  }
+  
+  .admin_replyList {
+    margin: 10xp;
+  }
+  
+  /* 모달 */
+  .mypage_modal,
+  .modal_reply,
+  .modal_list {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    margin: 0 auto;
+  }
+  
+  .modal_replylist,
+  .modal_boradlist {
+    width: 700px;
+    height: 680px;
+    background: whitesmoke;
+    margin: 0 auto;
+    margin-top: 10px;
+    border-radius: 10px;
+  
+  }
+  
+  .reply_listWrap {
+    padding: 50px;
+    background-color: pink;
+    border-radius: 10px;
+  
+  }
+  
+  .modal_wrap {
+    width: 600px;
+    height: 580px;
+    background-color: whitesmoke;
+    margin: 0 auto;
+    border-radius: 10px;
+    padding: 5px 10px
+  }
+  
+  .close_btn {
+    width: 50px;
+    margin: 0 auto;
+    padding-bottom: 10px;
+  
+  }
+  .close{
+    box-shadow:inset 0px 1px 0px 0px pink;
+      background:linear-gradient(to bottom, pink 5%, pink 100%);
+      background-color: pink;
+      border-radius:5px;
+      border:1px solid pink;
+      display:inline-block;
+      cursor:pointer;
+      color:white;
+      font-family:Arial;
+      font-size:10px;
+      font-weight:bold;
+      padding:5px 8px;
+      text-decoration:none;
+      text-shadow:0px 1px 0px pink;
+  
+  }
+  .close_modal_btn {
+    width: 50px;
+    margin: 5px auto;
+    bottom: 10px;
+    
+  }
+  
+  /* 테이블  */
+  
+  tr:nth-child(even) {
+    background-color: white;
+  }
+  
+  .admin_boardM_wrap,
+  .admin_reply_wrap {
+    margin: 0 auto;
+    border-top: 5px solid pink;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    width: 580px;
+  }
+  .leng{
+    width: 280px
+  }
+  
+  .modal_list_end_btn,
+  .modal_reply_end_btn {
+    box-shadow:inset 0px 1px 0px 0px pink;
+      background:linear-gradient(to bottom,pink 5%, pink 100%);
+      background-color: pink;
+      border-radius:5px;
+      border:1px solid pink;
+      display:inline-block;
+      cursor:pointer;
+      color:white;
+      font-family:Arial;
+      font-size:10px;
+      font-weight:bold;
+      padding:5px 8px;
+      text-decoration:none;
+      text-shadow:0px 1px 0px pink;
+  }
+  
+  .admin_boardM_content,
+  .admin_reply_content {
+    width: 500px;
+    background: whitesmoke;
+    margin: 0 auto;
+    padding: 11px;
+    font-size: 14px;
+  }
+  
+  .admin_boardM_title,
+  .admin_boardM_nm,
+  .admin_reply_title,
+  .admin_reply_con {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+  
+  .admin_replyList,
+  .admin_boardMList {
+    font: 14px bold;
+  }
+  
+  /* 페이징 */
+  #paging,
+  #pagingM {
+    width: 580px;
+    text-align: center;
+    line-height: 15px;
+    margin: 0 auto;
+    margin-top: 10px;
+  }
+  
+  #paging a.prev {
+    font: 3px;
+    color: pink
+  
+  }
+  
+  #pagingM a.prev {
+    font-size: 1px;
+    color: pink
+  }
+  
+  #paging .selected,
+  #pagingM .selected {
+    font-weight: bold;
+    color: pink;
+  }
+  
+  #paging a.num {
+    border: #AAAAAA 1px solid;
+    background-color: #FFFFFF;
+    color: pink;
+    padding: 3px 6px;
+    margin: 3px;
+    font: 3px;
+  }
+  
+  #pagingM a.num {
+    border: rgb(159, 204, 147) 1px solid;
+    background-color: #FFFFFF;
+    color: pink;
+    padding: 3px 6px;
+    margin: 3px;
+    font-size: 1px;
+  }
+  
+  #pagingM a:hover.num,
+  #paging a:hover.num {
+    border: pink 3px solid
+  }
+  
+  /* 모달 마이페이지 */
+  
+  .mypage {
+    width: 700px;
+    height: 600px;
+    padding-top: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-radius: 3%;
+    /* margin-top: 30px;
+      margin-left: 455px; */
+      background-color: pink    ;
+      margin: 0 auto;
+  }
+  
+  .mypage_form p {
+    display: inline-block;
+    width: 110px;
+  }
+  
+  .mypage .insert {
+    padding: 10px;
+    height: 450px;
+  }
+  
+  .mypage_form {
+    background: whitesmoke;
+  }
+  
+  .mypage_form .check {
+    display: none;
+  }
+  
+  .mypage_form input {
+    margin-bottom: 20px;
+    margin-left: 18px;
+  }
+  
+  .name_box input {
+    width: 100px;
+    color: rgb(172, 172, 172);
+  }
+  
+  .id_box input {
+    width: 100px;
+    color: rgb(172, 172, 172);
+  }
+  
+  .job_box {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .job_box p {
+    margin-bottom: 20px;
+  }
+  
+  .job_box .job {
+    margin-right: 20px;
+  }
+  
+  #job-stat {
+    margin-left: 16px;
+  }
+  
+  .job_check {
+    margin: 0 100px;
+  }
+  
+  .email_box input {
+    margin: 0;
+    margin-bottom: 20px;
+    width: 100px;
+  }
+  
+  .email_box p {
+    display: inline-block;
+    margin-bottom: 15px;
+  }
+  
+  .email_box .me {
+    margin-bottom: 15px;
+  }
+  
+  .addr_box input {
+    margin-bottom: 18px;
+  }
+  
+  .addr_box .addr {
+    margin-left: 138px;
+    margin-bottom: 10px;
+  }
+  
+  .addr_box .addr2 {
+    margin-top: 7px;
+    width: 400px;
+  }
+  
+  .clearfix::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+  
+  /* member */
+  .member {
+    width: 1200px;
+    height: 800px;
+    position: relative;
+    top: 30px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+  }
+  
+  .member_title {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: 0px;
+    right: 567px;
+  }
+  
+  /* .search {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 88px;
+    top: 50px;
+  } */
+  
+  
+  
+  .member_list {
+    position: absolute;
+    width: 1200px;
+    height: 400px;
+    right: 3px;
+    top: 140px;
+    /* border-radius: 0; */
+  }
+  
+  /* admin_boardList.html */
+  
+  /* 게시판 분리 5개 버튼 */
+  .sec{
+    width: 602px;
+    display: inline-block;
+    margin: 27px 101px;
+  }
+  
+  .sec .sec_btn {
+    color: whitesmoke;
+    border: 2px solid pink;
+    background-color: pink;
+    border-radius: 20px;
+  }
+  
+  .sec_btn:hover {
+    border: pink 3px solid;
+  }
+  .sec-option{
+    width: 300px;
+    display: inline-block;
+  
+  }
+  
+  .chart_zone{
+    width: 1200px;
+    height: 600px;
+    position: absolute;
+    top: 400px;
+    left: 240px;
+    
+  }
