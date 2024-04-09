@@ -1,6 +1,8 @@
 package com.example.test.User.Service;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -34,6 +36,6 @@ public interface UserService {
 	public boolean passwordCK(Principal principal, String password);
 
 
-	public Map<String, Object> getMyItem(Principal principal);
+	public List<HashMap<String, Object>> getMyItem(Principal principal);
 
 }

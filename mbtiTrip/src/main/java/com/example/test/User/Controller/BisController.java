@@ -1,6 +1,8 @@
 package com.example.test.User.Controller;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,9 +100,11 @@ public class BisController {
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public ModelAndView mypageBis(Principal principal, UserDTO userdto, ModelAndView mav){
 		Integer userUID = userService.findByUID(principal.getName());
-		Map<String, Object> map = userService.getInfo(userUID);
-		mav.addObject("user", map);
-		mav.setViewName("mypage");
+		Map<String, Object> user = userService.getInfo(userUID);
+		List<HashMap<String, Object>> userItems = userService.getMyItem(principal);
+		mav.addObject("user", user);
+		mav.addObject("userItem", userItems);
+		mav.setViewName("Bis_MyPageTest");
 		return mav;
 	}
 	
@@ -148,7 +152,7 @@ public class BisController {
 	public ModelAndView Bisupdate(Principal principal, UserDTO userdto, ModelAndView mav){
 		Integer UID = userService.princeUID(principal);		
 		Map<String, Object> map = userService.getInfo(UID);
-		Map<String, Object> myItem = userService.getMyItem(principal);
+		List<HashMap<String, Object>> myItem = userService.getMyItem(principal);
 		mav.addObject("map", map);
 		mav.addObject("myItem", myItem);
 		mav.setViewName("user_update");

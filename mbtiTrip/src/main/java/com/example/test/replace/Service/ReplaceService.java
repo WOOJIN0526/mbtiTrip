@@ -34,4 +34,7 @@ public interface ReplaceService {
 	 public int getTotal(Criteria cri);
 	 
 	 public void setRating(Integer itemID);
+
+
+
 }
