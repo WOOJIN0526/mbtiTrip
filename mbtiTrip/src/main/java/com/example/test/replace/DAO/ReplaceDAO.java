@@ -31,41 +31,41 @@ public class ReplaceDAO {
 	@Autowired
 	SqlSessionTemplate sqlSessiontemplate ;
 	
-	public int insert(Map<String, Object> replace) {
-		int result = this.sqlSessiontemplate.insert("replace.insert",replace);
-		return result;
-	}
+//	public int insert(Map<String, Object> replace) {
+//		int result = this.sqlSessiontemplate.insert("replace.insert",replace);
+//		return result;
+//	}
 
-	public Optional<ReplaceDTO> findById(Integer replaceID) {
-		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectOne("replace.findById", replaceID);
-	}
-
-	public ReplaceDTO save(ReplaceDTO rpDto) {
-		return rpDto;
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void delete(ReplaceDTO rpDto) {
-		// TODO Auto-generated method stub
-		sqlSessiontemplate.delete("replace.delete", rpDto);
-	}
-
-	public List<ReplaceDTO> list(Criteria cri) {
-		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectList("replace.list", cri);
-	}
-
-	public int listCount(Criteria cri) {
-		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectOne("replace.listCount", cri);
-	}
-
-	public void updateCount(Integer replaceID) {
-		// TODO Auto-generated method stub
-		sqlSessiontemplate.update("replace.updateCount", replaceID);
-	}
+//	public Optional<ReplaceDTO> findById(Integer replaceID) {
+//		// TODO Auto-generated method stub
+//		return sqlSessiontemplate.selectOne("replace.findById", replaceID);
+//	}
+//
+//	public ReplaceDTO save(ReplaceDTO rpDto) {
+//		return rpDto;
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	public void delete(ReplaceDTO rpDto) {
+//		// TODO Auto-generated method stub
+//		sqlSessiontemplate.delete("replace.delete", rpDto);
+//	}
+//
+//	public List<ReplaceDTO> list(Criteria cri) {
+//		// TODO Auto-generated method stub
+//		return sqlSessiontemplate.selectList("replace.list", cri);
+//	}
+//
+//	public int listCount(Criteria cri) {
+//		// TODO Auto-generated method stub
+//		return sqlSessiontemplate.selectOne("replace.listCount", cri);
+//	}
+//
+//	public void updateCount(Integer replaceID) {
+//		// TODO Auto-generated method stub
+//		sqlSessiontemplate.update("replace.updateCount", replaceID);
+//	}
 
 	
 	

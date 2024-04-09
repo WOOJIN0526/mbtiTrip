@@ -60,7 +60,7 @@ public class ReplaceServiceImpl implements ReplaceService{
 	}
 
 	@Override
-	public int create(ItemType Type, Integer mbti, AdminDTO Username,Integer price, 
+	public int create(ItemType Type, Integer mbti, UserDTO Username,Integer price, 
 			 String itemName,String location, String tel, String contents, String[] ImgeUrl) {
 		
 		ItemDTO item = new ItemDTO();
@@ -92,7 +92,7 @@ public class ReplaceServiceImpl implements ReplaceService{
 		itemdto.setImgeUrl(ImgeUrl);
 		itemdto.setModifyDate(LocalDateTime.now());
 		
-		return this.itemDAO.create(itemdto);
+		return this.itemDAO.update(itemdto);
 	}
 
 	@Override

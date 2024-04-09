@@ -86,4 +86,13 @@
 			where itemId = #{itemID};
 		]]>
 	</update>
+	
+	<update id="update">
+	<![CDATA[
+			Update Item 
+			set
+			Type=#{Type}, mbti=#{mbti}, userName=#{userName}, price=#{price}, itemName=#{itemName}, location=#{location}, tel=#{tel}, content=#{contents}, modifyDate=#{modifyDate}, imgeUrl=#{imgUrl}
+			where itemId = #{itemID};
+		]]>
+	</update>
 </mapper>

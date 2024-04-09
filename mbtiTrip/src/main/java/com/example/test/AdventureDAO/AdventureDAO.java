@@ -18,41 +18,41 @@ public class AdventureDAO {
 	@Autowired
 	SqlSessionTemplate sqlSessiontemplate ;
 	
-	public int insert(Map<String, Object> Adventure) {
-		int result = this.sqlSessiontemplate.insert("adventure.insert",Adventure);
-		return result;
-	}
+//	public int insert(Map<String, Object> Adventure) {
+//		int result = this.sqlSessiontemplate.insert("adventure.insert",Adventure);
+//		return result;
+//	}
 
-	public Optional<AdventureDTO> findById(Integer adventureID) {
-		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectOne("adventure.findById", adventureID);
-	}
-
-	public AdventureDTO save(AdventureDTO adDto) {
-		return adDto;
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void delete(AdventureDTO adDto) {
-		sqlSessiontemplate.delete("adventure.delete", adDto);
-		
-	}
-
-	public List<AdventureDTO> list(Criteria cri) {
-		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectList("adventure.list", cri);
-	}
-
-	public int listCount(Criteria cri) {
-		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectOne("adventure.listCount", cri);
-	}
-
-	public void updateCount(Integer adventureID) {
-		// TODO Auto-generated method stub
-		sqlSessiontemplate.update("adventure.updateCount", adventureID);
-	}
+//	public Optional<AdventureDTO> findById(Integer adventureID) {
+//		// TODO Auto-generated method stub
+//		return sqlSessiontemplate.selectOne("adventure.findById", adventureID);
+//	}
+//
+//	public AdventureDTO save(AdventureDTO adDto) {
+//		return adDto;
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	public void delete(AdventureDTO adDto) {
+//		sqlSessiontemplate.delete("adventure.delete", adDto);
+//		
+//	}
+//
+//	public List<AdventureDTO> list(Criteria cri) {
+//		// TODO Auto-generated method stub
+//		return sqlSessiontemplate.selectList("adventure.list", cri);
+//	}
+//
+//	public int listCount(Criteria cri) {
+//		// TODO Auto-generated method stub
+//		return sqlSessiontemplate.selectOne("adventure.listCount", cri);
+//	}
+//
+//	public void updateCount(Integer adventureID) {
+//		// TODO Auto-generated method stub
+//		sqlSessiontemplate.update("adventure.updateCount", adventureID);
+//	}
 
 	
 	

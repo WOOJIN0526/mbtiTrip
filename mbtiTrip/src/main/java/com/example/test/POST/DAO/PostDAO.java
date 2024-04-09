@@ -31,10 +31,10 @@ public class PostDAO {
 	@Autowired
 	SqlSessionTemplate sqlSessiontemplate;
 	
-	public int insert(PostDTO post) {
-		int result = sqlSessiontemplate.insert("post.insert", post);
-		return result;
-	}
+//	public int insert(PostDTO post) {
+//		int result = sqlSessiontemplate.insert("post.insert", post);
+//		return result;
+//	}
 	
 	public int save(PostDTO postDto) {
 		return sqlSessiontemplate.insert("post.save", postDto);
@@ -69,6 +69,11 @@ public class PostDAO {
 	public int getTotal(Criteria cri) {
 		// TODO Auto-generated method stub
 		return sqlSessiontemplate.selectOne("post.getTotal", cri);
+	}
+
+	public int update(PostDTO postDto) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.update("post.update", postDto);
 	}
 
 

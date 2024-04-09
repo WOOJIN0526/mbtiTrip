@@ -92,7 +92,7 @@ public  class PostServiceImpl implements PostService {
         postDto.setModifyDate(LocalDateTime.now());
         
         
-        return this.postDAO.save(postDto);
+        return this.postDAO.update(postDto);
 	}
 
 	//삭제

@@ -22,7 +22,7 @@ public class ItemDTO {
 	
 	private Integer mbti;
 	
-	private AdminDTO Username; //admin과 동일
+	private UserDTO Username; //admin과 동일
 	
 	private Integer price;
 

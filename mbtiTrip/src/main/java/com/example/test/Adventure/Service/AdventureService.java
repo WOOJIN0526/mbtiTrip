@@ -17,7 +17,7 @@ public interface AdventureService {
 
 	 public ItemDTO getPost(Integer itemID);
 	 
-	 public int create(ItemType Type, Integer mbti, AdminDTO Username,Integer price, 
+	 public int create(ItemType Type, Integer mbti, UserDTO Username,Integer price, 
 			 String itemName,String location, String tel, String contents, String[] ImgeUrl);
 	 
 	 public int modify(ItemDTO itemdto,ItemType Type, Integer mbti, Integer price, 

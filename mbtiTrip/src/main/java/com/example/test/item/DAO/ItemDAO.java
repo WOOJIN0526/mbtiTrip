@@ -84,4 +84,9 @@ public class ItemDAO {
 		// TODO Auto-generated method stub
 		return sqlSessiontemplate.selectOne("item.getTotal", cri);
 	}
+
+	public int update(ItemDTO itemdto) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.update("item.update", itemdto);
+	}
 }
