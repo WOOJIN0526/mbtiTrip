@@ -37,7 +37,8 @@ public class UserCartController {
 		log.info("message userCarts  => {}", userCart);
 		mav.addObject("sumPrice", sumPrice);
 		mav.addObject("userCarts", userCart);
-		mav.setViewName("Thtest");
+		//mav.setViewName("Thtest");
+		mav.setViewName("cart");
 		return mav;
 	}
 	

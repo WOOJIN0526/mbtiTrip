@@ -19,5 +19,11 @@ public class QAnswerDTO {
 	
 	private LocalDateTime AupdateDate;
 	
-	
+	 @Override
+	    public String toString() {
+	        return "YourClassName{" +
+	                "QID=" + QID +
+	                ", A_content='" + A_content + '\'' +
+	                '}';
+	    }
 }

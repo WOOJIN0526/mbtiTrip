@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -187,10 +188,15 @@ public String list(Criteria cri, Model model) {
     	return"notice_board";
     }
     
-    @GetMapping("/noticeBoard/create")//이거그냥 url무시하시고 postcreate 보여주는거에 리턴만 이걸로 맞춰주세요
+    @GetMapping("/noticeBoard/create")
     public String boardCreate() {
-    	// DB에 연결할 후속작업 메서드 부탁드립니다.
     	return"write_form";
+    }
+    @PostMapping("/noticeBoard/create")
+    @ResponseBody
+    public ResponseEntity<String> boardCreate(PostDTO dto,Principal principal) {
+    	// DB에 연결할 후속작업 메서드 부탁드립니다.
+    	return ResponseEntity.ok("등록하였습니다.");
     }
 
     

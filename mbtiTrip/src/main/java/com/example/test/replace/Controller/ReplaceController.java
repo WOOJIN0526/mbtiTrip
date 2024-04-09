@@ -33,7 +33,7 @@ import com.example.test.replace.Service.ReplaceService;
 
 import jakarta.validation.Valid;
 
-@RequestMapping("/replace/")
+@RequestMapping("/replace")
 @Controller
 public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(admin?) 모르겠음
 

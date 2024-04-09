@@ -168,6 +168,7 @@ public class UserController {
 		Integer userUID = userService.princeUID(princ);
 		Map<String, Object> user = userService.getInfo(userUID);
 		log.info("UserLoginSuccess = UserINFo= {}", user);
+		System.out.println(user.get("userImg"));
 		mav.addObject("user", user);
 		mav.setViewName("redirect:/user/main");
 		return mav;
@@ -253,7 +254,7 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/user/mypage/update/ck", method = RequestMethod.POST)
-	@ResponseBody
+	
 	public ResponseEntity<String> update(@ModelAttribute UserDTO userdto,
 								Principal principal, ModelAndView mav) {
 		log.info("message POST ONE ={}", userdto.toString());

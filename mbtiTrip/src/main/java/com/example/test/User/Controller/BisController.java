@@ -81,7 +81,7 @@ public class BisController {
 		return mav;
 	}
 	
-	@PreAuthorize("hasRole('ROLE_BIS') and hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_BIS') or hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public ModelAndView main(Principal principar,
 							ModelAndView mav) {
@@ -94,12 +94,12 @@ public class BisController {
 		return mav;
 	}
 	
-	@PreAuthorize("hasRole('ROLE_BIS') and hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_BIS') or hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public ModelAndView mypageBis(Principal principal, UserDTO userdto, ModelAndView mav){
 		Integer userUID = userService.findByUID(principal.getName());
 		Map<String, Object> map = userService.getInfo(userUID);
-		mav.addObject("map", map);
+		mav.addObject("user", map);
 		mav.setViewName("mypage");
 		return mav;
 	}

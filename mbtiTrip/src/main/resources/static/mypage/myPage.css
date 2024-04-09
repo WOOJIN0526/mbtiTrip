@@ -26,7 +26,7 @@
     transform: rotate(90deg);
   }
 .menuNode{
-	border: 1px solid black;
+
     position: fixed;
     left: 5rem;
     top: 15rem;
