@@ -1,5 +1,8 @@
 package com.example.test;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,7 +31,7 @@ import com.example.test.User.Service.UserCartService;
 import com.example.test.User.Service.UserService;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.replace.DTO.ReplaceDTO;import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-
+import com.google.common.collect.Multiset.Entry;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -62,15 +65,66 @@ class MbtiTripApplicationTests {
 		userHistoryDTO.setUserName("testUser4");
 		
 		String userName = "testUser4";
-		Integer userUID = userService.findByUID(userName);
-		Map<String, Object> user = userService.getInfo(userUID);
+		/*4.10 bis mypage 현재 예약 된 내역 확인 기능 Test*/
+		
+		List<ItemDTO> userViewItem =userHistoryDAO.viewReturnRE(userName);
+
+		
+		List<ItemDTO> userViewAD =userHistoryDAO.viewReturnAD(userName);
+
+		
+		List<PostDTO> userViewPo = userHistoryDAO.viewReturnPO(userName);
+
+		
+		List<List<?>> userViewInfo = new ArrayList<>();
+		userViewInfo.add(userViewItem);
+		userViewInfo.add(userViewAD);
+		userViewInfo.add(userViewPo);
+		log.info("userViewINFO ===> {}", userViewInfo);
+		
+		String mbti = "ISTJ";
+		List<HashMap<String, Object>> rutinByReplace =userHistoryDAO.rutinREByUx(mbti);
+		List<HashMap<String, Object>> rutinByAdventure = userHistoryDAO.rutinADByUx(mbti);
+		List<HashMap<String, Object>> rutinByUX = userHistoryDAO.rutinByUx(mbti);
+		log.info("message  RE=> {}", rutinByReplace);
+		log.info("message  AD=> {}", rutinByAdventure);
+		log.info("message  ALL=> {}", rutinByUX);
 		
 		/*@param 4.9 신성진 Bis 유저 관련한 기능 테스트*/
-		int cnt = 1 ;
-		List<HashMap<String, Object>> userItems =userDAO.getMyItem(userName);
-		for(HashMap<String,Object> userItem : userItems) {
-			log.info("userItem ==> {}", userItem);
-		}
+		/*itemList에 viewRatring값 삽입하기 성공*/
+//		List<HashMap<String, Object>> userItems = userDAO.getMyItem(userName);
+//		List<HashMap<String,Object>> viewRating = userHistoryDAO.getRatingItem(userName);
+//		for(HashMap<String,Object> item : userItems) {
+//			for(HashMap<String, Object> rate : viewRating) {
+//				Set<String> keySet = rate.keySet();
+//				for(String key : keySet) {
+//					if(item.get("itemId").equals(rate.get("itemID"))) {
+//						if(key.equals("viewRating")) {
+//						 item.put(key, rate.get(key));
+//						 
+//						}
+//					}
+//				}
+//				
+//			}
+//		}
+//		for(HashMap<String,Object> z : userItems) {
+//			log.info("Message ====>{}", z);
+//		}
+		
+		
+		
+//		Integer userUID = userService.findByUID(userName);
+//		Map<String, Object> user = userService.getInfo(userUID);
+//		log.info("mypageBis => {}", user);
+		
+		
+	
+//		int cnt = 1 ;
+//		List<HashMap<String, Object>> userItems =userDAO.getMyItem(userName);
+//		for(HashMap<String,Object> userItem : userItems) {
+//			log.info("userItem ==> {}", userItem);
+//		}
 		
 		/*4/9 신성진 userCart TEST 진행 */
 		/*insert TEst 완료 */

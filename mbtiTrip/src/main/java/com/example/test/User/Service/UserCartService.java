@@ -26,6 +26,10 @@ public interface UserCartService {
 	public boolean updatePaymentFalse(Principal prince);
 
 	Integer sumPrice(List<HashMap<String, Object>> userCart);
+
+	//BIS 예약 된 내역 조희 
+	public List<HashMap<String, Object>> reservationInfo(Principal principal);
+	
 	
 	//삭제 기능 
 	public boolean deleteItem(Principal principal, Integer itemId);

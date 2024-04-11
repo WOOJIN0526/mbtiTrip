@@ -51,9 +51,29 @@
 		            </ul>
 		        </div>
 		    </div>
+			<section>
+				<div>
+					<h1> 내가 작성한 게시글</h1>
+					<ul th:each="post : ${userPosts}">
+						<li th:text="${post['title']}"></li>
+						<li th:text="${post['updateDate']}"></li>
+					</ul>
+				</div>
+				<div>
+					<h1> 내가 작성한 QnA</h1>
+					<ul th:each="qna : ${userQnA}">
+						<li th:text="${qna['Qname']}"></li>
+						<li th:text="${qna['contents']}"></li>
+						<li th:text="${qna['updateDate']}"></li>
+						<li th:text="${qna[Answer]}"></li>
+					</ul>
+				</div>		
+				
+			</section>
 		</div>
 			<script type="text/javascript" th:src="@{/mypage/mypage.js}"></script>
 	</section>
   
+
 </body>
 </html>
