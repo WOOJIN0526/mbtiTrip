@@ -3,7 +3,7 @@
 <mapper namespace="item">
 
 	<insert id="create" useGeneratedKeys="true"
-		keyProperty="itemID">s
+		keyProperty="itemID">
 	insert into Item(Type, mbti, userName, price, itemName, location, tel, contents,updateDate,uprating)
 	value(#{Type},#{mbti}, #{Username.userName}, #{price}, #{itemName},#{location}, #{tel}, #{contents}, #{updateDate},#{uprating})
 	</insert>
