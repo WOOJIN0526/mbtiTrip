@@ -21,10 +21,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.example.test.Adventure.AdventureForm;
 import com.example.test.Adventure.Service.AdventureService;
-import com.example.test.Adventure.Service.Adventure_CategoryService;
+
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.Service.UserService;
-import com.example.test.User.Service.adminService;
+
 import com.example.test.item.ItemType;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.paging.Criteria;
@@ -44,8 +44,8 @@ public class AdventureController {
 	@Autowired
 	UserService userService;
 	
-	@Autowired
-	Adventure_CategoryService adCategoryService;
+	//@Autowired
+	//Adventure_CategoryService adCategoryService;
 	
 	@GetMapping("/list") 
 	public String list(Criteria cri, Model model) {
