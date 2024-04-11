@@ -5,6 +5,7 @@
  */
 sessionStorage.setItem("Img",document.querySelector('#imgSeed').textContent);
 console.log(sessionStorage.getItem("Img"));
+
 /**
  * 지정된 옵션을 사용하여 Sakura 인스턴스를 생성합니다.
  * @param {string|Element} target - 사쿠라 효과가 적용될 대상 요소 또는 선택자입니다.

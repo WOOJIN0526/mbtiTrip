@@ -43,7 +43,7 @@
 	                    </thead>
 	                
 	                    <tbody th:each="pay : ${userCarts}">
-	                        <tr class="cart_list_detail" th:if="${userCarts.replaceInfo} != null">
+	                        <tr class="cart_list_detail">
 	                            <td><input type="checkbox"></td>
 	                            <td >
 	                                <img src="제주도/제주_카멜리아힐.jpg" alt=""> 
@@ -70,10 +70,11 @@
 	                                <span th:text="${pay['payments']}? 'finish': 'pay' ">&nbsp;</span><sapn>&nbsp;</sapn>
 	                            </td>                               
 	                        </tr>
-	                        <div th:unless="${userCarts.replaceInfo != null}">&nbsp;</div>
+	                        
 	                    </tbody>
 	                </form>
 	            </table>
+				<!--예약버튼
 	            <table class="cart_list"  th:if="${userCarts!= null}">
 	                <form>                                                              
 	                    <thead>
@@ -120,8 +121,9 @@
 	                                          
 	                </form>
 	            </table>
+				-->
 	            <h1 th:text="${sumPrice}"></h1><span>원</span> 
-	
+			
 	        </div>
 	        <!--예약버튼-->
 	        <div class="cart_mainbtns">

@@ -18,16 +18,16 @@
 	        <fieldset>
 	
 	            <label for="businessName" class="head">상호명</label>
-	            <input type="text" id="businessName" name="businessName" th:required="required">
+	            <input type="text" id="businessName" name="itemName" th:required="required">
 	            <br>
 	
-	            <label for="replaceName" class="head">업체이름</label>
+	           <!-- <label for="replaceName" class="head">업체이름</label>
 	            <input type="text" id="replaceName" name="replaceName" th:required="required">
-	            <br>
+	            <br>-->
 				<label class="head">위치 등록</label><br>
 				<input type="text" id="postcode" placeholder="우편번호" name="replacePostCode">
 				<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" id="postCodeBtn"><br>
-				<input type="text" id="address" placeholder="주소" name="replaceLocation"><br>
+				<input type="text" id="address" placeholder="주소" name="location"><br>
 				<input type="text" id="detailAddress" placeholder="상세주소" name="locationdetail">
 				<input type="text" id="extraAddress" placeholder="참고항목">
 				
@@ -37,10 +37,10 @@
 				
 				
 	            <label for="replaceContents" class="head">소개글 등록</label><br>
-	            <textarea class="introduce" placeholder="소개글을 입력해주세요" name="replaceContents"></textarea>
+	            <textarea class="introduce" placeholder="소개글을 입력해주세요" name="contents"></textarea>
 	            <br>
 	
-	            <label for="replaceType" class="head">숙박 시설</label><br>
+	     <!--       <label for="replaceType" class="head">숙박 시설</label><br>
 	            <input type="radio" id="motel" name="replaceType" value="1" th:required="required">
 	            <label for="motel">모텔</label><br>
 	            <input type="radio" id="hotel" name="replaceType" value="2">
@@ -49,7 +49,7 @@
 	            <label for="guesthouse">게스트하우스</label><br>
 	            <input type="radio" id="resort" name="replaceType" value="4">
 	            <label for="resort">리조트</label><br>
-	            <br>
+	            <br>-->
 				
 				<select class="disActive" id="mbti" name="mbti">
                     <option>MBTI</option>
@@ -73,7 +73,7 @@
                 <br> 
 				
 	            <label for="replacePrice" class="head">요금 등록</label>
-	            <input type="number" id="replacePrice" name="replacePrice" th:required="required" placeholder="원단위로입력해주세요">
+	            <input type="number" id="replacePrice" name="price" th:required="required" placeholder="원단위로입력해주세요">
 	            <br>
 	
 				</form>
@@ -83,7 +83,7 @@
 	            <br>
 	 
 	   
-	            <input type="submit" value="등록">
+	            <input id="rbtn" type="button" value="등록">
 	        </fieldset>
 	    
 	</div>

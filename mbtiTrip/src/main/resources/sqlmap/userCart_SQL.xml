@@ -35,6 +35,19 @@
 		where uc.userName = #{userName}  and uc.payments = true;	
 	]]>
 	</select>
+	
+	<select id="bisSelect" resultType = "hashMap">
+	<![CDATA[
+		select i.itemId, i.itemName, u.userName, u.phone, u.mail, uc.startDate, uc.endDate
+		from User u
+		join userCart uc
+		on u.userName = uc.userName
+		join Item i 
+		on uc.itemId = i.itemId
+		where uc.payments = true and i.userName =#{adminName}
+		GROUP BY i.itemId, i.itemName, u.userName, u.phone, u.mail, uc.startDate, uc.endDate;;
+		]]>
+	</select>
 
 
 	<update id="updatePaymentsSuccess">

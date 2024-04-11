@@ -76,7 +76,14 @@
 	]]>
 	</delete>
 	
-
+	<insert id="create" useGeneratedKeys="true" keyProperty="postID">  
+	    <![CDATA[
+	    insert into Post
+	    (postCategoryID,userName,title,content,updateDate) 
+	    values
+	    (#{postCategoryID},#{userName},#{title},#{content},#{updateDate})
+	]]>
+	</insert>
 
 
 

@@ -95,4 +95,9 @@ public class ItemDAO {
 		// TODO Auto-generated method stub
 		return sqlSessiontemplate.update("item.update", itemdto);
 	}
+
+	public int getLastInsertID() {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectOne("item.getLastInsertId");
+	}
 }

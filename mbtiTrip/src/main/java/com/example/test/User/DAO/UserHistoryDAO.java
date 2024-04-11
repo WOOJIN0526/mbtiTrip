@@ -121,5 +121,11 @@ public class UserHistoryDAO {
 	public void insertViewTableItem(ItemDTO itemDTO) {
 		this.sqlsessiontemplate.insert("view.insertItemTable", itemDTO);
 	}
+	public List<HashMap<String, Object>>  getRatingItem(String userName) {
+		userName ="testUser4";
+		List<HashMap<String, Object>> rating =this.sqlsessiontemplate.selectList("view.returnRatingItem", userName);
+		return rating;
+	}
+
 
 }

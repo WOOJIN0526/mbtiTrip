@@ -19,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.DTO.User_Role;
+import com.example.test.User.Service.UserCartService;
+import com.example.test.User.Service.UserHistoryService;
 import com.example.test.User.Service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,6 +35,12 @@ public class BisController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private UserCartService userCartService;
+	
+	@Autowired
+	private UserHistoryService userHistoryservice;
 	
 //	@RequestMapping(value="/{UID}", method = RequestMethod.GET)
 //	public ModelAndView mainUser(@PathVariable Integer UID , UserDTO userDTO, ModelAndView mav) {
@@ -85,13 +93,19 @@ public class BisController {
 	
 	@PreAuthorize("hasRole('ROLE_BIS') or hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public ModelAndView main(Principal principar,
+	public ModelAndView main(Principal principal,
 							ModelAndView mav) {
 		log.info("main 접속 중 ");
-		Integer UID = userService.findByUID(principar.getName());
+		Integer UID = userService.findByUID(principal.getName());
 		Map<String, Object> bis = userService.getInfo(UID);
 		log.info("userMain info = {} ", bis);
+		List<HashMap<String, Object>> userItems = userService.getMyItem(principal);
+		List<HashMap<String, Object>> viewRating = userHistoryservice.viewRating(principal);
+		userService.bisListput(userItems, viewRating);
+		
+		
 		mav.addObject("user", bis);
+		mav.addObject("userItems", userItems);
 		mav.setViewName("Bis_main");
 		return mav;
 	}
@@ -102,8 +116,15 @@ public class BisController {
 		Integer userUID = userService.findByUID(principal.getName());
 		Map<String, Object> user = userService.getInfo(userUID);
 		List<HashMap<String, Object>> userItems = userService.getMyItem(principal);
+		List<HashMap<String, Object>> viewRating = userHistoryservice.viewRating(principal);
+		userService.bisListput(userItems, viewRating);
+		
+		List<HashMap<String, Object>> userReservation = 
+				userCartService.reservationInfo(principal);
+		log.info("BisController UserReservation INfo => {}", userReservation);
 		mav.addObject("user", user);
-		mav.addObject("userItem", userItems);
+		mav.addObject("userItems", userItems);
+		mav.addObject("userReservation",userReservation);
 		mav.setViewName("Bis_MyPageTest");
 		return mav;
 	}

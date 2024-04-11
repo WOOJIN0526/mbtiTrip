@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.test.POST.AnswerForm;
 import com.example.test.POST.PostForm;
+import com.example.test.POST.DTO.AnswerDTO;
 import com.example.test.POST.DTO.PostDTO;
 
 import com.example.test.POST.DTO.Post_CategoryDTO;
@@ -60,13 +62,13 @@ public class PostController {
 	@Autowired
 	UserHistoryService userHistoryService;
 	
-@GetMapping("/list")
-public String list(Criteria cri, Model model) {
+	@GetMapping("/list")
+	public String list(Criteria cri, Model model) {
 	
-	model.addAttribute("list", postService.getList(cri));
-	model.addAttribute("pageMaker", new PageDTO(postService.getTotal(cri), 10, cri));
+	model.addAttribute("list", postService.getList(cri));//게시글 목록 가져오기
+	model.addAttribute("pageMaker", new PageDTO(postService.getTotal(cri), 10, cri));//페이지당 게시물 10개
 	return "notice_board";
-}
+	}
 	
 
 	
@@ -204,6 +206,10 @@ public String list(Criteria cri, Model model) {
     @ResponseBody
     public ResponseEntity<String> boardCreate(PostDTO dto,Principal principal) {
     	// DB에 연결할 후속작업 메서드 부탁드립니다.
+    	System.out.println(dto.toString());
+    	String userName =principal.getName();
+    	dto.setUserName(userName);
+    	int result = postService.create(dto);
     	return ResponseEntity.ok("등록하였습니다.");
     }
 
@@ -221,6 +227,6 @@ public String list(Criteria cri, Model model) {
 	 * this.postService.create(postForm.getTitle(), postForm.getContent(), User,
 	 * category); return "redirect:/post/noticeBoard/list"; }
 	 */
-
+ 
     
 }

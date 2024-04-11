@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.test.Adventure.DTO.AdventureDTO;
 import com.example.test.POST.DTO.PostDTO;
+import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DAO.UserHistoryDAO;
 import com.example.test.User.DTO.QnADTO;
 import com.example.test.User.DTO.UserHistoryDTO;
@@ -27,6 +28,8 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 	@Autowired
 	UserHistoryDAO userhistoryDAO;
 	
+	@Autowired
+	UserDAO userDAO;
 	
 	// 사용자의 userView에 조회한 ITem 정보 삽입
 	public void userViewItem(ItemDTO itemDTO, Principal principal) {
@@ -113,6 +116,26 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 		int lastIdx = userhistoryDAO.lastIdxPost();
 		postDTO.setPostID(lastIdx);
 		userhistoryDAO.insertViewTablePost(postDTO);
+	}
+	@Override
+	public List<HashMap<String, Object>> viewRating(Principal principal) {
+	
+		List<HashMap<String, Object>> rating = userhistoryDAO.getRatingItem(principal.getName());
+		return rating;
+	}
+	@Override
+	public List<List<?>> userViewInfo(Principal principal) {
+		log.info("userHisotry userViewInfo principal null isuue  == >{}", principal.getName());
+		String userName = principal.getName();
+		List<List<?>> userViewInfo = new ArrayList<>();
+		log.info("userName , userHistoyservice. userViewInfo   =>{}", userName);
+		List<ItemDTO> userViewReplace = userhistoryDAO.viewReturnRE(userName);
+		List<ItemDTO> userViewAdventure =userhistoryDAO.viewReturnAD(userName);
+		List<PostDTO> userViewPost = userhistoryDAO.viewReturnPO(userName);
+		userViewInfo.add(userViewReplace);
+		userViewInfo.add(userViewAdventure);
+		userViewInfo.add(userViewPost);
+		return userViewInfo;
 	}
 
 	

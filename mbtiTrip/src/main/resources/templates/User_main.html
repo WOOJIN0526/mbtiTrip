@@ -60,33 +60,142 @@
 
     <main class="mainCon">
         <section>
-            <div class="sec__title">
-                즐길거리 둘러보기
-            </div>
-            <div class="card__box">
-                <div class="card">
-                    <div class="card__img1 card__img"></div>
-                    <div class="card__content">숙소 및 부티크 호텔</div>
-                </div>
-                <div class="card">
-                    <div class="card__img2 card__img"></div>
-                    <div class="card__content">트립</div>
-                </div>
-                <div class="card">
-                    <div class="card__img3 card__img"></div>
-                    <div class="card__content">어드벤처</div>
-                </div>
-                <div class="card">
-                    <div class="card__img4 card__img"></div>
-                    <div class="card__content">레스토랑</div>
-                </div>
-            </div>
+            <!--UX TEST -->
+<h1>사용자 맞춤형 루틴 정보</h1>
+<form th:object="${UserUXs}">
+   <div th:each="ux : ${UserUXs}">
+      <p>숙소 정보</p>
+      <span th:text="${ux['replaceName']}"></span><span>   &nbsp;</span>
+      <span th:text="${ux['replaceAdmin']}"></span><span>&nbsp;</span>
+      <span th:text="${ux['replacePrice']}"></span><span>&nbsp;</span>
+      <span th:text="${ux['replaceLocation']}"></span><span>&nbsp;</span>
+      <span th:text="${ux['replaceTel']}"></span><span>&nbsp;</span>
+      <span th:text="${ux['replaceContents']}"></span><span>&nbsp;</span>
+      <span th:text="${ux['replaceRating']}"></span><span>&nbsp;</span>
+      <p>놀거리 정보</p>
+      <span th:text="${ux['adventure']}"></span><span>   &nbsp;</span>
+      <span th:text="${ux['adventureAdmin']}"></span><span>&nbsp;</span>
+      <span th:text="${ux['adventurePrice']}"></span><span>&nbsp;</span>
+      <span th:text="${ux['adventureLocation']}"></span><span>&nbsp;</span>
+      <span th:text="${ux['adventureTel']}"></span><span>&nbsp;</span>
+      <span th:text="${ux['adventureContents']}"></span><span>&nbsp;</span>
+      <span th:text="${ux['adventureRatring']}"></span><span>&nbsp;</span>
+   </div>
+   <p>사용자 맞춤형 루틴 </p>   
+</form>
+<h1>사용자 맞춤형 숙소</h1>
+<section th:object="${userUxRe}">
+   <div th:each="re: ${userUxRe}">
+      <span th:text="${re['itemName']}"></span><span>   &nbsp;</span>
+      <span th:text="${re['location']}"></span><span>&nbsp;</span>
+      <span th:text="${re['price']}"></span><span>&nbsp;</span>
+      <span th:text="${re['ratingAvg']}"></span><span>&nbsp;</span>      
+<!--<span th:text="${ux['adventureName']}"></span><span>&nbsp;</span>
+      <span th:text="${ux['adventureLocation']}"></span><span>&nbsp;</span>
+      <span th:text="${ux['adventurePrice']}"></span><span>&nbsp;</span> -->
+   </div>   
+</section>
+<div>
+   <br>
+</div>
+<h1>사용자 맞춤형 놀거리</h1>
+<section th:object = "${userUxadv}">
+   <div th:each = "adv : ${userUxadv}">
+      <span th:text="${adv['itemName']}"></span><span>&nbsp;</span>
+      <span th:text="${adv['location']}"></span><span>&nbsp;</span>
+      <span th:text="${adv['price']}"></span><span>&nbsp;</span>
+      <span th:text="${adv['ratingAvg']}"></span><span>&nbsp;</span>
+   </div>
+</section>
 
+
+<section>
+   <div> 사용자가 최근에 조회한 게시물</div>
+   <div th:each="userViewType : ${userViewInfo}">
+      <div>cut</div>
+       <div th:switch="${userViewType[0].class.simpleName}">
+           <p th:case="'ItemDTO'">
+               <span th:each="userView : ${userViewType}">
+                   <!-- ItemDTO의 필드에 접근하여 출력 -->
+                   <span th:text="${userView.itemID}"></span>
+                   <span th:text="${userView.itemName}"></span>
+               <span th:text="${userView.location}"></span>
+               <span th:text="${userView.contents}"></span>
+               <span th:text="${userView.price}"></span>
+               <!-- 필요한 경우 다른 필드도 추가 -->
+               <h1> zzz</h1>   
+            </span>
+            
+           </p>
+           <p th:case="'PostDTO'">
+               <span th:each="userView : ${userViewType}">
+                   <!-- PostDTO의 필드에 접근하여 출력 -->
+                   <span th:text="${userView.postID}"></span>
+                   <span th:text="${userView.title}"></span>
+               <span th:text="${userView.content}"></span>
+               <span th:text="${userView.updateDate}"></span>
+                   <!-- 필요한 경우 다른 필드도 추가 -->
+               </span>
+           </p>
+       </div>
+   </div>
+   
+</section>
+
+
+</section>
+<div>
+   <br>
+</div>
+<h1>사용자 맞춤형 놀거리</h1>
+<section th:object = "${userUxadv}">
+   <div th:each = "adv : ${userUxadv}">
+      <span th:text="${adv['itemName']}"></span><span>&nbsp;</span>
+      <span th:text="${adv['location']}"></span><span>&nbsp;</span>
+      <span th:text="${adv['price']}"></span><span>&nbsp;</span>
+      <span th:text="${adv['ratingAvg']}"></span><span>&nbsp;</span>
+   </div>
+</section>
+
+
+<section>
+   <div> 사용자가 최근에 조회한 게시물</div>
+   <div th:each="userViewType : ${userViewInfo}">
+      <div>cut</div>
+       <div th:switch="${userViewType[0].class.simpleName}">
+           <p th:case="'ItemDTO'">
+               <span th:each="userView : ${userViewType}">
+                   <!-- ItemDTO의 필드에 접근하여 출력 -->
+                   <span th:text="${userView.itemID}"></span>
+                   <span th:text="${userView.itemName}"></span>
+               <span th:text="${userView.location}"></span>
+               <span th:text="${userView.contents}"></span>
+               <span th:text="${userView.price}"></span>
+               <!-- 필요한 경우 다른 필드도 추가 -->
+               <h1> zzz</h1>   
+            </span>
+            
+           </p>
+           <p th:case="'PostDTO'">
+               <span th:each="userView : ${userViewType}">
+                   <!-- PostDTO의 필드에 접근하여 출력 -->
+                   <span th:text="${userView.postID}"></span>
+                   <span th:text="${userView.title}"></span>
+               <span th:text="${userView.content}"></span>
+               <span th:text="${userView.updateDate}"></span>
+                   <!-- 필요한 경우 다른 필드도 추가 -->
+               </span>
+           </p>
+       </div>
+   </div>
+   
+</section>
             <!-- 사용자 추천 기능 들어갈곳 -->
         <section>
 			            <div class="review">123</div>
 			            <!--UX TEST -->
 			<h1>사용자 맞춤형 루틴 정보</h1>
+            
 			<form th:object="${UserUXs}">
 			   <div th:each="ux : ${UserUXs}">
 			      <span th:text="${ux['Replace_name']}"></span><span>   &nbsp;</span>
@@ -119,7 +228,7 @@
    
         </section>
              <!-- 사용자 추천 기능 들어갈곳 -->
-        </section>
+        <!-- </section>
             <div class="choo__box">
                 <div class="choo_img1"></div>
                 <div class="choo_img2"></div>
@@ -136,7 +245,7 @@
                 <div class="choo_img9"></div>
                 <div class="choo_img10"></div>
             </div>
-        </section>
+        </section> -->
 
         <!-- 광고 배너 -->
         <section>

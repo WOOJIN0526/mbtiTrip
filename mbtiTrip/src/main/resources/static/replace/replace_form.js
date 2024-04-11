@@ -121,7 +121,7 @@ function validation(obj){
 /**
  * 지정된 파일 번호에 해당하는 파일 요소를 삭제하고, 파일 배열에서 해당 파일을 삭제합니다.
  * @param {number} num - 삭제할 파일 번호
- */ㄴ
+ */
 function deleteFile(num) {
     document.querySelector("#file" + num).remove();
     filesArr[num].is_delete = true;
@@ -129,9 +129,10 @@ function deleteFile(num) {
 /**
  * 폼의 제출을 중단하고 대신 submitForm() 함수를 실행합니다.
  */
-document.getElementById("replaceForm").addEventListener("submit", function(event) {
+document.getElementById("rbtn").addEventListener("click", function(event) {
   // 기본 제출 동작을 중단합니다.
   event.preventDefault();
+  console.log("12345");
   // submitForm() 함수를 실행합니다.
   submitForm();
 });

@@ -84,6 +84,13 @@ public class PostDAO {
 	}
 
 
+	public int create(PostDTO dto) {
+		System.out.println(dto.toString());
+		int result = sqlSessiontemplate.insert("post.create",dto);
+		return result;
+	}
+
+
 
 	
 

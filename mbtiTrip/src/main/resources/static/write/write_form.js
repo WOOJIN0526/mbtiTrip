@@ -44,10 +44,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 fetch(url,{
 					method:"POST",
 					headers:{
-						"Content-Type":"multipart/form-data"
+						/*"Content-Type":"multipart/form-data"*/
 					},
 					body:formData
+				}).then(response=>{
+					if(response.ok){
+						alert(response);
+					}
 				})
-});
+});  
 
 

@@ -13,10 +13,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-
+import com.example.test.POST.DAO.AnswerDAO;
 import com.example.test.POST.DAO.PostDAO;
-
+import com.example.test.POST.DTO.AnswerDTO;
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.DTO.Post_CategoryDTO;
 import com.example.test.User.DTO.UserDTO;
@@ -36,6 +35,9 @@ public  class PostServiceImpl implements PostService {
 
 	@Autowired
 	PostDAO postDAO;
+	
+	@Autowired
+	AnswerDAO answerDAO;
 	
 	@Autowired
 	UserHistoryService userHistoryService;
@@ -159,6 +161,10 @@ public  class PostServiceImpl implements PostService {
 			return post;
 	        
 	    }
+
+
+
+
 
 	
 
