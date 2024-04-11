@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.test.GCSService.GCSService;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.Service.UserService;
-import com.example.test.User.Service.adminService;
+import com.example.test.User.Service.AdminService;
 import com.example.test.item.ItemType;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.paging.Criteria;
