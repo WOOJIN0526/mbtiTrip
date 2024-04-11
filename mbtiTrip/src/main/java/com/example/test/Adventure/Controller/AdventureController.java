@@ -155,14 +155,14 @@ public class AdventureController {
     }
     
     //추천
-//    @PreAuthorize("isAuthenticated()")
-//    @GetMapping("/suggestion/{id}")
-//    public String Suggestion(Principal principal, @PathVariable("id") Integer itemID) {
-//        ItemDTO itemDto = this.adService.getPost(itemID);
-//        UserDTO user = this.userService.getUser(principal.getName());
-//        this.adService.suggestion(itemDto, user);
-//        return String.format("redirect:/adventure/detail/%s", itemID);
-//    }	
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/suggestion/{id}")
+    public String Suggestion(Principal principal, @PathVariable("id") Integer itemID) {
+        ItemDTO itemDto = this.adService.getPost(itemID);
+        UserDTO user = this.userService.getUser(principal.getName());
+        this.adService.suggestion(itemDto, user);
+        return String.format("redirect:/adventure/detail/%s", itemID);
+    }	
     
 
 }

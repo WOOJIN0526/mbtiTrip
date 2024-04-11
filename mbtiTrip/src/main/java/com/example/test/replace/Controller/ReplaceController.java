@@ -40,6 +40,7 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
 
 	@Autowired
 	ReplaceService rpService;
+	
 	@Autowired
 	GCSService gcsService;
 	
