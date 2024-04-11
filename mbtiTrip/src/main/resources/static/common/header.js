@@ -1,4 +1,9 @@
-document.querySelector('.userImg').src=sessionStorage.getItem("Img");
+if(sessionStorage.getItem("Img")!=null){
+	document.querySelector('.userImg').src=sessionStorage.getItem("Img");
+	document.querySelector('#imgSeed').remove();
+}
+	
+
 
 document.querySelector('.icon-menu').addEventListener('click', function(){
     document.querySelector('.profile').classList.toggle('disActive');

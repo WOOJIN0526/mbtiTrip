@@ -21,6 +21,7 @@ public interface PostService {
 		 public PostDTO getPost(Integer postID);
 		 
 		 public int create(String title, String content, UserDTO user, Post_CategoryDTO category);
+		 public int create(PostDTO dto);
 		 
 		 public int modify(PostDTO postDto, String title, String content);
 		 

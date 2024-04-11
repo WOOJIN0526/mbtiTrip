@@ -160,6 +160,15 @@ public  class PostServiceImpl implements PostService {
 	        
 	    }
 
+
+
+		@Override
+		public int create(PostDTO dto) {
+			dto.setUpdateDate(LocalDateTime.now());
+			int result = postDAO.create(dto);
+			return result;
+		}
+
 	
 
 	
