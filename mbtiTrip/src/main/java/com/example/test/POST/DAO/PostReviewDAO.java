@@ -54,4 +54,14 @@ public class PostReviewDAO {
 		return sqlSessiontemplate.update("postReview.update", pr);
 	}
 
+	public Double getRatingAverage(int itemID) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectOne("postReview.getRatingAverage", itemID);
+	}
+
+	public void updateRating(PostReviewDTO pr) {
+		// TODO Auto-generated method stub
+		sqlSessiontemplate.update("postReview.updateRating", pr);
+	}
+
 }

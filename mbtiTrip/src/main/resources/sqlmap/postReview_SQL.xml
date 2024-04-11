@@ -64,4 +64,21 @@
 			where itemID = #{ItemID};
 		]]>
 	</update>
+	
+	<select id="getRatingAverage" resultType="int">
+       <![CDATA[
+		select avg(ratingAvg)
+		from postReview 
+		where itemId = #{itemID}
+       ]]>
+    </select>
+    
+    <update id="updateRating">
+	<![CDATA[
+			Update Item 
+			set
+			ratingAvg=#{ratingAvg}
+			where itemId = #{itemID};
+		]]>
+	</update>
 </mapper>

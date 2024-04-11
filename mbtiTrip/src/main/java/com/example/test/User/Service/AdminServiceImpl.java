@@ -2,6 +2,7 @@ package com.example.test.User.Service;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -18,7 +19,7 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Service
-public class AdminServiceImpl implements adminService{
+public class AdminServiceImpl implements AdminService{
 
 	@Autowired(required=true)
 	private AdminDTO adminDto;
@@ -29,18 +30,26 @@ public class AdminServiceImpl implements adminService{
 	@Override
 	public boolean userBaned(String username) {
 		boolean baned = false;
-		int reportCnt = adminDao.userReportCnt(username);
-		
-		if(reportCnt >10) {
-		  int ck = adminDao.userBaned(username);
-			  if(ck == 1) {
-				  baned = true;
-			  }
+		int ck = adminDao.userBaned(username);
+		if(ck != 0) {
+			baned = true;
 		}
+		
 		return baned;
 	}
 
-  ;
+	
+	@Override
+	public boolean userUnblock(String username) {
+		boolean unblock = false;
+		int ck = adminDao.userBaned(username);
+		if(ck != 0) {
+			unblock = true;
+		}
+		
+		return unblock;
+	}
+
 	@Override
 	public int rating(String userName) {
 		int rating = adminDto.getRating();
@@ -75,7 +84,7 @@ public class AdminServiceImpl implements adminService{
 
 	@Override
 	public int postCnt() {
-		// TODO Auto-generated method stub
+	
 		return 0;
 	}
 
@@ -86,14 +95,28 @@ public class AdminServiceImpl implements adminService{
 		return 0;
 	}
 
-	
-
-
-
 	@Override
 	public int adventureCnt() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> mbtiCnt() {
+		List<HashMap<String, Object>> mbtiCnt = adminDao.mbtiCnt();
+		return mbtiCnt;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> userList() {
+		List<HashMap<String, Object>> userList = adminDao.userList();
+		return userList;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> bisList() {
+		List<HashMap<String, Object>> bisList = adminDao.bisList();
+		return bisList;
 	}
 
 

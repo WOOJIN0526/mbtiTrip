@@ -79,16 +79,20 @@ public class BisController {
 		return chk;
 	}
 	
+//	@RequestMapping(value = "/login/success")
+//	public ModelAndView UserSuccess(ModelAndView mav, 
+//								Principal princ) {
+//		String userName = princ.getName();
+//		Integer userUID = userService.findByUID(userName);
+//		Map<String, Object> user = userService.getInfo(userUID);
+//		log.info("UserLoginSuccess = UserINFo= {}", user);
+//		mav.addObject("user", user);
+//		mav.setViewName("Bis_main");
+//		return mav;
+//	}
 	@RequestMapping(value = "/login/success")
-	public ModelAndView UserSuccess(ModelAndView mav, 
-								Principal princ) {
-		String userName = princ.getName();
-		Integer userUID = userService.findByUID(userName);
-		Map<String, Object> user = userService.getInfo(userUID);
-		log.info("UserLoginSuccess = UserINFo= {}", user);
-		mav.addObject("user", user);
-		mav.setViewName("Bis_main");
-		return mav;
+	public String UserSuccess() {
+		return "redirect:/bis/main";
 	}
 	
 	@PreAuthorize("hasRole('ROLE_BIS') or hasRole('ROLE_ADMIN')")

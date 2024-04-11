@@ -24,5 +24,6 @@ public interface PostReviewService {
 	 
 	 public int suggestion(PostReviewDTO postDto, UserDTO userDto);
 	 
-	 
+	 //평점
+	 public void setRating(int itemID);
 }

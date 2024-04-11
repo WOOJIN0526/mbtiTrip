@@ -1,6 +1,7 @@
 package com.example.test.User.Service;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import com.example.test.GCSService.GCSService;
 import com.example.test.User.DAO.UserCartDAO;
 import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DTO.UserDTO;
+import com.example.test.item.DAO.ItemDAO;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -31,6 +33,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private UserDAO userDao;
+	
+	@Autowired
+	private ItemDAO itemDao;
 	
 	@Override
 	public int createUser(UserDTO userDTO) {
@@ -111,8 +116,21 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public List<HashMap<String, Object>> getMyItem(Principal principal) {
 		String userName = principal.getName();
-		userName ="testUser4";
+		//userName ="testUser4";
 		List<HashMap<String, Object>> myItem = userDao.getMyItem(userName);
+		// item들을 불러올떄 itemID값을 통해 등록된 item의 imgURl을 가져와넣는 작업
+		List<String> urlList = new ArrayList<>();
+		for(HashMap<String, Object> item :myItem) {
+			int itemID = (Integer) item.get("itemId");
+			System.out.println(itemID);
+			 List<String> url = itemDao.getUrl(itemID);
+			 //등록된 이미지가 없을 경우
+			 if(url.isEmpty()) {
+				 url.add("0");
+			 }
+			 String[] ImgeUrl = url.toArray(new String[0]); // 리스트를 배열로 변환
+		     item.put("ImgeUrl", ImgeUrl); // 아이템에 이미지 URL 배열 추가
+		}
 		return myItem;
 	}
 	

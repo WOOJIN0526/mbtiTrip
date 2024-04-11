@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.test.GCSService.GCSService;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.Service.UserService;
-import com.example.test.User.Service.adminService;
+import com.example.test.User.Service.AdminService;
 import com.example.test.item.ItemType;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.paging.Criteria;
@@ -40,6 +40,7 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
 
 	@Autowired
 	ReplaceService rpService;
+	
 	@Autowired
 	GCSService gcsService;
 	
@@ -119,8 +120,8 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
     	UserDTO userDTO = userService.getUser(userName);
     	itemdto.setUsername(userDTO);
     	int result =rpService.create(itemdto);
- //   	int itemID = rpService.getLastInsertID();
-    	System.out.println(result);
+    	int resultImg = rpService.createImg(itemdto);
+    	System.out.println(resultImg);
 //    	System.out.println(itemdto.toString());
 //    	for(MultipartFile file : itemdto.getFile()) {
 //    		System.out.println(file.getOriginalFilename());
