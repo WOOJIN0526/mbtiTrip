@@ -1,253 +1,450 @@
 <!DOCTYPE html>
-<html lang="en"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	**xmlns:sec="http://www.thymeleaf.org/extras/spring-security"**
-	layout:decorate="~{layout.html}">
+<html
+    lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    **xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    **="**"
+    layout:decorate="~{layout.html}">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>main</title>
-	<link rel="stylesheet" th:href="@{/common/common.css}">
-	<link rel="stylesheet" th:href="@{/sakuraJS/sakura.min.css}">
-    <link rel="stylesheet" th:href="@{/main/main.css}">
-	<script th:src="@{/sakuraJS/sakura.min.js}"></script>
-    <link href="https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo.css" rel="stylesheet">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>main</title>
+        <link rel="stylesheet" th:href="@{/common/common.css}">
+        <link rel="stylesheet" th:href="@{/sakuraJS/sakura.min.css}">
+        <link rel="stylesheet" th:href="@{/main/main.css}">
+        <script th:src="@{/sakuraJS/sakura.min.js}"></script>
+        <link href="https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo.css" rel="stylesheet">
+    </head>
 
-</head>
+    <body>
+        <section class="mainBG" layout:fragment="content">
+            <header class="mainHeader">
+                <section class="mainHeaderSec">
+                    <div class="search__box">
+                        <div class="search__title">
+                            자기 성향에 맞는 숙소를 예약하세요
+                            <br/>
+                            즐길거리를 예약하세요.
+                        </div>
 
-<body>
-<section class="mainBG" layout:fragment="content">
-    <header class="mainHeader">
-        <section class="mainHeaderSec">
-            <div class="search__box">
-                <div class="search__title">자기 성향에 맞는 숙소를 예약하세요
-                    <br /> 
-                    즐길거리를 예약하세요.
-                </div>
-
-                <table>
-                    <tr>
-                        <td colspan="2" class="search__sub__title">여행지</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><input class="search__input" type="text" placeholder=" 모든 위치"></td>
-                    </tr>
-                    <tr>
-                        <td class="search__sub__title">체크인</td>
-                        <td class="search__sub__title">체크아웃</td>
-                    </tr>
-                    <tr>
-                        <td><input class="search__input"  type="date" /></td>
-                        <td><input class="search__input"  type="date" /></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="search__sub__title">인원</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <select class="search__input" >
-                                <option>인원</option>
-                                <option>1명</option>
-                                <option>2명</option>
-                                <option>3명</option>
-                            </select>
-                        </td>
-                    </tr>
-                </table>
-                <div class="search__button"><button>검색</button></div>
-            </div>
-
-        </section>
-    </header>
-
-    <main class="mainCon">
-        <section>
-            <div class="sec__title">
-                즐길거리 둘러보기
-            </div>
-            <div class="card__box">
-                <div class="card">
-                    <div class="card__img1 card__img"></div>
-                    <div class="card__content">
-                         <a href="#"></a> 숙소 및 부티크 호텔</div>
-                </div>
-                <div class="card">
-                    <div class="card__img2 card__img"></div>
-                    <div class="card__content">
-                        <a href="#"></a >트립</div>
-                </div>
-                <div class="card">
-                    <div class="card__img3 card__img"></div>
-                    <div class="card__content">
-                        <a href="#"></a> 어드벤처</div>
-                </div>
-                <div class="card">
-                    <div class="card__img4 card__img"></div>
-                    <div class="card__content">
-                        <a href="#"></a> 레스토랑</div>
-                </div>
-            </div>
-
-            <!-- 사용자 추천 기능 들어갈곳 -->
-        <section>
-			            <div class="review">123</div>
-			            <!--UX TEST -->
-			<h1>사용자 맞춤형 루틴 정보</h1>
-
-			<form th:object="${UserUXs}">
-			   <div th:each="ux : ${UserUXs}">
-			      <span th:text="${ux['Replace_name']}"></span><span>   &nbsp;</span>
-			      <span th:text="${ux['Replace_location']}"></span><span>&nbsp;</span>
-			      <span th:text="${ux['price']}"></span><span>&nbsp;</span>
-			      <span th:text="${ux['adventureName']}"></span><span>&nbsp;</span>
-			      <span th:text="${ux['adventureLocation']}"></span><span>&nbsp;</span>
-			      <span th:text="${ux['adventurePrice']}"></span><span>&nbsp;</span>
-			   </div>   
-			</form>
-
-<section th:object="${userUxRe}">
-   <div th:each="re: ${userUxRe}">
-      <span th:text="${re['Replace_name']}"></span><span>   &nbsp;</span>
-      <span th:text="${re['Replace_location']}"></span><span>&nbsp;</span>
-      <span th:text="${re['price']}"></span><span>&nbsp;</span>
-   </div>   
-</section>
-<div>
-   <br>
-</div>
-
-<section th:object = "${userUxadv}">
-   <div th:each = "adv : ${userUxadv}">
-      <span th:text="${adv['adventureName']}"></span><span>&nbsp;</span>
-            <span th:text="${adv['adventureLocation']}"></span><span>&nbsp;</span>
-            <span th:text="${adv['adventurePrice']}"></span><span>&nbsp;</span>
-   </div>
-</section>
-   
- 
-             <!-- 사용자 추천 기능 들어갈곳 -->
-   
-        <section class="choo">
-            <div class="choo__box">
-                <div class="choo_img1"></div>
-                <div class="choo_img2"></div>
-                <div class="choo_img3"></div>
-                <div class="choo_img4"></div>
-            </div>
-        </section>
-
-        <section>
-            <div class="choo__box">
-                <div class="choo_img5"></div>
-                <div class="choo_img6"></div>
-                <div class="choo_img7"></div>
-                <div class="choo_img8"></div>
-           
-            </div>
-        </section>
-
-        <!-- 광고 배너 -->
-        <section>
-            <div class="ad1"></div>
-        </section>
-
-        <section>
-            <div class="sec__title">숙소 추천</div>
-
-            <div class="home__box">
-                <div class="home">
-                    <div class="home__img1"></div>
-                    <div class="home__info">
-                        <div class="info1">오두막 · BALIAN BEACH, BALI</div>
-                        <div class="info2">BALIAN TREEHOUSE w beautiful pool</div>
-                        <div class="info3">
+                        <table>
+                            <tr>
+                                <td colspan="2" class="search__sub__title">여행지</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <input class="search__input" type="text" placeholder=" 모든 위치">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="search__sub__title">체크인</td>
+                                <td class="search__sub__title">체크아웃 </td>
+                            </tr>
+                            <tr>
+                                <td><input class="search__input" type="date"/></td>
+                                <td><input class="search__input" type="date"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="search__sub__title">
+                                    인원
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <select class="search__input">
+                                        <option>인원</option>
+                                        <option>1명</option>
+                                        <option>2명</option>
+                                        <option>3명</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="search__button">
+                            <button>검색</button>
                         </div>
                     </div>
-                </div>
 
-                <div class="home">
-                    <div class="home__img2"></div>
-                    <div class="home__info">
-                        <div class="info1">키클라데스 주택 · 이아(OIA)</div>
-                        <div class="info2">Unique Architecture Cave House</div>
-                        <div class="info3">
+                </section>
+            </header>
+            
+                    <!-- 사용자 추천 기능 들어갈곳 -->
+                    <section>
+                        <div class="review">123</div>
+                        
+                        <h1>사용자 맞춤형 루틴 정보</h1>
+                        
+                    <form th:object="${UserUXs}">
+                        <div th:each="ux : ${UserUXs}">
+                            <span th:text="${ux['Replace_name']}"></span>
+                            <span>
+                                &nbsp;</span>
+                            <span th:text="${ux['Replace_location']}"></span><span>&nbsp;</span>
+                            <span th:text="${ux['price']}"></span><span>&nbsp;</span>
+                            <span th:text="${ux['adventureName']}"></span><span>&nbsp;</span>
+                            <span th:text="${ux['adventureLocation']}"></span><span>&nbsp;</span>
+                            <span th:text="${ux['adventurePrice']}"></span><span>&nbsp;</span>
+                        </div>
+                    </form>
+                    <section class="con2">
+                        <div class="con2_wrap">
+
+                            <h3>인기 여행일정
+                            </h3>
+                            <p class="center">
+                                다른 여행자들의 일정을 참고해 나만의 여행을 계획해보세요!
+                            </p>
+
+                            <div class="plan_wrap">
+                                <ul>
+                                    <li class="plan">
+
+                                        <div class="item">
+                                            <a href="#">
+                                                <div class="plan_image">
+                                                    <img src="images/plan01.jpg">
+                                                    <div class="txt">
+                                                        <span class="date">2018-02-21</span>
+                                                        <span class="days">7DAYS</span>
+                                                        <p class="title">
+                                                            여행제목 작성하기
+                                                        </p>
+                                                    </div>
+                                                    <!--txt-->
+                                                </div>
+                                                <div class="plan_inform">
+
+                                                    <ul class="icon">
+                                                        <li>25</li>
+                                                        <li>587</li>
+                                                        <li>6</li>
+                                                    </ul>
+                                                    <p class="theme">친구와 함께</p>
+                                                    <p class="place">발리</p>
+                                                    <p class="user"> 작성자 </p>
+                                                </div>
+                                            </a>
+
+                                        </div>
+
+                                        <div class="item">
+                                            <a href="#">
+                                                <div class="plan_image">
+                                                    <img src="images/plan04.jpg">
+                                                    <div class="txt">
+                                                        <span class="date">2018-02-21</span>
+                                                        <span class="days">7DAYS</span>
+                                                        <p class="title">여행제목 작성하기  </p>
+                                                    </div>
+                                                    <!--txt-->
+                                                </div>
+                                                <div class="plan_inform">
+
+                                                    <ul class="icon">
+                                                        <li>25</li>
+                                                        <li>587</li>
+                                                        <li>6</li>
+                                                    </ul>
+                                                    <p class="theme">친구와 함께</p>
+                                                    <p class="place">발리</p>
+                                                    <p class="user">작성자</p>
+                                                </div>
+                                            </a>
+
+                                        </div>
+
+                                    </li>
+                                    <li class="plan">
+
+                                        <div class="item">
+
+                                            <a href="#">
+                                                <div class="plan_image">
+                                                    <img src="images/plan02.jpg">
+                                                    <div class="txt">
+                                                        <span class="date">2018-02-21</span>
+                                                        <span class="days">7DAYS</span>
+                                                        <p class="title">
+                                                            여행제목 작성하기
+                                                        </p>
+                                                    </div>
+                                                    <!--txt-->
+                                                </div>
+                                                <div class="plan_inform">
+
+                                                    <ul class="icon">
+                                                        <li>25</li>
+                                                        <li>587</li>
+                                                        <li>6</li>
+                                                    </ul>
+                                                    <p class="theme">
+                                                        친구와 함께
+                                                    </p>
+                                                    <p class="place">발리</p>
+                                                    <p class="user">작성자</p>
+                                                </div>
+                                            </a>
+
+                                        </div>
+
+                                        <div class="item">
+
+                                            <a href="#">
+                                                <div class="plan_image">
+                                                    <img src="images/plan05.jpg">
+                                                    <div class="txt">
+                                                        <span class="date">2018-02-21</span>
+                                                        <span class="days">7DAYS</span>
+                                                        <p class="title">여행제목 작성하기 </p>
+                                                    </div>
+                                                    <!--txt-->
+                                                </div>
+                                                <div class="plan_inform">
+
+                                                    <ul class="icon">
+                                                        <li>25</li>
+                                                        <li>587</li>
+                                                        <li>6</li>
+                                                    </ul>
+                                                    <p class="theme">친구와 함께</p>
+                                                    <p class="place">발리</p>
+                                                    <p class="user">작성자</p>
+                                                </div>
+                                            </a>
+
+                                        </div>
+
+                                    </li>
+                                    <li class="plan">
+
+                                        <div class="item">
+
+                                            <a href="#">
+                                                <div class="plan_image">
+                                                    <img src="images/plan03.jpg">
+                                                    <div class="txt">
+                                                        <span class="date">2018-02-21</span>
+                                                        <span class="days">7DAYS</span>
+                                                        <p class="title">여행제목 작성하기</p>
+                                                    </div>
+                                                    <!--txt-->
+                                                </div>
+                                                <div class="plan_inform">
+
+                                                    <ul class="icon">
+                                                        <li>25 </li>
+                                                        <li>587</li>
+                                                        <li>6</li>
+                                                    </ul>
+                                                    <p class="theme">친구와 함께 </p>
+                                                    <p class="place">발리</p>
+                                                    <p class="user"> 작성자 </p>
+                                                </div>
+                                            </a>
+
+                                        </div>
+
+                                        <div class="item">
+
+                                            <a href="#">
+                                                <div class="plan_image">
+                                                    <img src="images/plan06.jpg">
+                                                    <div class="txt">
+                                                        <span class="date">2018-02-21</span>
+                                                        <span class="days">7DAYS</span>
+                                                        <p class="title">여행제목 작성하기</p>
+                                                    </div>
+                                                    <!--txt-->
+                                                </div>
+                                                <div class="plan_inform">
+
+                                                    <ul class="icon">
+                                                        <li>25</li>
+                                                        <li>587</li>
+                                                        <li>6</li>
+                                                    </ul>
+                                                    <p class="theme">친구와 함께</p>
+                                                    <p class="place">발리</p>
+                                                    <p class="user">작성자</p>
+                                                </div>
+                                            </a>
+
+                                        </div>
+
+                                    </li>
+
+                                </ul>
+
+                            </div>
                         </div>
                     </div>
-                </div>
+                </section>
 
-                <div class="home">
-                    <div class="home__img3"></div>
-                    <div class="home__info">
-                        <div class="info1">성 · 트웬티나인 팜스(TWENTYNINE PALMS)</div>
-                        <div class="info2">Tile House</div>
-                        <div class="info3">
+                    <!-- 
+                    <section th:object="${userUxRe}">
+                        <div th:each="re: ${userUxRe}">
+                            <span th:text="${re['Replace_name']}"></span>
+                            <span>
+                                &nbsp;</span>
+                            <span th:text="${re['Replace_location']}"></span><span>&nbsp;</span>
+                            <span th:text="${re['price']}"></span><span>&nbsp;</span>
                         </div>
+                    </section>
+                    <div>
+                        <br>
                     </div>
-                </div>
 
-                <div class="home">
-                    <div class="home__img4"></div>
-                    <div class="home__info">
-                        <div class="info1">검증됨 · 케이프타운</div>
-                        <div class="info2">Modern, Chic Penthouse with Mountain, City & Sea Views</div>
-                        <div class="info3">
+                    <section th:object="${userUxadv}">
+                        <div th:each="adv : ${userUxadv}">
+                            <span th:text="${adv['adventureName']}"></span><span>&nbsp;</span>
+                            <span th:text="${adv['adventureLocation']}"></span><span>&nbsp;</span>
+                            <span th:text="${adv['adventurePrice']}"></span><span>&nbsp;</span>
                         </div>
-                    </div>
-                </div>
+                    </section> -->
 
-                <div class="home">
-                    <div class="home__img5"></div>
-                    <div class="home__info">
-                        <div class="info1">아파트 전체 · 마드리드(MADRID)</div>
-                        <div class="info2">솔광장에 위치한 개인 스튜디오</div>
-                        <div class="info3">
+                    <!-- 사용자 추천 기능 들어갈곳 -->
+<!-- 
+                    <section class="choo">
+                        <div class="choo__box">
+                            <div class="choo_img1"></div>
+                            <div class="choo_img2"></div>
+                            <div class="choo_img3"></div>
+                            <div class="choo_img4"></div>
                         </div>
-                    </div>
-                </div>
+                    </section>
 
-                <div class="home">
-                    <div class="home__img6"></div>
-                    <div class="home__info">
-                        <div class="info1">집 전체 · HUMAC</div>
-                        <div class="info2">Vacation house in etno-eco village Humac</div>
-                        <div class="info3">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="home">
-                    <div class="home__img7"></div>
-                    <div class="home__info">
-                        <div class="info1">개인실 · 마라케시</div>
-                        <div class="info2">The Cozy Palace</div>
-                        <div class="info3">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="home">
-                    <div class="home__img8"></div>
-                    <div class="home__info">
-                        <div class="info1">게스트용 별채 전체 · 로스앤젤레스</div>
-                        <div class="info2">Private Pool House with Amazing Views!</div>
-                        <div class="info3">
+                    <section>
+                        <div class="choo__box">
+                            <div class="choo_img5"></div>
+                            <div class="choo_img6"></div>
+                            <div class="choo_img7"></div>
+                            <div class="choo_img8"></div>
 
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+                    </section> -->
 
+                    <!-- 광고 배너 -->
+                    <section>
+                        <div class="ad1"></div>
+                    </section>
 
+                    <section>
+                        <div class="sec__title">숙소 추천</div>
 
-        
-    </main>
-	
-	<script th:src="@{/main/main.js}"></script>
-	</section>
-</body>
+                        <div class="home__box">
+                            <div class="home">
+                                <div class="home__img1"></div>
+                                <div class="home__info">
+                                    <div class="info1">
+                                        오두막 · BALIAN BEACH, BALI
+                                    </div>
+                                    <div class="info2">
+                                        BALIAN TREEHOUSE w beautiful pool
+                                    </div>
+                                    <div class="info3"></div>
+                                </div>
+                            </div>
 
-</html>
+                            <div class="home">
+                                <div class="home__img2"></div>
+                                <div class="home__info">
+                                    <div class="info1">
+                                        키클라데스 주택 · 이아(OIA)
+                                    </div>
+                                    <div class="info2">
+                                        Unique Architecture Cave House
+                                    </div>
+                                    <div class="info3"></div>
+                                </div>
+                            </div>
+
+                            <div class="home">
+                                <div class="home__img3"></div>
+                                <div class="home__info">
+                                    <div class="info1">
+                                        성 · 트웬티나인 팜스(TWENTYNINE PALMS)
+                                    </div>
+                                    <div class="info2">
+                                        Tile House
+                                    </div>
+                                    <div class="info3"></div>
+                                </div>
+                            </div>
+
+                            <div class="home">
+                                <div class="home__img4"></div>
+                                <div class="home__info">
+                                    <div class="info1">
+                                        검증됨 · 케이프타운
+                                    </div>
+                                    <div class="info2">
+                                        Modern, Chic Penthouse with Mountain, City & Sea Views
+                                    </div>
+                                    <div class="info3"></div>
+                                </div>
+                            </div>
+
+                            <div class="home">
+                                <div class="home__img5"></div>
+                                <div class="home__info">
+                                    <div class="info1">
+                                        아파트 전체 · 마드리드(MADRID)
+                                    </div>
+                                    <div class="info2">
+                                        솔광장에 위치한 개인 스튜디오
+                                    </div>
+                                    <div class="info3"></div>
+                                </div>
+                            </div>
+
+                            <div class="home">
+                                <div class="home__img6"></div>
+                                <div class="home__info">
+                                    <div class="info1">
+                                        집 전체 · HUMAC
+                                    </div>
+                                    <div class="info2">
+                                        Vacation house in etno-eco village Humac
+                                    </div>
+                                    <div class="info3"></div>
+                                </div>
+                            </div>
+
+                            <div class="home">
+                                <div class="home__img7"></div>
+                                <div class="home__info">
+                                    <div class="info1">
+                                        개인실 · 마라케시
+                                    </div>
+                                    <div class="info2">
+                                        The Cozy Palace
+                                    </div>
+                                    <div class="info3"></div>
+                                </div>
+                            </div>
+
+                            <div class="home">
+                                <div class="home__img8"></div>
+                                <div class="home__info">
+                                    <div class="info1">
+                                        게스트용 별채 전체 · 로스앤젤레스
+                                    </div>
+                                    <div class="info2">
+                                        Private Pool House with Amazing Views!
+                                    </div>
+                                    <div class="info3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </main>
+
+                <script th:src="@{/main/main.js}"></script>
+            </section>
+        </body>
+
+    </html>

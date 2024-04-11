@@ -72,7 +72,7 @@ table {
 .search__input {
     height: 45px;
     width: 100%;
-    color: rgb(100, 98, 98);
+    color: black;
     font-size: 15px;
     border: 1px solid rgb(230, 227, 227);
 }
@@ -164,54 +164,55 @@ table {
 
 .choo__box {
     display:grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr ;
     grid-gap: 10px;
+    margin-bottom: 10px;
 }
 
 .choo_img1 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 250px;
+    height: 300px;
     background-size: 100% 100%;
 }
 
 .choo_img2 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 250px;
+    height: 300px;
     background-size: 100% 100%;
 }
 
 .choo_img3 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 250px;
+    height: 300px;
     background-size: 100% 100%;
 }
 
 .choo_img4 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 250px;
+    height: 300px;
     background-size: 100% 100%;
 }
 
 .choo_img5 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 250px;
+    height: 300px;
     background-size: 100% 100%;
 }
 .choo_img6 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 250px;
+    height: 300px;
     background-size: 100% 100%;
 }
 
 .choo_img7 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 250px;
+    height: 300px;
     background-size: 100% 100%;
 }
 
 .choo_img8 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 250px;
+    height: 300px;
     background-size: 100% 100%;
 }
 
@@ -219,53 +220,54 @@ table {
     display:grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 10px;
+    margin: 50px;
 }
 
 .home__img1 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
-    height: 180px;
+    height: 280px;
     background-size: 100% 100%;
 }
 
 .home__img2 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
-    height: 180px;
+    height: 280px;
     background-size: 100% 100%;
 }
 
 .home__img3 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
-    height: 180px;
+    height: 280px;
     background-size: 100% 100%;
 }
 
 .home__img4 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
-    height: 180px;
+    height: 280px;
     background-size: 100% 100%;
 }
 
 .home__img5 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
-    height: 180px;
+    height: 280px;
     background-size: 100% 100%;
 }
 
 .home__img6 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
-    height: 180px;
+    height: 280px;
     background-size: 100% 100%;
 }
 
 .home__img7 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
-    height: 180px;
+    height: 280px;
     background-size: 100% 100%;
 }
 
 .home__img8 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
-    height: 180px;
+    height: 280px;
     background-size: 100% 100%;
 }
 
@@ -311,3 +313,177 @@ table {
     height: 14.5625rem;
     border: 1px solid black;
 }
+
+
+
+
+
+/*추가 내용*/
+.con2 {
+    
+    background-color: white;
+    padding-top:70px;
+    padding-bottom:70px;  
+}
+
+.center{
+    text-align: center;
+}
+
+.con2 .con2_wrap{
+    width:1092px;
+    margin:0 auto;
+}
+
+.con2 .plan_wrap{
+    margin-top:20px;
+}
+
+.con2 .plan_wrap ul:after{
+    content:'';
+    display:block;
+    clear:both;
+}
+.con2 .plan_wrap ul .plan{
+    float:left;
+    margin-right: 25px;
+}
+
+.con2 .plan_wrap .plan:last-child{
+    margin-right:0px;
+}
+
+
+.con2 .plan .item{
+    margin-bottom:35px;
+    width:346px;
+    height: 295px;
+
+}
+
+
+.con2 .plan_wrap .plan .item img{
+    width:100%;
+    height: 100%;
+    transition: all 2s;
+}
+
+.con2 .item img:hover{
+    transform:scale(1.2)
+    
+}
+
+.con2 .plan .item .plan_image{
+    position:relative;
+    height:200px;
+    overflow: hidden;
+}
+
+.con2 .plan .item .plan_image .txt{
+    position:absolute;
+    bottom:0px;
+    left:0;
+    padding-left:15px;
+    width:100%;
+    box-sizing: border-box;
+    padding-bottom:5px;
+    padding-top:5px;
+    background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1))
+    /* 
+    background 그라데이션으로 주기
+    
+        background-image : linear-gradient()
+        radial-gradient
+
+         그라데이션 색상은 ,로 구분을 해 주면 그만큼 다 들어가짐
+         색상 앞에 deg단위 혹은 to left와 같은 키워드를 사용해서 백그라운드 방향을 지정해줄 수 있음
+
+
+
+    */
+}
+
+.txt .date{
+    color: #179dff;
+}
+
+.txt .days{
+    color:#999;
+}
+
+.txt .title{
+    color:white;
+}
+
+
+.con2 .plan .item .plan_inform{
+    background-color:white;
+    border: 1px solid #ddd;
+    padding-right:10px;
+    padding-left:15px;
+    padding-top:15px;
+    padding-bottom:10px;
+    font-size: 14px;
+}
+
+.con2 .plan .item .plan_inform:after{
+    display:block;
+    content:'';
+    clear:both;
+}
+
+.con2 .plan .item .plan_inform .icon{
+    float:right;
+}
+
+.con2 .plan .item .plan_inform .icon:after{
+    content:'';
+    display:block;
+    clear:both;
+
+}
+
+.plan_inform p{
+    margin-bottom:5px;
+}
+
+.con2 .plan .item .plan_inform .icon li{
+    float:left;
+    background-position-y: center;
+    margin-left: 5px;
+    
+}
+
+.icon li:nth-child(1){
+    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/11/b9a4ad76-d92a-4fcb-8eaa-2da9cbc42737icon_spot.png);
+    background-repeat: no-repeat;
+    padding-left:15px;
+    
+}
+
+.icon li:nth-child(2){
+    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/11/f498b698-fe3f-48de-b2c8-79366820c977icon_view.png);
+    background-repeat: no-repeat;
+    padding-left:20px;
+    
+}
+
+.icon li:nth-child(3){
+    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/11/ae54047c-6485-427b-87ce-7b7ecee8f7d4icon_user.png);
+    background-repeat: no-repeat;
+    padding-left:15px;
+    
+}
+
+.con2 .plan .item .plan_inform .user{
+    padding-left:20px;
+    background-image: url(.https://storage.googleapis.com/kdt3th_project/2024/04/11/dc9a965c-512e-4297-bb91-88fa47b3913eicon_view.png);
+    background-repeat: no-rpngepeat;
+    background-position-y: center; 
+}
+
+
+.title1{
+    font-size: 10px;
+}
+ 
