@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.example.test.GCSDTO.GCSDTO;
 import com.example.test.POST.DTO.PostReviewDTO;
 import com.example.test.User.DAO.UserHistoryDAO;
 import com.example.test.User.Service.UserHistoryService;
@@ -100,8 +101,15 @@ public class ItemDAO {
 		return sqlSessiontemplate.update("item.update", itemdto);
 	}
 
-	public int getLastInsertID() {
+	public int createImg(GCSDTO img) {
 		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectOne("item.getLastInsertId");
+		return sqlSessiontemplate.insert("item.createImg",img);
 	}
+
+	public List<String> getUrl(int itemID) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectList("item.getUrl",itemID);
+	}
+
+
 }

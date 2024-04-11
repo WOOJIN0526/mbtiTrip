@@ -8,9 +8,13 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.test.GCSDTO.GCSDTO;
+import com.example.test.GCSService.GCSService;
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.Service.DataNotFoundException;
+import com.example.test.User.DAO.UserHistoryDAO;
 import com.example.test.User.DTO.AdminDTO;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.Service.UserHistoryService;
@@ -32,8 +36,10 @@ public class ReplaceServiceImpl implements ReplaceService{
 
 	@Autowired
 	ItemDAO itemDAO;
-
-	
+	@Autowired
+	UserHistoryDAO userhistoryDAO;
+	@Autowired
+	GCSService gcsService;
 	@Autowired
 	UserHistoryService userHistoryService;
 	
@@ -163,10 +169,19 @@ public class ReplaceServiceImpl implements ReplaceService{
 			}
 
 			@Override
-			public int getLastInsertID() {
-				int result = itemDAO.getLastInsertID();
-				return result;
+			public int createImg(ItemDTO itemdto) {
+				int lastIdx =userhistoryDAO.lastIdxItem();
+				for(MultipartFile file : itemdto.getFile()) {
+					String url =gcsService.uploadObject(file);
+					GCSDTO img =  new GCSDTO();
+					img.setItemID(lastIdx);
+					img.setCurrentURL(url);
+					int result =itemDAO.createImg(img);
+				}
+				return 0;
 			}
+
+
 
 
 		

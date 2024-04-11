@@ -8,24 +8,44 @@
 .mainHeader {
    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_11.jpg");
 	padding-top: 5rem;
-    height: 880px;
+    height:1000px;
     background-size: 100% 100%;
+    display: flex;
 }
 
-
+.mainHeaderSec{
+	margin-left: 5rem;
+	margin-top:5rem;
+	width: 790px; height: 800px;
+	display: flex;
+	overflow-y: hidden;
+	overflow-x: scroll;
+}
 .search__box {
-    width: 800px;
+    
     display: inline-block;
     padding: 20px 30px;
     background-color: white;
-    position: relative  ;
-    top :50px;
-    left: 150px;
+
     border-radius: 6px;
     box-shadow: 0 2px 2px 0 rgb(214, 214, 214);
+    width: 100%;
    
 }
-
+#regist{
+	display: inline;
+	padding: 1rem;
+	font-size: 1.2rem;
+	background-color: white;
+	height: fit-content;
+	border-radius: 2rem;
+	transform: translate(5rem,5rem);
+}
+#regist a button{
+	font-size: 1.2rem;
+	border-radius: 2rem;
+	padding: 0.5rem;
+}
 .search__title {
     padding: 10px 0;
     font-size: 30px;
@@ -40,13 +60,18 @@
     font-size: 12px;
     font-weight: 600;
 }
-
+.rImgCon{
+	display: flex;
+	overflow-x: scroll;
+}
 
 .rImg{
 	width: 730px; height: 400px;
-
+	display: flex;
+	border-image-slice: fill;
 	border: 1px solid lightgray;
 }
+
 .replaceCon >h4{
 	margin :1rem 0;
 }

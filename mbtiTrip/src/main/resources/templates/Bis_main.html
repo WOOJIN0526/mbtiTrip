@@ -21,24 +21,29 @@
 <section class="mainBG" layout:fragment="content">
     <header class="mainHeader">
         <section class="mainHeaderSec">
-            <div class="search__box" th:if="${replace!=null}">
+            <div class="search__box" th:if="${userItems!=null}" th:each="item:${userItems}">
                 <div class="search__title">장소 관리</div> <!-- 변경된 부분 -->
 				
 				<div class="replaceCon">
 					<h4>장소이름</h4>
-					<div class="rImg"><img url="#" alt="로딩실패"></div>
+					<div th:text="${item.itemName}"></div>
+					<div class="rImgCon">
+						<div class="rImg" th:each="img:${item.ImgeUrl}">
+							<img th:src="${img}" alt="로딩실패">
+						</div>
+					</div>
 					<h4>주소</h4>
-					<div></div>
+					<div th:text="${item.location}"></div>
 					<h4>조회수</h4>
-					<div></div>
+					<div th:text="${item.view}"></div>
 				</div>
             </div>
-			<div class="search__box" th:unless="${replace!=null}">
-				<a th:href="@{/replace/create}"><button>숙소 등록하기</button></a>
-			</div>
+			
 		<!--	<button class="after"><i class="fa-solid fa-chevron-right"></i></button>-->
         </section>
-		
+		<div id="regist">
+			<a th:href="@{/replace/create}"><button>숙소 등록하기</button></a>
+		</div>
     </header>
 
  	<main class="mainCon">

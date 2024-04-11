@@ -34,7 +34,10 @@ public interface ReplaceService {
 	 public void setRating(Integer itemID);
 
 
-	public int getLastInsertID();
+	public int createImg(ItemDTO itemdto);
+
+
+	 
 
 
 

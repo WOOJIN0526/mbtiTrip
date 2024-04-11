@@ -23,3 +23,6 @@ function toggleSVG() {
 }
 
 
+document.querySelector('#logout').addEventListener('click',function(){
+	sessionStorage.clear();	
+});

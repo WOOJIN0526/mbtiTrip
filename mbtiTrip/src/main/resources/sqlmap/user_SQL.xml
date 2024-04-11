@@ -41,7 +41,7 @@
 	</select>
 	<select id="getMyItem" resultType="hashMap">
 	 <![CDATA[	
-		select i.itemId, i.Type, i.price, i.itemName, i.location, i.contents, i.ratingAvg
+		select i.itemId, i.Type, i.price, i.itemName, i.location, i.contents, i.ratingAvg, i.view
 		from User u
 		join Item i 
 		on u.userName = i.userName
