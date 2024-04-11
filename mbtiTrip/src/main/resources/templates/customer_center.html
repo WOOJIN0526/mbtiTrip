@@ -278,7 +278,9 @@
 						</summary>
 						<div>
 							<p>
-								<span></span>
+								<span th:text="${question.adminName}"></span>
+								<span th:text="${question.A_content}"></span>
+								<span th:text="${question.AupdateDate}"></span>
 							</p>
 							<button th:id="${question.QID}" class="reple" sec:authorize="hasAuthority('ROLE_ADMIN')" onclick="writeReple(this)">답변</button>
 						</div>

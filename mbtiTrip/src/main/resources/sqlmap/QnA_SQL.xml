@@ -16,9 +16,11 @@
 	</insert>
 
 	<select id="getlist" resultType="hashmap">
-		select QID, QName as title,
-		contents, userName, updateDate
-		from QnA
+		select q.QID, q.QName as title, q.userName, q.contents, q.updateDate,
+		a.userName as adminName, a.A_content, a.updateDate as AupdateDate
+		from QnA q
+		join QAnswer a
+		on q.QID = a.QID
 	</select>
 
 	<select id="getDetail" resultType="hashMap">

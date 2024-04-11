@@ -1,6 +1,7 @@
 package com.example.test.User.DAO;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -16,6 +17,9 @@ public class adminDAO {
 	
 	public int userBaned(String userName){
 		return this.sqlSessiontemplate.update("admin.userBaned", userName);
+	}
+	public int userUnblock(String userName){
+		return this.sqlSessiontemplate.update("admin.userUnBlock", userName);
 	}
 	
 	public int userReportCnt(String userName) {
@@ -36,4 +40,18 @@ public class adminDAO {
 		return result;
 	}
 	
+	public List<HashMap<String, Object>> userList(){
+		List<HashMap<String, Object>> userList = this.sqlSessiontemplate.selectList("admin.userList");
+		return userList;
+	}
+	public List<HashMap<String, Object>> bisList(){
+		List<HashMap<String, Object>> bisList = this.sqlSessiontemplate.selectList("admin.bisList");
+		return bisList;
+	}
+	
+	
+	public List<HashMap<String, Object>> mbtiCnt(){
+		List<HashMap<String, Object>> mbtiCnt = this.sqlSessiontemplate.selectList("admin.mbtiCnt");
+		return mbtiCnt;
+	}
 }

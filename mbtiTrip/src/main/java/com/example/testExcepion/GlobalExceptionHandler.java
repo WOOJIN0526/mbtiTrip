@@ -30,6 +30,10 @@
 //   
 //    HttpHeaders headers;
 //    
+//    @ExceptionHandler(Exception.class)
+//    protected ResponseEntity<String> handleUserException(Exception ex){
+//    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+//    }
 //	
 //    @ExceptionHandler(Exception.class)
 //    protected ResponseEntity<ErrorResponse> handleBusinessException(Exception ex) {
@@ -64,10 +68,6 @@
 //        return new ResponseEntity("BAD",HttpStatus.BAD_REQUEST);
 //    }
 //    
-//    @ExceptionHandler()
-//    public ResponseEntity<ErrorResponse> updateFailHandle(){
-//    	
-//    }
 //}
 //
 //

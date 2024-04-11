@@ -2,6 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="admin">
 	
+	<select id="userList" resultType="hashMap">
+		select * from User where userRole ="ROLE_USER";
+	</select>
+	
+	<select id="bisList" resultType="hashMap">
+		select * from User where userRole ="ROLE_BIS";
+	</select>
 	
 	<select id="UserCnt" resultType="Int">
 		 <![CDATA[
@@ -30,13 +37,27 @@
 		]]>
 	</select>
 	
+	<select id="mbtiCnt" resultType ="hashMap">
+		select if(m.mbti ="null" , "bis", m.mbti) as mbti, count(u.userName) as cnt  
+		from User u
+		join MBTi m
+		on u.mbti = m.mbtiId
+		group by m.mbti
+		order by count(u.userName) desc;
+	</select>
+	
 	<update id="userBaned">
 	 <![CDATA[
 		update User set loked = true
 		where userName= #{userName}
 		]]>
 	</update>
-	
+	<update id="userUnBlock">
+	 <![CDATA[
+		update User set loked = false
+		where userName= #{userName}
+		]]>
+	</update>
 	<update id="userReport">
 	 <![CDATA[
 		update User set report = report+1

@@ -25,6 +25,7 @@ import com.example.test.POST.DTO.PostDTO;
 import com.example.test.User.DAO.UserCartDAO;
 import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DAO.UserHistoryDAO;
+import com.example.test.User.DAO.adminDAO;
 import com.example.test.User.DTO.UserCartDTO;
 import com.example.test.User.DTO.UserHistoryDTO;
 import com.example.test.User.Service.UserCartService;
@@ -59,36 +60,65 @@ class MbtiTripApplicationTests {
 	
 	@Autowired
 	UserDAO userDAO;
+
+	@Autowired
+	adminDAO adminDao;
 	
 	@Test
 	void contextLoads() {
-		userHistoryDTO.setUserName("testUser4");
+		List<HashMap<String, Object>> userList = adminDao.userList();
+		List<HashMap<String, Object>> bisList = adminDao.bisList();
+		for(HashMap<String, Object> list : userList) {
+			log.info("userList = > {}", list);
+			
+		}
+		for(HashMap<String, Object> list : bisList) {
+			log.info("bisList = > {}", list);
+			
+		}
 		
-		String userName = "testUser4";
-		/*4.10 bis mypage 현재 예약 된 내역 확인 기능 Test*/
+//		List<HashMap<String, Object>> userMbtiCnt = adminDao.mbtiCnt();
+//		for(HashMap<String, Object> mbtiCnt : userMbtiCnt) {
+//			log.info(mbtiCnt);
+//		}
+//		Map<String, Integer> userCnt =adminDao.userCount();
+//		Iterator<String> keys = userCnt.keySet().iterator();
+//		while( keys.hasNext() ) {
+//			String key = keys.next();
+//			log.info("key =>{}", key);
+//			log.info("userCnt === >{}", userCnt.get(key));
+//		}
 		
-		List<ItemDTO> userViewItem =userHistoryDAO.viewReturnRE(userName);
-
 		
-		List<ItemDTO> userViewAD =userHistoryDAO.viewReturnAD(userName);
-
 		
-		List<PostDTO> userViewPo = userHistoryDAO.viewReturnPO(userName);
-
 		
-		List<List<?>> userViewInfo = new ArrayList<>();
-		userViewInfo.add(userViewItem);
-		userViewInfo.add(userViewAD);
-		userViewInfo.add(userViewPo);
-		log.info("userViewINFO ===> {}", userViewInfo);
-		
-		String mbti = "ISTJ";
-		List<HashMap<String, Object>> rutinByReplace =userHistoryDAO.rutinREByUx(mbti);
-		List<HashMap<String, Object>> rutinByAdventure = userHistoryDAO.rutinADByUx(mbti);
-		List<HashMap<String, Object>> rutinByUX = userHistoryDAO.rutinByUx(mbti);
-		log.info("message  RE=> {}", rutinByReplace);
-		log.info("message  AD=> {}", rutinByAdventure);
-		log.info("message  ALL=> {}", rutinByUX);
+//		userHistoryDTO.setUserName("testUser4");
+//		
+//		String userName = "testUser4";
+//		/*4.10 bis mypage 현재 예약 된 내역 확인 기능 Test*/
+//		
+//		List<ItemDTO> userViewItem =userHistoryDAO.viewReturnRE(userName);
+//
+//		
+//		List<ItemDTO> userViewAD =userHistoryDAO.viewReturnAD(userName);
+//
+//		
+//		List<PostDTO> userViewPo = userHistoryDAO.viewReturnPO(userName);
+//
+//		
+//		List<List<?>> userViewInfo = new ArrayList<>();
+//		userViewInfo.add(userViewItem);
+//		userViewInfo.add(userViewAD);
+//		userViewInfo.add(userViewPo);
+//		log.info("userViewINFO ===> {}", userViewInfo);
+//		
+//		String mbti = "ISTJ";
+//		List<HashMap<String, Object>> rutinByReplace =userHistoryDAO.rutinREByUx(mbti);
+//		List<HashMap<String, Object>> rutinByAdventure = userHistoryDAO.rutinADByUx(mbti);
+//		List<HashMap<String, Object>> rutinByUX = userHistoryDAO.rutinByUx(mbti);
+//		log.info("message  RE=> {}", rutinByReplace);
+//		log.info("message  AD=> {}", rutinByAdventure);
+//		log.info("message  ALL=> {}", rutinByUX);
 		
 		/*@param 4.9 신성진 Bis 유저 관련한 기능 테스트*/
 		/*itemList에 viewRatring값 삽입하기 성공*/
