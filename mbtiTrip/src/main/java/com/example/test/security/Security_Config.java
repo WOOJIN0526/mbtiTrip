@@ -80,10 +80,11 @@ public class Security_Config  {
                 	 .requestMatchers("/login_A", "/**", "/user/signup", "/bis/signup")
                 	 .permitAll());
        http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
+    		   .requestMatchers("/").anonymous()
     		   .requestMatchers("/user/**", "bis/**", "/admin/**").hasRole("ADMIN")
     		   .requestMatchers("bis/**", "/user/**").hasAnyRole("BIS")
     		   .requestMatchers("/user/**").hasAnyRole("USER")
-    		   .requestMatchers("/**").permitAll()
+    		   
     		   )
     	.formLogin((formLogin) -> formLogin
     			.loginPage("/login_A")

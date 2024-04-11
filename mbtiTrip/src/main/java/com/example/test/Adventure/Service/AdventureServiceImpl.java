@@ -50,7 +50,7 @@ public class AdventureServiceImpl implements AdventureService{
 		Optional<ItemDTO> adventure = this.itemDAO.findById(itemid);
 		  if (adventure.isPresent()) {
 	        	ItemDTO itemDto = adventure.get();        	
-	        	itemDto.setUprating(itemDto.getUprating()+1);        	
+	        	itemDto.setView(itemDto.getView()+1);        	
 	        	this.itemDAO.create(itemDto);
 	        	
 	            	return itemDto;
@@ -65,7 +65,7 @@ public class AdventureServiceImpl implements AdventureService{
 		Optional<ItemDTO> replace = this.itemDAO.findById(itemid);
 		  if (replace.isPresent()) {
 	        	ItemDTO itemDto = replace.get();        	
-	        	itemDto.setUprating(itemDto.getUprating()+1);        	
+	        	itemDto.setView(itemDto.getView()+1);        	
 	        	this.itemDAO.create(itemDto);
 	        	userHistoryService.userViewItem(itemDto, principal);
 	            	return itemDto;
@@ -118,7 +118,7 @@ public class AdventureServiceImpl implements AdventureService{
 
 	@Override
 	public int suggestion(ItemDTO itemDto, UserDTO user) {
-		itemDto.getSuggestion().add(user);
+		itemDto.getUprating().add(user);
         
         return this.itemDAO.create(itemDto);
 	}

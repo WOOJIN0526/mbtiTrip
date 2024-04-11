@@ -6,7 +6,7 @@
 		useGeneratedKeys="true">  
 	<![CDATA[
 		insert into iTemView (itemId)
-		value (#itemId);
+		value (#{itemID});
  	]]>
 	</insert>
 	<insert id="insertPostTable" parameterType="hashMap"
@@ -209,14 +209,14 @@
 		]]>
 	</update>
 
-	<select id="insertPostViewIdx">
+	<select id="insertPostViewIdx" resultType ="int">
 	<![CDATA[
 		select max(PostID)
 		from Post;
 		]]>
 	</select>
 
-	<select id="insertItemViewIdx">
+	<select id="insertItemViewIdx" resultType = "int">
 		<![CDATA[
 			select max(itemId)
 			from Item;
