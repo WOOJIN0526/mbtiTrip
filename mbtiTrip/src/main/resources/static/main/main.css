@@ -102,6 +102,8 @@ table {
     font-family: 'NanumSquareNeo';
     font-weight: 400px;
     font-size: 30px;
+    text-align: center;
+    margin-top: 5rem;
 }
 
 .sec__title2 {
@@ -224,49 +226,49 @@ table {
 }
 
 .home__img1 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
+    background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/11/6baf9f05-633e-4fe4-b3a8-cf443520f7522.jpg");
     height: 280px;
     background-size: 100% 100%;
 }
 
 .home__img2 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
+    background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/11/3c3d7909-98e6-4b98-b87c-42cc5bdf2961한옥.jpg");
     height: 280px;
     background-size: 100% 100%;
 }
 
 .home__img3 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
+    background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/11/1346ebd6-658f-47fb-8aa9-5977aebb4eac경북.jpg");
     height: 280px;
     background-size: 100% 100%;
 }
 
 .home__img4 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
+    background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/11/f6c5e8c8-558b-47d9-a368-916f1816a8d5경남.jpg");
     height: 280px;
     background-size: 100% 100%;
 }
 
 .home__img5 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
+    background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/11/14c36164-8611-4b72-9a2a-623294f53c50료칸.jpg");
     height: 280px;
     background-size: 100% 100%;
 }
 
 .home__img6 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
+    background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/11/18f4fc23-69fd-4257-b2a2-fd00e017d1ef모노섬.jpg");
     height: 280px;
     background-size: 100% 100%;
 }
 
 .home__img7 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
+    background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/11/3c8a9a24-f3e7-4206-b1f0-74314e857ac9포항.jpg");
     height: 280px;
     background-size: 100% 100%;
 }
 
 .home__img8 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_03.jpg");
+    background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/11/626c91a9-a1b8-4079-856c-02da1d2b9a3c경기.jpg");
     height: 280px;
     background-size: 100% 100%;
 }
@@ -312,6 +314,61 @@ table {
 .review{
     height: 14.5625rem;
     border: 1px solid black;
+}
+
+
+.con1 {
+    margin-top:70px;
+    margin-bottom:70px;
+}
+
+.con1 .con1_wrap{
+    width:1092px;
+    margin:0 auto;
+}
+content h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size:26px;
+    color:#333;
+}
+
+
+.con1 .intro:after{
+    display:block;
+    clear:both;
+    content:'';
+}
+
+.con1 .intro .item{
+    float:left;
+    width:348px;
+    margin-bottom:25px;
+}
+
+.con1 .intro .item:nth-child(2){
+    margin-right:24px;
+    margin-left:24px;
+}
+
+.con1 .intro .item h4{
+    text-align:center;
+    color:#0087ea;
+    margin-top:20px;
+    margin-bottom:20px;
+    font-weight: bold;
+
+}
+
+.con1 .intro .text{
+    text-align: center;
+    text-decoration: underline;
+    color:#f49600;
+    
+}
+
+.con1 .intro .text:hover{
+    text-decoration: none;
 }
 
 
@@ -486,4 +543,6 @@ table {
 .title1{
     font-size: 10px;
 }
- 
+ul{
+     list-style:none;
+ }
