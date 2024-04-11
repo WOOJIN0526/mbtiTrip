@@ -13,6 +13,9 @@ import com.example.test.User.Service.UserHistoryService;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.paging.Criteria;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 @Repository
 public class ItemDAO {
 
@@ -24,6 +27,7 @@ public class ItemDAO {
 	
 	public int create(ItemDTO itemdto){
 		 int result = this.sqlSessiontemplate.insert("item.create", itemdto);
+		 log.info("message - > viewCreateItem 실행 전 ");
 		 userHistoryService.ViewCreateItem();
 		 return result;
 	}
