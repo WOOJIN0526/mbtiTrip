@@ -56,17 +56,17 @@ public class ReviewAnswerController {
 		                answerDto.getPrID().getItemID(), answerDto.getAnswerID());
 		    }
 		    
-			//답변수정된것 가져옴
-		    @PreAuthorize("isAuthenticated()")
-		    @GetMapping("/modify/{id}")
-		    public String answerModify(AnswerForm answerForm, @PathVariable("id") Integer answerID, Principal principal) {
-		        AnswerDTO answerDto = this.answerService.getAnswer(answerID);
-		        if (!answerDto.getWriter().getUsername().equals(principal.getName())) {
-		            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
-		        }
-		        answerForm.setContent(answerDto.getContent());
-		        return "answer_form";
-		    }
+//			//답변수정된것 가져옴
+//		    @PreAuthorize("isAuthenticated()")
+//		    @GetMapping("/modify/{id}")
+//		    public String answerModify(AnswerForm answerForm, @PathVariable("id") Integer answerID, Principal principal) {
+//		        AnswerDTO answerDto = this.answerService.getAnswer(answerID);
+//		        if (!answerDto.getWriter().getUsername().equals(principal.getName())) {
+//		            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+//		        }
+//		        answerForm.setContent(answerDto.getContent());
+//		        return "answer_form";
+//		    }
 		    
 		    //답변수정함
 		    @PreAuthorize("isAuthenticated()")
@@ -74,7 +74,7 @@ public class ReviewAnswerController {
 		    public String answerModify(@Valid AnswerForm answerForm, @PathVariable("id") Integer answerID,
 		            BindingResult bindingResult, Principal principal) {
 		        if (bindingResult.hasErrors()) {
-		            return "answer_form";
+		            return "redirect:/post/review/detail/"+answerID;
 		        }
 		        AnswerDTO answerDto = this.answerService.getAnswer(answerID);
 		        if (!answerDto.getWriter().getUsername().equals(principal.getName())) {
