@@ -67,6 +67,28 @@
 	where userName = #{name}
 	]]>
 	</select>
+	
+	<select id="ckUsername" resultType="int">
+	<![CDATA[
+		Select count(*) 
+		from User 
+		where userName = #{userName}
+	]]>
+	</select>
+	<select id="ckUserID" resultType="int">
+	<![CDATA[
+		Select count(*) 
+		from User 
+		where userId = #{userId}
+	]]>
+	</select>
+		<select id="ckmail" resultType="int">
+	<![CDATA[
+		Select count(*) 
+		from User 
+		where mail = #{mail}
+	]]>
+	</select>
 
 	<select id="getUID" resultType="Integer">
 	 <![CDATA[

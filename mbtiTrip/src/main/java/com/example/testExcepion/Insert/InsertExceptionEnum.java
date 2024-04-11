@@ -8,7 +8,8 @@ import lombok.Getter;
 
 @Getter
 public enum InsertExceptionEnum implements ExceptionCode{
-	INSERT_ERROR(HttpStatus.BAD_REQUEST, "insert_001", "정보가 제대로 저장되지 않았습니다")	;
+	INSERT_SERVER_ERROR(HttpStatus.BAD_REQUEST, "insert_001", "정보가 제대로 저장되지 않았습니다"),
+	INSERT_VALUE_ERROR(HttpStatus.BAD_REQUEST,"insert_002","입력값을 다시 확인해주세요");
 	
 
 

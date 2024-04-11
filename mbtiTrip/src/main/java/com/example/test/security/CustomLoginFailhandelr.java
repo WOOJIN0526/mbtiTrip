@@ -12,6 +12,9 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import com.example.testExcepion.login.LoginException;
+import com.example.testExcepion.login.LoginExceptionEnum;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,13 +27,13 @@ public class CustomLoginFailhandelr implements AuthenticationFailureHandler  {
 
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException exception) throws IOException, ServletException {
+			AuthenticationException exception) throws IOException, ServletException, LoginException {
 		// TODO Auto-generated method stub
 		
 		String errorMessage;
 		
 		if(exception instanceof BadCredentialsException) {
-			errorMessage = "비밀번호가 맞지 않습니다.";
+			throw new LoginException(LoginExceptionEnum.LOGIN_PASSWORD_MISMATCH);
 		}
 	
 		else if(exception instanceof  InternalAuthenticationServiceException ) {

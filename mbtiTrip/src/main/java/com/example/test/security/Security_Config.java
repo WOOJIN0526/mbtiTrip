@@ -90,6 +90,7 @@ public class Security_Config  {
     			.loginPage("/login_A")
     			.successHandler(new CustomSuccessHandler())
     			.failureHandler(new CustomLoginFailhandelr())
+    			.failureUrl("/login_A")
     			)
     			;
     	http.rememberMe((remember) -> remember

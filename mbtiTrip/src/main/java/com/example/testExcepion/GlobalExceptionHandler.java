@@ -13,22 +13,55 @@
 //import org.springframework.http.ResponseEntity;
 //import org.springframework.stereotype.Component;
 //import org.springframework.web.ErrorResponse;
+//import org.springframework.web.bind.annotation.ControllerAdvice;
 //import org.springframework.web.bind.annotation.ExceptionHandler;
 //import org.springframework.web.bind.annotation.RestController;
 //import org.springframework.web.bind.annotation.RestControllerAdvice;
 //import org.springframework.web.servlet.resource.NoResourceFoundException;
 //
-//
+//import com.example.testExcepion.Cart.CartException;
+//import com.example.testExcepion.Insert.InsertException;
+//import com.example.testExcepion.SignUP.SignUpException;
+//import com.example.testExcepion.login.LoginException;
 //
 //import groovy.util.logging.Slf4j;
 //import lombok.extern.log4j.Log4j2;
 //
 //@Log4j2
-//@RestController
+//@ControllerAdvice
 //public class GlobalExceptionHandler {
 //
 //   
 //    HttpHeaders headers;
+//    
+//    @ExceptionHandler(SignUpException.class)
+//    protected ResponseEntity<ExceptionResponse> signUPException(SignUpException ex){
+//    	log.error("[signUpExHandle] ex", ex);
+//    	ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getSignupExceptionEnum());
+//    	return ResponseEntity.status(exceptionResponse.getStatus()).body(exceptionResponse);
+//    }
+//    
+//    @ExceptionHandler(LoginException.class)
+//    protected ResponseEntity<ExceptionResponse> LoginException(LoginException ex){
+//    	log.error("[loginExHandle] ex", ex);
+//    	ExceptionResponse er = new ExceptionResponse(ex.getLoginExceptionEnum());
+//    	return ResponseEntity.status(er.getStatus()).body(er);
+//    }
+//    
+//    @ExceptionHandler(InsertException.class)
+//    protected ResponseEntity<ExceptionResponse> LoginException(InsertException ex){
+//    	log.error("[insertHandler] ex", ex);
+//    	ExceptionResponse er = new ExceptionResponse(ex.getInsertExceptionEnum());
+//    	return ResponseEntity.status(er.getStatus()).body(er);
+//    }
+//    
+//    @ExceptionHandler(CartException.class)
+//    protected ResponseEntity<ExceptionResponse> LoginException(CartException ex){
+//    	log.error("[insertHandler] ex", ex);
+//    	ExceptionResponse er = new ExceptionResponse(ex.getCartExceptionEnum());
+//    	return ResponseEntity.status(er.getStatus()).body(er);
+//    }
+//    
 //    
 //    @ExceptionHandler(Exception.class)
 //    protected ResponseEntity<String> handleUserException(Exception ex){
@@ -39,8 +72,6 @@
 //    protected ResponseEntity<ErrorResponse> handleBusinessException(Exception ex) {
 //    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 //    	log.error("handlerException", ex.getMessage());
-//    	
-//    	
 //    	ErrorRespone response = new ErrorRespone(ErrorCode.INTER_SERVER_ERROR);
 //    	return new ResponseEntity(response, HttpStatus.INTERNAL_SERVER_ERROR);
 //    }
