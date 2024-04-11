@@ -119,8 +119,8 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
     	UserDTO userDTO = userService.getUser(userName);
     	itemdto.setUsername(userDTO);
     	int result =rpService.create(itemdto);
-    	int itemID = rpService.getLastInsertID();
-    	System.out.println(itemID);
+ //   	int itemID = rpService.getLastInsertID();
+    	System.out.println(result);
 //    	System.out.println(itemdto.toString());
 //    	for(MultipartFile file : itemdto.getFile()) {
 //    		System.out.println(file.getOriginalFilename());
