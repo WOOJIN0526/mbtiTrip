@@ -206,6 +206,10 @@ public class PostController {
     @ResponseBody
     public ResponseEntity<String> boardCreate(PostDTO dto,Principal principal) {
     	// DB에 연결할 후속작업 메서드 부탁드립니다.
+    	System.out.println(dto.toString());
+    	String userName =principal.getName();
+    	dto.setUserName(userName);
+    	int result = postService.create(dto);
     	return ResponseEntity.ok("등록하였습니다.");
     }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="view">
-	
+
 	<insert id="insertItemTable" parameterType="hashMap"
 		useGeneratedKeys="true">  
 	<![CDATA[
@@ -9,7 +9,7 @@
 		value (#itemId);
  	]]>
 	</insert>
-		<insert id="insertPostTable" parameterType="hashMap"
+	<insert id="insertPostTable" parameterType="hashMap"
 		useGeneratedKeys="true">  
 			<![CDATA[
 		insert into PostView (PostId)
@@ -36,11 +36,15 @@
 	<select id="ReturnRE"
 		resultType="com.example.test.item.DTO.ItemDTO">
 	<![CDATA[
-		select  i.itemID, i.Type, i.mbti, i.tel ,i.itemName, i.location, i.userName, i.price, i.contents
-		from userView uv
-		join Item i 
-		on uv.itemId = i.itemId
-		where i.Type = "replace"  and i.userName = #{userName}
+		select distinct i.itemID, i.Type, i.mbti, i.tel ,i.itemName, i.location, i.userName, i.price, i.contents,  max(uv.viewDate) as viewDate
+		from Item i 
+		join (select userView.* 
+		            from userView
+		            order by viewDate desc) as uv
+		on i.itemId = uv.itemId
+		where i.Type = "replace" and uv.userName =#{userName}
+		group by  i.itemID, i.Type, i.mbti, i.tel ,i.itemName, i.location, i.userName, i.price, i.contents
+		order by  max(uv.viewDate) desc
 		limit 5;
 	]]>
 	</select>
@@ -49,11 +53,15 @@
 	<select id="ReturnAD"
 		resultType="com.example.test.item.DTO.ItemDTO">
 	<![CDATA[
-		select i.itemID, i.Type, i.mbti, i.tel ,i.itemName, i.location, i.userName, i.price, i.contents
-		from userView uv
-		join Item i 
-		on uv.itemId = i.itemId
-		where i.Type = "adventure"  and i.userName = #{userName}
+		select distinct i.itemID, i.Type, i.mbti, i.tel ,i.itemName, i.location, i.userName, i.price, i.contents,  max(uv.viewDate) as viewDate
+		from Item i 
+		join (select userView.* 
+		            from userView
+		            order by viewDate desc) as uv
+		on i.itemId = uv.itemId
+		where i.Type = "adventure" and uv.userName =#{userName}
+		group by  i.itemID, i.Type, i.mbti, i.tel ,i.itemName, i.location, i.userName, i.price, i.contents
+		order by  max(uv.viewDate) desc
 		limit 5;
 	]]>
 	</select>
@@ -61,12 +69,16 @@
 	<select id="ReturnPO"
 		resultType="com.example.test.POST.DTO.PostDTO">
 	<![CDATA[
-		select pt.userName, pt.title, pt.Content as content, pt.updateDate  
-		from userView uv
-		join Post pt
-		on  uv.Postid = pt.PostID
-		where uv.userName =#{userName} and pt.PostID
-		limit 5;
+		select p.PostID, p.title, p.writer , p.Content , pv.viewRating, max(uv.viewDate) as viewDate
+		from Post p
+		join userView uv
+		on p.PostID= uv.PostID
+		join PostView pv
+		on uv.PostID = pv.PostID
+		where uv.userName = #{userName}
+		group by  p.PostID, p.title, p.writer , p.Content
+		order by max(uv.viewDate) desc
+		limit 5 ;
 	]]>
 	</select>
 
@@ -91,6 +103,18 @@
 	]]>
 	</select>
 
+
+	<select id="returnRatingItem" resultType="hashMap">
+	<![CDATA[
+		select i.itemID, i.itemName, iv.viewRating
+		from iTemView iv
+		join Item i
+		on iv.itemId = i.itemID
+		join User u 
+		on u.userName = i.userName
+		where i.userName = #{userName}
+	]]>
+	</select>
 
 
 	<select id="userLikeMbti" parameterType="hashMap"
@@ -176,7 +200,7 @@
 		where itemId = #{itemId};
 		]]>
 	</update>
-	
+
 	<update id="ratingPost">
 		<![CDATA[
 		update PostView 

@@ -61,7 +61,7 @@ public class UserController {
 	@Autowired
 	private CustomLoginService loginservice;
 	
-
+	@Autowired
 	private UserHistoryService userHistoryService;
 	
 
@@ -90,16 +90,24 @@ public class UserController {
 	
 	@PreAuthorize("isAuthenticated() and  hasRole('ROLE_USER')")
 	@RequestMapping(value = "/user/main", method = RequestMethod.GET)
-	public ModelAndView main(Principal principar,
+	public ModelAndView main(Principal principal,
 							Authentication auth,
 							ModelAndView mav) {
-		log.info("main user 권한 확인 ={}", auth.getAuthorities());
-		log.info("main 접속 중 ");
-		Integer UID = userService.princeUID(principar);
+		Integer UID = userService.princeUID(principal);
 		Map<String, Object> user = userService.getInfo(UID);
-		log.info("userMain info = {} ", user);
+		String userMbti = (String) user.get("mbti");
+		/*Test 진행 중 중복값제거 작엄 중 , */
+		List<HashMap<String, Object>> UserUXs = userHistoryService.uxRutin(userMbti);
+		List<HashMap<String, Object>> userUxRe = userHistoryService.uxReplace(userMbti);
+		List<HashMap<String, Object>> userUxAD = userHistoryService.uxAdventure(userMbti);
+		List<List<?>> userViewInfo =userHistoryService.userViewInfo(principal);
+		
+		mav.addObject("UserUXs",UserUXs);
+		mav.addObject("userUxRe",userUxRe);
+		mav.addObject("userUxadv",userUxAD);
+		mav.addObject("userViewInfo",userViewInfo);
 		mav.addObject("user", user);
-		mav.setViewName("user_main");
+		mav.setViewName("User_Main");
 		return mav;
 	}
 	
@@ -214,8 +222,13 @@ public class UserController {
 	public ModelAndView mypageUser(Principal principal, UserDTO userdto, ModelAndView mav){
 		Integer UID = userService.princeUID(principal);
 		Map<String, Object> user = userService.getInfo(UID);
-		log.info("user mypage 정보 {}", user);
+		List<HashMap<String, Object>> userPost =userHistoryService.selectUserPost(principal);
+		log.info("userPost ===>{}", userPost);
+		List<HashMap<String, Object>> userQnA = userHistoryService.selectUserQnA(principal);
+		log.info("userQnA ===>{}", userQnA);
 		mav.addObject("user", user);
+		mav.addObject("userPosts", userPost);
+		mav.addObject("userQnA", userQnA);
 		mav.setViewName("mypage");
 		return mav;
 	}

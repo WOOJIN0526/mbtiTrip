@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.test.GCSService.GCSService;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.Service.UserService;
 import com.example.test.User.Service.adminService;
@@ -39,6 +40,8 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
 
 	@Autowired
 	ReplaceService rpService;
+	@Autowired
+	GCSService gcsService;
 	
 	
 	@Autowired
@@ -109,13 +112,21 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
 //    }
     @PostMapping("/create")
     @ResponseBody
-    public ResponseEntity<String> create(ItemDTO itemdto){
+    public ResponseEntity<String> create(ItemDTO itemdto,Principal principal){
     	itemdto.setType(ItemType.replace);
-    	
-    	System.out.println(itemdto.toString());
-    	for(MultipartFile file : itemdto.getFile()) {
-    		System.out.println(file.getOriginalFilename());
-    	}
+    	//itemDTO에 userName이 UserDTO 타입이여서 이렇게 작성함
+    	String userName = principal.getName();
+    	UserDTO userDTO = userService.getUser(userName);
+    	itemdto.setUsername(userDTO);
+    	int result =rpService.create(itemdto);
+    	int itemID = rpService.getLastInsertID();
+    	System.out.println(itemID);
+//    	System.out.println(itemdto.toString());
+//    	for(MultipartFile file : itemdto.getFile()) {
+//    		System.out.println(file.getOriginalFilename());
+//    		String url =gcsService.uploadObject(file);
+//    		
+//    	}
     	return ResponseEntity.ok().body("Success message");
     }
     

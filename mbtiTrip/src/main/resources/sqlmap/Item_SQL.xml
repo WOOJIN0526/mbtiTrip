@@ -2,9 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="item">
 
-	<insert id="create">
-	insert into Item(Type, mbti, userName, price, itemName, location, tel, contents, ratingAvg, updateDate, uprating, imgUrl)
-	value(#{Type},#{mbti}, #{userName}, #{price}, #{itemName},#{location}, #{tel}, #{contents}, #{ratingAvg},  #{updateDate}, #{uprating}, #{imgUrl})
+	<insert id="create" useGeneratedKeys="true"
+		keyProperty="itemID">s
+	insert into Item(Type, mbti, userName, price, itemName, location, tel, contents,updateDate,uprating)
+	value(#{Type},#{mbti}, #{Username.userName}, #{price}, #{itemName},#{location}, #{tel}, #{contents}, #{updateDate},#{uprating})
 	</insert>
 
 
@@ -95,4 +96,8 @@
 			where itemId = #{itemID};
 		]]>
 	</update>
+	
+	<select id="getLastInsertId" resultType="int">
+    SELECT LAST_INSERT_ID()
+	</select>
 </mapper>

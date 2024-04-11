@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.test.GCSService.GCSService;
+import com.example.test.User.DAO.UserCartDAO;
 import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DTO.UserDTO;
 
@@ -102,13 +104,39 @@ public class UserServiceImpl implements UserService{
 		return ck;
 	}
 
+	
+	
+	
+	/*이 아래 bis 관련 기능 */
 	@Override
 	public List<HashMap<String, Object>> getMyItem(Principal principal) {
 		String userName = principal.getName();
+		userName ="testUser4";
 		List<HashMap<String, Object>> myItem = userDao.getMyItem(userName);
 		return myItem;
 	}
+	
+	
 
+	@Override
+	public List<HashMap<String,Object>> bisListput(List<HashMap<String,Object>> itemList, List<HashMap<String,Object>> viewList){
+		for(HashMap<String,Object> item : itemList) {
+			for(HashMap<String, Object> rate : viewList) {
+				Set<String> keySet = rate.keySet();
+				for(String key : keySet) {
+					if(item.get("itemId").equals(rate.get("itemID"))) {
+						if(key.equals("viewRating")) {
+						 item.put(key, rate.get(key));
+						 
+						}
+					}
+				}
+				
+			}
+		}
+		return itemList;
+	}
 
+	
 
 }

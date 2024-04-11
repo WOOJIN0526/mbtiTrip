@@ -62,23 +62,11 @@ public class ReplaceServiceImpl implements ReplaceService{
 	        }	
 	}
 
-	public int create(ItemType Type, Integer mbti, UserDTO Username,Integer price, 
-			 String itemName,String location, String tel, String contents, String[] ImgeUrl) {
+	public int create(ItemDTO itemDTO) {
+			
+		itemDTO.setUpdateDate(LocalDateTime.now());
 		
-		ItemDTO item = new ItemDTO();
-		
-		item.setType(Type);
-		item.setMbti(mbti);
-		item.setUsername(Username);
-		item.setPrice(price);
-		item.setItemName(itemName);
-		item.setLocation(location);
-		item.setTel(tel);
-		item.setContents(contents);
-		item.setImgeUrl(ImgeUrl);
-		item.setUpdateDate(LocalDateTime.now());
-		
-		return this.itemDAO.create(item);
+		return this.itemDAO.create(itemDTO);
 	}
 
 	@Override
@@ -175,11 +163,11 @@ public class ReplaceServiceImpl implements ReplaceService{
 			}
 
 			@Override
-			public int create(ItemType Type, Integer mbti, AdminDTO Username, Integer price, String itemName,
-					String location, String tel, String contents, String[] ImgeUrl) {
-				// TODO Auto-generated method stub
-				return 0;
+			public int getLastInsertID() {
+				int result = itemDAO.getLastInsertID();
+				return result;
 			}
+
 
 		
 	
