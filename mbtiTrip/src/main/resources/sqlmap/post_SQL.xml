@@ -85,7 +85,36 @@
 	]]>
 	</insert>
 
+<!-- 
+	<select id="getList" resultType="com.example.test.POST.DTO.PostDTO">
+    <![CDATA[
+    SELECT PostId,PostCateGoryID,userName,title,Content,suggestion,views,UpdateDate,modifyDate, writer
+	FROM Post
+        WHERE postID =#{PostId}
+	AND ( 
+		 title LIKE CONCAT('%', #{keyword}, '%')
+		 OR Content LIKE CONCAT('%', #{keyword}, '%')
+		 OR writer LIKE CONCAT('%', #{keyword}, '%')
+	)
+	ORDER BY UpdateDate DESC
+	LIMIT #{pageNum} * #{amount}, #{amount};
+    ]]>
+    </select>
 
+    <select id="getTotal" resultType="int">
+    <![CDATA[
+    SELECT COUNT(PostId) 
+	FROM Post
+	 WHERE postID =#{PostId}
+	AND ( 
+		 title LIKE CONCAT('%', #{keyword}, '%')
+		 OR Content LIKE CONCAT('%', #{keyword}, '%')
+		 OR writer LIKE CONCAT('%', #{keyword}, '%')
+	)
+	
+    ]]>
+    </select> 
+ -->
 
 
 

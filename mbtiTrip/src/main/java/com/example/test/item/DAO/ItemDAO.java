@@ -80,15 +80,7 @@ public class ItemDAO {
 		this.sqlSessiontemplate.update("item.updateCount", itemID);
 	}
 
-	
-	public double getRatingAverage(Integer itemID) {
-		return sqlSessiontemplate.selectOne("item.getRatingAverage", itemID);
-	}
-	
-	public int updateRating(ItemDTO item) {
-		return sqlSessiontemplate.update("item.updateRating", item);
-		
-	}
+
 	
 
 	public int getTotal(Criteria cri) {

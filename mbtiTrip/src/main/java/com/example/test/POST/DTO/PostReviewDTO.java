@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 public class PostReviewDTO {
 
-	private ItemDTO itemID;
+	private Integer itemID;
 	
 	private Post_CategoryDTO category;
 	
@@ -28,6 +28,8 @@ public class PostReviewDTO {
 	private UserDTO writer;
 	
 	private int views;
+	
+	private double ratingAvg;
 	
 	private Set<UserDTO> suggestion;
 

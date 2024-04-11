@@ -60,6 +60,8 @@ public class PostReviewServiceImpl implements PostReviewService{
 		pr.setCategory(category);
 		pr.setUpdateDate(LocalDateTime.now());
 		
+		setRating(pr.getItemID());
+		
 		return this.prDAO.create(pr);
 	}
 
@@ -69,12 +71,17 @@ public class PostReviewServiceImpl implements PostReviewService{
 		pr.setContent(content);
 		pr.setModifyDate(LocalDateTime.now());
 		
+		setRating(pr.getItemID());
+		
 		return this.prDAO.update(pr);
 	}
 
 	@Override
 	public void delete(PostReviewDTO postDto) {
 		// TODO Auto-generated method stub
+		
+		setRating(postDto.getItemID());
+		
 		this.prDAO.delete(postDto);
 	}
 
@@ -118,5 +125,23 @@ public class PostReviewServiceImpl implements PostReviewService{
 				        return new IllegalArgumentException("글 상세보기 실패: 아이디를 찾을 수 없습니다.");
 				    });
 				}
+			//평점
+			@Override
+			public void setRating(int itemID) {
+				// TODO Auto-generated method stub
+				Double ratingAvg = prDAO.getRatingAverage(itemID);
+				if(ratingAvg == null) {
+					ratingAvg = 0.0;
+				}
+				
+				ratingAvg = (double) (Math.round(ratingAvg*10));
+				ratingAvg = ratingAvg / 10;
+				
+				PostReviewDTO pr = new PostReviewDTO();
+				pr.setItemID(itemID);
+				pr.setRatingAvg(ratingAvg);
+				
+				prDAO.updateRating(pr);
+			}
 	
 }

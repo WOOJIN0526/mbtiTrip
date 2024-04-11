@@ -30,5 +30,5 @@ public interface AdventureService {
 	 public int suggestion(ItemDTO itemDto, UserDTO user);
 	 
 
-	 public void setRating(Integer itemID);
+	 
 }

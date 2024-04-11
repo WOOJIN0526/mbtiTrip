@@ -139,20 +139,7 @@ public class ReplaceServiceImpl implements ReplaceService{
 				}
 
 		
-			@Override
-			public void setRating(Integer itemID) {
-				// TODO Auto-generated method stub
-				ItemDTO item = new ItemDTO();
-				
-				Double ratingAvg = itemDAO.getRatingAverage(itemID);
-				
-				item.setRatingAvg(ratingAvg);
-				
-				this.itemDAO.updateRating(item);
-				
-				
 			
-			}
 
 			@Override
 			public ItemDTO getPost(Integer itemID, Principal principal) {
