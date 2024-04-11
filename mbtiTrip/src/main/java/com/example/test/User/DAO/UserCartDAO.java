@@ -80,7 +80,14 @@ public class UserCartDAO {
 		return result;
 	}
 	
-	
+	/*Bis 예약자 정보 표시 method*/
+	public List<HashMap<String, Object>> reservationInfo(String adminName){
+		adminName = "testUser4";
+		List<HashMap<String, Object>> reservationInfo = 
+					this.sqlSessiontemplate.selectList("userCart.bisSelect", adminName);	
+		log.info("BisController UserReservation INfo => {}", reservationInfo);
+		return reservationInfo;
+	}
 	
 	
 	//추가적 기능 구현 enddate가 지났을 경우, history로 이관작업

@@ -143,6 +143,14 @@ public class UserCartServiceImpl implements UserCartService{
 		return ck;
 	}
 
+	@Override
+	public List<HashMap<String, Object>> reservationInfo(Principal principal) {
+		String adminName = principal.getName();
+		List<HashMap<String, Object>> userReservationInfo 
+					= userCartDAO.reservationInfo(adminName);
+		return userReservationInfo;
+	}
+
 	
 	//Exception 에러가 발생했을 떄, 처리할 method가 있으면 좋을 듯 
 	// alter를  띄울 수 있는 method 필요 

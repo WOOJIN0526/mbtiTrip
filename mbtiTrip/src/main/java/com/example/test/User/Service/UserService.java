@@ -36,6 +36,11 @@ public interface UserService {
 	public boolean passwordCK(Principal principal, String password);
 
 
+	/*bis 관련 기능 */
 	public List<HashMap<String, Object>> getMyItem(Principal principal);
+
+
+	List<HashMap<String, Object>> bisListput(List<HashMap<String, Object>> itemList,
+			List<HashMap<String, Object>> viewList);
 
 }
