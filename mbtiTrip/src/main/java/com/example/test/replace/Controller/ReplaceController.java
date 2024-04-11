@@ -28,7 +28,7 @@ import com.example.test.paging.Criteria;
 import com.example.test.paging.PageDTO;
 import com.example.test.replace.ReplaceForm;
 
-import com.example.test.replace.Service.ReplaceCategoryService;
+
 import com.example.test.replace.Service.ReplaceService;
 
 
@@ -47,8 +47,8 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
 	@Autowired
 	UserService userService;
 	
-	@Autowired
-	ReplaceCategoryService rpCategoryService;
+	//@Autowired
+	//ReplaceCategoryService rpCategoryService;
 	
 	@GetMapping("/list")
 	public String list(Criteria cri, Model model) {

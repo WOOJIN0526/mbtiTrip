@@ -38,13 +38,11 @@ public class ItemDTO {
 	
 	private double ratingAvg = 0;
 	
-	private Set<UserDTO> suggestion;
-	
 	private LocalDateTime updateDate;
 	
 	private LocalDateTime modifyDate;
 	
-	private Integer uprating = 0; //추천수 
+	private Set<UserDTO> uprating; //추천수 
 
 	private MultipartFile[] file;
 	

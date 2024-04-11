@@ -167,7 +167,9 @@ public  class PostServiceImpl implements PostService {
 		@Override
 		public int create(PostDTO dto) {
 			// TODO Auto-generated method stub
-			return 0;
+
+			return postDAO.save(dto);
+
 		}
 
 

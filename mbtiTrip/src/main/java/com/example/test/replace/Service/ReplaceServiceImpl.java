@@ -54,7 +54,7 @@ public class ReplaceServiceImpl implements ReplaceService{
 		Optional<ItemDTO> replace = this.itemDAO.findById(itemid);
 		  if (replace.isPresent()) {
 	        	ItemDTO itemDto = replace.get();        	
-	        	itemDto.setUprating(itemDto.getUprating()+1);        	
+	        	itemDto.setView(itemDto.getView()+1);        	
 	        	this.itemDAO.create(itemDto);
 	            	return itemDto;
 	        } else {
@@ -93,7 +93,7 @@ public class ReplaceServiceImpl implements ReplaceService{
 
 	@Override
 	public int suggestion(ItemDTO itemDto, UserDTO user) {
-		itemDto.getSuggestion().add(user);
+		itemDto.getUprating().add(user);
         
         return this.itemDAO.create(itemDto);
 	}
@@ -153,7 +153,7 @@ public class ReplaceServiceImpl implements ReplaceService{
 				Optional<ItemDTO> replace = this.itemDAO.findById(itemID);
 				  if (replace.isPresent()) {
 			        	ItemDTO itemDto = replace.get();        	
-			        	itemDto.setUprating(itemDto.getUprating()+1);        	
+			        	itemDto.setView(itemDto.getView()+1);        	
 			        	this.itemDAO.create(itemDto);
 			        	userHistoryService.userViewItem(itemDto, principal);
 			        	return itemDto;
