@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="post">
 	
-	<!--  <insert id="insert" parameterType="hashMap" useGeneratedKeys="true"
+	<insert id="insert" parameterType="hashMap" useGeneratedKeys="true"
 		keyProperty="UID">  
 	    <![CDATA[
 	    insert into Post
@@ -10,7 +10,14 @@
 	    values
 	    (#{PostId},#{PostCateGoryID},#{userName},#{title},#{Content},#{suggestion},#{views},#{UpdateDate},#{modifyDate}, #{writer})
 	]]>
-	</insert>-->
+	</insert>
+	
+	<insert id="create" parameterType="hashMap">
+		<![CDATA[
+			INSERT INTO Post( title, postCategoryID, content, writer ) 
+			VALUES ( #{title},#{PostCateGoryID}, #{content}, #{writer} )
+		]]>	
+	</insert>
 	
 	
 	<insert id="save" parameterType="hashMap" useGeneratedKeys="true"
@@ -25,7 +32,7 @@
 
 	
 	
-	<!--    게시글 목록 가져오기-->
+	    <!-- 게시글 목록 가져오기 -->
     <select id="getList" resultType="com.example.test.POST.DTO.PostDTO">
         <![CDATA[
 		select PostId,PostCateGoryID,userName,title,Content,suggestion,views,UpdateDate,modifyDate, writer
@@ -35,11 +42,26 @@
     </select>
     
     <select id="getTotal" resultType="int">
+		<![CDATA[
+		SELECT COUNT(*) 
+		FROM Post
+		 ]]>
+	</select>
+	<!--  
+    <select id="getTotal" resultType="int">
        <![CDATA[
 		select COUNT(PostId)
 		from Post 
        ]]>
-    </select>
+    </select>-->
+	
+	<select id="findById" resultType="hashmap">
+	 <![CDATA[
+		SELECT PostID 
+		FROM Post
+		WHERE userName=#{userName}; 
+	]]>
+	</select>
 	
 	<select id="findByPostCategoryID" resultType="hashmap">
 	 <![CDATA[
@@ -51,40 +73,39 @@
 
 	<update id="updateCount">
 	<![CDATA[
-			Update Post 
-			set
-			views = #{views},
-			where postID = #{PostID};
-		]]>
+		UPDATE Post
+		SET views = views + 1
+		WHERE postID = #{PostID}
+	]]>	
 	</update>
 	
 	<update id="update">
-	<![CDATA[
-			Update Post 
-			set
-			content = #{Content}, title = #{title}, modifyDate=#{modifyDate}
-			where postID = #{PostID};
+		<![CDATA[
+			UPDATE Post
+			SET   title = #{title}
+		     ,content = #{content}
+		     ,writer = #{writer}
+		WHERE postID = #{PostID}
 		]]>
 	</update>
 	
-	
 	<delete id="delete">
-	<![CDATA[
-		
-			delete from Post 
-			where userName = #{userName} and postID = #{PostID};	
-	]]>
+		<![CDATA[
+		DELETE
+		FROM Post
+		WHERE postID = #{PostID}
+		]]>
 	</delete>
 	
-	<insert id="create" useGeneratedKeys="true" keyProperty="postID">  
-	    <![CDATA[
-	    insert into Post
-	    (postCategoryID,userName,title,content,updateDate) 
-	    values
-	    (#{postCategoryID},#{userName},#{title},#{content},#{updateDate})
-	]]>
-	</insert>
 
+
+	<update id="suggestion">
+	<![CDATA[
+		UPDATE Post
+		SET suggestion = suggestion + 1
+		WHERE postID = #{PostID}
+	]]>	
+	</update>
 <!-- 
 	<select id="getList" resultType="com.example.test.POST.DTO.PostDTO">
     <![CDATA[

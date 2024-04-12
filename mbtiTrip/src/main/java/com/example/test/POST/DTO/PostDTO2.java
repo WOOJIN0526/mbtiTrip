@@ -7,21 +7,15 @@ import java.util.Set;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.test.User.DTO.UserDTO;
-import com.example.test.paging.Criteria;
-import com.example.test.paging.PageDTO;
 
 import lombok.Getter;
 import lombok.Setter;
 
-
-
 @Getter
 @Setter
-public class PostDTO {
+public class PostDTO2 {
 
-	
-	
-	private Integer postID;
+private Integer postID;
 	
 	private Integer postCategoryID;
 	
@@ -41,11 +35,13 @@ public class PostDTO {
 	
 	private List<AnswerDTO> answerList;
 	
-	private UserDTO writer; 
+	private String writer; //UserDTO
 	
 	private int views;
 	
+	private MultipartFile[] file;	// 파일정보
 	
+	private String[] filePath;		// 파일경로
 
 	
     @Override
