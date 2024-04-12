@@ -14,9 +14,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.Replace;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -31,7 +33,10 @@ import com.example.test.User.DTO.UserHistoryDTO;
 import com.example.test.User.Service.UserCartService;
 import com.example.test.User.Service.UserService;
 import com.example.test.item.DTO.ItemDTO;
-import com.example.test.replace.DTO.ReplaceDTO;import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.example.test.replace.DTO.ReplaceDTO;
+import com.example.testExcepion.SignUP.SignUpException;
+import com.example.testExcepion.SignUP.SignUpExceptionEunm;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.google.common.collect.Multiset.Entry;
 
 import lombok.extern.log4j.Log4j2;
@@ -47,7 +52,8 @@ class MbtiTripApplicationTests {
 	
 	UserCartDTO userCartDTO =new UserCartDTO() ;
 
-	
+	@Autowired
+	SqlSessionTemplate sqlSessiontemplate ;
 	ReplaceDTO replaceDTO = new ReplaceDTO();
 	
 	@Autowired
@@ -66,16 +72,28 @@ class MbtiTripApplicationTests {
 	
 	@Test
 	void contextLoads() {
-		List<HashMap<String, Object>> userList = adminDao.userList();
-		List<HashMap<String, Object>> bisList = adminDao.bisList();
-		for(HashMap<String, Object> list : userList) {
-			log.info("userList = > {}", list);
-			
-		}
-		for(HashMap<String, Object> list : bisList) {
-			log.info("bisList = > {}", list);
-			
-		}
+		boolean userCk = false;
+//		if(userDAO.getByUserId("testUser4").getUserId() != null) {
+//			userCk = true;
+//		
+//		int idCk = this.sqlSessiontemplate.selectOne("user.ckUserID", "testUser4");
+//		int nameCk = this.sqlSessiontemplate.selectOne("user.ckUsername", "강호동");
+//		int mailCk = this.sqlSessiontemplate.selectOne("user.ckmail", "tesUser4");
+//		log.info("validationCK ==={}",idCk);
+//		log.info("validationCK ==={}",nameCk);
+		boolean vaild = Pattern.matches("^[a-zA-Z0-9가-힣]*$", "testUser4");
+		
+		log.info("validationCK ==={}",!vaild);
+//		List<HashMap<String, Object>> userList = adminDao.userList();
+//		List<HashMap<String, Object>> bisList = adminDao.bisList();
+//		for(HashMap<String, Object> list : userList) {
+//			log.info("userList = > {}", list);
+//			
+//		}
+//		for(HashMap<String, Object> list : bisList) {
+//			log.info("bisList = > {}", list);
+//			
+//		}
 		
 //		List<HashMap<String, Object>> userMbtiCnt = adminDao.mbtiCnt();
 //		for(HashMap<String, Object> mbtiCnt : userMbtiCnt) {

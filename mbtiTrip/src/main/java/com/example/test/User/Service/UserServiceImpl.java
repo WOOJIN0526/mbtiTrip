@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,7 +19,8 @@ import com.example.test.User.DAO.UserCartDAO;
 import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.item.DAO.ItemDAO;
-
+import com.example.testExcepion.SignUP.SignUpException;
+import com.example.testExcepion.SignUP.SignUpExceptionEunm;
 import lombok.extern.log4j.Log4j2;
 
 
@@ -37,8 +39,10 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private ItemDAO itemDao;
 	
+	
 	@Override
 	public int createUser(UserDTO userDTO) {
+		vaildationUser(userDTO);
 		String userPassword = userDTO.getPassword();
 		log.info("userPassword : {}", userPassword);
 		String encodePassword = bcrypasswordEncoder.encode(userPassword);
@@ -46,6 +50,34 @@ public class UserServiceImpl implements UserService{
 		int result = this.userDao.insert(userDTO);
 			return result;
 	
+	}
+	
+	private void vaildationUser(UserDTO userDTO) throws SignUpException{
+			if(userDao.idCk(userDTO)) {
+				/* ID 중복*/
+				throw new SignUpException(SignUpExceptionEunm.Signup_DUPLCATION_ID);
+			}
+			if(userNameVaildation(userDTO)) {
+				/*닉네임 특수문자 검사*/
+				throw new SignUpException(SignUpExceptionEunm.SignUP_Bad_NiCKNAME);
+			}
+			
+			if(userDao.nameCk(userDTO)) {
+				/*닉네임 중복 검사*/
+				throw new SignUpException(SignUpExceptionEunm.Signup_DUPLCATION_NiCKNAME);
+			}
+			if(userDao.mailCK(userDTO)) {
+				/*메일 중복 검사*/
+				throw new SignUpException(SignUpExceptionEunm.SignUP_DUPLICATION_EMAIL);
+			}				
+	}
+
+	public boolean userNameVaildation(UserDTO userdto) {
+		String userName = userdto.getUsername();
+		boolean vaild = Pattern.matches("^[a-zA-Z0-9가-힣]*$", userName);
+		//vaild가 true면 특수문자가 없다는 겨 
+		// 그니까 특수문자가 없을 땐 그냥 지나치도록, 반대값 리턴, == true = 특수문자 존재 
+		return !vaild;
 	}
 	
 	@Override

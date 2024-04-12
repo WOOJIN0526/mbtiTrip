@@ -1,5 +1,8 @@
 package com.example.testExcepion.Cart;
 
+import lombok.Getter;
+
+@Getter
 public class CartException extends RuntimeException {
 	
 	private final CartExceptionEnum cartExceptionEnum;

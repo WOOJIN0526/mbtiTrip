@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.DTO.User_Role;
+import com.example.testExcepion.login.LoginException;
+import com.example.testExcepion.login.LoginExceptionEnum;
 
 import groovy.cli.Option;
 import lombok.extern.log4j.Log4j2;
@@ -37,23 +39,18 @@ public class CustomLoginService implements UserDetailsService{
 	
 	
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) throws LoginException {
 		//여기서 username = userId
 		try {
 		log.info("LoginService, loadUserByUsername =="+ username);
 		Optional<UserDTO> userInfo = Optional.of(userDao.getByUserId(username)); 
 		log.info("optinal Test  ==== {}", userInfo.get());
 		if(userInfo.isEmpty()) {
-			log.info("THROWS ===", "UsernameNotFoundException");
-			throw new UsernameNotFoundException("찾을 수 없는 유저입니다.");
+			throw new LoginException(LoginExceptionEnum.LOGIN_NOTFOUND_MEMBER);
 		}
-
-		log.info("message === {}" , userInfo);
-	
 		UserDTO user = userInfo.get();
 		log.info("user DTO Login Service {} ",user.toString());
 		if(user.isLoked()) {
-			log.info("ㅋㅋㅋ정지됐노 ㅋㅋㅋ");
 			throw new AuthenticationCredentialsNotFoundException("정지된 사용자입니다. 관리자에게 문의하세요");
 		}
 		else {
@@ -74,7 +71,16 @@ public class CustomLoginService implements UserDetailsService{
 			return userIN;
 		}
 		
-		} catch (Exception e) {
+		}catch (NullPointerException e) {
+			throw new LoginException(LoginExceptionEnum.LOGIN_NOTFOUND_MEMBER);
+		}
+		catch(AuthenticationCredentialsNotFoundException e){
+			throw new LoginException(LoginExceptionEnum.LOGIN_NOT_AUTHENTICATION);
+		}
+		catch (LoginException e) {
+			log.info("tryCatch {}", e.getClass());
+		}
+		catch (Exception e) {
 			log.info("tryCatch {}", e.getClass());
 			e.printStackTrace();
 		}		
