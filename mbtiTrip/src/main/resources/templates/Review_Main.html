@@ -59,7 +59,27 @@
 		  <script th:src="@{/Review_Main/Review_Main.js}"></script>
 	  </section>
 		
-
+	 						 <!--페이징 시작-->
+	  						<div th:object="${pageMaker}">
+	  		                    <div class="big-width" style="text-align: center">
+	  		                        <a class="changePage" th:if="*{prev}" th:href="*{startPage - 1}">이전</a>
+	  		                        <th:block th:each="num : ${#numbers.sequence(pageMaker.getStartPage(), pageMaker.getEndPage())}">
+	  		                            <code th:if="${pageMaker.criteria.getPageNum() == num}" th:text="${num}"></code>
+	  		                            <a class="changePage" th:unless="${pageMaker.criteria.getPageNum() == num}" th:href="${num}"><code th:text="${num}"></code></a>
+	  		                        </th:block>
+	  		                        <a class="changePage" th:if="*{next}" th:href="*{endPage + 1}">다음</a>
+	  		                    </div>
+	  		                    <div class="small-width" style="text-align: center">
+	  		                        <a class="changePage" th:if="*{criteria.pageNum > 1}" th:href="*{criteria.pageNum - 1}">이전</a>
+	  		                        <code th:text="*{criteria.pageNum}"></code>
+	  		                        <a class="changePage" th:if="*{criteria.pageNum < realEnd}" th:href="*{criteria.pageNum + 1}">다음</a>
+	  		                    </div>
+	  		                    <form action="/post/review/list" th:object="${criteria}" name="pageForm">
+	  		                        <input type="hidden" name="pageNum" th:field="*{pageNum}">
+	  		                        <input type="hidden" name="amount" th:field="*{amount}">
+	  		                    </form>
+	  		                </div>						
+	  						<!--페이징 종료-->
 
   
 </body>

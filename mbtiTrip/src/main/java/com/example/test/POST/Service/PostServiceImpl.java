@@ -62,8 +62,8 @@ public  class PostServiceImpl implements PostService {
 
 	//해당게시글 가져옴, 조회수 증가
 	@Override
-	public PostDTO getPost(Integer userid) {
-		 Optional<PostDTO> post = this.postDAO.findById(userid);
+	public PostDTO getPost(Integer userName) {
+		 Optional<PostDTO> post = this.postDAO.findById(userName);
 		  if (post.isPresent()) {
 	        	PostDTO postDto = post.get();        	
 	        	postDto.setViews(postDto.getViews()+1);        	
@@ -76,44 +76,28 @@ public  class PostServiceImpl implements PostService {
 	
 	//생성
 	@Override
-	public int create(String title, String content, UserDTO user, Post_CategoryDTO category) {
-		PostDTO postDto = new PostDTO();
-        postDto.setTitle(title);
-        postDto.setContent(content);
-        postDto.setPost_category(category);
-        postDto.setUpdateDate(LocalDateTime.now());
-        postDto.setWriter(user);
-        
-
-         
-        return this.postDAO.save(postDto);
+	public void create(PostDTO post) {
+		postDAO.create(post);
 	}
 
 	//수정
 	@Override
-	public int modify(PostDTO postDto, String title, String content) {
-		postDto.setTitle(title);
-        postDto.setContent(content);
-        postDto.setModifyDate(LocalDateTime.now());
-        
-        
-        return this.postDAO.update(postDto);
+	public void modify(PostDTO post) {
+		postDAO.update(post);
 	}
 
 	//삭제
 	@Override
 	public void delete(PostDTO postDto) {
 		 this.postDAO.delete(postDto);
-		
-		
 	}
 
 	//추천
 	@Override
-	public int suggestion(PostDTO postDto, UserDTO userDto) {
+	public Integer suggestion(PostDTO postDto, UserDTO userDto) {
 		postDto.getSuggestion().add(userDto);
         
-        return this.postDAO.save(postDto);
+        return this.postDAO.suggestion(postDto);
 	}
 
 
@@ -164,13 +148,7 @@ public  class PostServiceImpl implements PostService {
 
 
 
-		@Override
-		public int create(PostDTO dto) {
-			// TODO Auto-generated method stub
-
-			return postDAO.save(dto);
-
-		}
+	
 
 
 
