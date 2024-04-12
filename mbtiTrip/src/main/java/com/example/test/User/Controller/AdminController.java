@@ -56,7 +56,7 @@ public class AdminController {
 		log.info("UserLoginSuccess = UserINFo= {}", user);
 		
 		mav.addObject("user", user);
-		mav.setViewName(String.format("redirect:/user/main"));
+		mav.setViewName(String.format("redirect:/"));
 		return mav;
 	}
 	
@@ -86,7 +86,7 @@ public class AdminController {
 		mav.addObject("userList", userList);
 		mav.addObject("bisList", bisList);
 		mav.addObject("admin", admin);
-		mav.setViewName("adminTest");
+		mav.setViewName("adminPage");
 		return mav;
 	}	
 	

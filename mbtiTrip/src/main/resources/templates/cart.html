@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+	 xmlns:th="http://www.thymeleaf.org" 
+	 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	 layout:decorate="~{layout.html}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" th:href="@{/cart/cart.css}">
     <link rel="stylesheet" th:href="@{/cart/adventure.css}">
+	<script th:src="@{https://js.tosspayments.com/v1/payment-widget}"></script>
 </head>
 <body>
+<div layout:fragment="content" class="cartBody">
 	<section class="cart">
 	    <div class="cart_main">
 	        <h1 th:text="${#authentication.name}+님"></h1>
@@ -74,54 +80,6 @@
 	                    </tbody>
 	                </form>
 	            </table>
-				<!--예약버튼
-	            <table class="cart_list"  th:if="${userCarts!= null}">
-	                <form>                                                              
-	                    <thead>
-	                        <tr>
-	                            <th><input type="checkbox"></th>
-	                            <th>관광지</th>
-	                            <th>관광지이름</th>
-	                            <th>지역</th>
-	                            <th>추천 mbti</th>
-	                            <th>날짜</th>
-	                            <th>상품금액</th>
-	                            <th>결제여부</th>
-	                        </tr>
-	                    </thead>
-	                    <tbody th:each="cart : ${userCarts}">
-	                        <tr class="cart_list_detail" th:if="${cart.adventureInfo != null}">
-	                            <td><input type="checkbox"></td>
-	                            <td>
-	                                <img src="제주도/제주_카멜리아힐.jpg" alt="">  
-	                            </td>
-	                            <td>                                    
-	                                <span th:text="${pay['itemName']}"></span><sapn>&nbsp;</sapn>  
-	                            </td>
-	                            <td>
-	                                <span th:text="${pay['location']}">&nbsp;</span><sapn>&nbsp;</sapn>
-	                            </td>
-	
-	                            <td class="cart_list_option" >
-	                                <p></p>
-	                                <span class="" th:text="${pay['mbti']}">&nbsp;</span><sapn>&nbsp;</sapn>                            
-	                            </td>
-	                            <td class="date">
-	                                <span>시작 날짜</span><br><span th:text="${pay['startDate']}"></span><br>
-	                                <span>종료 날짜</span><br><span th:text="${pay['endDate']}"></span><br>
-	                            </td>
-	                            <td><span class="price" th:text="${pay['price']}">&nbsp;</span><sapn>&nbsp;</sapn>
-	                            </td>
-	                            <td>
-	                                <span th:text="${pay['payments']}? 'finish': 'pay' ">&nbsp;</span><sapn>&nbsp;</sapn>
-	                            </td>                               
-	                        </tr>
-	                        <div th:unless="${cart.adventureInfo != null}">&nbsp;</div>
-	                    </tbody>  
-	                                          
-	                </form>
-	            </table>
-				-->
 	            <h1 th:text="${sumPrice}"></h1><span>원</span> 
 			
 	        </div>
@@ -130,8 +88,14 @@
 	            <a th:href="@{/}">더 둘러보기</a>
 	            <a th:href="@{/}">에약하기</a>
 	        </div>
-	            
+			<!-- 결제 방법 영역-->
+			<div class="title">결제 방법</div>
+			<div id="payment-method"></div>
+			<div id="agreement"></div> 
+			<button id="payment-button">결제하기</button>   
 	    </div>
+		<script th:src="@{/cart/cart.js}"></script>
 	</section>
+</div>
 </body>
 </html>

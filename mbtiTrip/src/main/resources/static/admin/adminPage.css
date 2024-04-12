@@ -1,0 +1,109 @@
+.adminBody{
+	padding: 10rem 5rem 5rem;
+	background-color: aliceblue;
+}
+.flexCon{
+	display: flex;
+	justify-content: center;
+	gap: 2rem;
+	margin-bottom: 2rem;
+}
+h1{
+	margin:0.5rem;
+}
+label{
+
+}
+.infoCon{
+	display: inline-block;
+	padding: 1rem;
+	border-radius: 1rem;
+	background-color: var(--white);
+	box-shadow: 2px 2px 5px 2px lightgrey ;
+	height: fit-content;
+}
+.flexCon.column{
+	flex-direction: column;
+}
+.infoCon.radio{
+	width: fit-content;
+	display: flex;
+	flex-direction: row;
+}
+.colorBarX{
+	margin: 0.5rem 0 0 0;
+	height: 2px;
+	background-color: var(--main-color);
+}
+.colorBarY{
+	margin: 0.5rem 0 0 0;
+	width: 3px;
+	background-color: var(--main-color);
+}
+.info{
+	display: inline-block;
+	padding :1rem 1rem 0 0;
+}
+.infoTable tr {
+	
+
+    }
+
+.tableHead{
+	padding: 0.5rem;
+}
+.tableHead.all::before,.tableHead.bis::before,.tableHead.normal::before{
+	margin-right: 1rem;
+	content: '●';
+	color:seagreen;
+
+}
+.tableHead.bis::before{	
+	color:blue;
+}
+.tableHead.normal::before{
+	color:pink;
+}
+#userCtn,#bisCtn,#normalCtn{
+	text-align: end;
+}
+.display{
+	width: 400px; height: 400px;
+	padding: 3rem;
+}
+.flexCon.mbtiChartCon{
+	margin:2rem;
+}
+
+#mbtiChart,#userTable,#bisTable{
+	border-collapse: collapse;
+	
+	width: 800px;
+}
+#userTable,#bisTable{
+	margin: 1rem;
+}
+#userTable td,#bisTable td{	
+	text-align: center;
+	padding: 0.5rem;
+	font-size: 1.2rem;
+}
+.tableHeader>th{
+	padding: 0.5rem
+}
+.tableHeader.normal{
+	background-color: var(--main-color);
+
+}
+.tableHeader.bis{
+	background-color:#007bff;
+	color:white;
+
+}
+#userTable tr:nth-child(odd) td,#bisTable tr:nth-child(odd) td {
+  background:#EBEBEB;
+}
+summary{
+	width: 800px;
+	font-size: 1.2rem;
+}
