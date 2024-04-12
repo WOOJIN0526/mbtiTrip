@@ -305,6 +305,18 @@ public class UserController {
 		}
 		
 	}
+	
+	@RequestMapping("/check-login")
+    public ResponseEntity<Void> loginCheck(Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        // 로그인된 사용자에 대한 처리 추가
+        return ResponseEntity.ok().build(); // 로그인된 사용자의 경우 OK 상태 반환
+    }
+	
+	
+	
 }
 
 

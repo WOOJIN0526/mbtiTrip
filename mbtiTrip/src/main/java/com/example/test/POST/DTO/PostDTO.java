@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.paging.Criteria;
 import com.example.test.paging.PageDTO;
@@ -17,6 +19,8 @@ import lombok.Setter;
 @Setter
 public class PostDTO {
 
+	
+	
 	private Integer postID;
 	
 	private Integer postCategoryID;
@@ -37,17 +41,11 @@ public class PostDTO {
 	
 	private List<AnswerDTO> answerList;
 	
-	private Criteria keyword;
+	private UserDTO writer; 
 	
-	private Criteria perPageNum;
-	
-	private PageDTO pageStart;
-	
-	
-	private UserDTO writer;
-	
-	//조회수
 	private int views;
+	
+	
 
 	
     @Override

@@ -14,21 +14,26 @@ import com.example.test.paging.Criteria;
 
 public interface PostService {
 
-	 
+	 	 //게시글 목록조회
 		 public List<PostDTO> getList(Criteria criteria);
 		 
+		 //전체 게시글 수
 		 public int getTotal(Criteria cri);
 	 
+		 //게시글 읽기
 		 public PostDTO getPost(Integer postID);
 		 
-		 public int create(String title, String content, UserDTO user, Post_CategoryDTO category);
-		 public int create(PostDTO dto);
+		 //게시글 쓰기
+		 public void create(PostDTO post);
 		 
-		 public int modify(PostDTO postDto, String title, String content);
+		 //게시글 수정
+		 public void modify(PostDTO post);
 		 
-		 public void delete(PostDTO postDto);
+		 //게시글 삭제
+		 public void delete(PostDTO post);
 		 
-		 public int suggestion(PostDTO postDto, UserDTO userDto);
+		 //게시글 추천
+		 public Integer suggestion(PostDTO post, UserDTO userDto);
 		 
 		
 

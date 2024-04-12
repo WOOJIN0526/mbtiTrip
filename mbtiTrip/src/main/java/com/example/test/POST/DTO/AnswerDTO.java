@@ -13,6 +13,7 @@ import lombok.Setter;
 @Setter
 public class AnswerDTO {
 
+	
 	private Integer answerID;
 	private PostDTO postID;
 	private PostReviewDTO prID;

@@ -38,8 +38,6 @@
 					<div th:text="${item.view}"></div>
 				</div>
             </div>
-			
-		<!--	<button class="after"><i class="fa-solid fa-chevron-right"></i></button>-->
         </section>
 		<div id="regist">
 			<a th:href="@{/replace/create}"><button>숙소 등록하기</button></a>
@@ -47,10 +45,7 @@
     </header>
 
  	<main class="mainCon">
-<!--         차트를 그리기 위한 canvas 추가 
-        <canvas id="placeStatisticsChart" width="400" height="200"></canvas>-->
 
-		<!-- 최근 리뷰와 누적 조회수를 표시하는 영역 -->
 		<div class="reviewInfo">
 			<table>
 				<tr>
@@ -60,43 +55,18 @@
 					<th>조회수</th>
 					<th>추천수</th>
 				</tr>
-				<!--<tr th:eact="review,index :${reviews}">
-					<td th:text="${index.index}">a</td>
-					<td th:text="${review.title}">a</td>
-					<td th:text="${reivew.writer}">a</td>
-					<td th:text="${review.views}">a</td>
+				<tr th:eact="review,index :${reviews}" th:if="${ reviews!=null}">
+					<td th:text="${index.index}"></td>
+					<td th:text="${review.title}"></td>
+					<td th:text="${reivew.writer}"></td>
+					<td th:text="${review.views}"></td>
 					<td th:text="${review.suggestion.length}"></td>		
-				</tr>-->
+				</tr>
 			</table>
 		</div>
 		           
     </main>
-
-   <!-- <script th:src="@{/main/main.js}"></script>-->
-<!--    <script>
-        // 차트 데이터
-        var ctx = document.getElementById('placeStatisticsChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['월', '화', '수', '목', '금', '토', '일'],
-                datasets: [{
-                    label: '장소 접속 수',
-                    data: [12, 19, 3, 5, 2, 3, 7], // 실제 데이터로 변경 필요
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>-->
+	<script th:src="@{/main/bisMain.js}"></script>
 </section>
 </body>
 

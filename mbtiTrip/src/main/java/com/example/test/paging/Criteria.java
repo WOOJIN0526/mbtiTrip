@@ -4,6 +4,8 @@ package com.example.test.paging;
 
 
 
+import com.example.test.POST.DTO.PostDTO;
+
 import groovy.transform.ToString;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +15,7 @@ import lombok.Setter;
 @ToString    //JDOC
 public class Criteria {//검색기준
 	
+	private PostDTO postID;
 	private int pageNum;
 	private int amount;
 	private String type;

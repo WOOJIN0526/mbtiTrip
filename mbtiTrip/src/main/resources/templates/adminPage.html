@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html
+	lang="en" xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    layout:decorate="~{layout.html}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>main</title>
+    <link rel="stylesheet" th:href="@{/common/common.css}">
+    <link rel="stylesheet" th:href="@{/admin/adminPage.css}">
+	<script th:src="@{/chartJS/dist/chart.umd.js}"></script>
+</head>
+<body>
+<section layout:fragment="content" class="adminBody">
+	<section class="flexCon">
+		<!--adminmyPage-->
+			<div class="flexCon column">
+				<!--admin 정보-->
+				<div class="infoCon">
+					<h1 th:text="${#authentication.name}"></h1>
+						<div class="adminInfo">
+							<!--<li th:text="${admin['userName']}"></li>  -->  
+							<li th:text="${admin['phone']}"></li>
+							<li th:text="${admin['mail']}"></li>
+							<li th:text="${admin['mbti']}"></li>
+						</div>
+						<div class="colorBarX"></div>
+				</div>
+				<div class="infoCon">
+					<!--mbti 정보-->
+					<h1>mbti 정보</h1>
+					<div th:each="mbtiCnt : ${userMbtiCnt}">
+						<ul>
+							<span th:text="${mbtiCnt['mbti']}" class="mbtiType"></span>
+							<span th:text="${mbtiCnt['cnt']}" class="mbtiCtn"></span>
+						</ul>
+					</div>
+				</div>				
+			</div>
+			
+			
+			<!--사용자 분포 정보-->
+			<div class="infoCon radio">
+				<div class="info">
+					
+					<h1>사용자 분포 정보</h1>
+					<table class="infoTable">
+						<tr>
+							<td class="tableHead all">전체사용자 :</td>
+							<td th:text="${AllUserCnt['ALLCnt']}" id="userCtn"></td>	
+							
+						</tr>
+						<tr>
+							<td class="tableHead bis">업체사용자 :</td>
+							<td th:text="${AllUserCnt['BisCnt']}" id="bisCtn"></td>
+						</tr>
+						<tr>
+							<td class="tableHead normal">일반사용자 :</td>
+							<td th:text="${AllUserCnt['userCnt']}" id="normalCtn"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="colorBarY"></div>
+				<div class="display">
+					<canvas id="radioDisplay"></canvas>
+				</div>
+			</div>
+	</section>
+	<!--mbti 정보 차트-->
+	<section class="flexCon mbtiChartCon">
+		<div class="infoCon">
+			<canvas id="mbtiChart"></canvas>
+		</div>
+		
+	</section>
+
+	
+	
+	
+		
+	<!--user 정보
+	 벤 버튼 있으면 좋을 듯--> 
+	<section class="flexCon">
+		<div class="infoCon">
+			<details>
+				<summary>일반사용자 정보</summary>
+					<table id="userTable">
+						<tr class="tableHeader normal">
+							<th>UID</th>
+							<th>이름</th>
+							<th>아이디</th>
+							<th>전화번호</th>
+							<th>Report</th>
+							<th>MBTI</th>
+							<th>Locked</th>
+							<th>Ben</th>
+						</tr>
+						<tr th:each="user:${userList}">
+							<td th:text="${user['UID']}" class="UID"></td>
+							<td th:text="${user['userName']}" class="name"></td>
+							<td th:text="${user['userId']}" class="userId"></td>
+							<td th:text="${user['phone']}" class="phone"></td>
+							<td th:text="${user['report']}" class="report"></td>
+							<td th:text="${user['mbti']}" class="mbti"></td>
+							<td th:text="${user['loked']}"class=loked></td>
+							<td><input type="checkbox" class="ben"></td>
+						</tr>
+					</table>
+			</details>
+		</div>
+	</section>
+	<section class="flexCon">
+		<div class="infoCon">
+			<!--bis 정보-->
+			<details>
+				<summary>업체사용자 정보</summary>
+				<table id="bisTable">
+					<tr class="tableHeader bis">
+						<th>UID</th>
+						<th>이름</th>
+						<th>아이디</th>
+						<th>전화번호</th>
+						<th>Report</th>
+						<th>MBTI</th>
+						<th>Locked</th>
+						<th>Ben</th>
+					</tr>
+					<tr th:each ="bis:${bisList}">
+						<td th:text="${bis['UID']}"></td>
+						<td th:text="${bis['userName']}"></td>
+						<td th:text="${bis['userId']}"></td>
+						<td th:text="${bis['phone']}"></td>
+						<td th:text="${bis['report']}"></td>
+						<td th:text="${bis['mbti']}"></td>
+						<td th:text="${bis['loked']}"></td>
+						<td><input type="checkbox" class="ben"></td>
+					</tr>
+				</table>
+			</details>
+		</div>
+	</section>
+	<script th:src="@{/admin/adminPage.js}"></script>
+</section>
+</body>
+</html>

@@ -41,26 +41,39 @@ public class PostDAO {
 		userHistoryService.ViewCreatePost();
 		return result;
 	}
-
 	
-	public int save(PostDTO postDto) {
-		return sqlSessiontemplate.insert("post.save", postDto);
-	}
-
-	public Optional<PostDTO> findById(Integer userid) {
-		
-		return sqlSessiontemplate.selectOne("post.findById", userid);
-	}
-
-	
-
-	public void delete(PostDTO postDto) {
-		sqlSessiontemplate.delete("post.delete", postDto);
-		
-	}
-
 	public List<PostDTO> getList(Criteria cri){
 		return sqlSessiontemplate.selectList("post.getList", cri);
+	}
+	
+	public int getTotal(Criteria cri) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectOne("post.getTotal", cri);
+	}
+	
+	public Optional<PostDTO> findById(Integer userName) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectOne("post.findById", userName);
+	}
+
+	public void save(PostDTO postDto) {
+		// TODO Auto-generated method stub
+		sqlSessiontemplate.insert("post.save", postDto);
+	}
+
+	public void create(PostDTO post) {
+		// TODO Auto-generated method stub
+		sqlSessiontemplate.insert("post.create", post);
+	}
+
+	public void update(PostDTO post) {
+		// TODO Auto-generated method stub
+		sqlSessiontemplate.update("post.update", post);
+	}
+
+	public void delete(PostDTO postDto) {
+		// TODO Auto-generated method stub
+		sqlSessiontemplate.delete("post.delete", postDto);
 	}
 
 	public void updateCount(Integer postID) {
@@ -70,27 +83,13 @@ public class PostDAO {
 
 	public List<PostDTO> findByPostCategoryID(Long postCategoryID) {
 		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectOne("post.findByPostCategoryID", postCategoryID);
+		return sqlSessiontemplate.selectList("post.findByPostCategoryID", postCategoryID);
 	}
 
-	public int getTotal(Criteria cri) {
+	public Integer suggestion(PostDTO postDto) {
 		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectOne("post.getTotal", cri);
+		return sqlSessiontemplate.update("post.suggestion", postDto);
 	}
-
-	public int update(PostDTO postDto) {
-		// TODO Auto-generated method stub
-		return sqlSessiontemplate.update("post.update", postDto);
-	}
-
-
-	public int create(PostDTO dto) {
-		System.out.println(dto.toString());
-		int result = sqlSessiontemplate.insert("post.create",dto);
-		return result;
-	}
-
-
 
 	
 

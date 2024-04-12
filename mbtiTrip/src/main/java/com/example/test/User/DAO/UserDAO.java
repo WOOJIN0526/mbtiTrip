@@ -58,9 +58,6 @@ public class UserDAO {
 		return UID;
 	}
 
-	public Optional<UserDTO> findByUserID(String userName) {
-		return this.sqlSessiontemplate.selectOne("user.getUser", userName);
-	}
 
 
 	public Map<String, Object> login(UserDTO userdto) {
@@ -91,6 +88,34 @@ public class UserDAO {
 		return myItem;
 	}
 	
+	
+	public boolean idCk(UserDTO userdto) {
+		boolean ck = false;
+		
+		int idCk = this.sqlSessiontemplate.selectOne("user.ckUserID", userdto);
+		if(idCk != 0) {
+			ck = true;
+		}
+		return ck;
+	}
+	
+	public boolean nameCk(UserDTO userdto) {
+		boolean ck = false;
+		int nameCk = this.sqlSessiontemplate.selectOne("user.ckUsername", userdto);
+		if(nameCk != 0) {
+			ck = true;
+		}
+		return ck;
+	}
+	
+	public boolean mailCK(UserDTO userdto) {
+		boolean ck = false;
+		int mailCk = this.sqlSessiontemplate.selectOne("user.ckmail", userdto);
+		if(mailCk != 0) {
+			ck = true;
+		}
+		return ck;
+	}
 	
 }
                                                         
