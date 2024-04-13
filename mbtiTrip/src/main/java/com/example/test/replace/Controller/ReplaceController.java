@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -25,6 +26,7 @@ import com.example.test.User.Service.AdminService;
 import com.example.test.item.ItemType;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.paging.Criteria;
+import com.example.test.paging.Page;
 import com.example.test.paging.PageDTO;
 import com.example.test.replace.ReplaceForm;
 
@@ -34,7 +36,7 @@ import com.example.test.replace.Service.ReplaceService;
 
 import jakarta.validation.Valid;
 
-@RequestMapping("/replace")
+
 @Controller
 public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(admin?) 모르겠음
 
@@ -48,78 +50,109 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
 	@Autowired
 	UserService userService;
 	
-	//@Autowired
-	//ReplaceCategoryService rpCategoryService;
 	
-	@GetMapping("/list")
-	public String list(Criteria cri, Model model) {
-		
-		model.addAttribute("list", rpService.getList(cri));
-		model.addAttribute("pageMaker", new PageDTO(rpService.getTotal(cri), 10, cri));
-		return "replace_main";
+	
+	//게시글 목록 화면
+	@RequestMapping(value = "/replace", method = RequestMethod.GET)
+	public void list(Model model, Page page) throws Exception{
+
+			Integer totalCount = null;
+			Integer rowPerPage = null;
+			Integer pageCount = null;
+			Integer pageNum = page.getPageNum();
+			String keyword = page.getKeyword();
+
+			// 조회된 전체 게시글 수
+			if( page.getTotalCount() == 0 )
+				totalCount =rpService.totalCount();
+			
+			 else 
+			    totalCount = page.getTotalCount();
+
+			//페이지 당 노출 게시글 수
+			if( page.getRowsPerPage() == 0 )
+				rowPerPage = 10;
+			
+			else 
+				rowPerPage = page.getRowsPerPage();
+
+			//노출 페이지수
+			if(page.getPageCount() == 0)
+				pageCount = 10;
+			else
+				pageCount = page.getPageCount();
+
+			if(page.getPageNum() == 0){
+				page = new Page(1, rowPerPage, totalCount, pageCount); 
+			} else{
+				page = new Page(pageNum, rowPerPage, totalCount, pageCount);
+			}
+			
+			if(keyword == null || keyword == ""){
+				page.setKeyword("");
+				model.addAttribute("list", rpService.list(page));
+			} else {
+				page.setKeyword(keyword);
+				model.addAttribute("list", rpService.search(page));
+			}
+
+			model.addAttribute("page", page);
+
 	}
 	
 
 	
 	
-    @RequestMapping(value = "/detail/{id}")
-    public String detail(Model model, @PathVariable("id") Integer itemID,
-    		Principal principla) {
-        ItemDTO item = this.rpService.getPost(itemID, principla);
-        model.addAttribute("replace", item);
-        return "replace_detail";
-    }
+	//게시글 읽기 화면
+	@RequestMapping(value = "/replace/detail", method = RequestMethod.GET)
+	public String read(Model model, Integer itemId, Principal principal) throws Exception{
 
-    //게시물을 작성할 때도 카테고리를 선택해서 게시물을 생성해야 한다. 
-    //따라서 전체 카테고리 중에서 알맞는 카테고리를 선택할 수 있어야 한다. 즉, 아래와 같이 게시물 등록 폼에서 전체 카테고리를 조회한다.
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/create")
-    public String Create(ReplaceForm Form, Model model) {
-    	//model.addAttribute("categoryList", rpCategoryService.getList());
-        return "replace_form";
-    }
+	ItemDTO item = rpService.getPost(itemId, principal);
+			
+	String userName = "";
+	if( principal !=null ){
+	userName = principal.getName();
+	UserDTO user = userService.getUser(userName);
+				
+	model.addAttribute("userName", userName);
+	}
 
-    //컨트롤러에 넘어온 카테고리 이름으로 카테고리 엔티티를 조회하고, 
-    //조회한 카테고리 엔티티를 질문 엔티티에 넣어주고 저장하면 질문에 카테고리가 생기게 된다.
-	/*
-	 * @PreAuthorize("isAuthenticated()")
-	 * 
-	 * @PostMapping("/create") public String Create(Model model, @Valid ReplaceForm
-	 * postForm, BindingResult bindingResult, Principal principal) { if
-	 * (bindingResult.hasErrors()) { model.addAttribute("categoryList",
-	 * rpCategoryService.getList()); return "replace_form"; } UserDTO User =
-	 * this.userService.getUser(principal.getName()); ReplaceCategoryDTO category =
-	 * this.rpCategoryService.getCategory(postForm.getReplaceCategoryID());
-	 * this.rpService.create(postForm.getPostCategoryID(), postForm.getMbtiID(),
-	 * postForm.getCityID(), postForm.getReplaceType(),
-	 * postForm.getReplaceLocation(), postForm.getReplaceName(),
-	 * postForm.getReplacePrice(), postForm.getReplaceContents(), postForm.getTel(),
-	 * User,category); return "redirect:/replace/list"; }
-	 */
+	UserDTO writerName = item.getUsername();
+	if( writerName.equals(writerName)){
+		model.addAttribute("set", true); // 작성자일 경우만 수정, 삭제 노출
+	}
+
+
+	model.addAttribute("item", item);
+			
+
+	return "replace_detail";
+	}
+
+	@PreAuthorize("isAuthenticated()")
+	@RequestMapping(value = "/replace/create", method = RequestMethod.GET)
+	public String Create(Model model, ItemDTO item, Principal user) throws Exception{
+	    	
+	String userName = "";
+	if(user !=null){
+	   userName = user.getName();
+	   model.addAttribute("userName", userName);
+	}
+	    	
+	   return "replace_form";
+	}
+
     
-//    @PreAuthorize("isAuthenticated()")
-//    @PostMapping("/create")
-//    public String Create(@Valid ReplaceForm replaceForm, 
-//            BindingResult bindingResult, Principal principal, ItemDTO itemdto) {
-//    	itemdto.setType(ItemType.replace);
-//        if (bindingResult.hasErrors()) {
-//            return "replace_form";
-//        }
-//        UserDTO admin = this.userService.getUser(principal.getName());
-//    
-//        this.rpService.create(replaceForm.getType(), replaceForm.getMbtiID(), admin,replaceForm.getReplacePrice(), replaceForm.getReplaceName(), replaceForm.getReplaceContents(), 
-//        					  replaceForm.getTel(), replaceForm.getReplaceLocation(),  replaceForm.getFile() );
-//        return "redirect:/replace/list";
-//    }
-    @PostMapping("/create")
+    //@PostMapping("/create")
+	@RequestMapping(value ="/replace/creat", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> create(ItemDTO itemdto,Principal principal){
+    public ResponseEntity<String> create(ItemDTO itemdto,Principal principal) throws Exception{
     	itemdto.setType(ItemType.replace);
     	//itemDTO에 userName이 UserDTO 타입이여서 이렇게 작성함
     	String userName = principal.getName();
     	UserDTO userDTO = userService.getUser(userName);
     	itemdto.setUsername(userDTO);
-    	int result =rpService.create(itemdto);
+    	this.rpService.create(itemdto);
     	int resultImg = rpService.createImg(itemdto);
     	System.out.println(resultImg);
 //    	System.out.println(itemdto.toString());
@@ -132,59 +165,53 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
     }
     
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/modify/{id}")
-    public String Modify(ReplaceForm postForm, @PathVariable("id") Integer itemID, Principal principal) {
-        ItemDTO itemDto = this.rpService.getPost(itemID);
-        if(!itemDto.getUsername()
-        		.equals(principal.getName())) {
+    @RequestMapping(value = "/replace/modify", method = RequestMethod.GET)
+    public String Modify(Model model, Integer itemId, Principal user) throws Exception{
+        ItemDTO item = this.rpService.getPost(itemId, user);
+        item.setType(ItemType.adventure);
+        if(!item.getUsername()
+        		.equals(user.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
-        postForm.setReplaceName(itemDto.getItemName());
-        postForm.setReplaceContents(itemDto.getContents());
-        postForm.setMbtiID(itemDto.getMbti());
-        postForm.setReplaceLocation(itemDto.getLocation());
-        postForm.setTel(itemDto.getTel());
-        postForm.setReplacePrice(itemDto.getPrice());
-        postForm.setType(itemDto.getType());
-        postForm.setFile(itemDto.getImgeUrl());
+        
+        model.addAttribute("item", item);
         
         return "replace_form";
     }
     
     //수정
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/modify/{id}")
-    public String Modify(@Valid ReplaceForm postForm, BindingResult bindingResult, 
-            Principal principal, @PathVariable("id") Integer itemID) {
+    @PostMapping("/replace/modify/")
+    public String Modify(Model model, BindingResult bindingResult, Principal principal, 
+    		@PathVariable("id") Integer item) throws Exception {
         if (bindingResult.hasErrors()) {
             return "replace_form";
         }
-        ItemDTO itemDto = this.rpService.getPost(itemID);
+        ItemDTO itemDto = this.rpService.getPost(item, principal);
         if (!itemDto.getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
-        this.rpService.modify(itemDto, postForm.getType(),postForm.getMbtiID(), postForm.getReplacePrice(), postForm.getReplaceName(),
-        					postForm.getReplaceLocation(), postForm.getTel(), postForm.getReplaceContents(), postForm.getFile());
-        return String.format("redirect:/replace/detail/%s", itemID);
+        this.rpService.modify(itemDto);
+        return String.format("redirect:/replace/detail/%s", item);
     }
     
     //삭제
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/delete/{id}")
-    public String Delete(Principal principal, @PathVariable("id") Integer itemID) {
-        ItemDTO itemDto = this.rpService.getPost(itemID);
+    @RequestMapping(value = "/replace/remove", method = RequestMethod.POST)
+    public String Delete(Principal principal, @PathVariable("id") Integer itemID) throws Exception {
+        ItemDTO itemDto = this.rpService.getPost(itemID, principal);
         if (!itemDto.getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
-        this.rpService.delete(itemDto);
+        this.rpService.remove(itemID);
         return "redirect:/";
     }
     
     //추천
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/suggestion/{id}")
-    public String Suggestion(Principal principal, @PathVariable("id") Integer itemID) {
-        ItemDTO itemDto = this.rpService.getPost(itemID);
+    @GetMapping("/replace/suggestion/{id}")
+    public String Suggestion(Principal principal, @PathVariable("id") Integer itemID) throws Exception {
+        ItemDTO itemDto = this.rpService.getPost(itemID, principal);
         UserDTO user = this.userService.getUser(principal.getName());
         this.rpService.suggestion(itemDto, user);
         return String.format("redirect:/replace/detail/%s", itemID);

@@ -17,15 +17,11 @@ import com.example.test.POST.DAO.AnswerDAO;
 import com.example.test.POST.DAO.PostDAO;
 import com.example.test.POST.DTO.AnswerDTO;
 import com.example.test.POST.DTO.PostDTO;
-import com.example.test.POST.DTO.Post_CategoryDTO;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.Service.UserHistoryService;
-import com.example.test.paging.Criteria;
+import com.example.test.paging.Page;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.transaction.Transactional;
+
 
 
 
@@ -44,107 +40,126 @@ public  class PostServiceImpl implements PostService {
 
 
 
+
+
+
+	
 	@Override
-	public List<PostDTO> getList(Criteria criteria) {
+	public List<PostDTO> list(Page page) throws Exception {
 		// TODO Auto-generated method stub
-		return postDAO.getList(criteria);
+		return postDAO.list();
 	}
 
 
 
 	@Override
-	public int getTotal(Criteria cri) {
+	public void create(PostDTO post) throws Exception {
 		// TODO Auto-generated method stub
-		return postDAO.getTotal(cri);
+		postDAO.create(post);
 	}
 
 
 
-	//해당게시글 가져옴, 조회수 증가
 	@Override
-	public PostDTO getPost(Integer userName) {
-		 Optional<PostDTO> post = this.postDAO.findById(userName);
+	public PostDTO getPost(Integer postId) throws Exception {
+		Optional<PostDTO> post = this.postDAO.findById(postId);
 		  if (post.isPresent()) {
 	        	PostDTO postDto = post.get();        	
 	        	postDto.setViews(postDto.getViews()+1);        	
-	        	this.postDAO.save(postDto);
-	            	return postDto;
+	        	this.postDAO.create(postDto);
+	            return postDto;
 	        } else {
 	            throw new DataNotFoundException("question not found");
 	        }	
 	}
-	
-	//생성
-	@Override
-	public void create(PostDTO post) {
-		postDAO.create(post);
-	}
 
-	//수정
+
+
 	@Override
-	public void modify(PostDTO post) {
+	public void modify(PostDTO post) throws Exception {
+		// TODO Auto-generated method stub
 		postDAO.update(post);
 	}
 
-	//삭제
+
+
 	@Override
-	public void delete(PostDTO postDto) {
-		 this.postDAO.delete(postDto);
+	public void remove(Integer postId) throws Exception {
+		// TODO Auto-generated method stub
+		postDAO.delete(postId);
+	}
+
+
+
+	@Override
+	public List<PostDTO> search(String keyword) {
+		// TODO Auto-generated method stub
+		return postDAO.search(keyword);
+	}
+
+
+
+	@Override
+	public List<PostDTO> search(Page page) throws Exception {
+		// TODO Auto-generated method stub
+		return postDAO.search(page);
+	}
+
+
+
+	@Override
+	public Integer totalCount() throws Exception {
+		// TODO Auto-generated method stub
+		return postDAO.totalCount();
 	}
 
 	//추천
 	@Override
-	public Integer suggestion(PostDTO postDto, UserDTO userDto) {
+	public void suggestion(PostDTO postDto, UserDTO userDto) {
 		postDto.getSuggestion().add(userDto);
         
-        return this.postDAO.suggestion(postDto);
+        this.postDAO.create(postDto);
+	}
+
+    @Override
+	public List<PostDTO> findPostByCategoryID(Long postCategoryID) {
+	// 게시글 목록 조회
+	List<PostDTO> post = postDAO.findByPostCategoryID(postCategoryID);
+	return post;
+	        
 	}
 
 
-	
-	// 게시물을 조회하고 조회수 증가
-		@Transactional
-		public PostDTO detail(Integer postID, HttpServletRequest request, HttpServletResponse response
-				, Principal principal) {
-			 Cookie oldCookie = null;
-			    Cookie[] cookies = request.getCookies();
-			    if (cookies != null)
-			        for (Cookie cookie : cookies)
-			            if (cookie.getName().equals("postView"))
-			                oldCookie = cookie;
 
-			    if (oldCookie != null) {
-			        if (!oldCookie.getValue().contains("[" + postID.toString() + "]")) {
-			            postDAO.updateCount(postID);
-			            oldCookie.setValue(oldCookie.getValue() + "_[" + postID + "]");
-			            oldCookie.setPath("/");
-			            oldCookie.setMaxAge(60 * 60 * 24);
-			            response.addCookie(oldCookie);
-			        }
-			    }
-			    else {
-			        postDAO.updateCount(postID);
-			        Cookie newCookie = new Cookie("postView","[" + postID + "]");
-			        newCookie.setPath("/");
-			        newCookie.setMaxAge(60 * 60 * 24);
-			        response.addCookie(newCookie);
-			    }
-			    PostDTO userCount = new PostDTO();
-			    userCount.setPostID(postID);
-			    userHistoryService.userViewPost(userCount, principal);
-			    
-			    return postDAO.findById(postID).orElseThrow(() -> {
-			        return new IllegalArgumentException("글 상세보기 실패: 아이디를 찾을 수 없습니다.");
-			    });
-			}
+	@Override
+	public void replyRegister(AnswerDTO reply) throws Exception {
+		// TODO Auto-generated method stub
+		postDAO.replyCreate(reply);
+	}
 
-		@Override
-		public List<PostDTO> findPostByCategoryID(Long postCategoryID) {
-			// 게시글 목록 조회
-	        List<PostDTO> post = postDAO.findByPostCategoryID(postCategoryID);
-			return post;
-	        
-	    }
+
+
+	@Override
+	public List<AnswerDTO> replyList(PostDTO postId) throws Exception {
+		// TODO Auto-generated method stub
+		return postDAO.replyList(postId);
+	}
+
+
+
+	@Override
+	public void replyModify(AnswerDTO reply) throws Exception {
+		// TODO Auto-generated method stub
+		postDAO.replyUpdate(reply);
+	}
+
+
+
+	@Override
+	public void replyRemove(Integer answerId) throws Exception {
+		// TODO Auto-generated method stub
+		postDAO.replyDelete(answerId);
+	}
 
 
 
