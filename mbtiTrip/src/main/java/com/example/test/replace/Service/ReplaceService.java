@@ -1,35 +1,42 @@
 package com.example.test.replace.Service;
 
+
 import java.security.Principal;
 import java.util.List;
 
-import com.example.test.POST.DTO.PostDTO;
-import com.example.test.User.DTO.AdminDTO;
+
 import com.example.test.User.DTO.UserDTO;
-import com.example.test.item.ItemType;
 import com.example.test.item.DTO.ItemDTO;
-import com.example.test.paging.Criteria;
+import com.example.test.paging.Page;
 
 
 public interface ReplaceService {
 
-	 public ItemDTO getPost(Integer itemID);
-	 
+		//게시글 목록 조회
+		public List<ItemDTO> list(Page page) throws Exception;
 
-	 public ItemDTO getPost(Integer itemID, Principal principal);
-	 
-	 public int create(ItemDTO itemDTO);
-	 
-	 public int modify(ItemDTO itemdto,ItemType Type, Integer mbti, Integer price, 
-			 String itemName,String location, String tel, String contents, String[] ImgeUrl );
-	 
-	 public void delete(ItemDTO itemDto);
-	 
-	 public int suggestion(ItemDTO itemDto, UserDTO user);
-	 
-	 public List<ItemDTO> getList(Criteria criteria);
-	 
-	 public int getTotal(Criteria cri);
+		//게시글 쓰기
+		public void create(ItemDTO post) throws Exception;
+
+		//게시글 읽기
+		public ItemDTO getPost(Integer itemId, Principal principal) throws Exception;
+
+		//게시글 수정
+		public void  modify(ItemDTO post) throws Exception;
+
+		//게시글 삭제
+		public void remove(Integer itemId) throws Exception;
+
+		//게시글 검색
+		public List<ItemDTO> search(String keyword);
+		
+		public List<ItemDTO> search(Page page) throws Exception;
+
+		//전체 게시글 수
+		public Integer totalCount() throws Exception;
+
+		//추천
+		public void suggestion(ItemDTO item, UserDTO user) throws Exception;
 	 
 	 
 
