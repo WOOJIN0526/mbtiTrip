@@ -18,6 +18,8 @@ public interface AdminService {
 	//총 사용자 수 
 	public Map<String, Integer> userCnt();
 	
+	public int liveUserCnt();
+	
 	//총 게시글 수 
 	public int postCnt();
 	//총 숙소 수 

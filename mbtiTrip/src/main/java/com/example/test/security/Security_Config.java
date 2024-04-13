@@ -112,7 +112,6 @@ public class Security_Config  {
     			.maximumSessions(1)
     			.maxSessionsPreventsLogin(false) //새로운 요청 거부 
     			.expiredSessionStrategy(new customSessionExpiredStrategy())	
-    			
     			) ;
     
     					
@@ -271,7 +270,7 @@ public class Security_Config  {
 //			.formLogin((formLogin) -> formLogin.loginPage("login_form"))
 //			
 //		.logout((logout) -> logout.logoutSuccessUrl("/"))
-//		;s
+//		;
 	
 //		http.authorizeHttpRequests((authorizeHttpRequests)->authorizeHttpRequests
 //				.requestMatchers(new AntPathRequestMatcher("/mypage")).denyAll());

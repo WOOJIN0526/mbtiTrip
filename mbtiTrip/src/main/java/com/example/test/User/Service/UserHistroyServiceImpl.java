@@ -40,6 +40,7 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 		//viewItem에 viewRating 값 증가 
 		userhistoryDAO.viewRatingIT(itemDTO);
 	}
+	
 	// 사용자의 userView에 조회한 Post 정보 삽입
 	public void userViewPost(PostDTO PostDTO, Principal principal) {
 		UserHistoryDTO userPostView = new UserHistoryDTO();
@@ -117,12 +118,21 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 		postDTO.setPostID(lastIdx);
 		userhistoryDAO.insertViewTablePost(postDTO);
 	}
+	
+	
+	/*사용자가 Item 조회시 기록*/
 	@Override
 	public List<HashMap<String, Object>> viewRating(Principal principal) {
-	
 		List<HashMap<String, Object>> rating = userhistoryDAO.getRatingItem(principal.getName());
 		return rating;
 	}
+	
+	
+	/*
+	 * 작업자 신성진
+	 * @Param : 유저의 principal 정보 
+	 * @Return : 사용자가 조회한 모든 조건의 결과 
+	 * */
 	@Override
 	public List<List<?>> userViewInfo(Principal principal) {
 		log.info("userHisotry userViewInfo principal null isuue  == >{}", principal.getName());
