@@ -61,7 +61,7 @@ public class userHistoryController {
 		mav.addObject("reservation", reservation);
 		mav.addObject("userPosts", userPost);
 		mav.addObject("userQnAs", userQnA);
-		mav.setViewName("testHistory");
+		mav.setViewName("history");
 		return mav;
 	}
 	

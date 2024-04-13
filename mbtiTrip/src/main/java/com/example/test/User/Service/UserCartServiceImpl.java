@@ -18,8 +18,13 @@ import com.example.test.User.DTO.UserCartDTO;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.replace.DTO.ReplaceDTO;
 import com.example.testExcepion.ErrorCode;
-import com.example.testExcepion.ErrorRespone;
+
+import com.example.testExcepion.Cart.CartException;
+import com.example.testExcepion.Cart.CartExceptionEnum;
+import com.example.testExcepion.Insert.InsertException;
+import com.example.testExcepion.Insert.InsertExceptionEnum;
 import com.google.api.client.http.HttpResponse;
+import com.google.api.services.storage.Storage.BucketAccessControls.Insert;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -33,39 +38,46 @@ public class UserCartServiceImpl implements UserCartService{
 	
 	@Override
 	public boolean insertItem(UserCartDTO userCartDTO,  ItemDTO ItemDTO, 
-									Principal principal) throws Exception{
+									Principal principal) throws CartException{
 		//4.3 test끝 	
 		//URL  = /replace/cart Post
-
+		int result = 0;
+		boolean ck;
+		
+		if(principal.getName() == null) {
+			throw new CartException(CartExceptionEnum.CART_NOTFOUND_USER);
+		}
+		
+		if(userCartDTO.getItemId() == null) {
+			throw new CartException(CartExceptionEnum.CART_NOTFOUND_ITEM);
+		}
+		
+		if(userCartDTO.getStartDate() == null) {
+			throw new CartException(CartExceptionEnum.CART_STARTDATE_NULL);
+			}
+		
+		if(userCartDTO.getEndDate() == null) {
+			throw new CartException(CartExceptionEnum.CART_ENDDATE_NULL);
+			}
+		
+		if(userCartDTO.getStartDate().isAfter(LocalDate.now())){
+			throw new CartException(CartExceptionEnum.CART_STARTDATE_MISMATCH);
+		}
+		
+	    if(userCartDTO.getEndDate().isBefore(userCartDTO.getStartDate())) {
+			throw new CartException(CartExceptionEnum.CART_ENDdDATE_MISMATCH);
+		}
+	    
 		userCartDTO.setUserName(principal.getName());
 		userCartDTO.setItemId(ItemDTO.getItemID());
 		userCartDTO.setPayments(false);
 		log.info("message {}", userCartDTO.toString());
-
-		int result = 0;
-		boolean ck;
-		if(userCartDTO.getStartDate() == null) {
-			throw new Exception("시작 날짜를 선택해주세요");
-			}
-		else if(userCartDTO.getEndDate() == null) {
-			throw new Exception("종료 날짜를 선택 해주세요");
-			}
-		else if(userCartDTO.getStartDate().isAfter(LocalDate.now())){
-			throw new IllegalArgumentException("시작 날짜가 지났습니다. 다시 확인해주세요.");
+		result = userCartDAO.insertItem(userCartDTO);	
+			
+		if(result == 0) {
+			throw new InsertException(InsertExceptionEnum.INSERT_SERVER_ERROR);
 		}
-		else if(userCartDTO.getEndDate().isBefore(userCartDTO.getStartDate())) {
-			throw new IllegalAccessError("종료 날짜가 시작날보다 빠릅니다. 다시 확인해주세요");
-		}
-		else {
-			userCartDTO.setUserName(principal.getName());
-			userCartDTO.setItemId(ItemDTO.getItemID());
-			userCartDTO.setPayments(false);
-			log.info("message {}", userCartDTO.toString());
-			result = userCartDAO.insertItem(userCartDTO);	
-			if(result == 0) {
-				throw new Exception();
-			}
-		}
+		
 		ck = (result != 0) ? true : false;
 		
 		return ck;
@@ -105,19 +117,24 @@ public class UserCartServiceImpl implements UserCartService{
 	}
 
 	@Override
-	public boolean updatePaymentsSuccess(Principal prince) {
+	public boolean updatePaymentsSuccess(Principal prince) throws CartException {
 		String userName = prince.getName();
-		boolean ck = (userCartDAO.updatePaymentsSuccess(userName) == 1) ? true : false;
+		boolean ck = (userCartDAO.updatePaymentsSuccess(userName) != 0) ? true : false ;
+		if(!ck) {
+			throw new CartException(CartExceptionEnum.PAYMENTS_FAIL);
+		}
 		//ck가 false일 때 예오ㅓㅣ처리
-		
 		return ck;
 	}
 
 	@Override
-	public boolean updatePaymentFalse(Principal prince) {
+	public boolean updatePaymentFalse(Principal prince)throws CartException {
 		String userName = prince.getName();
 		boolean ck = (userCartDAO.updatePaymentFalse(userName) == 1) ? true : false;
 		//ck가 false일 때 예오ㅓㅣ처리
+		if(!ck) {
+			throw new CartException(CartExceptionEnum.PAYMENTS_DROPFAIL);
+		}
 		return ck;
 	}
 
@@ -143,6 +160,7 @@ public class UserCartServiceImpl implements UserCartService{
 		return ck;
 	}
 
+	
 	@Override
 	public List<HashMap<String, Object>> reservationInfo(Principal principal) {
 		String adminName = principal.getName();

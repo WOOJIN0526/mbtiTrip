@@ -21,6 +21,11 @@ import com.example.test.User.DTO.UserDTO;
 import com.example.test.item.DAO.ItemDAO;
 import com.example.testExcepion.SignUP.SignUpException;
 import com.example.testExcepion.SignUP.SignUpExceptionEunm;
+import com.example.testExcepion.login.LoginException;
+import com.example.testExcepion.login.LoginExceptionEnum;
+import com.example.testExcepion.updated.UpdateException;
+import com.example.testExcepion.updated.UpdateExceptionEnum;
+
 import lombok.extern.log4j.Log4j2;
 
 
@@ -41,14 +46,17 @@ public class UserServiceImpl implements UserService{
 	
 	
 	@Override
-	public int createUser(UserDTO userDTO) {
+	public int createUser(UserDTO userDTO) throws SignUpException{
 		vaildationUser(userDTO);
 		String userPassword = userDTO.getPassword();
 		log.info("userPassword : {}", userPassword);
 		String encodePassword = bcrypasswordEncoder.encode(userPassword);
 		userDTO.setPassword(encodePassword);
 		int result = this.userDao.insert(userDTO);
-			return result;
+		if(result == 0) {
+			throw new SignUpException(SignUpExceptionEunm.SIGN_INTERNAL_ERROR);
+		}
+		return result;
 	
 	}
 	
@@ -61,7 +69,9 @@ public class UserServiceImpl implements UserService{
 				/*닉네임 특수문자 검사*/
 				throw new SignUpException(SignUpExceptionEunm.SignUP_Bad_NiCKNAME);
 			}
-			
+			if(userDTO.getPassword().length() < 8) {
+				throw new SignUpException(SignUpExceptionEunm.Signup_BADPASSWORD);
+			}
 			if(userDao.nameCk(userDTO)) {
 				/*닉네임 중복 검사*/
 				throw new SignUpException(SignUpExceptionEunm.Signup_DUPLCATION_NiCKNAME);
@@ -72,6 +82,7 @@ public class UserServiceImpl implements UserService{
 			}				
 	}
 
+	//nickName 에 특수문자 포함여부 
 	public boolean userNameVaildation(UserDTO userdto) {
 		String userName = userdto.getUsername();
 		boolean vaild = Pattern.matches("^[a-zA-Z0-9가-힣]*$", userName);
@@ -82,12 +93,17 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public int createBis(UserDTO userdto) {
+		vaildationUser(userdto);
 		String userPassword = userdto.getPassword();
 		String encodePassword = bcrypasswordEncoder.encode(userPassword);
 		userdto.setPassword(encodePassword);
 		int result = this.userDao.insertBis(userdto);
+		if(result ==0) {
+			throw new SignUpException(SignUpExceptionEunm.SIGN_INTERNAL_ERROR);
+		}
 		return result;
 	}
+	
 	
 	@Override
 	public  Map<String, Object> login(UserDTO userdto) {
@@ -96,17 +112,25 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public int userUpdate(UserDTO userdto, Principal principal) {
+		if(principal.getName() == null) {
+			throw new LoginException(LoginExceptionEnum.LOGIN_NOTFOUND_MEMBER);
+		}
 		Integer UID = princeUID(principal);
 		userdto.setUID(UID);
 		userdto.setPassword(bcrypasswordEncoder.encode(userdto.getPassword()));
-		
 		int result =userDao.userUpdate(userdto);
+		if(result == 0) {
+			throw new UpdateException(UpdateExceptionEnum.UPDATE_FAIL_SERVER);
+		}
 		return result;
 	}
 	
 	@Override
 	public int BisUpdate(UserDTO userdto) {
 		int result =userDao.BisUpdate(userdto);
+		if(result == 0 ) {
+			throw new UpdateException(UpdateExceptionEnum.UPDATE_FAIL_SERVER);
+		}
 		return result;
 	}
 
@@ -154,7 +178,6 @@ public class UserServiceImpl implements UserService{
 		List<String> urlList = new ArrayList<>();
 		for(HashMap<String, Object> item :myItem) {
 			int itemID = (Integer) item.get("itemId");
-			System.out.println(itemID);
 			 List<String> url = itemDao.getUrl(itemID);
 			 //등록된 이미지가 없을 경우
 			 if(url.isEmpty()) {
@@ -186,6 +209,8 @@ public class UserServiceImpl implements UserService{
 		}
 		return itemList;
 	}
+
+
 
 	
 

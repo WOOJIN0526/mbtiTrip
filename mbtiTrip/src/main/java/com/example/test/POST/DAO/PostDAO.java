@@ -12,15 +12,16 @@ import java.util.Optional;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
-
+import com.example.test.POST.DTO.AnswerDTO;
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.User.Service.UserHistoryService;
 import com.example.test.paging.Criteria;
+import com.example.test.paging.Page;
 
 
 
@@ -41,55 +42,73 @@ public class PostDAO {
 		userHistoryService.ViewCreatePost();
 		return result;
 	}
-	
-	public List<PostDTO> getList(Criteria cri){
-		return sqlSessiontemplate.selectList("post.getList", cri);
-	}
-	
-	public int getTotal(Criteria cri) {
-		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectOne("post.getTotal", cri);
-	}
-	
-	public Optional<PostDTO> findById(Integer userName) {
-		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectOne("post.findById", userName);
-	}
 
-	public void save(PostDTO postDto) {
+	public List<PostDTO> list() {
 		// TODO Auto-generated method stub
-		sqlSessiontemplate.insert("post.save", postDto);
+		return sqlSessiontemplate.selectList("post.list");
 	}
 
 	public void create(PostDTO post) {
 		// TODO Auto-generated method stub
-		sqlSessiontemplate.insert("post.create", post);
+		this.sqlSessiontemplate.insert("post.create", post);
+	}
+
+	public Optional<PostDTO> findById(Integer postId) {
+		// TODO Auto-generated method stub
+		return this.sqlSessiontemplate.selectOne("post.findById", postId);
 	}
 
 	public void update(PostDTO post) {
 		// TODO Auto-generated method stub
-		sqlSessiontemplate.update("post.update", post);
+		this.sqlSessiontemplate.update("post.update", post);
 	}
 
-	public void delete(PostDTO postDto) {
+	public void delete(Integer postId) {
 		// TODO Auto-generated method stub
-		sqlSessiontemplate.delete("post.delete", postDto);
+		this.sqlSessiontemplate.delete("post.delete", postId);
 	}
 
-	public void updateCount(Integer postID) {
+	public List<PostDTO> search(String keyword) {
 		// TODO Auto-generated method stub
-		sqlSessiontemplate.update("post.updateCount", postID);
+		return this.sqlSessiontemplate.selectList("post.searchByKeyword", keyword);
+	}
+
+	public List<PostDTO> search(Page page) {
+		// TODO Auto-generated method stub
+		return this.sqlSessiontemplate.selectList("post.searchByPage", page);
+	}
+
+	public Integer totalCount() {
+		// TODO Auto-generated method stub
+		return this.sqlSessiontemplate.selectOne("post.totalCount");
 	}
 
 	public List<PostDTO> findByPostCategoryID(Long postCategoryID) {
 		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectList("post.findByPostCategoryID", postCategoryID);
+		return this.sqlSessiontemplate.selectList("post.findByPostCategoryId", postCategoryID);
 	}
 
-	public Integer suggestion(PostDTO postDto) {
+	public void replyCreate(AnswerDTO reply) {
 		// TODO Auto-generated method stub
-		return sqlSessiontemplate.update("post.suggestion", postDto);
+		this.sqlSessiontemplate.insert("post.replyCreate", reply);
 	}
+
+	public List<AnswerDTO> replyList(PostDTO postId) {
+		// TODO Auto-generated method stub
+		return this.sqlSessiontemplate.selectList("post.replyList", postId);
+	}
+
+	public void replyUpdate(AnswerDTO reply) {
+		// TODO Auto-generated method stub
+		this.sqlSessiontemplate.update("post.replyUpdate", reply);
+	}
+
+	public void replyDelete(Integer answerId) {
+		// TODO Auto-generated method stub
+		this.sqlSessiontemplate.delete("post.replyDelete", answerId);
+	}
+	
+	
 
 	
 

@@ -67,7 +67,7 @@
 	
 	<select id="getRatingAverage" resultType="int">
        <![CDATA[
-		select avg(ratingAvg)
+		select avg(rating)
 		from postReview 
 		where itemId = #{itemID}
        ]]>

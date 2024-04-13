@@ -46,31 +46,29 @@
                         <input type="text" id="serch" placeholder="내 예약 찾기">
                         <input type="button" value="검색">
                     </form>
-                    <table class="repalce_information">
-                        <tr>
-                            <th>지역</th>
-                            <th>숙소명</th>
-                            <th>예약일</th>
-                            <th>결제</th>
-                            <th>예약진행상황</th>
-                            <th></th>
-                        </tr>
-                        <tr th:each="cart : ${reservation}">
-                            <td th:text="${cart.replaceInfo.replaceLocation}">201654</td>
-                            <td th:text="${cart.replaceInfo.replaceName}">신라호텔</td>
-                            <td>2023.5.25~2023.5.29
-                                <span>시작 날짜</span>
-                                <span th:text="${cart.startDate}"></span><br>
-                                <span>종료 날짜</span>
-                                <span th:text="${cart.endDate}"></span>
-                            </td>
-                            <td>결제완료</td>
-                            <td>완료</td>
-                            <td>
-                                <button class="X">X</button>
-                            </td>
-                        </tr>
-                    </table>
+					<div th:object="${reservation}">
+						<table th:each="pay : ${reservation}">
+							<p> 장소 이름</p><span th:text="${pay['itemName']}"></span>
+							<sapn>&nbsp;</sapn>
+							<p> 주인쟝</p><span th:text="${pay['admin']}"></span>
+							<sapn>&nbsp;</sapn>
+							<p> 장소</p><span th:text="${pay['location']}"></span>
+							<sapn>&nbsp;</sapn>
+							<p> 추천 타입</p><span th:text="${pay['mbti']}"></span>
+							<sapn>&nbsp;</sapn>
+							<p> 출발일</p><span th:text="${pay['startDate']}"></span>
+							<sapn>&nbsp;</sapn>
+							<p> 도착일</p><span th:text="${pay['endDate']}"></span>
+							<sapn>&nbsp;</sapn>
+							<p> 결제 여부 </p><span th:text="${pay['payments']}? 'finish': 'pay' "></span>
+							<sapn>&nbsp;</sapn>
+							<p> 전화번호</p><span th:text="${pay['tel']}"></span>
+							<sapn>&nbsp;</sapn>
+							<p> 가격</p><span th:text="${pay['price']}"></span>
+							<sapn>&nbsp;</sapn>
+						</table>
+					
+					</div>
                     <div class="">
                         <ul class="page">
                             <li class="page-item">
@@ -97,38 +95,7 @@
                         </ul>
                     </div>
                 </div>
-                <div th:unless="${cart.replaceInfo != null}">&nbsp;</div>
-                <div class="adventure_reservation">
-                    <h1>관광지 예약내역</h1>
-                    <form action="">
-                        <input type="text" id="serch" placeholder="내 예약 찾기">
-                        <input type="button" value="검색">
-                    </form>
-                    <table class="adventure_information">
-                        <tr>
-                            <th>지역</th>
-                            <th>관광지명</th>
-                            <th>예약일</th>
-                            <th>결제</th>
-                            <th>예약진행상황</th>
-                            <th></th>
-                        </tr>
-                        <tr th:if="${cart.adventureInfo != null}">
-                            <td th:text="${cart.adventureInfo.adventureLocation}">201654</td>
-                            <td th:text="${cart.adventureInfo.adventureName}">신라호텔</td>
-                            <td>
-                                <span>시작 날짜</span>
-                                <span th:text="${cart.startDate}"></span><br>
-                                <span>종료 날짜</span>
-                                <span th:text="${cart.endDate}"></span>
-                            </td>
-                            <td>결제완료</td>
-                            <td>완료</td>
-                            <td>
-                                <button class="X">X</button>
-                            </td>
-                        </tr>
-                    </table>
+                
                     <div class="">
                         <ul class="page">
                             <li class="page-item">
@@ -173,7 +140,7 @@
                         <tr th:each="userPo :    ${userPosts}">
                             <td th:text="${userPo['updateDate']}">2016.03.25</td>
                             <td th:text="${userPo['title']}">작성ㅇㅎ</td>
-                            <td th:text="${userPo['PostCateGoryID']}">숙소리뷰</td>
+                           
                             <td th:text="${userPo['views']}">235</td>
                             <td th:text="${userPo['suggestion']}">0</td>
                             <td>

@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,11 +61,12 @@ public class AdminController {
 		return mav;
 	}
 	
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/mypage", method = RequestMethod.GET)
-	public ModelAndView mypageadmin(Principal principal, UserDTO userdto, ModelAndView mav, SessionUserCnt session){
+	public ModelAndView mypageadmin(Principal principal, UserDTO userdto, ModelAndView mav){
 		Integer userUID = userService.findByUID(principal.getName());
 		Map<String, Object> admin = userService.getInfo(userUID);
-		
 		//사이트 관리 페이지에 필요한 정보들 들어갈 예정 
 		//전체 mbti 분포도 
 		List<HashMap<String, Object>> userMbtiCnt = adminService.mbtiCnt(); 
@@ -79,7 +81,8 @@ public class AdminController {
 		List<HashMap<String, Object>> bisList = adminService.bisList();
 		log.info("bisList => {}", bisList);
 		//현재 활동 중인 사용자 수
-		int activeUser = session.getCnt();
+		int liveUser = adminService.liveUserCnt();
+		mav.addObject("liveUser",liveUser);
 		// EX, 유저수, 게시물 수, 등록된 장소 수 등  
 		mav.addObject("userMbtiCnt", userMbtiCnt);
 		mav.addObject("AllUserCnt", AllUserCnt);
@@ -91,6 +94,7 @@ public class AdminController {
 	}	
 	
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")	
 	@RequestMapping(value="admin/userBan", method=RequestMethod.POST)
 	public ResponseEntity<String> userBan(@RequestParam("userName") String UserName){
 		if(adminService.userBaned(UserName)) {
@@ -98,12 +102,14 @@ public class AdminController {
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("유저가 차단 되지 않았습니다");
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="admin/unblock", method=RequestMethod.POST)
+	
 	public ResponseEntity<String> unblock(@RequestParam("userName") String UserName){
 		if(adminService.userUnblock(UserName)) {
 			return ResponseEntity.status(HttpStatus.OK).body("유저가 차단 해제 되었습니다");
 			}
-	
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("차단이 해제되지 않았습니다.");
 	}
 	

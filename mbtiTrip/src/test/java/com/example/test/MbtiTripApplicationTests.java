@@ -28,8 +28,10 @@ import com.example.test.User.DAO.UserCartDAO;
 import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DAO.UserHistoryDAO;
 import com.example.test.User.DAO.adminDAO;
+import com.example.test.User.DTO.QnADTO;
 import com.example.test.User.DTO.UserCartDTO;
 import com.example.test.User.DTO.UserHistoryDTO;
+import com.example.test.User.Service.QnAServiceImpl;
 import com.example.test.User.Service.UserCartService;
 import com.example.test.User.Service.UserService;
 import com.example.test.item.DTO.ItemDTO;
@@ -69,9 +71,14 @@ class MbtiTripApplicationTests {
 
 	@Autowired
 	adminDAO adminDao;
+	@Autowired
+	QnAServiceImpl qnaService;
+	
 	
 	@Test
 	void contextLoads() {
+	
+		
 		boolean userCk = false;
 //		if(userDAO.getByUserId("testUser4").getUserId() != null) {
 //			userCk = true;

@@ -99,13 +99,12 @@ public class UserHistoryDAO {
 		this.sqlsessiontemplate.update("view.ratingPost", postDTO);
 	}
 	
-
-	
 	//마지막 Post의 idx 반환   => viewPost 에 새로 생긴 pk 값 삽입을 위해 필요
 	public int lastIdxPost() {
 		int lastIdx = this.sqlsessiontemplate.selectOne("view.insertPostViewIdx");
 		return lastIdx;
 	}
+	
 	//service 단에서 lastIdx 반환 이후 table에 삽입 하는 기능
 	public void insertViewTablePost(PostDTO postDTO) {
 		this.sqlsessiontemplate.insert("view.insertPostTable", postDTO);	

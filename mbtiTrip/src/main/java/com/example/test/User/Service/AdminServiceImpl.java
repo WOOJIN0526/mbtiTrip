@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.test.User.DAO.adminDAO;
 import com.example.test.User.DTO.AdminDTO;
+import com.example.test.session.SessionUserCnt;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -65,6 +66,7 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	
+	//매일 자정마다 새로운 테이블 생성 
 	@Scheduled(cron = "0 0 0 * * *") 
 	@Override
 	public void dailyrating() {
@@ -80,7 +82,31 @@ public class AdminServiceImpl implements AdminService{
 		Map<String,Integer> cnt = adminDao.userCount();
 		return cnt;
 	}
+	
+	@Override
+	public List<HashMap<String, Object>> mbtiCnt() {
+		List<HashMap<String, Object>> mbtiCnt = adminDao.mbtiCnt();
+		return mbtiCnt;
+	}
 
+	@Override
+	public List<HashMap<String, Object>> userList() {
+		List<HashMap<String, Object>> userList = adminDao.userList();
+		return userList;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> bisList() {
+		List<HashMap<String, Object>> bisList = adminDao.bisList();
+		return bisList;
+	}
+	
+	
+	@Override
+	public int liveUserCnt() {
+		int liveUser = new SessionUserCnt().getCnt(); 
+		return liveUser;
+	}
 
 	@Override
 	public int postCnt() {
@@ -101,23 +127,10 @@ public class AdminServiceImpl implements AdminService{
 		return 0;
 	}
 
-	@Override
-	public List<HashMap<String, Object>> mbtiCnt() {
-		List<HashMap<String, Object>> mbtiCnt = adminDao.mbtiCnt();
-		return mbtiCnt;
-	}
 
-	@Override
-	public List<HashMap<String, Object>> userList() {
-		List<HashMap<String, Object>> userList = adminDao.userList();
-		return userList;
-	}
+	
 
-	@Override
-	public List<HashMap<String, Object>> bisList() {
-		List<HashMap<String, Object>> bisList = adminDao.bisList();
-		return bisList;
-	}
+
 
 
 	

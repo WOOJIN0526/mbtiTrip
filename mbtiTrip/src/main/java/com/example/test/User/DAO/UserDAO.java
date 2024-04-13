@@ -11,7 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.example.test.User.DTO.UserDTO;
+import com.example.testExcepion.SignUP.SignUpException;
+import com.example.testExcepion.SignUP.SignUpExceptionEunm;
 
+import groovyjarjarasm.asm.tree.TryCatchBlockNode;
 import jakarta.inject.Inject;
 import lombok.extern.log4j.Log4j2;
 
@@ -27,15 +30,27 @@ public class UserDAO {
 
 
 	public int insert(UserDTO userDto) {
-		int result = this.sqlSessiontemplate.insert("user.insert", userDto);
+		int result = 0 ;
+		try {
+			result = this.sqlSessiontemplate.insert("user.insert", userDto);
+		} catch (Exception e) {
+			throw new SignUpException(SignUpExceptionEunm.SIGN_INTERNAL_ERROR);
+		}
+		
 		return result;
+	
 	}
 	
 	public int insertBis(UserDTO userdto) {
-		int result = this.sqlSessiontemplate.insert("user.insertBis", userdto);
+		int result = 0 ;
+		try {
+			result = this.sqlSessiontemplate.insert("user.insertBis", userdto);
+		} catch (Exception e) {
+			throw new SignUpException(SignUpExceptionEunm.SIGN_INTERNAL_ERROR);
+		}
+		
 		return result;
 	};
-
 
 
 	public int userUpdate(UserDTO userdto) {
@@ -116,6 +131,8 @@ public class UserDAO {
 		}
 		return ck;
 	}
+
+
 	
 }
                                                         

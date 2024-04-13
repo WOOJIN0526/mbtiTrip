@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.example.test.GCSDTO.GCSDTO;
-import com.example.test.POST.DTO.PostReviewDTO;
-import com.example.test.User.DAO.UserHistoryDAO;
+
 import com.example.test.User.Service.UserHistoryService;
 import com.example.test.item.DTO.ItemDTO;
-import com.example.test.paging.Criteria;
+
+import com.example.test.paging.Page;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -33,13 +33,13 @@ public class ItemDAO {
 		 return result;
 	}
 	
-	public List<ItemDTO> replaceList(Criteria cri){
-		List<ItemDTO> result = this.sqlSessiontemplate.selectList("item.replaceList", cri);
+	public List<ItemDTO> replaceList(Page page){
+		List<ItemDTO> result = this.sqlSessiontemplate.selectList("item.replaceList", page);
 		 return result;
 	}
 	
-	public List<ItemDTO> adventureList(Criteria criteria){
-		List<ItemDTO> result = this.sqlSessiontemplate.selectList("item.adventure", criteria);
+	public List<ItemDTO> adventureList(Page page){
+		List<ItemDTO> result = this.sqlSessiontemplate.selectList("item.adventure", page);
 		return result;
 	}
 	
@@ -63,8 +63,8 @@ public class ItemDAO {
 		return result;
 	}
 	
-	public int deleteItem(ItemDTO itemdto){
-		  int result = this.sqlSessiontemplate.delete("item.deleteItem", itemdto);
+	public int deleteItem(Integer itemId){
+		  int result = this.sqlSessiontemplate.delete("item.deleteItem", itemId);
 		return result;
 	}
 
@@ -75,32 +75,45 @@ public class ItemDAO {
 		return this.sqlSessiontemplate.selectOne("item.findById", itemid);
 	}
 
-	public void updateCount(Integer itemID) {
-		// TODO Auto-generated method stub
-		this.sqlSessiontemplate.update("item.updateCount", itemID);
-	}
 
 
 	
 
-	public int getTotal(Criteria cri) {
+	public int getTotal(String keyword) {
 		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectOne("item.getTotal", cri);
+		return this.sqlSessiontemplate.selectOne("item.getTotalByKeyword", keyword);
+	}
+	
+	public Integer getTotal() {
+		// TODO Auto-generated method stub
+		return this.sqlSessiontemplate.selectOne("item.getTotalFull");
 	}
 
 	public int update(ItemDTO itemdto) {
 		// TODO Auto-generated method stub
-		return sqlSessiontemplate.update("item.update", itemdto);
+		return this.sqlSessiontemplate.update("item.update", itemdto);
 	}
 
 	public int createImg(GCSDTO img) {
 		// TODO Auto-generated method stub
-		return sqlSessiontemplate.insert("item.createImg",img);
+		return this.sqlSessiontemplate.insert("item.createImg",img);
 	}
 
 	public List<String> getUrl(int itemID) {
 		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectList("item.getUrl",itemID);
+		return this.sqlSessiontemplate.selectList("item.getUrl",itemID);
+	}
+
+	public List<ItemDTO> search(String keyword) {
+		// TODO Auto-generated method stub
+		return this.sqlSessiontemplate.selectOne("item.searchByKeyword", keyword);
+	}
+
+	
+
+	public List<ItemDTO> search(Page page) {
+		// TODO Auto-generated method stub
+		return this.sqlSessiontemplate.selectOne("item.searchByPage", page);
 	}
 
 

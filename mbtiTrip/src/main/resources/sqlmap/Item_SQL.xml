@@ -54,20 +54,26 @@
        ]]>
     </select>
     
-    <update id="updateCount">
-	<![CDATA[
-			Update Item 
-			set
-			views=#{views}
-			where itemId = #{itemID};
-		]]>
-	</update>
+    
  
- 	<select id="getTotal" resultType="int">
+ 	<select id="getTotalFull" resultType="int">
        <![CDATA[
-		select COUNT(ItemID)
+		select COUNT(*)
 		from Item 
 		where itemId = #{itemID}
+       ]]>
+    </select>
+    
+    <select id="getTotalByKeyword" resultType="int">
+       <![CDATA[
+		SELECT COUNT(*) as totalCount
+		FROM Item
+		WHERE itemID > 0
+			  AND ( 
+			  		  itemName LIKE CONCAT('%', #{keyword}, '%')
+			  	   OR contents LIKE CONCAT('%', #{keyword}, '%')
+			  	   OR userName LIKE CONCAT('%', #{keyword}, '%')
+			  	  )
        ]]>
     </select>
  
@@ -81,6 +87,39 @@
 			where itemId = #{itemID};
 		]]>
 	</update>
+	
+	<select id="searchByKeyword" resultType="int">
+       <![CDATA[
+		SELECT *
+		FROM Item
+		WHERE itemID > 0
+		  AND ( 
+		  		  itemName LIKE CONCAT('%', #{keyword}, '%')
+		  	   OR contents LIKE CONCAT('%', #{keyword}, '%')
+		  	   OR userName LIKE CONCAT('%', #{keyword}, '%')
+		  	  )
+		ORDER BY updateDate DESC
+		        
+       ]]>
+    </select>
+    
+    <select id="searchByPage" resultType="int">
+       <![CDATA[
+		SELECT @rownum := @rownum+1 AS row_no, I.*
+			FROM (
+   					 SELECT @rownum := :startRowIndex
+					) AS tmp
+			INNER JOIN Item I ON PostID > 0
+			WHERE 
+    			    itemName LIKE CONCAT('%', :keyword, '%')
+    			OR contents LIKE CONCAT('%', :keyword, '%')
+    			OR userName LIKE CONCAT('%', :keyword, '%')
+			ORDER BY 
+    				updateDate DESC,
+    				
+			LIMIT :startRowIndex, :rowsPerPage;
+       ]]>
+    </select>
 	<insert id="createImg">
 	insert into IMG(itemID,url)
 	value(#{itemID},#{currentURL})
