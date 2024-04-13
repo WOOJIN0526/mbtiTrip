@@ -66,13 +66,8 @@ public class QnAController {
 	@ResponseBody
 	public boolean createQAndA(@RequestBody QnADTO qna,
 								Principal princi) {
-	
 		boolean ck = false;
-		qna.setUserName(princi.getName());
-		qna.setUpdateDate(LocalDateTime.now());
-		log.info("qna.getQName ={}",qna.getTitle());
-		log.info("message create Post = {}", qna.toString());
-		int  c =  qnaService.createQ(qna);
+		int  c =  qnaService.createQ(qna, princi);
 		if(c == 1) {
 			ck = true;
 		} 
@@ -89,8 +84,7 @@ public class QnAController {
 	
 	@RequestMapping(value = "/myQnA", method= RequestMethod.GET)
 	public ModelAndView myQnA(HttpServletRequest session , Principal prin, QnADTO qna, ModelAndView mav) {
-		String userName = prin.getName();
-		List<HashMap<String, Object>> qnaList = qnaService.getMyQnA(userName);
+		List<HashMap<String, Object>> qnaList = qnaService.getMyQnA(prin);
 		mav.addObject("currentUrl", session.getRequestURL());
 		mav.addObject("qnaList", qnaList);
 		mav.setViewName("QAnswerTh");
@@ -109,8 +103,6 @@ public class QnAController {
 	@RequestMapping(value="/admin", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> adminQnA(QAnswerDTO answer, Principal principal ) {
-		
-		
 		boolean ck = qnaService.updateAnswer(answer, principal);
 		return ResponseEntity.ok("답변이 성공적으로 등록되었습니다.");
 	}

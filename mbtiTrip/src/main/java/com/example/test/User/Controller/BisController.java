@@ -122,7 +122,6 @@ public class BisController {
 		List<HashMap<String, Object>> userItems = userService.getMyItem(principal);
 		List<HashMap<String, Object>> viewRating = userHistoryservice.viewRating(principal);
 		userService.bisListput(userItems, viewRating);
-		
 		List<HashMap<String, Object>> userReservation = 
 				userCartService.reservationInfo(principal);
 		log.info("BisController UserReservation INfo => {}", userReservation);

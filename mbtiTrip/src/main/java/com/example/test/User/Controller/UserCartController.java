@@ -80,9 +80,7 @@ public class UserCartController {
 								,Principal principal
 								,ModelAndView mav) throws Exception{
 		boolean ck = false;
-
 			 ck = userCartservice.insertItem(userCartDTO, itemDTO, principal);
-		
 		return ck;
 	}
 	

@@ -10,13 +10,13 @@ import com.example.test.User.DTO.QnADTO;
 
 public interface QnAService {
 
-	int createQ(QnADTO qna);
+	int createQ(QnADTO qna, Principal principal);
 
 	List<QnADTO> getList(QnADTO qna);
 
 	Map<String, Object> QnAdetail(Integer qID);
 
-	List<HashMap<String, Object>> getMyQnA(String userName);
+	List<HashMap<String, Object>> getMyQnA(Principal prin);
 
 	boolean updateAnswer(QAnswerDTO answer, Principal principal);
 
