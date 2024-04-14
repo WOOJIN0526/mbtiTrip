@@ -34,7 +34,7 @@
 	 <![CDATA[
 		SELECT PostID 
 		FROM Post
-		WHERE userName=#{userName}; 
+		WHERE userName=#{userName} 
 	]]>
 	</select>
 	
@@ -84,7 +84,7 @@
 			ORDER BY 
     				updateDate DESC,
     				
-			LIMIT :startRowIndex, :rowsPerPage;
+			LIMIT :startRowIndex, :rowsPerPage
 		]]>
 	</select>
 	
@@ -99,7 +99,7 @@
 	 <![CDATA[
 		SELECT PostCateGoryID 
 		FROM Post
-		WHERE postID = #{PostID} And userName=#{userName}; 
+		WHERE postID = #{PostID} And userName=#{userName} 
 	]]>
 	</select>
 	

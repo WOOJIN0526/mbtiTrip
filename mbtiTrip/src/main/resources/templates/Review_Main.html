@@ -59,7 +59,29 @@
 		  <script th:src="@{/Review_Main/Review_Main.js}"></script>
 	  </section>
 		
-	 						
+	  <!--페이징 시작-->			
+	  	<div th:object="${page}" class="paging">
+	  			
+	  				<a th:href="|list?pageNum=*{firstPage}&totalCount=*{totalCount}&rowsPerPage=*{rowsPerPage}&pageCount=*{pageCount}&keyword=*{keyword}|" class="first">[처음]</a>
+	  				<th:block th:if="${page.prev > 0 }">
+	  					<a th:href="|list?pageNum=*{prev}&totalCount=*{totalCount}&rowsPerPage=*{rowsPerPage}&pageCount=*{pageCount}&keyword=*{keyword}|" class="prev">[이전]</a>
+	  				</th:block>
+	  				<th:block th:each="no : ${#numbers.sequence(page.startPage, page.endPage)}">
+	  					<th:block th:if="${no == page.pageNum}">
+	  						<a th:href="|list?pageNum=${no}&totalCount=*{totalCount}&rowsPerPage=*{rowsPerPage}&pageCount=*{pageCount}&keyword=*{keyword}|" title="" th:text="${no}" class="on"></a>
+	  					</th:block>
+	  					<th:block th:unless="${no == page.pageNum}">
+	  						<a th:href="|list?pageNum=${no}&totalCount=*{totalCount}&rowsPerPage=*{rowsPerPage}&pageCount=*{pageCount}&keyword=*{keyword}|" title="" th:text="${no}"></a>
+	  					</th:block>
+	  						
+	  				</th:block>
+	  				<th:block th:if="${page.next <= page.lastPage }">
+	  					<a th:href="|list?pageNum=*{next}&totalCount=*{totalCount}&rowsPerPage=*{rowsPerPage}&pageCount=*{pageCount}&keyword=*{keyword}|" class="next">[다음]</a>
+	  				</th:block>
+	  				<a th:href="|list?pageNum=*{lastPage}&totalCount=*{totalCount}&rowsPerPage=*{rowsPerPage}&pageCount=*{pageCount}&keyword=*{keyword}|" class="last">[끝]</a>
+	  			
+	  	</div>
+	  		<!--페이징 종료--> 						
 
   
 </body>

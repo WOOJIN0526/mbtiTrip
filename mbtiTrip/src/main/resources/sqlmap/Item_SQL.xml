@@ -84,7 +84,7 @@
 			Update Item 
 			set
 			Type=#{Type}, mbti=#{mbti}, userName=#{userName}, price=#{price}, itemName=#{itemName}, location=#{location}, tel=#{tel}, content=#{contents}, modifyDate=#{modifyDate}, imgeUrl=#{imgUrl}
-			where itemId = #{itemID};
+			where itemId = #{itemID}
 		]]>
 	</update>
 	
@@ -117,7 +117,7 @@
 			ORDER BY 
     				updateDate DESC,
     				
-			LIMIT :startRowIndex, :rowsPerPage;
+			LIMIT :startRowIndex, :rowsPerPage
        ]]>
     </select>
 	<insert id="createImg">
