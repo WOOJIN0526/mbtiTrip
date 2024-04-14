@@ -2,10 +2,12 @@ package com.example.testExcepionQnA;
 
 import org.springframework.http.HttpStatus;
 
+import com.example.testExcepion.ExceptionCode;
+
 import lombok.Getter;
 
 @Getter
-public enum QnAExceptionEnum {
+public enum QnAExceptionEnum implements ExceptionCode{
 	QnA_NOT_FOUND_USER(HttpStatus.NOT_FOUND, "QNA_001", "유저정보를 찾을 수 없습니다."),
 	QnA_NOT_INSERT(HttpStatus.BAD_REQUEST, "QnA_002", "정상적으로 저장되지 않았습니다. 다시 한번 확인해주세요"),
 	QnA_NOT_TITLE(HttpStatus.NOT_FOUND, "QnA_003", "질문 제목이 비었습니다. 다시 작성해주세요"),

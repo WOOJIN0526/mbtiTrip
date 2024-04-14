@@ -17,6 +17,8 @@ import com.example.test.User.DTO.QnADTO;
 import com.example.test.User.DTO.UserHistoryDTO;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.replace.DTO.ReplaceDTO;
+import com.example.testExcepion.updated.UpdateException;
+import com.example.testExcepion.updated.UpdateExceptionEnum;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -135,17 +137,21 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 	 * */
 	@Override
 	public List<List<?>> userViewInfo(Principal principal) {
-		log.info("userHisotry userViewInfo principal null isuue  == >{}", principal.getName());
-		String userName = principal.getName();
-		List<List<?>> userViewInfo = new ArrayList<>();
-		log.info("userName , userHistoyservice. userViewInfo   =>{}", userName);
-		List<ItemDTO> userViewReplace = userhistoryDAO.viewReturnRE(userName);
-		List<ItemDTO> userViewAdventure =userhistoryDAO.viewReturnAD(userName);
-		List<PostDTO> userViewPost = userhistoryDAO.viewReturnPO(userName);
-		userViewInfo.add(userViewReplace);
-		userViewInfo.add(userViewAdventure);
-		userViewInfo.add(userViewPost);
-		return userViewInfo;
+		try {
+			log.info("userHisotry userViewInfo principal null isuue  == >{}", principal.getName());
+			String userName = principal.getName();
+			List<List<?>> userViewInfo = new ArrayList<>();
+			log.info("userName , userHistoyservice. userViewInfo   =>{}", userName);
+			List<ItemDTO> userViewReplace = userhistoryDAO.viewReturnRE(userName);
+			List<ItemDTO> userViewAdventure =userhistoryDAO.viewReturnAD(userName);
+			List<PostDTO> userViewPost = userhistoryDAO.viewReturnPO(userName);
+			userViewInfo.add(userViewReplace);
+			userViewInfo.add(userViewAdventure);
+			userViewInfo.add(userViewPost);
+			return userViewInfo;
+		}catch(Exception e){
+			throw new UpdateException(UpdateExceptionEnum.UPDATE_FAIL_SERVER);
+		}
 	}
 
 	

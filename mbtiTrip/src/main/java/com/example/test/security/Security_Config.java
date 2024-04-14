@@ -113,7 +113,7 @@ public class Security_Config  {
     			.maxSessionsPreventsLogin(false) //새로운 요청 거부 
     			.expiredSessionStrategy(new customSessionExpiredStrategy())	
     			) ;
-    
+    	http.exceptionHandling((ex) -> ex.accessDeniedPage("/login_A"));
     					
 //    		    .usernameParameter("userId")
 //    		    .passwordParameter("password")

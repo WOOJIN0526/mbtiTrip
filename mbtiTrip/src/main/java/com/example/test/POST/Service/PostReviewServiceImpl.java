@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.test.POST.DAO.PostReviewDAO;
+import com.example.test.POST.DTO.AnswerDTO;
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.DTO.PostReviewDTO;
 import com.example.test.POST.DTO.Post_CategoryDTO;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.paging.Criteria;
+import com.example.test.paging.Page;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,21 +27,26 @@ public class PostReviewServiceImpl implements PostReviewService{
 	@Autowired
 	PostReviewDAO prDAO;
 
+	
+	
 	@Override
-	public List<PostReviewDTO> getList(Criteria criteria) {
+	public List<PostReviewDTO> list(Page page) throws Exception {
 		// TODO Auto-generated method stub
-		return prDAO.getList(criteria);
+		return this.prDAO.list(page);
+	}
+
+
+	@Override
+	public void create(PostReviewDTO post) throws Exception {
+		// TODO Auto-generated method stub
+		
+		setRating(post.getItemID());
+		this.prDAO.create(post);
 	}
 
 	@Override
-	public int getTotal(Criteria cri) {
-		// TODO Auto-generated method stub
-		return prDAO.getTotal(cri);
-	}
-	
-	@Override
-	public PostReviewDTO getPost(Integer itemID) {
-		 Optional<PostReviewDTO> post = this.prDAO.findById(itemID);
+	public PostReviewDTO getPost(Integer postReviewID) {
+		 Optional<PostReviewDTO> post = this.prDAO.findById(postReviewID);
 		  if (post.isPresent()) {
 	        	PostReviewDTO postReview = post.get();        	
 	        	postReview.setViews(postReview.getViews()+1);        	
@@ -50,98 +57,109 @@ public class PostReviewServiceImpl implements PostReviewService{
 	        }	
 		  }
 
-	@Override
-	public int create(String title, String content, UserDTO user, Post_CategoryDTO category) {
-		
-		PostReviewDTO pr = new PostReviewDTO();
-		pr.setTitle(title);
-		pr.setContent(content);
-		pr.setWriter(user);
-		pr.setCategory(category);
-		pr.setUpdateDate(LocalDateTime.now());
-		
-		setRating(pr.getItemID());
-		
-		return this.prDAO.create(pr);
-	}
+
+
 
 	@Override
-	public int modify(PostReviewDTO pr, String title, String content) {
-		pr.setTitle(title);
-		pr.setContent(content);
-		pr.setModifyDate(LocalDateTime.now());
-		
-		setRating(pr.getItemID());
-		
-		return this.prDAO.update(pr);
-	}
-
-	@Override
-	public void delete(PostReviewDTO postDto) {
+	public void modify(PostReviewDTO post) throws Exception {
 		// TODO Auto-generated method stub
-		
-		setRating(postDto.getItemID());
-		
-		this.prDAO.delete(postDto);
+		setRating(post.getItemID());
+		this.prDAO.update(post);
 	}
+
 
 	@Override
-	public int suggestion(PostReviewDTO postDto, UserDTO userDto) {
-		postDto.getSuggestion().add(userDto);
-        
-        return this.prDAO.create(postDto);
+	public void remove(Integer postReviewId) throws Exception {
+		// TODO Auto-generated method stub
+		PostReviewDTO post = new PostReviewDTO();
+		
+		setRating(post.getItemID());
+		this.prDAO.delete(postReviewId);
+	}
+
+
+	@Override
+	public List<PostReviewDTO> search(String keyword) {
+		// TODO Auto-generated method stub
+		return this.prDAO.search(keyword);
+	}
+
+
+	@Override
+	public List<PostReviewDTO> search(Page page) throws Exception {
+		// TODO Auto-generated method stub
+		return this.prDAO.search(page);
+	}
+
+
+	@Override
+	public Integer totalCount() throws Exception {
+		// TODO Auto-generated method stub
+		return this.prDAO.totalCount();
 	}
 
 	
-	
-	// 게시물을 조회하고 조회수 증가
-			@Transactional
-			public PostReviewDTO detail(Integer itemID, HttpServletRequest request, HttpServletResponse response) {
-				 Cookie oldCookie = null;
-				    Cookie[] cookies = request.getCookies();
-				    if (cookies != null)
-				        for (Cookie cookie : cookies)
-				            if (cookie.getName().equals("postView"))
-				                oldCookie = cookie;
+	@Override
+	public void suggestion(PostReviewDTO post, UserDTO user) throws Exception {
+		// TODO Auto-generated method stub
+		post.getSuggestion().add(user);
+        
+        this.prDAO.create(post);
+	}
 
-				    if (oldCookie != null) {
-				        if (!oldCookie.getValue().contains("[" + itemID.toString() + "]")) {
-				            prDAO.updateCount(itemID);
-				            oldCookie.setValue(oldCookie.getValue() + "_[" + itemID + "]");
-				            oldCookie.setPath("/");
-				            oldCookie.setMaxAge(60 * 60 * 24);
-				            response.addCookie(oldCookie);
-				        }
-				    }
-				    else {
-				        prDAO.updateCount(itemID);
-				        Cookie newCookie = new Cookie("postView","[" + itemID + "]");
-				        newCookie.setPath("/");
-				        newCookie.setMaxAge(60 * 60 * 24);
-				        response.addCookie(newCookie);
-				    }
 
-				    return prDAO.findById(itemID).orElseThrow(() -> {
-				        return new IllegalArgumentException("글 상세보기 실패: 아이디를 찾을 수 없습니다.");
-				    });
-				}
-			//평점
-			@Override
-			public void setRating(int itemID) {
-				// TODO Auto-generated method stub
-				Double ratingAvg = prDAO.getRatingAverage(itemID);
-				if(ratingAvg == null) {
-					ratingAvg = 0.0;
-				}
+	@Override
+	public List<PostReviewDTO> findPostByCategoryID(Long postCategoryID) {
+		// TODO Auto-generated method stub
+		List<PostReviewDTO> post = prDAO.findByPostCategoryID(postCategoryID);
+		return post;
+	}
+
+
+	@Override
+	public void replyRegister(AnswerDTO reply) throws Exception {
+		// TODO Auto-generated method stub
+		this.prDAO.replyRegister(reply);
+	}
+
+
+	@Override
+	public List<AnswerDTO> replyList(PostReviewDTO postReviewId) throws Exception {
+		// TODO Auto-generated method stub
+		return this.prDAO.replyList(postReviewId);
+	}
+
+
+	@Override
+	public void replyModify(AnswerDTO reply) throws Exception {
+		// TODO Auto-generated method stub
+		this.prDAO.replyModify(reply);
+	}
+
+
+	@Override
+	public void replyRemove(Integer answerId) throws Exception {
+		// TODO Auto-generated method stub
+		this.prDAO.replyRemove(answerId);
+	}
+
+	//평점
+	@Override
+	public void setRating(int itemID) {
+	// TODO Auto-generated method stub
+	Double ratingAvg = prDAO.getRatingAverage(itemID);
+	if(ratingAvg == null) {
+	   ratingAvg = 0.0;
+	}
 				
-				ratingAvg = (double) (Math.round(ratingAvg*10));
-				ratingAvg = ratingAvg / 10;
+	ratingAvg = (double) (Math.round(ratingAvg*10));
+	ratingAvg = ratingAvg / 10;
 				
-				PostReviewDTO pr = new PostReviewDTO();
-				pr.setItemID(itemID);
-				pr.setRatingAvg(ratingAvg);
+	PostReviewDTO pr = new PostReviewDTO();
+	pr.setItemID(itemID);
+	pr.setRatingAvg(ratingAvg);
 				
-				prDAO.updateRating(pr);
-			}
+	prDAO.updateRating(pr);
+	}
 	
 }
