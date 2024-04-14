@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import com.example.testExcepion.Cart.CartException;
@@ -24,6 +25,7 @@ import com.example.testExcepion.Insert.InsertException;
 import com.example.testExcepion.SignUP.SignUpException;
 import com.example.testExcepion.login.LoginException;
 import com.example.testExcepion.updated.UpdateException;
+import com.example.testExcepionQnA.QnAException;
 
 import groovy.util.logging.Slf4j;
 import lombok.extern.log4j.Log4j2;
@@ -75,7 +77,17 @@ public class GlobalExceptionHandler {
     	ExceptionResponse er = new ExceptionResponse(ex.getUpdateExceptionCode());
     	return ResponseEntity.status(er.getStatus()).body(er);
     }
-     
+    
+    @ExceptionHandler(QnAException.class)
+    ResponseEntity<ExceptionResponse> QnAException(QnAException ex){
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	log.error("[updateHandelr] ex", ex.getMessage());
+    	ExceptionResponse er = new ExceptionResponse(ex.getQnaExceptionCode());
+    	return ResponseEntity.status(er.getStatus()).body(er);
+    }
+    
+    
+    
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<String> handleUserException(Exception ex){
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
