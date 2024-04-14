@@ -13,6 +13,8 @@ import lombok.Setter;
 @Setter
 public class PostReviewDTO {
 
+	private Integer postReviewId;
+	
 	private Integer itemID;
 	
 	private Post_CategoryDTO category;
@@ -25,7 +27,7 @@ public class PostReviewDTO {
 	
 	private LocalDateTime modifyDate;
 	
-	private UserDTO writer;
+	private String writer;
 	
 	private int views;
 	

@@ -2,68 +2,129 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper  namespace="postReview">
 
+	<select id="list" resultType="hashMap">
+	<![CDATA[	
+		SELECT *
+		FROM postReview
+		WHERE postReviewID > 0
+		ORDER BY updateDate DESC
+		]]>
+	</select>	
+
+
+
 	<insert id="create" parameterType="hashMap" useGeneratedKeys="true"
 		keyProperty="UID">  
 	    <![CDATA[
-	    insert into PostReview
-	    (itemID,category,title,content,suggestion,views,updateDate,modifyDate,writer) 
+	    insert into postReview
+	    (postReviewId, itemID, category, title, content, suggestion, views, updateDate, modifyDate, writer, ratingAvg) 
 	    values
-	    (#{ItemID},#{Category},#{title},#{Content},#{suggestion},#{views},#{UpdateDate},#{modifyDate}, #{writer})
+	    (#{postReviewID}, #{ItemID}, #{CategoryID}, #{title}, #{content}, #{suggestion}, #{views}, #{UpdateDate}, #{modifyDate}, #{writer}, #{rating})
 	]]>
 	</insert>
 
-	<select id="findByID" resultType="hashMap">
+	<select id="findById" resultType="hashMap">
 	 <![CDATA[
-		SELECT ItemID 
-		FROM PostReview
-		WHERE userName=#{userName}; 
+		SELECT postReviewID 
+		FROM postReview
+		WHERE writer=#{writer} 
 	]]>
 	</select>
 
-	
-
-	<!--    게시글 목록 가져오기-->
-    <select id="getList" resultType="com.example.test.POST.DTO.PostReviewDTO">
-        <![CDATA[
-        select ItemID,Category,title,Content,suggestion,views,UpdateDate,modifyDate, writer
-        from postReview
-        ]]>
-
-    </select>
-	
-	<select id="getTotal" resultType="_int">
-      <![CDATA[
-     	select count(ItemID)
-     	from postReview
-        ]]>
-    </select>
-
-	<update id="updateCount">
+	<update id="update">
 	<![CDATA[
-			Update PostReview 
+			Update postReview 
 			set
-			views = #{views},
-			where itemID = #{ItemID};
+			itemID=#{ItemID},category=#{categoryID},title=#{title},content=#{content}}
+			where itemID = #{ItemID}
 		]]>
 	</update>
-	
+
 	<delete id="delete">
 	<![CDATA[
-		
-			delete from PostReview 
-			where writer = #{writer} and itemID = #{ItemID};	
+		delete from postReview 
+		where writer = #{writer} and itemID = #{ItemID}	
 	]]>
 	</delete>
 
-	<update id="update">
-	<![CDATA[
-			Update PostReview 
-			set
-			itemID=#{ItemID},category=#{category},title=#{title},content=#{content},modifyDate=#{modifyDate}
-			views = #{views},
-			where itemID = #{ItemID};
+	<select id="searchByKeyword" resultType="hashmap">
+		<![CDATA[
+		SELECT *
+		FROM postReview
+		WHERE postReviewID > 0
+		  AND ( 
+		  		  title LIKE CONCAT('%', #{keyword}, '%')
+		  	   OR content LIKE CONCAT('%', #{keyword}, '%')
+		  	   OR writer LIKE CONCAT('%', #{keyword}, '%')
+		  	  )
+		ORDER BY updateDate DESC
+		  ]]>      
+	</select>
+	
+	<select id="searchByPage" resultType="hashmap">
+		<![CDATA[
+			SELECT @rownum := @rownum+1 AS row_no, P.*
+			FROM (
+   					 SELECT @rownum := :startRowIndex
+					) AS tmp
+			INNER JOIN postReview P ON postReviewID > 0
+			WHERE 
+    			    title LIKE CONCAT('%', :keyword, '%')
+    			OR Content LIKE CONCAT('%', :keyword, '%')
+    			OR writer LIKE CONCAT('%', :keyword, '%')
+			ORDER BY 
+    				updateDate DESC,
+    				
+			LIMIT :startRowIndex, :rowsPerPage
 		]]>
+	</select>
+	
+	<select id="totalCount" resultType="int">
+		<![CDATA[
+		SELECT COUNT(*) as totalCount
+		FROM postReview
+		]]>
+	</select>
+	
+	<select id="findByPostCategoryId" resultType="hashmap">
+	 <![CDATA[
+		SELECT categoryID 
+		FROM postReview
+		WHERE writer=#{writer} 
+	]]>
+	</select>
+	
+	<insert id="replyCreate" >
+	<![CDATA[
+		INSERT INTO PostReviewAnswer ( postReviewId, content, writer )
+					VALUES ( #{postReviewID}, #{content}, #{writer} )
+	]]>				
+	</insert>	
+	
+	<select id="replyList" resultType="hashmap">
+	<![CDATA[
+		SELECT * 
+		FROM PostReviewAnswer
+		WHERE postReviewId = #{postReviewID}
+		ORDER BY updateDate DESC
+	]]>				 
+	</select>
+
+	<update id="replyUpdate" >
+	<![CDATA[
+		UPDATE PostReviewAnswer
+		SET   content = #{content}
+		     ,writer = #{writer}
+		WHERE answerId = #{answerID}
+		]]>	
 	</update>
+	
+	<delete id="replyDelete" parameterType="Int">
+	<![CDATA[
+		DELETE FROM PostReviewAnswer
+		WHERE answerId = #{answerID}
+	]]>		
+	</delete>
 	
 	<select id="getRatingAverage" resultType="int">
        <![CDATA[
@@ -78,7 +139,7 @@
 			Update Item 
 			set
 			ratingAvg=#{ratingAvg}
-			where itemId = #{itemID};
+			where itemId = #{itemID}
 		]]>
 	</update>
 </mapper>

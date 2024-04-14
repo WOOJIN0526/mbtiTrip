@@ -48,7 +48,7 @@ public class AdventureController {
 	
 	
 	//게시글 목록 화면
-	@RequestMapping(value = "/adventure", method = RequestMethod.GET)
+	@RequestMapping(value = "/adventure/list", method = RequestMethod.GET)
 	public void list(Model model, Page page) throws Exception{
 
 		Integer totalCount = null;
@@ -149,7 +149,7 @@ public class AdventureController {
     		System.out.println(file.getOriginalFilename());
     	}
     	try {
-			adService.create(itemdto);
+			this.adService.create(itemdto);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
