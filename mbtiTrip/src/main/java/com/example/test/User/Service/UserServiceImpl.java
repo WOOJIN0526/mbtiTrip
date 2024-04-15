@@ -114,6 +114,9 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public UserDTO getUser(String name) {
+		if(name == null) {
+			
+		}
 		UserDTO siteUser = this.userDao.findByUsername(name);
 		return siteUser;
 	}

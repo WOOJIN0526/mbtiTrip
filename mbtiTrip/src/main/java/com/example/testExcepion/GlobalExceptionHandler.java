@@ -20,8 +20,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
+import com.example.testExcepion.Utile.NotSupportMediaTypeException;
+import com.example.testExcepion.Utile.UserNotFoundExcepiton;
 import com.example.testExcepion.Cart.CartException;
+import com.example.testExcepion.GCSS.GCSSException;
 import com.example.testExcepion.Insert.InsertException;
+import com.example.testExcepion.Item.ItemException;
+import com.example.testExcepion.Post.PostException;
 import com.example.testExcepion.SignUP.SignUpException;
 import com.example.testExcepion.login.LoginException;
 import com.example.testExcepion.updated.UpdateException;
@@ -38,7 +43,7 @@ public class GlobalExceptionHandler {
     HttpHeaders headers;
     
     @ExceptionHandler(SignUpException.class)
-    protected ResponseEntity<ExceptionResponse> SignUPException(SignUpException ex){
+    protected ResponseEntity<ExceptionResponse> SignUPExceptionHandler(SignUpException ex){
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	log.error("[signUpExHandle] ex", ex);
     	ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getSignupExceptionEnum());
@@ -46,7 +51,7 @@ public class GlobalExceptionHandler {
     }
     
     @ExceptionHandler(LoginException.class)
-    protected ResponseEntity<ExceptionResponse> LoginException(LoginException ex){
+    protected ResponseEntity<ExceptionResponse> LoginExceptionHandler(LoginException ex){
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	log.error("[loginExHandle] ex", ex);
     	ExceptionResponse er = new ExceptionResponse(ex.getLoginExceptionEnum());
@@ -62,7 +67,7 @@ public class GlobalExceptionHandler {
     }
     
     @ExceptionHandler(CartException.class)
-    protected ResponseEntity<ExceptionResponse> CartException(CartException ex){
+    protected ResponseEntity<ExceptionResponse> CartExceptionHandler(CartException ex){
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	log.error("[CartHandler] ex", ex);
     	ExceptionResponse er = new ExceptionResponse(ex.getCartExceptionEnum());
@@ -71,7 +76,7 @@ public class GlobalExceptionHandler {
     
     
     @ExceptionHandler(UpdateException.class)
-    protected ResponseEntity<ExceptionResponse> UpdateException(UpdateException ex){
+    protected ResponseEntity<ExceptionResponse> UpdateExceptionHandler(UpdateException ex){
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	log.error("[updateHandelr] ex", ex.getMessage());
     	ExceptionResponse er = new ExceptionResponse(ex.getUpdateExceptionCode());
@@ -79,22 +84,53 @@ public class GlobalExceptionHandler {
     }
     
     @ExceptionHandler(QnAException.class)
-    ResponseEntity<ExceptionResponse> QnAException(QnAException ex){
+    ResponseEntity<ExceptionResponse> QnAExceptionHandler(QnAException ex){
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	log.error("[updateHandelr] ex", ex.getMessage());
     	ExceptionResponse er = new ExceptionResponse(ex.getQnaExceptionCode());
     	return ResponseEntity.status(er.getStatus()).body(er);
     }
     
+    @ExceptionHandler(NotSupportMediaTypeException.class)
+    ResponseEntity<ExceptionResponse> NotSupportMediaTypeExceptionHandler(NotSupportMediaTypeException ex){
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	log.error("[updateHandelr] ex", ex.getMessage());
+    	ExceptionResponse er = new ExceptionResponse(ex.getUtileExceptionCode());
+    	return ResponseEntity.status(er.getStatus()).body(er);
+    }
     
     
-    @ExceptionHandler(Exception.class)
-    protected ResponseEntity<String> handleUserException(Exception ex){
+    @ExceptionHandler(UserNotFoundExcepiton.class)
+    protected ResponseEntity<ExceptionResponse> UserNotFoundHandler(UserNotFoundExcepiton ex){
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	log.error("handlerException", ex.getMessage());
-    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    	ExceptionResponse er = new ExceptionResponse(ex.getUtileExceptionCode());
+    	return ResponseEntity.status(er.getStatus()).body(er);
     }
 	
+    @ExceptionHandler(PostException.class)
+    protected ResponseEntity<ExceptionResponse> PostExceptionHandler(PostException ex){
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	log.error("handlerException", ex.getMessage());
+    	ExceptionResponse er = new ExceptionResponse(ex.getPostExceptionEnum());
+    	return ResponseEntity.status(er.getStatus()).body(er);
+    }
+    
+    @ExceptionHandler(ItemException.class)
+    protected ResponseEntity<ExceptionResponse> ItemExceptionHandler(ItemException ex){
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	log.error("handlerException", ex.getMessage());
+    	ExceptionResponse er = new ExceptionResponse(ex.getItemExceptionEnum());
+    	return ResponseEntity.status(er.getStatus()).body(er);
+    }
+    
+    @ExceptionHandler(GCSSException.class)
+    protected ResponseEntity<ExceptionResponse> GCSSException(GCSSException ex){
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	log.error("handlerException", ex.getMessage());
+    	ExceptionResponse er = new ExceptionResponse(ex.getGcssExceptionCode());
+    	return ResponseEntity.status(er.getStatus()).body(er);
+    }
 
     
 //    @ExceptionHandler(NullPointerException.class)

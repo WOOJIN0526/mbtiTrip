@@ -27,6 +27,8 @@ import com.example.testExcepion.Insert.InsertException;
 import com.example.testExcepion.Insert.InsertExceptionEnum;
 import com.example.testExcepion.Item.ItemException;
 import com.example.testExcepion.Item.ItemExceptionEnum;
+import com.example.testExcepion.Post.PostException;
+import com.example.testExcepion.Post.PostExceptionEnum;
 import com.example.testExcepion.updated.UpdateException;
 import com.example.testExcepion.updated.UpdateExceptionEnum;
 
@@ -117,8 +119,12 @@ public class ReplaceServiceImpl implements ReplaceService{
 
 	@Override
 	public void remove(Integer itemId) throws Exception {
-		// TODO Auto-generated method stub
-		itemDAO.deleteItem(itemId);
+		try{
+			itemDAO.deleteItem(itemId);
+		}catch(Exception e) {
+			throw new PostException(PostExceptionEnum.POST_UNABLE_TO_DELETE);
+		}
+		
 	}
 
 	@Override
