@@ -16,23 +16,31 @@
 .mainHeaderSec{
 	margin-left: 5rem;
 	margin-top:5rem;
-	width: 790px; height: 800px;
-	display: flex;
+	min-width: 800px; height: 800px;
+	max-width: 800px;
 	overflow-y: hidden;
-	overflow-x: scroll;
+	overflow-x: hidden;
+}
+.next,.prev{
+	background-color: var(--white);
+	display: block;
+}
+.handler{
+	display: flex;
+
 }
 .search__box {
     
     display: inline-block;
-    padding: 20px 30px;
+    padding: 20px 35px;
     background-color: white;
 
     border-radius: 6px;
     box-shadow: 0 2px 2px 0 rgb(214, 214, 214);
-    width: 100%;
+    width: 800px;
    
 }
-#regist{
+.regist,.next,.prev{
 	display: inline;
 	padding: 1rem;
 	font-size: 1.2rem;
@@ -41,7 +49,13 @@
 	border-radius: 2rem;
 	transform: translate(5rem,5rem);
 }
-#regist a button{
+.next{
+	transform: translate(1rem,400px);
+}
+.prev{
+	transform: translate(-50px,500px);
+}
+.regist a button{
 	font-size: 1.2rem;
 	border-radius: 2rem;
 	padding: 0.5rem;

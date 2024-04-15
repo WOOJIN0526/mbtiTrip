@@ -1,7 +1,7 @@
 package com.example.test.Adventure.Controller;
 
 import java.security.Principal;
-
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,7 +49,7 @@ public class AdventureController {
 	
 	//게시글 목록 화면
 	@RequestMapping(value = "/adventure/list", method = RequestMethod.GET)
-	public void list(Model model, Page page) throws Exception{
+	public String list(Model model, Page page) throws Exception{
 
 		Integer totalCount = null;
 		Integer rowPerPage = null;
@@ -85,13 +85,15 @@ public class AdventureController {
 		
 		if(keyword == null || keyword == ""){
 			page.setKeyword("");
-			model.addAttribute("list", adService.list(page));
+			List<ItemDTO> list = adService.list(page);
+			model.addAttribute("list", list);
 		} else {
 			page.setKeyword(keyword);
 			model.addAttribute("list", adService.search(page));
 		}
 
 		model.addAttribute("page", page);
+		return "itemList";
 
 	}
 	
@@ -101,7 +103,7 @@ public class AdventureController {
 	@RequestMapping(value = "/adventure/detail", method = RequestMethod.GET)
 	public String read(Model model, Integer itemId, Principal principal) throws Exception{
 
-		ItemDTO item = adService.getPost(itemId);
+		ItemDTO item = adService.getPost(itemId, principal);
 		
 		String userName = "";
 		if( principal !=null ){
@@ -123,7 +125,6 @@ public class AdventureController {
 		return "adventure_detail";
 	}
 
-    
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/adventure/create", method = RequestMethod.GET)
     public String Create(Model model, ItemDTO item, Principal user) throws Exception{
@@ -161,7 +162,7 @@ public class AdventureController {
    
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/adventure/modify", method = RequestMethod.GET)
-    public String Modify(Model model, Integer itemId, Principal user) throws Exception{
+    public String Modify(Model model, Integer itemId, Principal user, Principal princiapl) throws Exception{
         ItemDTO item = this.adService.getPost(itemId);
         item.setType(ItemType.adventure);
         if(!item.getUsername()

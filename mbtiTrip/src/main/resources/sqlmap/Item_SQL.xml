@@ -9,12 +9,12 @@
 	</insert>
 
 
-	<select id="replaceList" resultType="hashMap">
+	<select id="replaceList" resultType="com.example.test.item.DTO.ItemDTO">
 		select * from Item
 		where Type ="replace"
 	</select>
 	
-	<select id="adventure" resultType ="hashMap">
+	<select id="adventure" resultType ="com.example.test.item.DTO.ItemDTO">
 		select * from Item
 		where Type ="adventure"
 	</select>

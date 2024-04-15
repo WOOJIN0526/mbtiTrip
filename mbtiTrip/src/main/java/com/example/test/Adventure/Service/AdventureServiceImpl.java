@@ -39,24 +39,76 @@ public class AdventureServiceImpl implements AdventureService{
 	
 	@Override
 	public List<ItemDTO> list(Page page) throws Exception {
-		// TODO Auto-generated method stub
-		return itemDAO.adventureList(page);
+	    // 아이템 목록을 가져옵니다.
+	    List<ItemDTO> items = itemDAO.adventureList(page);
+	    
+	    // 각 아이템에 대해 이미지 URL을 가져와서 설정합니다.
+	    for (ItemDTO item : items) {
+	        int itemID = item.getItemID();
+	        List<String> url = itemDAO.getUrl(itemID); // 아이템의 이미지 URL을 가져옵니다.
+	        
+	        // 등록된 이미지가 없을 경우 "0"을 추가합니다.
+	        if (url.isEmpty()) {
+	            url.add("0");
+	        }
+	        
+	        // 리스트를 배열로 변환하여 아이템에 이미지 URL 배열을 설정합니다.
+	        String[] imageUrlArray = url.toArray(new String[0]);
+	        System.out.println(imageUrlArray.toString()+"HERE!!!");
+	        item.setImgeUrl(imageUrlArray);
+	    }
+	    
+	    return items;
 	}
 
 	@Override
 	public void create(ItemDTO post) throws Exception {
-		validationItem(post);
-		itemDAO.create(post);
+		ItemException.validationItem(post);
+		try {
+			itemDAO.create(post);
+		}
+		catch(Exception e) {
+			throw new ItemException(ItemExceptionEnum.ITEM_UNKNOWN_ERROR);
+		}
+		
 	}
 
 	@Override
 	public ItemDTO getPost(Integer itemId) throws Exception {
+		if(itemId == null) {
+			throw new ItemException(ItemExceptionEnum.ITEM_NOT_FOUND);
+		}
 		Optional<ItemDTO> adventure = this.itemDAO.findById(itemId);
-		  if (adventure.isPresent()) {
+		if(adventure.isEmpty()) {
+			throw new ItemException(ItemExceptionEnum.ITEM_NOT_FOUND);
+		}
+		if (adventure.isPresent()) {
+	        	ItemDTO itemDto = adventure.get();        	
+	        	itemDto.setView(itemDto.getView()+1);   
+	        	this.itemDAO.create(itemDto);
+	            	return itemDto;
+	        } else {
+	            throw new DataNotFoundException("question not found");
+	        }	
+	}
+	
+	
+	@Override
+	public ItemDTO getPost(Integer itemId, Principal principal) throws Exception {
+		if(itemId == null) {
+			throw new ItemException(ItemExceptionEnum.ITEM_NOT_FOUND);
+		}
+		Optional<ItemDTO> adventure = this.itemDAO.findById(itemId);
+		
+		if(adventure.isEmpty()) {
+			throw new ItemException(ItemExceptionEnum.ITEM_NOT_FOUND);
+		}
+		
+		if (adventure.isPresent()) {
 	        	ItemDTO itemDto = adventure.get();        	
 	        	itemDto.setView(itemDto.getView()+1);        	
 	        	this.itemDAO.create(itemDto);
-	        	
+	        	userHistoryService.userViewItem(itemDto, principal);
 	            	return itemDto;
 	        } else {
 	            throw new DataNotFoundException("question not found");
@@ -65,7 +117,7 @@ public class AdventureServiceImpl implements AdventureService{
 
 	@Override
 	public void modify(ItemDTO post) throws Exception {
-		// TODO Auto-generated method stub
+		ItemException.validationItem(post);
 		itemDAO.update(post);
 	}
 
@@ -102,49 +154,10 @@ public class AdventureServiceImpl implements AdventureService{
         this.itemDAO.create(item);
 	}
 
-	public void validationItem(ItemDTO itemDTO) {
-		//TITLE ck
-		if(itemDTO.getItemName() == null) {
-			throw new ItemException(ItemExceptionEnum.ITEM_TITLE_MISMATCH);
-		}
-		if(itemDTO.getItemName().length()>20) {
-			throw new ItemException(ItemExceptionEnum.ITEM_TITLE_SIZEMISS);
-		}
-		if(TitleCk(itemDTO)) {
-			throw new ItemException(ItemExceptionEnum.ITEM_TITLE_VALIDTION);
-		}
-		
-		if(itemDTO.getType() == null) {
-			throw new ItemException(ItemExceptionEnum.ITEM_INFORMATION_MISSING);	
-		}
-		if(itemDTO.getUsername() == null) {
-			throw new ItemException(ItemExceptionEnum.ITEM_USER_NOT_FOUND);
-		}
-		if(itemDTO.getPrice() == null) {
-			throw new ItemException(ItemExceptionEnum.ITEM_INFORMATION_MISSING);	
-		}
-		if(itemDTO.getLocation() == null) {
-			throw new ItemException(ItemExceptionEnum.ITEM_INFORMATION_MISSING);	
-		}
-		if(itemDTO.getTel() == null) {
-			throw new ItemException(ItemExceptionEnum.ITEM_INFORMATION_MISSING);	
-		}
-		if(itemDTO.getContents() == null) {
-			throw new ItemException(ItemExceptionEnum.ITEM_INFORMATION_MISSING);	
-		}
-		if(itemDTO.getContents().length() > 1000) {
-			throw new ItemException(ItemExceptionEnum.ITEM_CONTENTS_SIZEMISS);
-		}
-	}
-	
-	
-	public boolean TitleCk(ItemDTO itemDTO) {
-		String itemName = itemDTO.getItemName();
-		boolean valid = Pattern.matches("^[a-zA-Z0-9가-힣]*$", itemName);
-		
-		return !valid;
-		
-	}
+
+
+
+
 
 //			// 게시물을 조회하고 조회수 증가
 //			@Transactional

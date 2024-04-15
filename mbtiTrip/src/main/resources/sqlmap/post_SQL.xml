@@ -136,12 +136,10 @@
 	</delete>
 	
 	
-	
-	
-	
-	
-
-	
+	<select id="titleCk" resultType="int">
+		select count(*) from Post 
+		where title = #{title};
+	</select>
 	
 	
 	
