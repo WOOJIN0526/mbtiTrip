@@ -88,19 +88,12 @@ public class ReplaceServiceImpl implements ReplaceService{
 		if(itemId == null) {
 			throw new ItemException(ItemExceptionEnum.ITEM_NOT_FOUND);
 		}
-		Optional<ItemDTO> adventure = this.itemDAO.findById(itemId);
-		if(adventure.isEmpty()) {
-			throw new ItemException(ItemExceptionEnum.ITEM_NOT_FOUND);
-		}
-		  if (adventure.isPresent()) {
-	        	ItemDTO itemDto = adventure.get();        	
-	        	itemDto.setView(itemDto.getView()+1);        	
-	        	this.itemDAO.create(itemDto);
-	        	userHistoryService.userViewItem(itemDto, principal);
-	            	return itemDto;
-	        } else {
-	            throw new DataNotFoundException("question not found");
-	        }	
+		ItemDTO replace = this.itemDAO.findById(itemId);
+		      	
+		replace.setView(replace.getView()+1);        	
+    	this.itemDAO.create(replace);
+    	userHistoryService.userViewItem(replace, principal);
+        	return replace;	        	
 	}
 
 	@Override

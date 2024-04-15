@@ -100,8 +100,8 @@ public class AdventureController {
 
 	
 	//게시글 읽기 화면
-	@RequestMapping(value = "/adventure/detail", method = RequestMethod.GET)
-	public String read(Model model, Integer itemId, Principal principal) throws Exception{
+	@RequestMapping(value = "/adventure/detail/{itemId}", method = RequestMethod.GET)
+	public String read(Model model,@PathVariable("itemId") Integer itemId, Principal principal) throws Exception{
 
 		ItemDTO item = adService.getPost(itemId, principal);
 		
@@ -112,12 +112,6 @@ public class AdventureController {
 			
 			model.addAttribute("userName", userName);
 		}
-
-		UserDTO writerName = item.getUsername();
-		if( writerName.equals(writerName)){
-			model.addAttribute("set", true); // 작성자일 경우만 수정, 삭제 노출
-		}
-
 
 		model.addAttribute("item", item);
 		
@@ -140,7 +134,7 @@ public class AdventureController {
 
    
     //@PostMapping("/create")
-    @RequestMapping(value ="/adventure/creat", method = RequestMethod.POST)
+    @RequestMapping(value ="/adventure/create", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<String> create(ItemDTO itemdto){
     	itemdto.setType(ItemType.adventure);

@@ -40,7 +40,9 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 		userItemView.setUserName(principal.getName());
 		userhistoryDAO.viewCkItem(userItemView);
 		//viewItem에 viewRating 값 증가 
+		System.out.println("123");
 		userhistoryDAO.viewRatingIT(itemDTO);
+		System.out.println("999");
 	}
 	
 	// 사용자의 userView에 조회한 Post 정보 삽입

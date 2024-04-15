@@ -78,18 +78,25 @@ public class AdventureServiceImpl implements AdventureService{
 		if(itemId == null) {
 			throw new ItemException(ItemExceptionEnum.ITEM_NOT_FOUND);
 		}
-		Optional<ItemDTO> adventure = this.itemDAO.findById(itemId);
-		if(adventure.isEmpty()) {
-			throw new ItemException(ItemExceptionEnum.ITEM_NOT_FOUND);
-		}
-		if (adventure.isPresent()) {
-	        	ItemDTO itemDto = adventure.get();        	
-	        	itemDto.setView(itemDto.getView()+1);   
-	        	this.itemDAO.create(itemDto);
-	            	return itemDto;
-	        } else {
-	            throw new DataNotFoundException("question not found");
-	        }	
+		ItemDTO adventure = this.itemDAO.findById(itemId);
+  	
+		adventure.setView(adventure.getView()+1); 
+		int itemID = adventure.getItemID();
+        List<String> url = itemDAO.getUrl(itemID); // 아이템의 이미지 URL을 가져옵니다.
+        
+        // 등록된 이미지가 없을 경우 "0"을 추가합니다.
+        if (url.isEmpty()) {
+            url.add("0");
+        }
+        
+        // 리스트를 배열로 변환하여 아이템에 이미지 URL 배열을 설정합니다.
+        String[] imageUrlArray = url.toArray(new String[0]);
+        System.out.println(imageUrlArray.toString()+"HERE!!!");
+        adventure.setImgeUrl(imageUrlArray);
+    	this.itemDAO.create(adventure);
+        	return adventure;
+
+	
 	}
 	
 	
@@ -98,21 +105,26 @@ public class AdventureServiceImpl implements AdventureService{
 		if(itemId == null) {
 			throw new ItemException(ItemExceptionEnum.ITEM_NOT_FOUND);
 		}
-		Optional<ItemDTO> adventure = this.itemDAO.findById(itemId);
-		
-		if(adventure.isEmpty()) {
-			throw new ItemException(ItemExceptionEnum.ITEM_NOT_FOUND);
-		}
-		
-		if (adventure.isPresent()) {
-	        	ItemDTO itemDto = adventure.get();        	
-	        	itemDto.setView(itemDto.getView()+1);        	
-	        	this.itemDAO.create(itemDto);
-	        	userHistoryService.userViewItem(itemDto, principal);
-	            	return itemDto;
-	        } else {
-	            throw new DataNotFoundException("question not found");
-	        }	
+		ItemDTO adventure = this.itemDAO.findById(itemId);
+		    	
+		adventure.setView(adventure.getView()+1);        	
+    	this.itemDAO.update(adventure);
+    	
+		int itemID = adventure.getItemID();
+        List<String> url = itemDAO.getUrl(itemID); // 아이템의 이미지 URL을 가져옵니다.
+        
+        // 등록된 이미지가 없을 경우 "0"을 추가합니다.
+        if (url.isEmpty()) {
+            url.add("0");
+        }
+        
+        // 리스트를 배열로 변환하여 아이템에 이미지 URL 배열을 설정합니다.
+        String[] imageUrlArray = url.toArray(new String[0]);
+        System.out.println(imageUrlArray.toString()+"HERE!!!");
+        adventure.setImgeUrl(imageUrlArray);
+    	userHistoryService.userViewItem(adventure, principal);
+        return adventure;
+
 	}
 
 	@Override
@@ -151,7 +163,7 @@ public class AdventureServiceImpl implements AdventureService{
 	public void suggestion(ItemDTO item, UserDTO user) {
 		item.getUprating().add(user);
         
-        this.itemDAO.create(item);
+        this.itemDAO.update(item);
 	}
 
 
