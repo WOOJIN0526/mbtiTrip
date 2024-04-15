@@ -1,6 +1,7 @@
 package com.example.test.Adventure.Service;
 
 
+import java.security.Principal;
 import java.util.List;
 
 
@@ -16,8 +17,10 @@ public interface AdventureService {
 	//게시글 쓰기
 	public void create(ItemDTO post) throws Exception;
 
-	//게시글 읽기
+	
 	public ItemDTO getPost(Integer itemId) throws Exception;
+	//게시글 읽기
+	public ItemDTO getPost(Integer itemId, Principal principal) throws Exception;
 
 	//게시글 수정
 	public void  modify(ItemDTO post) throws Exception;

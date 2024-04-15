@@ -103,7 +103,7 @@ public class AdventureController {
 	@RequestMapping(value = "/adventure/detail", method = RequestMethod.GET)
 	public String read(Model model, Integer itemId, Principal principal) throws Exception{
 
-		ItemDTO item = adService.getPost(itemId);
+		ItemDTO item = adService.getPost(itemId, principal);
 		
 		String userName = "";
 		if( principal !=null ){
@@ -125,7 +125,6 @@ public class AdventureController {
 		return "adventure_detail";
 	}
 
-    
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/adventure/create", method = RequestMethod.GET)
     public String Create(Model model, ItemDTO item, Principal user) throws Exception{
@@ -163,7 +162,7 @@ public class AdventureController {
    
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/adventure/modify", method = RequestMethod.GET)
-    public String Modify(Model model, Integer itemId, Principal user) throws Exception{
+    public String Modify(Model model, Integer itemId, Principal user, Principal princiapl) throws Exception{
         ItemDTO item = this.adService.getPost(itemId);
         item.setType(ItemType.adventure);
         if(!item.getUsername()
