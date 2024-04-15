@@ -81,7 +81,6 @@ public class UserController {
 //	}
 	
 	
-	
 	@RequestMapping(value ="/" , method = RequestMethod.GET)
 	public ModelAndView main(ModelAndView mv) {
 		mv.setViewName("main");
@@ -101,7 +100,6 @@ public class UserController {
 		List<HashMap<String, Object>> userUxRe = userHistoryService.uxReplace(userMbti);
 		List<HashMap<String, Object>> userUxAD = userHistoryService.uxAdventure(userMbti);
 		List<List<?>> userViewInfo =userHistoryService.userViewInfo(principal);
-		
 		mav.addObject("UserUXs",UserUXs);
 		mav.addObject("userUxRe",userUxRe);
 		mav.addObject("userUxadv",userUxAD);

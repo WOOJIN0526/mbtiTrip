@@ -8,6 +8,7 @@ import java.util.List;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.paging.Page;
+import com.example.testExcepion.GCSS.GCSSException;
 
 
 public interface ReplaceService {

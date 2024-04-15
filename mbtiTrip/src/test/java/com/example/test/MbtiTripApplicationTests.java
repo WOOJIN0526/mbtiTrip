@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.test.Adventure.DTO.AdventureDTO;
+import com.example.test.POST.DAO.PostDAO;
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.User.DAO.UserCartDAO;
 import com.example.test.User.DAO.UserDAO;
@@ -74,11 +75,14 @@ class MbtiTripApplicationTests {
 	@Autowired
 	QnAServiceImpl qnaService;
 	
+	@Autowired
+	PostDAO postDao;
 	
 	@Test
 	void contextLoads() {
 	
-		
+		int ck = postDao.titleCk("testTitleOne");
+		log.info("{}", ck);
 		boolean userCk = false;
 //		if(userDAO.getByUserId("testUser4").getUserId() != null) {
 //			userCk = true;
