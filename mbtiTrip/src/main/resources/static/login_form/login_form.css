@@ -11,7 +11,7 @@
     width: 95% 95%;
     height: 100vh;
     /* background:url(masaaki-komori-_SbeCWYjwCQ-unsplash.jpg); */
-    background-color: #FFD8E4;
+    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/7cab4a83-4ea5-4b70-8a6b-04a02cf9c032KakaoTalk_20240415_110607635_10.jpg);
     text-align: center;
     background-repeat:no-repeat;
     background-position: top center;
@@ -23,10 +23,11 @@
 .totLoginPage {
     margin: auto;
     width: 18.75em;
-    background-color: #EEEFF1;
+    background-color: white;
     border-radius: 0.3em;    
     text-align: center;
     padding: 1.25em;
+    opacity: 90%;
 }
 
 .logo p{

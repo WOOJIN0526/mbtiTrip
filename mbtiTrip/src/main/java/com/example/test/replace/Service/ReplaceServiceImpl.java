@@ -27,6 +27,8 @@ import com.example.testExcepion.Insert.InsertException;
 import com.example.testExcepion.Insert.InsertExceptionEnum;
 import com.example.testExcepion.Item.ItemException;
 import com.example.testExcepion.Item.ItemExceptionEnum;
+import com.example.testExcepion.Post.PostException;
+import com.example.testExcepion.Post.PostExceptionEnum;
 import com.example.testExcepion.updated.UpdateException;
 import com.example.testExcepion.updated.UpdateExceptionEnum;
 
@@ -88,19 +90,12 @@ public class ReplaceServiceImpl implements ReplaceService{
 		if(itemId == null) {
 			throw new ItemException(ItemExceptionEnum.ITEM_NOT_FOUND);
 		}
-		Optional<ItemDTO> adventure = this.itemDAO.findById(itemId);
-		if(adventure.isEmpty()) {
-			throw new ItemException(ItemExceptionEnum.ITEM_NOT_FOUND);
-		}
-		  if (adventure.isPresent()) {
-	        	ItemDTO itemDto = adventure.get();        	
-	        	itemDto.setView(itemDto.getView()+1);        	
-	        	this.itemDAO.create(itemDto);
-	        	userHistoryService.userViewItem(itemDto, principal);
-	            	return itemDto;
-	        } else {
-	            throw new DataNotFoundException("question not found");
-	        }	
+		ItemDTO replace = this.itemDAO.findById(itemId);
+		      	
+		replace.setView(replace.getView()+1);        	
+    	this.itemDAO.create(replace);
+    	userHistoryService.userViewItem(replace, principal);
+        	return replace;	        	
 	}
 
 	@Override
@@ -117,8 +112,12 @@ public class ReplaceServiceImpl implements ReplaceService{
 
 	@Override
 	public void remove(Integer itemId) throws Exception {
-		// TODO Auto-generated method stub
-		itemDAO.deleteItem(itemId);
+		try{
+			itemDAO.deleteItem(itemId);
+		}catch(Exception e) {
+			throw new PostException(PostExceptionEnum.POST_UNABLE_TO_DELETE);
+		}
+		
 	}
 
 	@Override

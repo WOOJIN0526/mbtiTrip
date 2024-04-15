@@ -17,6 +17,9 @@ public class ItemException extends RuntimeException{
 		}
 		
 		
+		/*
+		 * Exception 반응 테스트 완료  4.15 작업자 신성진
+		 * */
 		public static void validationItem(ItemDTO itemDTO) {
 			//TITLE ck
 			if(itemDTO.getItemName() == null) {
@@ -56,7 +59,6 @@ public class ItemException extends RuntimeException{
 		private static boolean titleCk(ItemDTO itemDTO) {
 			String itemName = itemDTO.getItemName();
 			boolean valid = Pattern.matches("^[a-zA-Z0-9가-힣]*$", itemName);
-			
 			return !valid;
 			
 		}

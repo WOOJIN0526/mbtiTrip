@@ -2,10 +2,12 @@ package com.example.testExcepion.Item;
 
 import org.springframework.http.HttpStatus;
 
+import com.example.testExcepion.ExceptionCode;
+
 import lombok.Getter;
 
 @Getter
-public enum ItemExceptionEnum {
+public enum ItemExceptionEnum implements ExceptionCode {
 		ITEM_UPLOAD_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "ITEM_001", "해당 정보를 업로드 하지 못했습니다."),
 		ITEM_USER_NOT_FOUND(HttpStatus.NOT_FOUND, "ITEM_002", "해당 유저의 정보를 찾을 수 없습니다. 다시 로그인 해주세요"),
 		ITEM_NOT_FOUND(HttpStatus.NOT_FOUND, "ITEM_003", "해당 아이템 정보를 찾을 수 없습니다."),

@@ -10,6 +10,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.test.GCSDTO.GCSDTO;
@@ -17,11 +18,15 @@ import com.example.testExcepion.GCSS.GCSSException;
 import com.example.testExcepion.GCSS.GCSSExceptionEnum;
 import com.example.testExcepion.Item.ItemException;
 import com.example.testExcepion.Item.ItemExceptionEnum;
+import com.example.testExcepion.Utile.NotSupportMediaTypeException;
+import com.example.testExcepion.Utile.UtileExceptionCode;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
+
+import jakarta.transaction.NotSupportedException;
 
 @Service
 public class GCSServiceImpl implements GCSService{
@@ -33,6 +38,9 @@ public class GCSServiceImpl implements GCSService{
 	@Value("${spring.cloud.gcp.storage.project-id}")
 	private String projectId;
 	
+	/*허용하는 파일 업로드 확장자 명 정의 */
+	private String[] mediaType = {"jpeg", "jpg", "png", "gif"};
+	
 	@Override
 	/**
 	 * 주어진 MultipartFile 객체를 사용하여 파일을 버킷에 업로드합니다.
@@ -41,6 +49,7 @@ public class GCSServiceImpl implements GCSService{
 	 */
 	public String uploadObject(MultipartFile file)  {
 		// try-with-resources를 통해 자동으로 close메소드를 호출
+		exeCk(file);
 	    try (InputStream keyFile = ResourceUtils.getURL(classPath).openStream()) {
 	        Storage storage = StorageOptions.newBuilder()
 	                .setCredentials(GoogleCredentials.fromStream(keyFile))
@@ -62,6 +71,26 @@ public class GCSServiceImpl implements GCSService{
 	    }
 	}
 
+	
+	/*
+	 * @Param file = MultipartFile 타입의 파라미터 
+	 * StringUtils의 내장 메소드를 사용해, 확장자 추출
+	 * 미리 선언된 배열과 일치하는 지 확인 
+	 * 동일하지 않다면 exception throw
+	 * */
+	private void exeCk(MultipartFile file) {
+		boolean ck = true;
+		String exe = StringUtils.getFilenameExtension(file.getOriginalFilename()); 
+		for(String key : mediaType) {
+			if(key.equals(exe)) {
+				ck = false;
+			}
+		}
+		if(ck) {
+			throw new NotSupportMediaTypeException(UtileExceptionCode.UNSUPPORTED_MEDIA_TYPE);
+		}
+	}
+	
 
 	@Override
 	/**

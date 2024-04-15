@@ -197,7 +197,7 @@
 		<![CDATA[
 		update iTemView 
 		set viewRating = viewRating +1
-		where itemId = #{itemId};
+		where itemID = #{itemID};
 		]]>
 	</update>
 

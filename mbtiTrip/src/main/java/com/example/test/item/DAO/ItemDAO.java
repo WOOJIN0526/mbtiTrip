@@ -70,7 +70,7 @@ public class ItemDAO {
 
 
 
-	public Optional<ItemDTO> findById(Integer itemid) {
+	public ItemDTO findById(Integer itemid) {
 		// TODO Auto-generated method stub
 		return this.sqlSessiontemplate.selectOne("item.findById", itemid);
 	}

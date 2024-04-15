@@ -1,88 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout.html}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="adventure_detail.css">
-    <!-- <link rel="stylesheet" th:href="@{adventure_detail/adventure_detail.css}"> -->
+    <title>Item Detail</title>
+	<link rel="stylesheet" th:href="@{/common/common.css}"/>
+    <link rel="stylesheet" th:href="@{/adventure_detail/adventure_detail.css}">
 </head>
 <body>
-    <section id="contents">
-        <div id="adventure_detail">
-            <!-- 해당 여행지 -->
-            <h1>여좌천로망스다리</h1>
-            <!-- 구성 -->
-            <div class="detail_tab">                
-                <ul>
-                    <li><a href="#photo_zone"><span>사진</span></a></li>
-                </ul>
-                <ul>
-                    <li><a href="#detail_text"><span>상세설명</span></a></li>
-                    
-                    
-                </ul>
-                <ul>    
-                    <li><a href="#review"><span>리뷰</span></a></li>
-                </ul>
-            </div>
-            <!-- 사진 -->
-                <div class="photo__img">
-                    <div class="photo__inner">
-                        <div class="photo"><img src="진해/진해_여좌천로망스다리.jpg" alt=""></div>
-                            <!-- <div class="photo">
-                                <img src="진해/진해_진해드림로드.jpg" alt="">
-                            </div>
-                            <div class="photo">
-                                <img src="진해/진해_웅천도요지전시관.jpg" alt="">
-                            </div> -->
-                    </div>     
-                </div>        
-            <!-- 설명 -->
-            <div id="detail_text">
-                <h2>상세설명</h2>
-                <h6></h6>
-                <p>진해의 대표적인 벚꽃명소로 약 1.5km에 걸쳐 하천 일대에 눈부신 벚꽃터널이 형성되는 곳이다. 
-                    MBC드라마 ‘로망스’의 배경이 된 여좌천로망스다리는 진해를 찾는 관광객들의 벚꽃 나들이 코스로 
-                    유명하며 로망스 다리에서 사랑을 고백하면 사랑이 이루어진다는 이야기도 전해지고 있으며,
-                    경관조명 시설이 갖추어져 있어 늦은 밤에도 아름답고 탐스러운 벚꽃 세상을 누구나 자유롭게 만끽할 수 있다.  </p>
-            </div>
+	<section class="itemBody"layout:fragment="content">
+		<div class="container" th:data-value="${item.itemID}">
+		    <div class="item-details">
+		        <h1 class="item-name" th:text="${item.itemName}"></h1>
+				<div class="imgCon">
+					<div class="img_box" th:each="img,index:${item.ImgeUrl}" th:data-value="${index.index}">
+						<img th:src="${img}" alt="로딩실패" >
+					</div>
+				</div>
+				<div class="imgCon_mini">
+					<div class="img_box_mini" th:each="img,index:${item.ImgeUrl}">
+						<img th:src="${img}" alt="로딩실패" class="img_mini" th:data-value="${index.index}" onclick="changeImg(this)">
+					</div>
+				</div>
+		        <div class="item-info">
+		            <p class="info-item">Location: <span th:text="${item.location}"></span></p>
+		            <p class="info-item">Tel: <span th:text="${item.tel}"></span></p>
+		            <p class="info-item">Contents: <span th:text="${item.contents}"></span></p>
+		            <p class="info-item">View: <span th:text="${item.view}"></span></p>
+<!--		            <p class="info-item">추천: <span th:text="${#sets.size(item.uprating)}"></span></p>-->
+		        </div>
+				
+		    </div>
+			<script th:src="@{/adventure_detail/adventure_detail.js}"></script>
+		</div>
+		<section class="cart_box">
+			<div class="date_box">
+				<h1>시작일</h1>
+				<input type="date" id="start" onchange="chkdate(this)">
+				<h1>종료일</h1>
+				<input type="date" id="end" onchange="handleDateChange(this)">
+				
+			</div>
+			<p class="info-item">Price: <span th:text="${item.price}" class="price" th:data-value="${item.price}"></span></p>
+			
+		    <button onclick="addCart()">Add Cart</button>
+		</section>
+	</section>
 
-            <div id="tel_and_price">
-                <h2>기타정보</h2>
-                <h6></h6>
-                <p>전화번호 010-1234-5678</p>
-                <p>1인가격 : 0</p>
-            </div>
-
-            <!-- 리뷰 -->
-            <div id="review">
-                <h2>리뷰란</h2>
-                <textarea id="wirte_from" placeholder="로그인 후 소중한 댓글을 남겨주세요."></textarea>
-                <div  class="oK_button">
-                    <input type="button" id="wirte_button" onclick="getTextareaValue()" value="확인">
-                </div>
-                <div id="review_list">
-                    <ul>
-                        <li>
-                            <div id="user_id">trveldog</div>
-                            <div id="review_text">동화처럼 예쁘고 힐링그차체였어요</div>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <div id="user_id">trveldog</div>
-                            <div id="review_text">동화처럼 예쁘고 힐링그차체였어요</div>
-                        </li>
-                    </ul>
-
-                </div>
-            </div>
-              
-
-        </div>
-    </section>
-    <script src="adventure_detail.js"></script>
-    <!-- <script th:src="@{adventure_detail/adventure_detail.js}"></script> -->
 </body>
 </html>

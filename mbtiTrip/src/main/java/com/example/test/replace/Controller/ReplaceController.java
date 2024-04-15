@@ -105,8 +105,8 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
 	
 	
 	//게시글 읽기 화면
-	@RequestMapping(value = "/replace/detail", method = RequestMethod.GET)
-	public String read(Model model, Integer itemId, Principal principal) throws Exception{
+	@RequestMapping(value = "/replace/detail/{itemId}", method = RequestMethod.GET)
+	public String read(Model model,@PathVariable Integer itemId, Principal principal) throws Exception{
 
 	ItemDTO item = rpService.getPost(itemId, principal);
 			

@@ -25,6 +25,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.example.test.Adventure.DTO.AdventureDTO;
 import com.example.test.POST.DAO.PostDAO;
 import com.example.test.POST.DTO.PostDTO;
+import com.example.test.POST.Service.PostServiceImpl;
 import com.example.test.User.DAO.UserCartDAO;
 import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DAO.UserHistoryDAO;
@@ -37,6 +38,9 @@ import com.example.test.User.Service.UserCartService;
 import com.example.test.User.Service.UserService;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.replace.DTO.ReplaceDTO;
+import com.example.testExcepion.Item.ItemException;
+import com.example.testExcepion.Post.PostException;
+import com.example.testExcepion.Post.PostExceptionEnum;
 import com.example.testExcepion.SignUP.SignUpException;
 import com.example.testExcepion.SignUP.SignUpExceptionEunm;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -80,10 +84,15 @@ class MbtiTripApplicationTests {
 	
 	@Test
 	void contextLoads() {
+		PostDTO post = new PostDTO();
+		post.setUserName("testUser4");
+		postValidationCK(post);
 	
-		int ck = postDao.titleCk("testTitleOne");
-		log.info("{}", ck);
-		boolean userCk = false;
+//		ItemDTO post = new ItemDTO();
+//		ItemException.validationItem(post);
+//		int ck = postDao.titleCk("testTitleOne");
+//		log.info("{}", ck);
+//		boolean userCk = false;
 //		if(userDAO.getByUserId("testUser4").getUserId() != null) {
 //			userCk = true;
 //		
@@ -395,7 +404,43 @@ class MbtiTripApplicationTests {
 
 
 
+	private void postValidationCK(PostDTO postDTO) {
+		if(postDTO.getUserName() == null) {
+			throw new PostException(PostExceptionEnum.POST_PERMISSION_DENIED);
+		}
+		switch(titleCk(postDTO)) {
+			case 0 : break;
+			case 1 : throw new PostException(PostExceptionEnum.POST_UNABLE_TO_TITLE);
+			case 2 : throw new PostException(PostExceptionEnum.POST_UNABLE_TO_TITLE2);
+			case 3:  throw new PostException(PostExceptionEnum.POST_UNABLE_TO_TITLE3);
+		}
+		if(postDTO.getContent().isEmpty()) {
+			throw new PostException(PostExceptionEnum.POST_UNABLE_TO_ContentsNULLPOINT);
+		}
+		if(postDTO.getContent().length() > 500) {
+			throw new PostException(PostExceptionEnum.POST_UNABLE_TO_ContentsSize);
+		}	
+	}
 	
+	
+	private int titleCk(PostDTO postDTO) {
+		int check = 0;
+		if(postDTO.getTitle().isEmpty()) {
+			throw new PostException(PostExceptionEnum.POST_UNABLE_TO_TITLE4);
+		}
+		boolean ck = Pattern.matches("^[a-zA-Z0-9가-힣]*$", postDTO.getTitle());
+		log.info("titleCk == > {}", postDTO.getTitle());
+		if(!ck) {
+			check=1;
+		}
+		if(postDTO.getTitle().length() > 15){
+			check=2;
+		}
+		if(postDao.titleCk(postDTO.getTitle()) != 0) {
+			check = 3;
+		}
+		return check;
+	}
 	
 	
 	
