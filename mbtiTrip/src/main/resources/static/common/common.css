@@ -1,4 +1,4 @@
-/* :root{
+:root{
 	--blurry-main:#FFE6E6;
 	--main-color:#ffd8e4;
 	--vivid-main:#FFABE1;
@@ -7,7 +7,7 @@
 	--black:#0000;
 	--white:#FFFFFF;
 	--gray:#ddd;
-} */
+}
 *{
   box-sizing: border-box;
   margin: 0;
