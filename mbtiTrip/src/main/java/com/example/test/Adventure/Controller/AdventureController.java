@@ -1,7 +1,7 @@
 package com.example.test.Adventure.Controller;
 
 import java.security.Principal;
-
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,7 +49,7 @@ public class AdventureController {
 	
 	//게시글 목록 화면
 	@RequestMapping(value = "/adventure/list", method = RequestMethod.GET)
-	public void list(Model model, Page page) throws Exception{
+	public String list(Model model, Page page) throws Exception{
 
 		Integer totalCount = null;
 		Integer rowPerPage = null;
@@ -85,13 +85,15 @@ public class AdventureController {
 		
 		if(keyword == null || keyword == ""){
 			page.setKeyword("");
-			model.addAttribute("list", adService.list(page));
+			List<ItemDTO> list = adService.list(page);
+			model.addAttribute("list", list);
 		} else {
 			page.setKeyword(keyword);
 			model.addAttribute("list", adService.search(page));
 		}
 
 		model.addAttribute("page", page);
+		return "itemList";
 
 	}
 	

@@ -2,6 +2,8 @@ package com.example.test.replace.Service;
 
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,9 +39,28 @@ public class ReplaceServiceImpl implements ReplaceService{
 	
 	@Override
 	public List<ItemDTO> list(Page page) throws Exception {
-		// TODO Auto-generated method stub
-		return itemDAO.adventureList(page);
+	    // 아이템 목록을 가져옵니다.
+	    List<ItemDTO> items = itemDAO.replaceList(page);
+	    
+	    // 각 아이템에 대해 이미지 URL을 가져와서 설정합니다.
+	    for (ItemDTO item : items) {
+	        int itemID = item.getItemID();
+	        List<String> url = itemDAO.getUrl(itemID); // 아이템의 이미지 URL을 가져옵니다.
+	        
+	        // 등록된 이미지가 없을 경우 "0"을 추가합니다.
+	        if (url.isEmpty()) {
+	            url.add("0");
+	        }
+	        
+	        // 리스트를 배열로 변환하여 아이템에 이미지 URL 배열을 설정합니다.
+	        String[] imageUrlArray = url.toArray(new String[0]);
+	        System.out.println(imageUrlArray.toString()+"HERE!!!");
+	        item.setImgeUrl(imageUrlArray);
+	    }
+	    
+	    return items;
 	}
+
 
 	@Override
 	public void create(ItemDTO post) throws Exception {
