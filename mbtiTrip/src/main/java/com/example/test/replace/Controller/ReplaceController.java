@@ -53,8 +53,8 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
 	
 	
 	//게시글 목록 화면
-	@RequestMapping(value = "/replace", method = RequestMethod.GET)
-	public void list(Model model, Page page) throws Exception{
+	@RequestMapping(value = "/replace/list", method = RequestMethod.GET)
+	public String list(Model model, Page page) throws Exception{
 
 			Integer totalCount = null;
 			Integer rowPerPage = null;
@@ -97,6 +97,7 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
 			}
 
 			model.addAttribute("page", page);
+			return "itemList";
 
 	}
 	
@@ -104,8 +105,8 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
 	
 	
 	//게시글 읽기 화면
-	@RequestMapping(value = "/replace/detail", method = RequestMethod.GET)
-	public String read(Model model, Integer itemId, Principal principal) throws Exception{
+	@RequestMapping(value = "/replace/detail/{itemId}", method = RequestMethod.GET)
+	public String read(Model model,@PathVariable Integer itemId, Principal principal) throws Exception{
 
 	ItemDTO item = rpService.getPost(itemId, principal);
 			

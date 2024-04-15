@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item List</title>
+	<link rel="stylesheet" th:href="@{/common/common.css}"/>
+	<link rel="stylesheet" th:href="@{/item/item.css}"/>
+</head>
+<body>
+    <section layout:fragment="content" class="itemBody">
+		<div class="item-list">
+	        <div th:each="item : ${list}" class="item">
+				<div class="Img" th:if="${item.ImgeUrl != null}">
+			        <img th:src="${item.ImgeUrl[0]}" alt="로딩 실패">
+				</div>
+	            <div>
+					<a th:href="@{'/'+${item.Type}+'/detail/' + ${item.itemID}}"><h2 th:text="${item.itemName}"></h2></a>
+		            <p>Location: <span th:text="${item.location}"></span></p>
+		            <p>Tel: <span th:text="${item.tel}"></span></p>
+		            <p>Contents: <span th:text="${item.contents}"></span></p>
+		            <p>View: <span th:text="${item.view}"></span></p>
+		            <p>Rating: <span th:text="${item.ratingAvg}"></span></p>
+				</div>
+	        </div>
+	    </div>
+		<!-- 페이지 번호 표시 -->
+<!--		<div th:if="${page.totalPages > 1}">
+		    <ul class="pagination">
+		        <li th:if="${page.hasPrevious()}">
+		            <a th:href="@{${'/?pageNum=' + (page.pageNum - 1) + '&keyword=' + page.keyword}}">Previous</a>
+		        </li>
+		        <li th:each="pageNumber : ${#numbers.sequence(1, page.totalPages)}" th:class="${pageNumber == page.pageNum ? 'active' : ''}">
+		            <a th:href="@{${'/?pageNum=' + pageNumber + '&keyword=' + page.keyword}}" th:text="${pageNumber}">1</a>
+		        </li>
+		        <li th:if="${page.hasNext()}">
+		            <a th:href="@{${'/?pageNum=' + (page.pageNum + 1) + '&keyword=' + page.keyword}}">Next</a>
+		        </li>
+		    </ul>
+		</div>-->
+	</section>
+</body>
+</html>

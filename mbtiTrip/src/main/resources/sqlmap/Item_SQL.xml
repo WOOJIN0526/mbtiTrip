@@ -9,12 +9,12 @@
 	</insert>
 
 
-	<select id="replaceList" resultType="hashMap">
+	<select id="replaceList" resultType="com.example.test.item.DTO.ItemDTO">
 		select * from Item
 		where Type ="replace"
 	</select>
 	
-	<select id="adventure" resultType ="hashMap">
+	<select id="adventure" resultType ="com.example.test.item.DTO.ItemDTO">
 		select * from Item
 		where Type ="adventure"
 	</select>
@@ -46,11 +46,18 @@
 		where itemId = #{itemID}
 	</delete>
 	
-	<select id="findById" resultType="int">
+<!-- 	<select id="findById" resultType="int">
        <![CDATA[
 		select ItemID
 		from Item 
 		where userName = #{userName}
+       ]]>
+    </select> -->
+	<select id="findById" resultType="com.example.test.item.DTO.ItemDTO">
+       <![CDATA[
+		select *
+		from Item 
+		where itemID = #{itemid}
        ]]>
     </select>
     
@@ -83,8 +90,8 @@
 	<![CDATA[
 			Update Item 
 			set
-			Type=#{Type}, mbti=#{mbti}, userName=#{userName}, price=#{price}, itemName=#{itemName}, location=#{location}, tel=#{tel}, content=#{contents}, modifyDate=#{modifyDate}, imgeUrl=#{imgUrl}
-			where itemId = #{itemID}
+			Type=#{Type}, mbti=#{mbti}, price=#{price}, itemName=#{itemName}, location=#{location}, tel=#{tel}, contents=#{contents},view=#{view}
+			where itemID=#{itemID}
 		]]>
 	</update>
 	

@@ -1,7 +1,7 @@
 package com.example.test.Adventure.Controller;
 
 import java.security.Principal;
-
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,7 +49,7 @@ public class AdventureController {
 	
 	//게시글 목록 화면
 	@RequestMapping(value = "/adventure/list", method = RequestMethod.GET)
-	public void list(Model model, Page page) throws Exception{
+	public String list(Model model, Page page) throws Exception{
 
 		Integer totalCount = null;
 		Integer rowPerPage = null;
@@ -85,23 +85,25 @@ public class AdventureController {
 		
 		if(keyword == null || keyword == ""){
 			page.setKeyword("");
-			model.addAttribute("list", adService.list(page));
+			List<ItemDTO> list = adService.list(page);
+			model.addAttribute("list", list);
 		} else {
 			page.setKeyword(keyword);
 			model.addAttribute("list", adService.search(page));
 		}
 
 		model.addAttribute("page", page);
+		return "itemList";
 
 	}
 	
 
 	
 	//게시글 읽기 화면
-	@RequestMapping(value = "/adventure/detail", method = RequestMethod.GET)
-	public String read(Model model, Integer itemId, Principal principal) throws Exception{
+	@RequestMapping(value = "/adventure/detail/{itemId}", method = RequestMethod.GET)
+	public String read(Model model,@PathVariable("itemId") Integer itemId, Principal principal) throws Exception{
 
-		ItemDTO item = adService.getPost(itemId);
+		ItemDTO item = adService.getPost(itemId, principal);
 		
 		String userName = "";
 		if( principal !=null ){
@@ -111,19 +113,12 @@ public class AdventureController {
 			model.addAttribute("userName", userName);
 		}
 
-		UserDTO writerName = item.getUsername();
-		if( writerName.equals(writerName)){
-			model.addAttribute("set", true); // 작성자일 경우만 수정, 삭제 노출
-		}
-
-
 		model.addAttribute("item", item);
 		
 
 		return "adventure_detail";
 	}
 
-    
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/adventure/create", method = RequestMethod.GET)
     public String Create(Model model, ItemDTO item, Principal user) throws Exception{
@@ -139,7 +134,7 @@ public class AdventureController {
 
    
     //@PostMapping("/create")
-    @RequestMapping(value ="/adventure/creat", method = RequestMethod.POST)
+    @RequestMapping(value ="/adventure/create", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<String> create(ItemDTO itemdto){
     	itemdto.setType(ItemType.adventure);
@@ -161,7 +156,7 @@ public class AdventureController {
    
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/adventure/modify", method = RequestMethod.GET)
-    public String Modify(Model model, Integer itemId, Principal user) throws Exception{
+    public String Modify(Model model, Integer itemId, Principal user, Principal princiapl) throws Exception{
         ItemDTO item = this.adService.getPost(itemId);
         item.setType(ItemType.adventure);
         if(!item.getUsername()

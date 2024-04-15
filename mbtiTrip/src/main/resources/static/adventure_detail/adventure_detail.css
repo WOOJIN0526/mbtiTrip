@@ -1,96 +1,76 @@
-*{
-    padding: 0;
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
 }
-#contents{
-    display: flex;
-    justify-content: center;
+.itemBody{
+	display: flex;
+	justify-content: center;
+	padding: 10rem 0 5rem;
+	gap: 1rem;
 }
+.container,.cart_box {
 
-#adventure_detail{
-    width: 50rem;
-    display: flex;
-    flex-direction: column;
-}
+    max-width: 800px;
 
-h1{
-    margin-top: 1.87rem;
-    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
-.detail_tab{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    border: 1px solid;
-    text-align: center;
-    padding: 0.62rem;
-    margin-top: 0.62rem;
+.img_box img{
+	width: 100%;
 }
-
-.detail_tab ul li{
-    list-style: none;
-    
+.imgCon_mini{
+	width: 100%;
+	display: flex;
+	overflow-x: scroll;
+	align-items: end;
+	
 }
-
-.detail_tab ul li a{
-    text-decoration-line: none;
-    color: black;
+.img_box_mini{
+	width: 10%;
+	background-size: auto;
 }
-
-.photo__img{
-    margin-top: 1.25rem;
-    margin-bottom: 5px;
+.img_mini{
+	width: 100%;
 }
-.photo__inner .photo img{
-    width: 50rem;
-    height: 32rem;
-    object-fit: cover;
+.item-details {
+    padding: 20px;
 }
 
-#detail_text{
-    margin-bottom: 1.87rem;
+.item-name {
+    font-size: 28px;
+    margin-bottom: 20px;
 }
 
-#tel_and_price{
-    margin-bottom: 1.87rem;
-    
+.item-info {
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
 }
 
-h6{
-    border: 0;
-    height: 2px;
-    background-color:  #d3d3d3;
+.info-item {
+    margin-bottom: 10px;
 }
 
-#review{
-    margin-bottom: 1.87rem; 
+.info-item span {
+    font-weight: bold;
 }
-
-#wirte_from{
-    width: 100%;
-    height: 5rem;
-    resize: none;
+.img_box.disVeiw{
+	display: none;
 }
-
-.oK_button{
-    margin-bottom: 1.25rem;
-    display: flex;
-    flex-direction: row-reverse;
+.cart_box,.date_box{
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 }
-
-.oK_button input{
-   
-    padding: 0.62rem;
-    border-radius: 0.3em;
-    background-color: #FFD8E4;
+.cart_box{
+	padding: 2rem;
 }
-
-
-
-#review_list ul{
-    background-color: #d3d3d3;
-    border: 1px solid;
-    border-color: white;
-    
+button{
+	padding: 0.5rem 1rem;
+	font-size: 1.2rem;
+}
+input[type="date"]{
+	font-size: 1.2rem;
 }

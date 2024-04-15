@@ -108,11 +108,10 @@ public class PostDAO {
 		this.sqlSessiontemplate.delete("post.replyDelete", answerId);
 	}
 	
-	
-
-	
-
-
+	public int titleCk(String title) {
+		int ck =this.sqlSessiontemplate.selectOne("post.titleCk", title);
+		return ck;
+	}
 	
 
 

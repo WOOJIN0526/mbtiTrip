@@ -49,7 +49,6 @@ public class UserServiceImpl implements UserService{
 	public int createUser(UserDTO userDTO) throws SignUpException{
 		vaildationUser(userDTO);
 		String userPassword = userDTO.getPassword();
-		log.info("userPassword : {}", userPassword);
 		String encodePassword = bcrypasswordEncoder.encode(userPassword);
 		userDTO.setPassword(encodePassword);
 		int result = this.userDao.insert(userDTO);
@@ -58,37 +57,6 @@ public class UserServiceImpl implements UserService{
 		}
 		return result;
 	
-	}
-	
-	private void vaildationUser(UserDTO userDTO) throws SignUpException{
-			if(userDao.idCk(userDTO)) {
-				/* ID 중복*/
-				throw new SignUpException(SignUpExceptionEunm.Signup_DUPLCATION_ID);
-			}
-			if(userNameVaildation(userDTO)) {
-				/*닉네임 특수문자 검사*/
-				throw new SignUpException(SignUpExceptionEunm.SignUP_Bad_NiCKNAME);
-			}
-			if(userDTO.getPassword().length() < 8) {
-				throw new SignUpException(SignUpExceptionEunm.Signup_BADPASSWORD);
-			}
-			if(userDao.nameCk(userDTO)) {
-				/*닉네임 중복 검사*/
-				throw new SignUpException(SignUpExceptionEunm.Signup_DUPLCATION_NiCKNAME);
-			}
-			if(userDao.mailCK(userDTO)) {
-				/*메일 중복 검사*/
-				throw new SignUpException(SignUpExceptionEunm.SignUP_DUPLICATION_EMAIL);
-			}				
-	}
-
-	//nickName 에 특수문자 포함여부 
-	public boolean userNameVaildation(UserDTO userdto) {
-		String userName = userdto.getUsername();
-		boolean vaild = Pattern.matches("^[a-zA-Z0-9가-힣]*$", userName);
-		//vaild가 true면 특수문자가 없다는 겨 
-		// 그니까 특수문자가 없을 땐 그냥 지나치도록, 반대값 리턴, == true = 특수문자 존재 
-		return !vaild;
 	}
 	
 	@Override
@@ -103,7 +71,6 @@ public class UserServiceImpl implements UserService{
 		}
 		return result;
 	}
-	
 	
 	@Override
 	public  Map<String, Object> login(UserDTO userdto) {
@@ -141,9 +108,7 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public Integer findByUID(String userName) {
-		log.info("User Service {}", userName);
 		Integer UID = userDao.getUID(userName);
-		log.info("User Service after {}", userName);
 		return UID;
 	}
 
@@ -166,8 +131,6 @@ public class UserServiceImpl implements UserService{
 	}
 
 	
-	
-	
 	/*이 아래 bis 관련 기능 */
 	@Override
 	public List<HashMap<String, Object>> getMyItem(Principal principal) {
@@ -189,7 +152,6 @@ public class UserServiceImpl implements UserService{
 		return myItem;
 	}
 	
-	
 
 	@Override
 	public List<HashMap<String,Object>> bisListput(List<HashMap<String,Object>> itemList, List<HashMap<String,Object>> viewList){
@@ -210,7 +172,36 @@ public class UserServiceImpl implements UserService{
 		return itemList;
 	}
 
+	private void vaildationUser(UserDTO userDTO) throws SignUpException{
+		if(userDao.idCk(userDTO)) {
+			/* ID 중복*/
+			throw new SignUpException(SignUpExceptionEunm.Signup_DUPLCATION_ID);
+		}
+		if(userNameVaildation(userDTO)) {
+			/*닉네임 특수문자 검사*/
+			throw new SignUpException(SignUpExceptionEunm.SignUP_Bad_NiCKNAME);
+		}
+		if(userDTO.getPassword().length() < 8) {
+			throw new SignUpException(SignUpExceptionEunm.Signup_BADPASSWORD);
+		}
+		if(userDao.nameCk(userDTO)) {
+			/*닉네임 중복 검사*/
+			throw new SignUpException(SignUpExceptionEunm.Signup_DUPLCATION_NiCKNAME);
+		}
+		if(userDao.mailCK(userDTO)) {
+			/*메일 중복 검사*/
+			throw new SignUpException(SignUpExceptionEunm.SignUP_DUPLICATION_EMAIL);
+		}				
+	}
 
+		//nickName 에 특수문자 포함여부 
+	private boolean userNameVaildation(UserDTO userdto) {
+		String userName = userdto.getUsername();
+		boolean vaild = Pattern.matches("^[a-zA-Z0-9가-힣]*$", userName);
+		//vaild가 true면 특수문자가 없다는 겨 
+		// 그니까 특수문자가 없을 땐 그냥 지나치도록, 반대값 리턴, == true = 특수문자 존재 
+		return !vaild;
+	}
 
 	
 
