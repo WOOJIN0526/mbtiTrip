@@ -285,11 +285,11 @@ table {
     color:rgb(61, 60, 60); 
 }
 
-.star {
+/* .star {
     font-size: 12px;
     color:rgb(30, 119, 115);
     font-weight: 800;
-}
+} */
 
 .count, .type {
     font-size: 12px;
@@ -353,7 +353,6 @@ content h3 {
 
 .con1 .intro .item h4{
     text-align:center;
-    color:#0087ea;
     margin-top:20px;
     margin-bottom:20px;
     font-weight: bold;
@@ -460,10 +459,6 @@ content h3 {
     */
 }
 
-.txt .date{
-    color: #179dff;
-}
-
 .txt .days{
     color:#999;
 }
@@ -535,10 +530,147 @@ content h3 {
 .con2 .plan .item .plan_inform .user{
     padding-left:20px;
     background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/11/dc9a965c-512e-4297-bb91-88fa47b3913eicon_view.png);
-    background-repeat: no-rpngepeat;
+    background-repeat: no-repeat;
     background-position-y: center; 
 }
 
+.all{
+    width:345px;
+    padding-top:10px;
+    padding-bottom:10px;
+    border: 1px solid #ddd;
+    text-align:center;
+    margin:0 auto;
+    background-color:white;
+    font-size:14px;
+    color:#666;
+}
+
+/*con2*/
+
+.con3_wrap{
+    width:1092px;
+    margin: 0 auto;
+    padding-top:70px;
+    padding-bottom:80px;
+    color: black;
+}
+
+.con3 li{
+    margin-right:15px;
+    margin-bottom:15px;
+    border:1px solid #ddd;
+    
+    box-sizing: border-box;
+}
+.con3 .trip{
+    margin-top:40px;
+}
+.con3 .trip_img{
+    position: relative;
+}
+
+.con3 .trip_img p{
+    position:absolute;
+    padding-left:20px;
+    background-image:url(../images/spot_cnt.png);
+    background-repeat: no-repeat;
+    font-size:20px;
+    color:white;
+    top:10px;
+    left:10px;
+
+}
+
+.con3 li:last-child{
+    margin-right:0px;
+}
+
+.trip1:after{
+    display:block;
+    clear:both;
+    content:'';
+}
+.trip1 li{
+    float:left;
+    height:310px;
+}
+
+.trip1 li:nth-child(1){
+    width:540px;
+}
+
+.trip1 li:nth-child(2){
+    width:260px;
+}
+
+.trip1 li:nth-child(3){
+    width:260px;
+}
+
+.trip1 .trip_img img{
+    width:100%;
+    height:160px;
+}
+/*trip1*/
+.trip2:after{
+    display:block;
+    clear:both;
+    content:'';
+}
+.trip2 li{
+    float:left;
+    height:310px;
+}
+
+.trip2 li:nth-child(1){
+    width:260px;
+}
+
+.trip2 li:nth-child(2){
+    width:260px;
+}
+
+.trip2 li:nth-child(3){
+    width:540px;
+}
+
+.trip2 .trip_img img{
+    width:100%;
+    height:160px;
+}
+
+.trip_img{
+    overflow:hidden;
+}
+
+.trip_img img{
+    transition:all 1s;
+}
+
+.trip_img img:hover{
+    transform:scale(1.2)
+}
+
+
+.trip_inform{
+    text-align:center;
+    padding-top:20px;
+    padding-right:10px;
+    padding-left:10px;
+}
+.trip_inform .title{
+    font-weight: bold;
+    margin-bottom:20px;
+}
+
+.trip_inform p:last-child{
+    font-size:14px;
+}
+
+
+
+/*con3*/
 
 .title1{
     font-size: 10px;
