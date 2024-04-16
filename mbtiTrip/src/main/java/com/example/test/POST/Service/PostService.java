@@ -41,7 +41,7 @@ public interface PostService {
 		 
 		
 		//게시글카테고리 아이디 
-		public List<PostDTO> findPostByCategoryID(Long postCategoryID);
+		public List<PostDTO> findPostByCategoryID(PostDTO postDTO);
 
 		//댓글 등록
 		public void replyRegister(AnswerDTO reply) throws Exception;
