@@ -13,14 +13,17 @@ import com.example.test.paging.Page;
 
 public interface PostService {
 
+		// 게시글 목록 조회
+		public List<PostDTO> list() throws Exception;
+	
 		//게시글 목록 조회
 		public List<PostDTO> list(Page page) throws Exception;
 
 		//게시글 쓰기
-		public void create(PostDTO post) throws Exception;
+		public int create(PostDTO post) throws Exception;
 
 		//게시글 읽기
-		public PostDTO getPost(Integer postId) throws Exception;
+		public PostDTO getPost(Integer postId,Principal principal) throws Exception;
 
 		//게시글 수정
 		public void  modify(PostDTO post) throws Exception;

@@ -175,6 +175,11 @@ document.getElementById("sign_up_btn").addEventListener("click",()=>{
         }
         
     }).catch((error) => {
-        alert(error.message);
+		let message =JSON.parse(error);
+		console.log(message.message);
+		alert(message.message);
+		console.dir(message);
+
+
     });
 });

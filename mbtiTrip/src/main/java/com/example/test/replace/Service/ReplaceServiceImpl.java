@@ -2,6 +2,7 @@ package com.example.test.replace.Service;
 
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -76,13 +77,8 @@ public class ReplaceServiceImpl implements ReplaceService{
 
 	@Override
 	public void create(ItemDTO post) throws Exception {
-		ItemException.validationItem(post);
-		try {
-			itemDAO.create(post);
-		}
-		catch(Exception e){
-			throw new InsertException(InsertExceptionEnum.INSERT_SERVER_ERROR);
-		}
+		post.setUpdateDate(LocalDateTime.now());
+		itemDAO.create(post);
 	}
 
 	@Override
@@ -139,7 +135,7 @@ public class ReplaceServiceImpl implements ReplaceService{
 	@Override
 	public Integer totalCount() throws Exception {
 		// TODO Auto-generated method stub
-		return itemDAO.getTotal();
+		return itemDAO.totalCount();
 	}
 
 	@Override
@@ -166,6 +162,13 @@ public class ReplaceServiceImpl implements ReplaceService{
 		int result =itemDAO.createImg(img);
 		}
 		return 0;
+	}
+
+
+	@Override
+	public void modify(ItemDTO post) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 

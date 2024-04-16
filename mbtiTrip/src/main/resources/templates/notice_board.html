@@ -44,8 +44,8 @@
 	        <tr th:each="post, iterStat : ${list}">
 	            <td th:text="${iterStat.index + 1}"></td>
 	            <td th:text="${post.userName}"></td>
-	            <td th:text="${post.title}"></td>
-	          <!--  <td th:text="${post.date}"></td>-->
+	            <td><a th:href="@{'/post/noticeBoard/detail/'+${post.postID}}" th:text="${post.title}"></a></td>
+	          	<td th:text="${post.updateDate}"></td>
 	            <td th:text="${post.views}"></td>
 	        </tr>
 	    </table>
@@ -84,11 +84,7 @@
 						var keyword = "[[${page.keyword}]]";
 						
 						
-						// 페이지당 게시글 수 초기화
-						$("#rowsPerPage option[value=" + rowsPerPage + "]").attr("selected", "selected");
 						
-						// 노출 페이지 수 초기화
-						$("#pageCount option[value=" + pageCount + "]" ).attr("selected", "selected");
 						
 						
 					});

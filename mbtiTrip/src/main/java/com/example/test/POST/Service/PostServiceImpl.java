@@ -27,11 +27,14 @@ import com.example.testExcepion.Post.PostExceptionEnum;
 import com.example.testExcepion.updated.UpdateException;
 import com.example.testExcepion.updated.UpdateExceptionEnum;
 
+import groovy.util.logging.Log4j;
+import lombok.extern.log4j.Log4j2;
 
 
 
 
 
+@Log4j2
 @Service
 public  class PostServiceImpl implements PostService {
 
@@ -51,7 +54,7 @@ public  class PostServiceImpl implements PostService {
 
 	
 	@Override
-	public List<PostDTO> list(Page page) throws Exception {
+	public List<PostDTO> list() throws Exception {
 		// TODO Auto-generated method stub
 		return postDAO.list();
 	}
@@ -59,10 +62,22 @@ public  class PostServiceImpl implements PostService {
 
 
 	@Override
+
+	public List<PostDTO> list(Page page) throws Exception {
+		// TODO Auto-generated method stub
+		return postDAO.listWithPage(page);
+	}
+
+
+
+	@Override
 	public void create(PostDTO post)  {
 		postValidationCK(post);
+
 		try {
-			postDAO.create(post);
+			int result =postDAO.create(post);
+			
+			return result;
 		}catch(Exception e) {
 			throw new InsertException(InsertExceptionEnum.INSERT_SERVER_ERROR);
 		}
@@ -70,16 +85,14 @@ public  class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public PostDTO getPost(Integer postId) throws Exception {
-		Optional<PostDTO> post = this.postDAO.findById(postId);
-		  if (post.isPresent()) {
-	        	PostDTO postDto = post.get();        	
-	        	postDto.setViews(postDto.getViews()+1);        	
-	        	this.postDAO.create(postDto);
-	            return postDto;
-	        } else {
-	            throw new DataNotFoundException("question not found");
-	        }	
+	public PostDTO getPost(Integer postId,Principal principal) throws Exception {
+		PostDTO post = this.postDAO.findById(postId);
+		        	
+    	post.setViews(post.getViews()+1);        	
+    	this.postDAO.update(post);
+    	userHistoryService.userViewPost(post, principal);
+        return post;
+	        	
 	}
 
 
@@ -225,10 +238,13 @@ public  class PostServiceImpl implements PostService {
 			throw new PostException(PostExceptionEnum.POST_PERMISSION_DENIED);
 		}
 		switch(titleCk(postDTO)) {
-			case 0 : break;
+			case 0 : log.info("titleCK 타냐? ==>{}"); break;
 			case 1 : throw new PostException(PostExceptionEnum.POST_UNABLE_TO_TITLE);
-			case 2 : throw new PostException(PostExceptionEnum.POST_UNABLE_TO_TITLE2);
-			case 3:  throw new PostException(PostExceptionEnum.POST_UNABLE_TO_TITLE3);
+			case 2 : throw new PostException(PostExceptionEnum.POST_UNABLE_TO_TITLE3);
+			case 3:  throw new PostException(PostExceptionEnum.POST_UNABLE_TO_TITLE2);
+		}
+		if(postDTO.getContent() == null) {
+			throw new PostException(PostExceptionEnum.POST_UNABLE_TO_ContentsNULLPOINT);
 		}
 		if(postDTO.getContent().length() > 500) {
 			throw new PostException(PostExceptionEnum.POST_UNABLE_TO_ContentsSize);
@@ -238,7 +254,11 @@ public  class PostServiceImpl implements PostService {
 	
 	private int titleCk(PostDTO postDTO) {
 		int check = 0;
+		if(postDTO.getTitle() == null) {
+			throw new PostException(PostExceptionEnum.POST_UNABLE_TO_TITLE4);
+		}
 		boolean ck = Pattern.matches("^[a-zA-Z0-9가-힣]*$", postDTO.getTitle());
+		log.info("titleCk == > {}", postDTO.getTitle());
 		if(!ck) {
 			check=1;
 		}

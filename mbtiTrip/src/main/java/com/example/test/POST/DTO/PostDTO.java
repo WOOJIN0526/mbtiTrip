@@ -33,7 +33,7 @@ public class PostDTO {
 	
 	private String content;
 	
-	private Set<UserDTO> suggestion;
+	private Integer suggestion;
 	
 	private LocalDateTime updateDate;
 	
@@ -45,6 +45,7 @@ public class PostDTO {
 	
 	private int views;
 	
+	private Integer itemID;
 	
 
 	
@@ -54,6 +55,8 @@ public class PostDTO {
                 "postCategoryID=" + postCategoryID +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
+                ", userName='" + userName + '\'' +
+                ", itemID='" + itemID + '\'' +
                 '}';
     }
 }

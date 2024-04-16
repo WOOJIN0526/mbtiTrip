@@ -21,20 +21,32 @@
 		]]>
 	</select>	        
 	
-	
-	
-	<insert id="create" parameterType="hashMap">
+	<select id="listWithPage" parameterType="hashMap" resultType="hashMap">
 		<![CDATA[
-			INSERT INTO Post( title, postCategoryID, content, writer, views, suggestion ) 
-			VALUES ( #{title},#{PostCateGoryID}, #{Content}, #{writer}, #{views}, #{suggestion} )
+			SELECT @rownum := @rownum+1 PostId, p.*
+			FROM ( 
+					SELECT @rownum := #{startRowIndex} 
+					FROM dual
+				 ) tmp
+				 ,Post p
+			ORDER BY updateDate DESC
+			        
+			LIMIT #{startRowIndex}, #{rowsPerPage}			
+		]]>
+	</select>
+	
+	<insert id="create" useGeneratedKeys="true" keyProperty="postID">
+		<![CDATA[
+			INSERT INTO Post( title, PostCateGoryID, Content,userName,itemID,UpdateDate) 
+			VALUES ( #{title},#{postCategoryID},#{content},#{userName},#{itemID},#{updateDate})
 		]]>	
 	</insert>
 	
-	<select id="findById" resultType="hashmap">
+	<select id="findById" resultType="com.example.test.POST.DTO.PostDTO">
 	 <![CDATA[
-		SELECT PostID 
+		SELECT PostID as postID,PostCateGoryID as postCategoryID,userName,title,Content as content,suggestion,views,UpdateDate as updateDate,itemID
 		FROM Post
-		WHERE userName=#{userName} 
+		WHERE PostID=#{postId} 
 	]]>
 	</select>
 	
@@ -42,9 +54,9 @@
 		<![CDATA[
 			UPDATE Post
 			SET   title = #{title}
-		     ,content = #{Content}
-		     ,writer = #{writer}
-		WHERE postID = #{PostID}
+		     ,Content = #{content}
+		     ,views = #{views}
+		WHERE PostID = #{postID}
 		]]>
 	</update>
 	
@@ -72,7 +84,7 @@
 	
 	<select id="searchByPage" resultType="hashmap">
 		<![CDATA[
-			SELECT @rownum := @rownum+1 AS row_no, P.*
+			SELECT @rownum := @rownum+1 AS PostId, P.*
 			FROM (
    					 SELECT @rownum := :startRowIndex
 					) AS tmp
@@ -84,13 +96,13 @@
 			ORDER BY 
     				updateDate DESC,
     				
-			LIMIT :startRowIndex, :rowsPerPage
+			LIMIT :startRowIndex OFFSET :startRowIndex
 		]]>
 	</select>
 	
 	<select id="totalCount" resultType="int">
 		<![CDATA[
-		SELECT COUNT(*) as totalCount
+		SELECT COUNT(*) 
 		FROM Post
 		]]>
 	</select>

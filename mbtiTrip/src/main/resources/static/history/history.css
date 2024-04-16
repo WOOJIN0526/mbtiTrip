@@ -3,16 +3,24 @@
     margin: 0;
 }
 body{
-    height: 50rem;
+    width: auto;
+    height: auto;
 }
 .main{
-    width: 65rem;
-    height: 65rem;
+    /* width: 65rem; */
+    /* height: 65rem; */
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
 }
 /* 사이드 */
+
+.except{
+    display: flex;
+    flex-direction: row;
+    height: 18rem;
+}
+
 
 .side_bar{
     height: 15rem;
@@ -38,16 +46,6 @@ body{
     width: 300px;
 }
 
-.guide a{
-    display: flex;
-    flex-direction: column;
-    width: 200px;
-}
-
-.guide a i{
-    font-size: 50px;
-    
-}
 ul{
     list-style-type: none;
 }
@@ -67,25 +65,18 @@ a{
 /* 내역 */
 .my_history{
     display: flex;
+    flex-direction: column;
+    align-items: center;
 
 }
 .information{
-    width: 65rem;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    
+    
     margin: 30px;
     
 }
 
 .replace_reservation{
-    width: 55rem;
-    display: flex;
-    flex-direction: column;
-    justify-content:flex-end;
-    text-align: center;
-}
-.adventure_reservation{
     width: 55rem;
     display: flex;
     flex-direction: column;
@@ -99,6 +90,7 @@ a{
     justify-content:flex-end;
     text-align: center;
 }
+
 .qna_reservation{
     width: 55rem;
     display: flex;
@@ -106,24 +98,21 @@ a{
     justify-content:flex-end;
     text-align: center;
 }
-
 form{
     display: flex;
     justify-content: flex-end;
 }
 
-.repalce_information{
+.reservation_information{
     border: 1px solid;
     border-collapse: collapse;
 }
-.adventure_information{
-    border: 1px solid;
-    border-collapse: collapse;
-}
+
 .post_information{
     border: 1px solid;
     border-collapse: collapse;
 }
+
 .qna_information{
     border: 1px solid;
     border-collapse: collapse;
@@ -136,26 +125,15 @@ th{
 }
 
 td{
-    padding: 5px;
+    padding: 10px;
     border-bottom: 1px solid;
-}
-
-.√{
-    padding-inline: 1rem;
-    border-radius: 0.4rem;
-    background-color: skyblue;
-}
-
-.X{
-    padding-inline: 1rem;
-    border-radius: 0.4rem;
-    background-color: red;
 }
 
 .page{
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    margin-bottom: 30px;
 }
 
 .page-item{
