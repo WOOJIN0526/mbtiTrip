@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.test.User.DAO.QnADAO;
+import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DTO.QAnswerDTO;
 import com.example.test.User.DTO.QnADTO;
 import com.example.test.User.DTO.UserDTO;
@@ -30,6 +31,8 @@ public class QnAServiceImpl implements QnAService {
 
 	@Autowired 
 	QnADAO qnaDao;
+	@Autowired
+	UserDAO userDao;
 	
 	@Override
 	public int createQ(QnADTO qna, Principal principal) throws InsertException{
@@ -38,7 +41,8 @@ public class QnAServiceImpl implements QnAService {
 			throw new UserNotFoundExcepiton(UtileExceptionCode.USER_NOT_FOUND_EXCEPTION);
 		}
 		qnAvalidation(qna);
-		qna.setUserName(principal.getName());
+		String userName = userDao.getUserNameByuserID(principal.getName());
+		qna.setUserName(userName);
 		qna.setUpdateDate(LocalDateTime.now());
 		return qnaDao.create(qna);
 		
@@ -63,7 +67,7 @@ public class QnAServiceImpl implements QnAService {
 		if(prin.getName()==null) {
 			throw new UserNotFoundExcepiton(UtileExceptionCode.USER_NOT_FOUND_EXCEPTION);
 		}
-		String userName = prin.getName();
+		String userName = userDao.getUserNameByuserID(prin.getName());
 		return qnaDao.getMyQnA(userName);
 	}
 
@@ -73,7 +77,8 @@ public class QnAServiceImpl implements QnAService {
 			throw new UserNotFoundExcepiton(UtileExceptionCode.USER_NOT_FOUND_EXCEPTION);
 		}
 		answervalidation(answer);
-		answer.setAdminName(principal.getName());
+		String userName = userDao.getUserNameByuserID(principal.getName());
+		answer.setAdminName(userName);
 		answer.setAupdateDate(LocalDateTime.now());	
 		int ck =qnaDao.createAnswer(answer);
 		boolean cheak = (ck!= 0)? true : false;

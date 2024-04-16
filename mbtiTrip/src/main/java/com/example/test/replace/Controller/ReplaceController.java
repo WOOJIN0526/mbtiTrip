@@ -124,7 +124,7 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
 	return "adventure_detail";
 	}
 
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_BIS')")
 	@RequestMapping(value = "/replace/create", method = RequestMethod.GET)
 	public String Create(Model model, ItemDTO item, Principal user) throws Exception{
 	    	
@@ -161,7 +161,7 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
     	return ResponseEntity.ok().body("Success message");
     }
     
-    @PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_BIS')")
     @RequestMapping(value = "/replace/modify", method = RequestMethod.GET)
     public String Modify(Model model, Integer itemId, Principal user) throws Exception{
         ItemDTO item = this.rpService.getPost(itemId, user);
@@ -177,7 +177,7 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
     }
     
     //수정
-    @PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_BIS')")
     @PostMapping("/replace/modify/")
     public String Modify(Model model, BindingResult bindingResult, Principal principal, 
     		@PathVariable("id") Integer item) throws Exception {
@@ -193,7 +193,7 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
     }
     
     //삭제
-    @PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_BIS')")
     @RequestMapping(value = "/replace/remove", method = RequestMethod.POST)
     public String Delete(Principal principal, @PathVariable("id") Integer itemID) throws Exception {
         ItemDTO itemDto = this.rpService.getPost(itemID, principal);

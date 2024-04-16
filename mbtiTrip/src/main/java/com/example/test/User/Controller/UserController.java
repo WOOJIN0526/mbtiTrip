@@ -34,6 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.test.GCSService.GCSService;
+import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DAO.UserHistoryDAO;
 import com.example.test.User.DTO.QnADTO;
 import com.example.test.User.DTO.UserDTO;
@@ -67,7 +68,8 @@ public class UserController {
 	@Autowired
 	private UserHistoryService userHistoryService;
 	
-
+	@Autowired
+	private UserDAO userDAO;
 	
 
 	private BCryptPasswordEncoder bcrypasswordEncoder = new BCryptPasswordEncoder(); 
@@ -87,10 +89,26 @@ public class UserController {
 	@RequestMapping(value ="/" , method = RequestMethod.GET)
 	public ModelAndView main(ModelAndView mv) {
 		/*권한 동작 확인 Test*/
-//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		/* 작업자 신성진
+		 * guest메인에 들어온 사용자가 권한을 가지고 있거나, 이전에 이용하던 세션 정보가 남아있는 경우 
+		 * 각 권한에 맞는 main으로 redirect
+		 * */
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(auth!= null && auth.isAuthenticated()) {
+			log.info("RememberMe User =>{}", auth);
+			for(GrantedAuthority au : auth.getAuthorities()) {
+				switch(au.getAuthority()) {
+				case "ROLE_USER" :  mv.setViewName("redirect:/user/main"); break;
+				case "ROLE_BIS" :  mv.setViewName("redirect:/bis/main"); break;
+				}
+			}
+		}
+		else {
+			mv.setViewName("main");
+		}
 //		log.info("guest auth ==>{}", auth);
 //		
-		mv.setViewName("main");
+		
 		return mv;
 	}
 	
@@ -99,40 +117,37 @@ public class UserController {
 	public ModelAndView main(Principal principal,
 							Authentication auth,
 							ModelAndView mav) {
-		/*권한 동작 확인 Test*/
-//		Authentication auth2 = SecurityContextHolder.getContext().getAuthentication();
-//		log.info("user auth ==>{}", auth2);
-//		if(auth2 != null && auth2.isAuthenticated()) {
-//			log.info("주어진 auth2로, 제대로 인식 하는 중");
-//			log.info("auth2 getAuthorities =>{}", auth2.getAuthorities());
-//			for(GrantedAuthority au : auth2.getAuthorities()){
-//				log.info("권한 확인 User = > {}", au.getAuthority());
-//			}
-//		}
+		
+		//UID를 이용하여, user의 전체 정보 조회
 		Integer UID = userService.princeUID(principal);
 		Map<String, Object> user = userService.getInfo(UID);
-		String userMbti = (String) user.get("mbti");
-		/*Test 진행 중 중복값제거 작엄 중 , */
-		List<HashMap<String, Object>> UserUXs = userHistoryService.uxRutin(userMbti);
+		
+		//UX 기능을 위한 userName 선언ㄴ
+		String userName = userDAO.getUserNameByuserID(principal.getName());
+		
+		//UserUXS => 사용자의 활동 기록을 탐색하고, 그에 맞는 여행 루틴 추천 
+		List<HashMap<String, Object>> UserUXs = userHistoryService.uxRutin(userName);
 		if(UserUXs.get(0).isEmpty() || UserUXs.size() <3) {
 			log.info("사용자 정보가 충분하지 않다");
 			mav.addObject("UxMessage", "사용자 정보가 충분하지 않습니다.");
 		}
 		
-		List<HashMap<String, Object>> userUxRe = userHistoryService.uxReplace(userMbti);
+		//UserUXS => 사용자의 활동 기록을 탐색하고, 그에 맞는 숙소 정보 추천 
+		List<HashMap<String, Object>> userUxRe = userHistoryService.uxReplace(userName);
 		if(userUxRe.get(0).isEmpty() || UserUXs.size() <3) {
 			
 			mav.addObject("UxReMessage", "사용자 정보가 충분하지 않습니다.");
 		}
 		
-		List<HashMap<String, Object>> userUxAD = userHistoryService.uxAdventure(userMbti);
+		//UserUXS => 사용자의 활동 기록을 탐색하고, 그에 맞는 여행지 정보 추천 
+		List<HashMap<String, Object>> userUxAD = userHistoryService.uxAdventure(userName);
 		if(userUxAD.get(0).isEmpty() || UserUXs.size() <3) {
 		
 			mav.addObject("UxAdMessage", "사용자 정보가 충분하지 않습니다.");
 		}
 
 		
-		
+		//그동안 사용자가 본 게시글, 숙소, 어드벤처 정보를 다 담고 있음 
 		List<List<?>> userViewInfo =userHistoryService.userViewInfo(principal);
 		log.info("userviewINfo 조회 끝 {}", userViewInfo);
 		if(userViewInfo.get(0).isEmpty() || userViewInfo.get(1).isEmpty() || userViewInfo.get(2).isEmpty()) {
@@ -315,9 +330,9 @@ public class UserController {
 	}
 	
 	
+	@PreAuthorize("isAuthenticated() and  hasRole('ROLE_USER')")
 	@RequestMapping(value = "/user/mypage/update/ck", method = RequestMethod.POST)
 	@ResponseBody
-
 	public ResponseEntity<String> update(UserDTO userdto,
 
 								Principal principal, ModelAndView mav) {
@@ -347,6 +362,7 @@ public class UserController {
 		
 	}
 	
+	@PreAuthorize("isAuthenticated() and  hasRole('ROLE_USER')")
 	@RequestMapping("/check-login")
     public ResponseEntity<Void> loginCheck(Principal principal) {
         if (principal == null) {
