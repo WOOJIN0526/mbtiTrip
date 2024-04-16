@@ -54,7 +54,7 @@ public  class PostServiceImpl implements PostService {
 
 	
 	@Override
-	public List<PostDTO> list(Page page) throws Exception {
+	public List<PostDTO> list() throws Exception {
 		// TODO Auto-generated method stub
 		return postDAO.list();
 	}
@@ -62,8 +62,18 @@ public  class PostServiceImpl implements PostService {
 
 
 	@Override
-	public int create(PostDTO post)  {
-		//postValidationCK(post);
+
+	public List<PostDTO> list(Page page) throws Exception {
+		// TODO Auto-generated method stub
+		return postDAO.listWithPage(page);
+	}
+
+
+
+	@Override
+	public void create(PostDTO post)  {
+		postValidationCK(post);
+
 		try {
 			int result =postDAO.create(post);
 			

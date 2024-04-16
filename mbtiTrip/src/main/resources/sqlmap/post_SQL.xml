@@ -21,7 +21,19 @@
 		]]>
 	</select>	        
 	
-	
+	<select id="listWithPage" parameterType="hashMap" resultType="hashMap">
+		<![CDATA[
+			SELECT @rownum := @rownum+1 PostId, p.*
+			FROM ( 
+					SELECT @rownum := #{startRowIndex} 
+					FROM dual
+				 ) tmp
+				 ,Post p
+			ORDER BY updateDate DESC
+			        
+			LIMIT #{startRowIndex}, #{rowsPerPage}			
+		]]>
+	</select>
 	
 	<insert id="create" useGeneratedKeys="true" keyProperty="postID">
 		<![CDATA[
@@ -72,7 +84,7 @@
 	
 	<select id="searchByPage" resultType="hashmap">
 		<![CDATA[
-			SELECT @rownum := @rownum+1 AS row_no, P.*
+			SELECT @rownum := @rownum+1 AS PostId, P.*
 			FROM (
    					 SELECT @rownum := :startRowIndex
 					) AS tmp
@@ -84,13 +96,13 @@
 			ORDER BY 
     				updateDate DESC,
     				
-			LIMIT :startRowIndex, :rowsPerPage
+			LIMIT :startRowIndex OFFSET :startRowIndex
 		]]>
 	</select>
 	
 	<select id="totalCount" resultType="int">
 		<![CDATA[
-		SELECT COUNT(*) as totalCount
+		SELECT COUNT(*) 
 		FROM Post
 		]]>
 	</select>

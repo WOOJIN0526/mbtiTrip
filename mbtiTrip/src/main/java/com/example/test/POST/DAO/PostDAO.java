@@ -115,6 +115,11 @@ public class PostDAO {
 		int ck =this.sqlSessiontemplate.selectOne("post.titleCk", title);
 		return ck;
 	}
+
+	public List<PostDTO> listWithPage(Page page) {
+		// TODO Auto-generated method stub
+		return this.sqlSessiontemplate.selectList("post.listWithPage", page);
+	}
 	
 
 

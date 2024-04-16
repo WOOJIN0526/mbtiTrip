@@ -79,24 +79,28 @@ public class PostController {
 	String keyword = page.getKeyword();
 
 	// 조회된 전체 게시글 수
-	if( page.getTotalCount() == 0 )
+	if( page.getTotalCount() == 0 ) {
 	totalCount =postService.totalCount();
-			
+	}
 	else 
-	totalCount = page.getTotalCount();
+	{totalCount = page.getTotalCount();}
 
 	//페이지 당 노출 게시글 수
-	if( page.getRowsPerPage() == 0 )
+	if( page.getRowsPerPage() == 0 ){
 		rowPerPage = 10;
+		}
 			
-	else 
+	else {
 		rowPerPage = page.getRowsPerPage();
+		}
 
 	//노출 페이지수
-	if(page.getPageCount() == 0)
+	if(page.getPageCount() == 0){
 		pageCount = 10;
-	else
+		}
+	else{
 		pageCount = page.getPageCount();
+		}
 
 	if(page.getPageNum() == 0){
 		page = new Page(1, rowPerPage, totalCount, pageCount); 
