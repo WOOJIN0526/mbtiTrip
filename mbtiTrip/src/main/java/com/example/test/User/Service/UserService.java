@@ -9,12 +9,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DTO.UserDTO;
+import com.example.test.item.DTO.ItemDTO;
 
 public interface UserService {
 		
 	public int createUser(UserDTO userdto) ; //생성 안되면 , 0 , 1
 
-
+	public List<ItemDTO> serchLocation(String location);
+	
+	
 	public Map<String, Object> login(UserDTO userdto);
 
     int userUpdate(UserDTO userdto, Principal principal);
