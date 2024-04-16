@@ -45,8 +45,7 @@ import com.example.test.User.Service.UserHistoryService;
 import com.example.test.User.Service.UserHistoryService;
 import com.example.test.User.Service.UserService;
 import com.example.test.User.Service.UserServiceImpl;
-
-
+import com.example.test.item.DTO.ItemDTO;
 
 import groovy.transform.ToString;
 import jakarta.servlet.http.HttpServletRequest;
@@ -100,11 +99,9 @@ public class UserController {
 				switch(au.getAuthority()) {
 				case "ROLE_USER" :  mv.setViewName("redirect:/user/main"); break;
 				case "ROLE_BIS" :  mv.setViewName("redirect:/bis/main"); break;
+				case "ROLE_ANONYMOUS": 	mv.setViewName("main"); break;
 				}
 			}
-		}
-		else {
-			mv.setViewName("main");
 		}
 //		log.info("guest auth ==>{}", auth);
 //		
@@ -246,7 +243,14 @@ public class UserController {
 		return mav;
 	}
 
-	
+	@RequestMapping(value = "/searchLocation", method=RequestMethod.POST)
+	public ModelAndView searchLocation(@RequestBody String location, ModelAndView mav) {
+		List<ItemDTO> result = userService.serchLocation(location);
+		
+		mav.addObject("item",result);
+		mav.setViewName("어디로 보내요?");
+		return mav;
+	}
 	
 
 	
