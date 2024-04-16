@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				const content = CKEcontent.getData();
         		console.log(content);
                 const formData = new FormData(document.querySelector('#Form'));
+                let postType;
                 //formData에 값을 등록합니다
                 formData.set("content",content);
 				console.log("==================");
@@ -34,9 +35,11 @@ document.addEventListener('DOMContentLoaded', function() {
 					
 					var url ="/post/review/create";
 					console.log(url);
+					postType='review';
 				}else{
 					var url="/post/noticeBoard/create";
 					console.log(url);
+					postType='noticeBoard';
 				}
 				
 				
@@ -47,11 +50,18 @@ document.addEventListener('DOMContentLoaded', function() {
 						/*"Content-Type":"multipart/form-data"*/
 					},
 					body:formData
-				}).then(response=>{
-					if(response.ok){
-						alert(response);
-					}
-				})
+				}).then(response => {
+				    if (response.ok) {
+				        return response.text(); // 리스폰스의 텍스트 내용을 반환
+				    } else {
+				        throw new Error('Network response was not ok.');
+				    }
+				}).then(data => {
+				    alert(data); // 반환된 텍스트를 알림으로 표시
+				    window.location.href = `/post/${postType}/list`;
+				}).catch(error => {
+				    console.error('There was a problem with the fetch operation:', error);
+				});
 });  
 
 

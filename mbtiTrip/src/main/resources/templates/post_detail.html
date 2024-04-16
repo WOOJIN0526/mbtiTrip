@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout.html}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>게시글</title>
+<link rel="stylesheet" th:href="@{/common/common.css}"/>
+<link rel="stylesheet" th:href="@{/notice_board/board_detail.css}"/>
+
+</head>
+<body>
+<section layout:fragment="content" class="postBody">
+	<div class="container">
+	    <div class="post">
+	        <h2 class="post-title" th:text="${post.title}">게시글 제목</h2>
+	        <div class="post-info">
+				<div class="imgBox"><img th:src="${user.userImg}"></div>
+	            <p th:text="'작성자: ' + ${post.userName}">작성자: 작성자 이름</p>
+	            <div>
+					<span th:text="'추천수: ' + ${post.suggestion}">조회수: 100</span>
+					<span th:text="'조회수: ' + ${post.views}">조회수: 100</span>
+					<span th:text="'작성일자: ' + ${post.updateDate}"></span>	            
+				</div>
+	        </div>
+	        <div class="post-content" th:utext="${post.content}">
+	            <p>게시글 내용이 여기에 들어갑니다. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet sem nec nisi venenatis euismod. Nullam non odio et dui luctus cursus. Vivamus ac odio vel tortor fermentum faucibus. Donec tristique, lorem at malesuada consectetur, mi nulla lacinia ipsum, sit amet commodo velit libero vel dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer volutpat sit amet felis eget eleifend.</p>
+	        </div>
+	    </div>
+	</div>
+</section>
+</body>
+</html>

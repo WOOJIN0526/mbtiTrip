@@ -47,7 +47,7 @@ function handleDateChange(target) {
         })
         .then(diff => {
             if (diff !== 0) {
-                let price = parseFloat(document.querySelector('.price').dataset.value); // 가격 파싱
+                let price = parseFloat(document.querySelector('.price').dataset.value);
                 price *= diff; // 가격 계산
                 console.log("총 가격:", price);
 				document.querySelector('.price').textContent = price;

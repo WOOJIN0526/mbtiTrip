@@ -176,6 +176,10 @@ public class UserServiceImpl implements UserService{
 	}
 
 	private void vaildationUser(UserDTO userDTO) throws SignUpException{
+		if(userDTO.getUserId() == null) {
+			throw new SignUpException(SignUpExceptionEunm.SIGN_ID_NULL);
+		}
+		
 		if(userDao.idCk(userDTO)) {
 			/* ID 중복*/
 			throw new SignUpException(SignUpExceptionEunm.Signup_DUPLCATION_ID);
@@ -184,12 +188,23 @@ public class UserServiceImpl implements UserService{
 			/*닉네임 특수문자 검사*/
 			throw new SignUpException(SignUpExceptionEunm.SignUP_Bad_NiCKNAME);
 		}
+		if(userDao.findByUsername(userDTO.getUsername()) != null) {
+			throw new SignUpException(SignUpExceptionEunm.Signup_DUPLCATION_NiCKNAME);
+		}
+		if(userDTO.getPassword() == null) {
+			log.info("password null? => {}", userDTO.getPassword());
+			throw new SignUpException(SignUpExceptionEunm.SIGN_PASSWORD_NULL);
+		}
+		
 		if(userDTO.getPassword().length() < 8) {
 			throw new SignUpException(SignUpExceptionEunm.Signup_BADPASSWORD);
 		}
 		if(userDao.nameCk(userDTO)) {
 			/*닉네임 중복 검사*/
 			throw new SignUpException(SignUpExceptionEunm.Signup_DUPLCATION_NiCKNAME);
+		}
+		if(userDTO.getMail() == null) {
+			throw new SignUpException(SignUpExceptionEunm.SIGN_EMAIL_NULL);
 		}
 		if(userDao.mailCK(userDTO)) {
 			/*메일 중복 검사*/

@@ -98,7 +98,8 @@ public class Security_Config  {
     			.rememberMeParameter("remember-me")
     			.tokenValiditySeconds(86400)
     			.userDetailsService(userDetailsService)
-    			.alwaysRemember(false))
+    			.alwaysRemember(false)
+    			)
     			;
     	http.logout((logout)-> logout
     			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

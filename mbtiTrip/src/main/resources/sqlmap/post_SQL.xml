@@ -35,18 +35,18 @@
 		]]>
 	</select>
 	
-	<insert id="create" parameterType="hashMap">
+	<insert id="create" useGeneratedKeys="true" keyProperty="postID">
 		<![CDATA[
-			INSERT INTO Post( title, postCategoryID, content, writer, views, suggestion, updateDate ) 
-			VALUES ( #{title},#{PostCateGoryID}, #{Content}, #{writer}, #{views}, #{suggestion}, #{updateDate} )
+			INSERT INTO Post( title, PostCateGoryID, Content,userName,itemID,UpdateDate) 
+			VALUES ( #{title},#{postCategoryID},#{content},#{userName},#{itemID},#{updateDate})
 		]]>	
 	</insert>
 	
-	<select id="findById" resultType="hashmap">
+	<select id="findById" resultType="com.example.test.POST.DTO.PostDTO">
 	 <![CDATA[
-		SELECT PostID 
+		SELECT PostID as postID,PostCateGoryID as postCategoryID,userName,title,Content as content,suggestion,views,UpdateDate as updateDate,itemID
 		FROM Post
-		WHERE userName=#{userName} 
+		WHERE PostID=#{postId} 
 	]]>
 	</select>
 	
@@ -54,9 +54,9 @@
 		<![CDATA[
 			UPDATE Post
 			SET   title = #{title}
-		     ,content = #{Content}
-		     ,writer = #{writer}
-		WHERE postID = #{PostID}
+		     ,Content = #{content}
+		     ,views = #{views}
+		WHERE PostID = #{postID}
 		]]>
 	</update>
 	

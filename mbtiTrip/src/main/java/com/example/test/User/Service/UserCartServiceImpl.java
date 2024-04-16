@@ -22,6 +22,8 @@ import com.example.testExcepion.Cart.CartException;
 import com.example.testExcepion.Cart.CartExceptionEnum;
 import com.example.testExcepion.Insert.InsertException;
 import com.example.testExcepion.Insert.InsertExceptionEnum;
+import com.example.testExcepion.Utile.UserNotFoundExcepiton;
+import com.example.testExcepion.Utile.UtileExceptionCode;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.services.storage.Storage.BucketAccessControls.Insert;
 
@@ -44,29 +46,9 @@ public class UserCartServiceImpl implements UserCartService{
 		boolean ck;
 		
 		if(principal.getName() == null) {
-			throw new CartException(CartExceptionEnum.CART_NOTFOUND_USER);
+			throw new UserNotFoundExcepiton(UtileExceptionCode.USER_NOT_FOUND_EXCEPTION);
 		}
-		
-		if(userCartDTO.getItemId() == null) {
-			throw new CartException(CartExceptionEnum.CART_NOTFOUND_ITEM);
-		}
-		
-		if(userCartDTO.getStartDate() == null) {
-			throw new CartException(CartExceptionEnum.CART_STARTDATE_NULL);
-			}
-		
-		if(userCartDTO.getEndDate() == null) {
-			throw new CartException(CartExceptionEnum.CART_ENDDATE_NULL);
-			}
-		
-		if(userCartDTO.getStartDate().isAfter(LocalDate.now())){
-			throw new CartException(CartExceptionEnum.CART_STARTDATE_MISMATCH);
-		}
-		
-	    if(userCartDTO.getEndDate().isBefore(userCartDTO.getStartDate())) {
-			throw new CartException(CartExceptionEnum.CART_ENDdDATE_MISMATCH);
-		}
-	    
+		CartValidationCK(userCartDTO);
 		userCartDTO.setUserName(principal.getName());
 		userCartDTO.setItemId(ItemDTO.getItemID());
 		userCartDTO.setPayments(false);
@@ -158,7 +140,6 @@ public class UserCartServiceImpl implements UserCartService{
 		//ck가 false일 때 예오ㅓㅣ처리 
 		return ck;
 	}
-
 	
 	@Override
 	public List<HashMap<String, Object>> reservationInfo(Principal principal) {
@@ -171,4 +152,28 @@ public class UserCartServiceImpl implements UserCartService{
 	
 	//Exception 에러가 발생했을 떄, 처리할 method가 있으면 좋을 듯 
 	// alter를  띄울 수 있는 method 필요 
+
+
+	private void CartValidationCK(UserCartDTO userCart) {
+		if(userCart.getItemId() == null) {
+			throw new CartException(CartExceptionEnum.CART_NOTFOUND_ITEM);
+		}
+		
+		if(userCart.getStartDate() == null) {
+			throw new CartException(CartExceptionEnum.CART_STARTDATE_NULL);
+			}
+		
+		if(userCart.getEndDate() == null) {
+			throw new CartException(CartExceptionEnum.CART_ENDDATE_NULL);
+			}
+		
+		if(userCart.getStartDate().isBefore(LocalDate.now())){
+			throw new CartException(CartExceptionEnum.CART_STARTDATE_MISMATCH);
+		}
+		
+	    if(userCart.getEndDate().isBefore(userCart.getStartDate())) {
+			throw new CartException(CartExceptionEnum.CART_ENDDATE_MISMATCH2);
+		}
+	}
+
 }

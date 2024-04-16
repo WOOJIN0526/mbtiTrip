@@ -21,23 +21,31 @@ import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.Replace
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.example.test.Adventure.DTO.AdventureDTO;
 import com.example.test.POST.DAO.PostDAO;
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.Service.PostServiceImpl;
+import com.example.test.User.DAO.QnADAO;
 import com.example.test.User.DAO.UserCartDAO;
 import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DAO.UserHistoryDAO;
 import com.example.test.User.DAO.adminDAO;
 import com.example.test.User.DTO.QnADTO;
 import com.example.test.User.DTO.UserCartDTO;
+import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.DTO.UserHistoryDTO;
+import com.example.test.User.DTO.User_Role;
 import com.example.test.User.Service.QnAServiceImpl;
 import com.example.test.User.Service.UserCartService;
 import com.example.test.User.Service.UserService;
+import com.example.test.item.ItemType;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.replace.DTO.ReplaceDTO;
+import com.example.testExcepion.Cart.CartException;
+import com.example.testExcepion.Cart.CartExceptionEnum;
 import com.example.testExcepion.Item.ItemException;
 import com.example.testExcepion.Post.PostException;
 import com.example.testExcepion.Post.PostExceptionEnum;
@@ -82,12 +90,70 @@ class MbtiTripApplicationTests {
 	@Autowired
 	PostDAO postDao;
 	
+	@Autowired
+	QnADAO qnaDao;
+	
 	@Test
 	void contextLoads() {
-		PostDTO post = new PostDTO();
-		post.setUserName("testUser4");
-		postValidationCK(post);
+		UserDTO user = new UserDTO();
+		user.setUserId("testUser#66226");
+		user.setUserName("faust");
+		user.setPassword("testse1ts");
 	
+		userCartDTO.setItemId(1);
+		userCartDTO.setStartDate(LocalDate.now().plusDays(2));
+		userCartDTO.setEndDate(LocalDate.now().plusDays(1));
+
+
+		
+		Authentication auths = SecurityContextHolder.getContext().getAuthentication();
+		log.info("{}", auths);
+		String userAuth = null;
+		userAuth = User_Role.bis
+				.getValue();
+		log.info("split 전 ==> {} ", userAuth);
+		if(userAuth.contains("USER")) {
+			userAuth = "user";
+		}
+		else if(userAuth.contains("BIS")){
+			userAuth="bis";
+			
+		}
+		log.info("split 후==> {}", userAuth);
+		String url = String.format("/%s/main", userAuth);
+		
+		
+//		if(userCartDTO.getItemId() == null) {
+//			throw new CartException(CartExceptionEnum.CART_NOTFOUND_ITEM);
+//		}
+//		
+//		if(userCartDTO.getStartDate() == null) {
+//			throw new CartException(CartExceptionEnum.CART_STARTDATE_NULL);
+//			}
+//		
+//		if(userCartDTO.getEndDate() == null) {
+//			throw new CartException(CartExceptionEnum.CART_ENDDATE_NULL);
+//			}
+//		
+//		if(userCartDTO.getStartDate().isBefore(LocalDate.now())){
+//			throw new CartException(CartExceptionEnum.CART_STARTDATE_MISMATCH);
+//		}
+//		
+//	    if(userCartDTO.getEndDate().isBefore(userCartDTO.getStartDate())) {
+//			throw new CartException(CartExceptionEnum.CART_ENDDATE_MISMATCH2);
+//		}
+		
+//		user.setUserName("testUser4");
+//		ItemDTO item = new ItemDTO();
+//		item.setItemName("test");
+//		item.setContents("tts");
+//		item.setType(ItemType.adventure);
+//		item.setUsername(user);
+//		item.setPrice(1);
+//		item.setLocation("미켈란젤로");
+//		
+//		ItemException.validationItem(item);
+//	
 //		ItemDTO post = new ItemDTO();
 //		ItemException.validationItem(post);
 //		int ck = postDao.titleCk("testTitleOne");
@@ -403,44 +469,9 @@ class MbtiTripApplicationTests {
 	}
 
 
+	
 
-	private void postValidationCK(PostDTO postDTO) {
-		if(postDTO.getUserName() == null) {
-			throw new PostException(PostExceptionEnum.POST_PERMISSION_DENIED);
-		}
-		switch(titleCk(postDTO)) {
-			case 0 : break;
-			case 1 : throw new PostException(PostExceptionEnum.POST_UNABLE_TO_TITLE);
-			case 2 : throw new PostException(PostExceptionEnum.POST_UNABLE_TO_TITLE2);
-			case 3:  throw new PostException(PostExceptionEnum.POST_UNABLE_TO_TITLE3);
-		}
-		if(postDTO.getContent().isEmpty()) {
-			throw new PostException(PostExceptionEnum.POST_UNABLE_TO_ContentsNULLPOINT);
-		}
-		if(postDTO.getContent().length() > 500) {
-			throw new PostException(PostExceptionEnum.POST_UNABLE_TO_ContentsSize);
-		}	
-	}
-	
-	
-	private int titleCk(PostDTO postDTO) {
-		int check = 0;
-		if(postDTO.getTitle().isEmpty()) {
-			throw new PostException(PostExceptionEnum.POST_UNABLE_TO_TITLE4);
-		}
-		boolean ck = Pattern.matches("^[a-zA-Z0-9가-힣]*$", postDTO.getTitle());
-		log.info("titleCk == > {}", postDTO.getTitle());
-		if(!ck) {
-			check=1;
-		}
-		if(postDTO.getTitle().length() > 15){
-			check=2;
-		}
-		if(postDao.titleCk(postDTO.getTitle()) != 0) {
-			check = 3;
-		}
-		return check;
-	}
+
 	
 	
 	
