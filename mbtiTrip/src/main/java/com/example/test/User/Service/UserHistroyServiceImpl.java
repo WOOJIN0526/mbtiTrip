@@ -42,9 +42,9 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 		if(principal == null) {
 			throw new UserNotFoundExcepiton(UtileExceptionCode.USER_NOT_FOUND_EXCEPTION);
 		}
-		
+		String userName = userDAO.getUserNameByuserID(principal.getName());
 		userItemView.setItemId(itemDTO.getItemID());
-		userItemView.setUserName(principal.getName());
+		userItemView.setUserName(userName);
 		userhistoryDAO.viewCkItem(userItemView);
 		//viewItem에 viewRating 값 증가 
 		userhistoryDAO.viewRatingIT(itemDTO);
@@ -56,8 +56,9 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 		if(principal.getName() == null) {
 			throw new UserNotFoundExcepiton(UtileExceptionCode.USER_NOT_FOUND_EXCEPTION);
 		}
+		String userName = userDAO.getUserNameByuserID(principal.getName());
 		userPostView.setPostid(PostDTO.getPostID());
-		userPostView.setUserName(principal.getName());
+		userPostView.setUserName(userName);
 		userhistoryDAO.viewCkPO(userPostView);
 		//viewPost에 viewRating 값 증가 
 		userhistoryDAO.viewRatingPO(PostDTO);
@@ -99,7 +100,7 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 	/*user가 작성한 Post*/
 	@Override
 	public List<HashMap<String, Object>> selectUserPost(Principal principal) {
-		String userName = principal.getName();
+		String userName = userDAO.getUserNameByuserID(principal.getName());
 		List<HashMap<String, Object>> userPost = userhistoryDAO.userCreatePost(userName);
 		return userPost;
 	}
@@ -111,7 +112,7 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 		if(principal.getName() == null) {
 			throw new UserNotFoundExcepiton(UtileExceptionCode.USER_NOT_FOUND_EXCEPTION);
 		}
-		String userName = principal.getName();
+		String userName = userDAO.getUserNameByuserID(principal.getName());
 		List<HashMap<String, Object>> userQnA = userhistoryDAO.userCreateQnA(userName);
 		return userQnA;
 	}
@@ -138,7 +139,8 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 	/*사용자가 Item 조회시 기록*/
 	@Override
 	public List<HashMap<String, Object>> viewRating(Principal principal) {
-		List<HashMap<String, Object>> rating = userhistoryDAO.getRatingItem(principal.getName());
+		String userName = userDAO.getUserNameByuserID(principal.getName());
+		List<HashMap<String, Object>> rating = userhistoryDAO.getRatingItem(userName);
 		return rating;
 	}
 	
@@ -152,7 +154,7 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 	public List<List<?>> userViewInfo(Principal principal) {
 		try {
 			log.info("userHisotry userViewInfo principal null isuue  == >{}", principal.getName());
-			String userName = principal.getName();
+			String userName = userDAO.getUserNameByuserID(principal.getName());
 			List<List<?>> userViewInfo = new ArrayList<>();
 			log.info("userName , userHistoyservice. userViewInfo   =>{}", userName);
 			List<ItemDTO> userViewReplace = userhistoryDAO.viewReturnRE(userName);

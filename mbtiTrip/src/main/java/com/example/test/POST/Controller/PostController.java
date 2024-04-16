@@ -138,7 +138,7 @@ public class PostController {
 		return "post_detail";
 	}
 
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_USER')")
     @RequestMapping(value = "/post/noticeBoard/create", method = RequestMethod.GET)
     public String Create(Model model, PostDTO post, Principal user) throws Exception{
     	
@@ -173,7 +173,7 @@ public class PostController {
     }
 
     
-    @PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_USER')")
     @RequestMapping(value = "/post/noticeBoard/modify", method = RequestMethod.GET)
     public String postModify(Model model, @PathVariable("id") Integer postID, Principal user) throws Exception {
     	String userName = "";
@@ -193,7 +193,7 @@ public class PostController {
     }
     
     //수정
-    @PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_USER')")
     @PostMapping("/post/noticeBoard/modify/")
     public String postModify(Model model, BindingResult bindingResult, Principal principal, @PathVariable("id") PostDTO post) throws Exception {
         if (bindingResult.hasErrors()) {
@@ -209,7 +209,7 @@ public class PostController {
     }
     
     //삭제
-    @PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_USER')")
     @RequestMapping(value = "/post/noticeBoard/remove", method = RequestMethod.POST)
     public String postDelete(Principal principal, @PathVariable("id") Integer postID) throws Exception {
         PostDTO postDto = this.postService.getPost(postID);
@@ -231,6 +231,7 @@ public class PostController {
     }
     
     //댓글 등록
+    @PreAuthorize("isAuthenticated() and hasRole('ROLE_USER')")
     @RequestMapping(value = "/post/noticeBoard/replyRegister", method = RequestMethod.GET)
     public String replyRegister(Model model, AnswerDTO reply, Principal user) throws Exception{
 
@@ -252,6 +253,7 @@ public class PostController {
     }
 
     //댓글 수정
+    @PreAuthorize("isAuthenticated() and hasRole('ROLE_USER')")
     @RequestMapping(value = "replyModify", method = RequestMethod.GET)
     public String replyModify(Model model, AnswerDTO reply, Principal user) throws Exception{
 
@@ -273,6 +275,7 @@ public class PostController {
     }
 
     //댓글 삭제
+    @PreAuthorize("isAuthenticated() and hasRole('ROLE_USER')")
     @RequestMapping(value = "replyRemove", method = RequestMethod.GET)
     public String replyRemove(Model model, AnswerDTO reply, Principal user) throws Exception{
 

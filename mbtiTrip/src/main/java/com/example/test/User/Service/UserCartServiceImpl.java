@@ -37,6 +37,9 @@ public class UserCartServiceImpl implements UserCartService{
 	@Autowired
 	UserCartDAO userCartDAO;
 	
+	@Autowired
+	UserDAO userDAO;
+	
 	@Override
 	public boolean insertItem(UserCartDTO userCartDTO,  ItemDTO ItemDTO, 
 									Principal principal) throws CartException{
@@ -49,7 +52,7 @@ public class UserCartServiceImpl implements UserCartService{
 			throw new UserNotFoundExcepiton(UtileExceptionCode.USER_NOT_FOUND_EXCEPTION);
 		}
 		CartValidationCK(userCartDTO);
-		userCartDTO.setUserName(principal.getName());
+		userCartDTO.setUserName(userDAO.getUserNameByuserID(principal.getName()));
 		userCartDTO.setItemId(ItemDTO.getItemID());
 		userCartDTO.setPayments(false);
 		log.info("message {}", userCartDTO.toString());
@@ -69,7 +72,8 @@ public class UserCartServiceImpl implements UserCartService{
 	public List<HashMap<String, Object>> detail(UserCartDTO usercartdto ,Principal principal) {
 		//url = mypage/ myCart
 		//payments get false;
-		usercartdto.setUserName(principal.getName());
+		String userName = userDAO.getUserNameByuserID(principal.getName());
+		usercartdto.setUserName(userName);
 		List<HashMap<String, Object>> userCart = this.userCartDAO.detail(usercartdto);
 		usercartdto.setFinalPrice(sumPrice(userCart));
 		return userCart;
@@ -92,14 +96,15 @@ public class UserCartServiceImpl implements UserCartService{
 	public List<HashMap<String, Object>>  detail_Pay(UserCartDTO usercartdto ,Principal principal) {
 		//url = mypage/ myPayments
 		//payments get true;
-		usercartdto.setUserName(principal.getName());
+		String userName = userDAO.getUserNameByuserID(principal.getName());
+		usercartdto.setUserName(userName);
 		List<HashMap<String, Object>> userCart = this.userCartDAO.detail_pay(usercartdto);
 		return userCart;
 	}
 
 	@Override
 	public boolean updatePaymentsSuccess(Principal prince) throws CartException {
-		String userName = prince.getName();
+		String userName = userDAO.getUserNameByuserID(prince.getName());
 		boolean ck = (userCartDAO.updatePaymentsSuccess(userName) != 0) ? true : false ;
 		if(!ck) {
 			throw new CartException(CartExceptionEnum.PAYMENTS_FAIL);
@@ -110,7 +115,7 @@ public class UserCartServiceImpl implements UserCartService{
 
 	@Override
 	public boolean updatePaymentFalse(Principal prince)throws CartException {
-		String userName = prince.getName();
+		String userName =userDAO.getUserNameByuserID(prince.getName());
 		boolean ck = (userCartDAO.updatePaymentFalse(userName) == 1) ? true : false;
 		//ck가 false일 때 예오ㅓㅣ처리
 		if(!ck) {
@@ -122,7 +127,8 @@ public class UserCartServiceImpl implements UserCartService{
 	@Override
 	public boolean deleteItem(Principal principal, Integer itemID) {
 		UserCartDTO userCart = new UserCartDTO();
-		userCart.setUserName(principal.getName());
+		String userName = userDAO.getUserNameByuserID(principal.getName());
+		userCart.setUserName(userName);
 		userCart.setItemId(itemID);
 		Integer result = userCartDAO.deleteItem(userCart);
 		boolean ck = (result == 1) ? true : false; 		
@@ -134,7 +140,8 @@ public class UserCartServiceImpl implements UserCartService{
 	@Override
 	public boolean deleteALL(Principal principal) {
 		UserCartDTO userCart = new UserCartDTO();
-		userCart.setUserName(principal.getName());
+		String userName = userDAO.getUserNameByuserID(principal.getName());
+		userCart.setUserName(userName);
 		Integer result = userCartDAO.deleteALL(userCart);
 		boolean ck = (result == 1) ? true : false; 		
 		//ck가 false일 때 예오ㅓㅣ처리 
@@ -143,7 +150,7 @@ public class UserCartServiceImpl implements UserCartService{
 	
 	@Override
 	public List<HashMap<String, Object>> reservationInfo(Principal principal) {
-		String adminName = principal.getName();
+		String adminName = userDAO.getUserNameByuserID(principal.getName());
 		List<HashMap<String, Object>> userReservationInfo 
 					= userCartDAO.reservationInfo(adminName);
 		return userReservationInfo;

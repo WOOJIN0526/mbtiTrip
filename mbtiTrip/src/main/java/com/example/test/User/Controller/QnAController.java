@@ -53,7 +53,7 @@ public class QnAController {
 		return mav;
 	} 
 	
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated() and  hasRole('ROLE_USER') and hasRole('ROLE_BIS')")
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView createQAndA(Principal principal, ModelAndView mav) {
 		log.info("create GEt ={}", principal.getName());
@@ -75,12 +75,14 @@ public class QnAController {
 		return ck; 
 	}
 	
+	
 	@RequestMapping(value = "/detail/{QID}", method = RequestMethod.GET)
 	public ModelAndView QAndA(@PathVariable  Integer QID, ModelAndView mav,
 							QnADTO qna) {
 		Map<String, Object> qnaDetail =qnaService.QnAdetail(QID);
 		return mav;
 	}
+	
 	
 	@RequestMapping(value = "/myQnA", method= RequestMethod.GET)
 	public ModelAndView myQnA(HttpServletRequest session , Principal prin, QnADTO qna, ModelAndView mav) {
@@ -91,7 +93,7 @@ public class QnAController {
 		return mav;
 	}
 	
-	
+	@PreAuthorize("isAuthenticated() and  hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin", method=RequestMethod.GET)
 	public ModelAndView adminQnA(Principal principal, ModelAndView mav) {
 		String adminName = principal.getName();
@@ -99,6 +101,7 @@ public class QnAController {
 		mav.setViewName("QnAAnswerCreateForm");
 		return mav;
 	}
+	
 	
 	@RequestMapping(value="/admin", method=RequestMethod.POST)
 	@ResponseBody

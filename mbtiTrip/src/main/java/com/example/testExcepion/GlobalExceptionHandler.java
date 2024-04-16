@@ -125,12 +125,29 @@ public class GlobalExceptionHandler {
     }
     
     @ExceptionHandler(GCSSException.class)
-    protected ResponseEntity<ExceptionResponse> GCSSException(GCSSException ex){
+    protected ResponseEntity<ExceptionResponse> GCSSExceptionHandler(GCSSException ex){
     	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	log.error("handlerException", ex.getMessage());
     	ExceptionResponse er = new ExceptionResponse(ex.getGcssExceptionCode());
     	return ResponseEntity.status(er.getStatus()).body(er);
     }
+    
+    @ExceptionHandler(NotSupportMediaTypeException.class)
+    protected ResponseEntity<ExceptionResponse> NotSupportMediaTypeExceptionHandelr(NotSupportMediaTypeException ex){
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	log.error("handlerException", ex.getMessage());
+    	ExceptionResponse er = new ExceptionResponse(ex.getUtileExceptionCode());
+    	return ResponseEntity.status(er.getStatus()).body(er);
+    }
+    
+    @ExceptionHandler(UserNotFoundExcepiton.class)
+    protected ResponseEntity<ExceptionResponse> UserNotFoundExceptionHandelr(UserNotFoundExcepiton ex){
+    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+    	log.error("handlerException", ex.getMessage());
+    	ExceptionResponse er = new ExceptionResponse(ex.getUtileExceptionCode());
+    	return ResponseEntity.status(er.getStatus()).body(er);
+    }
+    
 
     
 //    @ExceptionHandler(NullPointerException.class)

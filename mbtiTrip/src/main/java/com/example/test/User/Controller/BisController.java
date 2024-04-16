@@ -90,6 +90,7 @@ public class BisController {
 //		mav.setViewName("Bis_main");
 //		return mav;
 //	}
+	
 	@RequestMapping(value = "/login/success")
 	public String UserSuccess() {
 		return "redirect:/bis/main";
@@ -146,10 +147,9 @@ public class BisController {
 //	}
 	
 	
-	
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/mypage/update", method = RequestMethod.GET)
 	public ModelAndView update_ck(Principal principal, ModelAndView mav){
-		log.info("cheak");
 		mav.addObject("userName", principal.getName());
 		mav.setViewName("user_update_ck");
 		return mav;
@@ -172,6 +172,7 @@ public class BisController {
 		return mav;
 	} 
 	
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/mypage/update/ck", method = RequestMethod.GET)
 	public ModelAndView Bisupdate(Principal principal, UserDTO userdto, ModelAndView mav){
 		Integer UID = userService.princeUID(principal);		
