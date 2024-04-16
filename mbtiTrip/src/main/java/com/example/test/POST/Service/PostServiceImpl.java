@@ -149,9 +149,9 @@ public  class PostServiceImpl implements PostService {
 	public List<PostDTO> findPostByCategoryID(Long postCategoryID) {
 	// 게시글 목록 조회
 	List<PostDTO> post = postDAO.findByPostCategoryID(postCategoryID);
-	if(post.isEmpty()) {
-		throw new PostException(PostExceptionEnum.POST_NOT_FOUND);
-	}
+//	if(post.isEmpty()) {
+//		throw new PostException(PostExceptionEnum.POST_NOT_FOUND);
+//	}
 	return post;
 	        
 	}
