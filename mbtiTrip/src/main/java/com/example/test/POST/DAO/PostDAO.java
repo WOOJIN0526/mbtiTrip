@@ -48,12 +48,15 @@ public class PostDAO {
 		return sqlSessiontemplate.selectList("post.list");
 	}
 
-	public void create(PostDTO post) {
-		// TODO Auto-generated method stub
-		this.sqlSessiontemplate.insert("post.create", post);
+	public int create(PostDTO post) {
+		System.out.println(post.toString());
+		int result = this.sqlSessiontemplate.insert("post.create", post);
+		System.out.println(result);
+		userHistoryService.ViewCreatePost();
+		return result;
 	}
 
-	public Optional<PostDTO> findById(Integer postId) {
+	public PostDTO findById(Integer postId) {
 		// TODO Auto-generated method stub
 		return this.sqlSessiontemplate.selectOne("post.findById", postId);
 	}

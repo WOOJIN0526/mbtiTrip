@@ -13,7 +13,7 @@ function sendAjaxRequest(url,method,data,conType){
             if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200){
                 resolve(xhr.responseText);
             }else{
-                reject(xhr.status);
+                reject(xhr.response);
             }
         }
         xhr.open(method,url,true);

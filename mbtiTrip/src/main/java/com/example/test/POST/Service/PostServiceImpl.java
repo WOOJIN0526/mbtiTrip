@@ -59,10 +59,12 @@ public  class PostServiceImpl implements PostService {
 
 
 	@Override
-	public void create(PostDTO post)  {
-		postValidationCK(post);
+	public int create(PostDTO post)  {
+		//postValidationCK(post);
 		try {
-			postDAO.create(post);
+			int result =postDAO.create(post);
+			
+			return result;
 		}catch(Exception e) {
 			throw new InsertException(InsertExceptionEnum.INSERT_SERVER_ERROR);
 		}
@@ -70,16 +72,14 @@ public  class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public PostDTO getPost(Integer postId) throws Exception {
-		Optional<PostDTO> post = this.postDAO.findById(postId);
-		  if (post.isPresent()) {
-	        	PostDTO postDto = post.get();        	
-	        	postDto.setViews(postDto.getViews()+1);        	
-	        	this.postDAO.create(postDto);
-	            return postDto;
-	        } else {
-	            throw new DataNotFoundException("question not found");
-	        }	
+	public PostDTO getPost(Integer postId,Principal principal) throws Exception {
+		PostDTO post = this.postDAO.findById(postId);
+		        	
+    	post.setViews(post.getViews()+1);        	
+    	this.postDAO.update(post);
+    	userHistoryService.userViewPost(post, principal);
+        return post;
+	        	
 	}
 
 

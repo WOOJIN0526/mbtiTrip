@@ -12,8 +12,8 @@
 	<insert id="insertPostTable" parameterType="hashMap"
 		useGeneratedKeys="true">  
 			<![CDATA[
-		insert into PostView (PostId)
-		value (#{PostID});
+		insert into PostView (PostID)
+		value (#{postID});
  			]]>
 	</insert>
 
@@ -205,7 +205,7 @@
 		<![CDATA[
 		update PostView 
 		set viewRating = viewRating+1
-		where PostId = #{PostID};
+		where PostID = #{postID};
 		]]>
 	</update>
 

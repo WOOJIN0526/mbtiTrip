@@ -3,6 +3,7 @@ package com.example.test.POST.Controller;
 
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -121,25 +122,12 @@ public class PostController {
 
 	
 	//게시글 읽기 화면
-	@RequestMapping(value = "/post/noticeBoard/detail", method = RequestMethod.GET)
-	public String read(Model model, Integer postId, Principal principal) throws Exception{
+	@RequestMapping(value = "/post/noticeBoard/detail/{postID}", method = RequestMethod.GET)
+	public String read(Model model,@PathVariable("postID") Integer postID, Principal principal) throws Exception{
 
-		PostDTO post = postService.getPost(postId);
-			
-		String userName = "";
-		if( principal !=null ){
-			userName = principal.getName();
-			UserDTO user = userService.getUser(userName);
-				
-			model.addAttribute("userName", userName);
-		}
-
-		String writerName = post.getUserName();
-		if( writerName.equals(writerName)){
-			model.addAttribute("set", true); // 작성자일 경우만 수정, 삭제 노출
-		}
-
-
+		PostDTO post = postService.getPost(postID,principal);
+		UserDTO user = userService.getUser(post.getUserName());
+		model.addAttribute("user", user);
 		model.addAttribute("post", post);
 			
 
@@ -161,15 +149,22 @@ public class PostController {
     
     
     //@PostMapping("/noticeBoard/create")
-	@RequestMapping(value ="/post/noticeBoard/creat", method = RequestMethod.POST)
+	@RequestMapping(value ="/post/noticeBoard/create", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<String> boardCreate(PostDTO dto,Principal principal) throws Exception {
     	// DB에 연결할 후속작업 메서드 부탁드립니다.
-    	System.out.println(dto.toString());
+    	
     	String userName =principal.getName();
     	dto.setUserName(userName);
-    	this.postService.create(dto);
-    	return ResponseEntity.ok("등록하였습니다.");
+    	dto.setUpdateDate(LocalDateTime.now());
+    	System.out.println(dto.toString());
+    	int result =postService.create(dto);
+    	if(result==1) {
+    		return ResponseEntity.ok("등록하였습니다.");
+    	}else {
+    		return ResponseEntity.ok("등록에 실패했습니다.");
+    	}
+    	
     	
     }
 
