@@ -97,13 +97,37 @@ public class UserController {
 		String userMbti = (String) user.get("mbti");
 		/*Test 진행 중 중복값제거 작엄 중 , */
 		List<HashMap<String, Object>> UserUXs = userHistoryService.uxRutin(userMbti);
+		if(UserUXs.get(0).isEmpty() || UserUXs.size() <3) {
+			log.info("사용자 정보가 충분하지 않다");
+			mav.addObject("UxMessage", "사용자 정보가 충분하지 않습니다.");
+		}
+		
 		List<HashMap<String, Object>> userUxRe = userHistoryService.uxReplace(userMbti);
+		if(userUxRe.get(0).isEmpty() || UserUXs.size() <3) {
+			
+			mav.addObject("UxReMessage", "사용자 정보가 충분하지 않습니다.");
+		}
+		
 		List<HashMap<String, Object>> userUxAD = userHistoryService.uxAdventure(userMbti);
+		if(userUxAD.get(0).isEmpty() || UserUXs.size() <3) {
+		
+			mav.addObject("UxAdMessage", "사용자 정보가 충분하지 않습니다.");
+		}
+
+		
+		
 		List<List<?>> userViewInfo =userHistoryService.userViewInfo(principal);
+		log.info("userviewINfo 조회 끝 {}", userViewInfo);
+		if(userViewInfo.get(0).isEmpty() || userViewInfo.get(1).isEmpty() || userViewInfo.get(2).isEmpty()) {
+			log.info("사용자가 조회한 정보 없음");
+			mav.addObject("viewErrorMessage", "사용자가 조회한 정보 없음");
+		}
+		else {
+			mav.addObject("userViewInfo",userViewInfo);
+		}
 		mav.addObject("UserUXs",UserUXs);
 		mav.addObject("userUxRe",userUxRe);
 		mav.addObject("userUxadv",userUxAD);
-		mav.addObject("userViewInfo",userViewInfo);
 		mav.addObject("user", user);
 		mav.setViewName("User_Main");
 		return mav;
@@ -275,8 +299,8 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/user/mypage/update/ck", method = RequestMethod.POST)
-	
-	public ResponseEntity<String> update(@ModelAttribute UserDTO userdto,
+	@ResponseBody
+	public ResponseEntity<String> update(UserDTO userdto,
 								Principal principal, ModelAndView mav) {
 		log.info("message POST ONE ={}", userdto.toString());
 		try {

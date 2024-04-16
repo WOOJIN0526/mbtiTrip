@@ -8,7 +8,8 @@ import lombok.Getter;
 
 @Getter
 public enum PostExceptionEnum implements ExceptionCode{
-    POST_NOT_FOUND(HttpStatus.NOT_FOUND, "POST_001", "게시물을 찾을 수 없습니다."),
+    
+	POST_NOT_FOUND(HttpStatus.NOT_FOUND, "POST_001", "게시물을 찾을 수 없습니다."),
     POST_UNABLE_TO_CREATE(HttpStatus.INTERNAL_SERVER_ERROR, "POST_002", "게시물을 생성할 수 없습니다."),
     POST_UNABLE_TO_UPDATE(HttpStatus.INTERNAL_SERVER_ERROR, "POST_003", "게시물을 업데이트할 수 없습니다."),
     POST_UNABLE_TO_DELETE(HttpStatus.INTERNAL_SERVER_ERROR, "POST_004", "게시물을 삭제할 수 없습니다."),

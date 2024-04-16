@@ -68,7 +68,9 @@ public class PostController {
 	//게시글 목록 화면
 	@RequestMapping(value = "/post/noticeBoard/list", method = RequestMethod.GET)
 	public String list(Model model, Page page) throws Exception{
-
+	
+	PostDTO postDTO =new PostDTO();
+	postDTO.setPostCategoryID(2);
 	Integer totalCount = null;
 	Integer rowPerPage = null;
 	Integer pageCount = null;
@@ -109,7 +111,7 @@ public class PostController {
 				model.addAttribute("list", postService.search(page));
 			}
 	
-			model.addAttribute("list", postService.findPostByCategoryID(2L));
+			model.addAttribute("list", postService.findPostByCategoryID(postDTO));
 			model.addAttribute("page", page);
 			
 			return "notice_Board";

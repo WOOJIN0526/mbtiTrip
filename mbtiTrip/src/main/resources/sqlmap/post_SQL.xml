@@ -95,11 +95,11 @@
 		]]>
 	</select>
 	
-	<select id="findByPostCategoryId" resultType="hashmap">
+	<select id="findByPostCategoryId" resultType="com.example.test.POST.DTO.PostDTO">
 	 <![CDATA[
-		SELECT PostCateGoryID 
+		SELECT *
 		FROM Post
-		WHERE postID = #{PostID} And userName=#{userName} 
+		WHERE PostCateGoryID = #{postCategoryID}
 	]]>
 	</select>
 	
