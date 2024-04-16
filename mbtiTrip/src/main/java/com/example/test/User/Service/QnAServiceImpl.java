@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,9 +13,12 @@ import org.springframework.stereotype.Service;
 import com.example.test.User.DAO.QnADAO;
 import com.example.test.User.DTO.QAnswerDTO;
 import com.example.test.User.DTO.QnADTO;
+import com.example.test.User.DTO.UserDTO;
 import com.example.testExcepion.Cart.CartException;
 import com.example.testExcepion.Cart.CartExceptionEnum;
 import com.example.testExcepion.Insert.InsertException;
+import com.example.testExcepion.Utile.UserNotFoundExcepiton;
+import com.example.testExcepion.Utile.UtileExceptionCode;
 import com.example.testExcepionQnA.QnAException;
 import com.example.testExcepionQnA.QnAExceptionEnum;
 
@@ -31,14 +35,9 @@ public class QnAServiceImpl implements QnAService {
 	public int createQ(QnADTO qna, Principal principal) throws InsertException{
 		log.info("creatQ ===> {}", qna.toString());
 		if(principal.getName() == null) {
-			throw new QnAException(QnAExceptionEnum.QnA_NOT_FOUND_USER);
+			throw new UserNotFoundExcepiton(UtileExceptionCode.USER_NOT_FOUND_EXCEPTION);
 		}
-		if(qna.getTitle().isEmpty()) {
-			throw new QnAException(QnAExceptionEnum.QnA_NOT_TITLE);
-		}
-		if(qna.getContents().isEmpty()) {
-			throw new QnAException(QnAExceptionEnum.QnA_NOT_CONTENTS);
-		}
+		qnAvalidation(qna);
 		qna.setUserName(principal.getName());
 		qna.setUpdateDate(LocalDateTime.now());
 		return qnaDao.create(qna);
@@ -62,7 +61,7 @@ public class QnAServiceImpl implements QnAService {
 	@Override
 	public List<HashMap<String, Object>> getMyQnA(Principal prin) {
 		if(prin.getName()==null) {
-			throw new QnAException(QnAExceptionEnum.QnA_NOT_FOUND_USER);
+			throw new UserNotFoundExcepiton(UtileExceptionCode.USER_NOT_FOUND_EXCEPTION);
 		}
 		String userName = prin.getName();
 		return qnaDao.getMyQnA(userName);
@@ -71,8 +70,9 @@ public class QnAServiceImpl implements QnAService {
 	@Override
 	public boolean updateAnswer(QAnswerDTO answer, Principal principal) throws QnAException {
 		if(principal.getName()==null) {
-			throw new QnAException(QnAExceptionEnum.QnA_NOT_FOUND_USER);
+			throw new UserNotFoundExcepiton(UtileExceptionCode.USER_NOT_FOUND_EXCEPTION);
 		}
+		answervalidation(answer);
 		answer.setAdminName(principal.getName());
 		answer.setAupdateDate(LocalDateTime.now());	
 		int ck =qnaDao.createAnswer(answer);
@@ -83,4 +83,32 @@ public class QnAServiceImpl implements QnAService {
 		return cheak;
 	}
 
+	
+	
+	private void qnAvalidation(QnADTO qna) {
+		
+		if(qna.getTitle() ==null) {
+			throw new QnAException(QnAExceptionEnum.QnA_NOT_TITLE);
+		}
+		if(qna.getContents() == null) {
+			throw new QnAException(QnAExceptionEnum.QnA_NOT_CONTENTS);
+		}
+	}
+	
+	private void answervalidation(QAnswerDTO answer) {
+		if(answer.getA_content() == null) {
+			throw new QnAException(QnAExceptionEnum.QnA_NOT_CONTENTS);
+		}
+	}
+
+	
+	private boolean qnATitleValidation(QnADTO qna) {
+		String title = qna.getTitle();
+		boolean vaild = Pattern.matches("^[a-zA-Z0-9가-힣]*$", title);
+		//vaild가 true면 특수문자가 없다는 겨 
+		// 그니까 특수문자가 없을 땐 그냥 지나치도록, 반대값 리턴, == true = 특수문자 존재 
+		return !vaild;
+	}
+	
+	
 }

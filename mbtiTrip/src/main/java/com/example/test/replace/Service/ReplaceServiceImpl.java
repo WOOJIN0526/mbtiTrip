@@ -169,6 +169,13 @@ public class ReplaceServiceImpl implements ReplaceService{
 	}
 
 
+	@Override
+	public void modify(ItemDTO post) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 
 		

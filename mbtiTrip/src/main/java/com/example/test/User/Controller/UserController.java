@@ -15,6 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -83,6 +86,10 @@ public class UserController {
 	
 	@RequestMapping(value ="/" , method = RequestMethod.GET)
 	public ModelAndView main(ModelAndView mv) {
+		/*권한 동작 확인 Test*/
+//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//		log.info("guest auth ==>{}", auth);
+//		
 		mv.setViewName("main");
 		return mv;
 	}
@@ -92,6 +99,16 @@ public class UserController {
 	public ModelAndView main(Principal principal,
 							Authentication auth,
 							ModelAndView mav) {
+		/*권한 동작 확인 Test*/
+//		Authentication auth2 = SecurityContextHolder.getContext().getAuthentication();
+//		log.info("user auth ==>{}", auth2);
+//		if(auth2 != null && auth2.isAuthenticated()) {
+//			log.info("주어진 auth2로, 제대로 인식 하는 중");
+//			log.info("auth2 getAuthorities =>{}", auth2.getAuthorities());
+//			for(GrantedAuthority au : auth2.getAuthorities()){
+//				log.info("권한 확인 User = > {}", au.getAuthority());
+//			}
+//		}
 		Integer UID = userService.princeUID(principal);
 		Map<String, Object> user = userService.getInfo(UID);
 		String userMbti = (String) user.get("mbti");
