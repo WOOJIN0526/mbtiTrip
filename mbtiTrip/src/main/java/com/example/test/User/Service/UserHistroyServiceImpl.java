@@ -57,7 +57,7 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 			throw new UserNotFoundExcepiton(UtileExceptionCode.USER_NOT_FOUND_EXCEPTION);
 		}
 		userPostView.setPostid(PostDTO.getPostID());
-		userPostView.setUserName(principal.getName());
+		userPostView.setUserName(userDAO.getUserNameByuserID(principal.getName()));
 		userhistoryDAO.viewCkPO(userPostView);
 		//viewPost에 viewRating 값 증가 
 		userhistoryDAO.viewRatingPO(PostDTO);

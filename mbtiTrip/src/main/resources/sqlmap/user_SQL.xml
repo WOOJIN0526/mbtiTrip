@@ -40,7 +40,7 @@
 	]]>
 	</select>
 	
-		<select id="getUserNamebyuserId" resultType="com.example.test.User.DTO.UserDTO">
+		<select id="getUserNamebyuserId" resultType="String">
 	 <![CDATA[
 		SELECT userName
 		FROM User

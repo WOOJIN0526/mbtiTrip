@@ -35,6 +35,7 @@ import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.DTO.Post_CategoryDTO;
 import com.example.test.POST.Service.PostService;
 import com.example.test.POST.Service.Post_CategoryService;
+import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.Service.UserHistoryService;
 import com.example.test.User.Service.UserService;
@@ -65,6 +66,9 @@ public class PostController {
 	
 	@Autowired
 	UserHistoryService userHistoryService;
+	
+	@Autowired
+	UserDAO userDao;
 	
 	//게시글 목록 화면
 	@RequestMapping(value = "/post/noticeBoard/list", method = RequestMethod.GET)
@@ -157,8 +161,8 @@ public class PostController {
     @ResponseBody
     public ResponseEntity<String> boardCreate(PostDTO dto,Principal principal) throws Exception {
     	// DB에 연결할 후속작업 메서드 부탁드립니다.
-    	
-    	String userName =principal.getName();
+		
+    	String userName =userDao.getUserNameByuserID(principal.getName());
     	dto.setUserName(userName);
     	dto.setUpdateDate(LocalDateTime.now());
     	System.out.println(dto.toString());
