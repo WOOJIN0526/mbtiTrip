@@ -19,6 +19,7 @@ import com.example.test.User.DAO.UserCartDAO;
 import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.item.DAO.ItemDAO;
+import com.example.test.item.DTO.ItemDTO;
 import com.example.testExcepion.SignUP.SignUpException;
 import com.example.testExcepion.SignUP.SignUpExceptionEunm;
 import com.example.testExcepion.login.LoginException;
@@ -219,6 +220,12 @@ public class UserServiceImpl implements UserService{
 		//vaild가 true면 특수문자가 없다는 겨 
 		// 그니까 특수문자가 없을 땐 그냥 지나치도록, 반대값 리턴, == true = 특수문자 존재 
 		return !vaild;
+	}
+
+	@Override
+	public List<ItemDTO> serchLocation(String location) {
+		List<ItemDTO> result = itemDao.searchLocation(location);
+		return result;
 	}
 
 	

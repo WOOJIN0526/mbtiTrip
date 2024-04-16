@@ -28,7 +28,6 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint{
 		// TODO Auto-generated method stub
 		ObjectMapper obejectMapper = new ObjectMapper();
 		
-		log.error("AuthenticationException ==>{}", authException);
 		log.error("requesetURL ==> {}", request.getRequestURI());
 		
 		AuthenticationExceptionResponse exResponse = new AuthenticationExceptionResponse(UtileExceptionCode.USER_FORBIDDEN);

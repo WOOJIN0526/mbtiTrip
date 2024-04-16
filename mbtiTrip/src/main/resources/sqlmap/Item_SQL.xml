@@ -29,17 +29,21 @@
 		where mbti = #{mbti}
 	</select>
 
-	<select id="itemByLocation" resultType ="hashMap">
+	<select id="itemByLocation" resultType ="com.example.test.item.DTO.ItemDTO">
 		select * from Item
-		where location like #{location}%
+		where location like #{location}
 	</select>
 
 	<select id="mbtiAndLocation" resultType ="hashMap">
 		selct * from Item
-		where mbti =#{mbti} and location Like #{location}%
+		where mbti =#{mbti} and location Like #{location}
 	</select>
 	
-	
+	<select id="locationSerch" resultType="hashMap">
+	select * 
+	from Item 
+	where location like #{location}%;
+	</select>
 	
 	<delete id="deleteItem">
 		delete from Item 
