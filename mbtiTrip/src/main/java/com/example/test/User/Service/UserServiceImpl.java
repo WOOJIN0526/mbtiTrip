@@ -74,6 +74,7 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public  Map<String, Object> login(UserDTO userdto) {
+		//login validationCK
 		return userDao.login(userdto);
 	}
 
@@ -103,7 +104,8 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public Map<String, Object> getInfo(Integer uID) {
-		return userDao.getInfo(uID);
+		 Map<String, Object> userInfo= userDao.getInfo(uID);
+		 return userInfo;
 	}
 	
 	@Override
@@ -114,21 +116,19 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public UserDTO getUser(String id) {
-		if(id == null) {
-			
-		}
 		UserDTO siteUser = this.userDao.getByUserId(id);
 		return siteUser;
 	}
 
 	public Integer princeUID(Principal principal) {
-		String userName = principal.getName();
+		String userName = userDao.getUserNameByuserID(principal.getName());
 		Integer UID = findByUID(userName);
 		return UID;
 	}
 
 	public boolean passwordCK(Principal principal, String inputPw) {
-		String target = getUser(principal.getName()).getPassword();
+		String userName = userDao.getUserNameByuserID(principal.getName());
+		String target = getUser(userName).getPassword();
 		boolean ck = bcrypasswordEncoder.matches(inputPw, target);
 		return ck;
 	}
@@ -137,7 +137,7 @@ public class UserServiceImpl implements UserService{
 	/*이 아래 bis 관련 기능 */
 	@Override
 	public List<HashMap<String, Object>> getMyItem(Principal principal) {
-		String userName = principal.getName();
+		String userName = userDao.getUserNameByuserID(principal.getName());
 		//userName ="testUser4";
 		List<HashMap<String, Object>> myItem = userDao.getMyItem(userName);
 		// item들을 불러올떄 itemID값을 통해 등록된 item의 imgURl을 가져와넣는 작업
