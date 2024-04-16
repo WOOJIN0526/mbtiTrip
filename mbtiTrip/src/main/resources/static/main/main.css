@@ -124,9 +124,10 @@ table {
   
     /* size */
     width: 100%;
-    height: 300px;
+    height: 500px;
     /* flex item의 flex-shrink는 기본값이 1이므로 컨테이너 크기에 맞게 줄어드는데, 슬라이드를 구현할 것이므로 줄어들지 않도록 0을 준다. */
     flex-shrink: 0;
+    margin: 3rem;
   
     /* transition */
     transition: left 0.15s;
@@ -264,14 +265,13 @@ table {
   
 
 .mainCon {  
-    margin: 30px 80px
+    margin: 30px 30px
 }
 .sec__title{
     /* font-family: ; */
     font-weight: 400px;
     font-size: 30px;
     text-align: center;
-    /* margin-top: 3rem; */
 }
 
 .sec__title2 {
@@ -279,49 +279,6 @@ table {
     font-weight: 800;
     color:rgb(68, 66, 66);
 }
-
-.card__img1 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 70px;
-    background-size: 100% 100%;
-}
-.card__img2 {
-    background-image: url("../images/card2.jpg");
-    height: 70px;
-    background-size: 100% 100%;
-}
-.card__img3 {
-    background-image: url("../images/card3.jpg");
-    height: 70px;
-    background-size: 100% 100%;
-}
-.card__img4 {
-    background-image: url("../images/card4.jpg");
-    height: 70px;
-    background-size: 100% 100%;
-}
-
-.card__content {
-    display: grid;
-    align-items: center;
-    font-weight: 600;
-    margin: 0 0 0 10px;
-}
-.card__box {
-    display:grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 30px;
-}
-
-.card {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    border: 1px solid rgb(212, 210, 210);
-    border-radius: 6px;
-    box-shadow: 0 0 3px 0 rgb(172, 170, 170);
-}
-
-
 
 .ad1 {
     margin: 20px 0;
@@ -332,65 +289,14 @@ table {
     border-radius: 20px;
 }
 
-.choo__box {
-    display:grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr ;
-    grid-gap: 10px;
-    margin-bottom: 10px;
-}
-
-.choo_img1 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 300px;
-    background-size: 100% 100%;
-}
-
-.choo_img2 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 300px;
-    background-size: 100% 100%;
-}
-
-.choo_img3 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 300px;
-    background-size: 100% 100%;
-}
-
-.choo_img4 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 300px;
-    background-size: 100% 100%;
-}
-
-.choo_img5 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 300px;
-    background-size: 100% 100%;
-}
-.choo_img6 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 300px;
-    background-size: 100% 100%;
-}
-
-.choo_img7 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 300px;
-    background-size: 100% 100%;
-}
-
-.choo_img8 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_01.jpg");
-    height: 300px;
-    background-size: 100% 100%;
-}
 
 .home__box {
     display:grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 10px;
-    margin: 5rem;
+    margin: 5rem 5rem 5rem 5rem;
+
+
 }
 
 .home__img1 {
@@ -463,22 +369,7 @@ table {
     font-size: 12px;
 }
 
-.image-13 {
-    border-radius: 70%;
-    width: 8rem;
-    height: 8em;
-    position: relative;
-    object-fit: cover;
-    
-}
-.image-14{
 
-    width: 8rem;
-    height: 8em;
-    position: relative;
-    object-fit: cover;
-    background-image: url(/images/image-210.png);
-}
 .review{
     height: 14.5625rem;
     border: 1px solid black;
