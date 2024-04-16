@@ -22,12 +22,12 @@
 	            <br>
 	-->
 	            <label for="adventureName" class="head">여행지 이름</label>
-	            <input type="text" id="adventureName" name="adventureName" th:required="required">
+	            <input type="text" id="adventureName" name="itemName" th:required="required">
 	            <br>
 				<label class="head">위치 등록</label><br>
 				<input type="text" id="postcode" placeholder="우편번호" name="adventurePostCode">
 				<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" id="postCodeBtn"><br>
-				<input type="text" id="address" placeholder="주소" name="adventureLocation"><br>
+				<input type="text" id="address" placeholder="주소" name="location"><br>
 				<input type="text" id="detailAddress" placeholder="상세주소" name="locationdetail">
 				<input type="text" id="extraAddress" placeholder="참고항목">
 				
@@ -37,7 +37,7 @@
 				
 				
 	            <label for="adventureContent" class="head">소개글 등록</label><br>
-	            <textarea class="introduce" placeholder="소개글을 입력해주세요" name="adventureContent"></textarea>
+	            <textarea class="introduce" placeholder="소개글을 입력해주세요" name="contents"></textarea>
 	            <br>
 	
 <!--	            <label for="replaceType" class="head">숙박 시설</label><br>
@@ -73,7 +73,7 @@
                 <br> 
 				
 	            <label for="replacePrice" class="head">요금 등록</label>
-	            <input type="number" id="replacePrice" name="replacePrice" th:required="required" placeholder="원단위로입력해주세요">
+	            <input type="number" id="replacePrice" name="price" th:required="required" placeholder="원단위로입력해주세요">
 	            <br>
 	
 				</form>

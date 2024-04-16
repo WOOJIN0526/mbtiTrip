@@ -29,11 +29,15 @@ import com.example.test.User.Service.UserService;
 import com.example.test.item.ItemType;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.paging.Page;
+import com.example.test.replace.Service.ReplaceService;
 
 
 @Controller
 public class AdventureController {
-
+	
+	@Autowired
+	ReplaceService rpService;
+	
 	@Autowired
 	AdventureService adService;
 	
@@ -131,19 +135,17 @@ public class AdventureController {
     //@PostMapping("/create")
     @RequestMapping(value ="/adventure/create", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> create(ItemDTO itemdto){
+    public ResponseEntity<String> create(ItemDTO itemdto,Principal princiapl) throws Exception{
     	itemdto.setType(ItemType.adventure);
-    	
     	System.out.println(itemdto.toString());
-    	for(MultipartFile file : itemdto.getFile()) {
-    		System.out.println(file.getOriginalFilename());
-    	}
-    	try {
-			this.adService.create(itemdto);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	String userId = princiapl.getName();
+    	System.out.println(userId);
+    	UserDTO userDTO = userService.getUser(userId);
+    	System.out.println(userDTO.toString());
+    	itemdto.setUsername(userDTO);
+    	this.rpService.create(itemdto);
+    	int resultImg = rpService.createImg(itemdto);
+    	System.out.println(resultImg);
     	
     	return ResponseEntity.ok().body("Success message");
     }

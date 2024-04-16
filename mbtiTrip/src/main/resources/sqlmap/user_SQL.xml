@@ -36,7 +36,7 @@
 	 <![CDATA[
 		SELECT * 
 		FROM User
-		WHERE UserId = #{userId}  
+		WHERE userId = #{userId}  
 	]]>
 	</select>
 	<select id="getMyItem" resultType="hashMap">

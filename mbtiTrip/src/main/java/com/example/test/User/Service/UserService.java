@@ -27,7 +27,7 @@ public interface UserService {
 
 	public Integer findByUID(String userName);
 
-	public UserDTO getUser(String name);
+	public UserDTO getUser(String id);
 
 
 	public Integer princeUID(Principal principar);

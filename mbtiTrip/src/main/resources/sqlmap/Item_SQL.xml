@@ -4,7 +4,7 @@
 
 	<insert id="create" useGeneratedKeys="true" keyProperty="itemID">
     INSERT INTO Item (Type, mbti, userName, price, itemName, location, tel, contents, updateDate, uprating)
-    VALUES (#{Type}, #{mbti}, #{Username.userName}, #{price}, #{itemName}, #{location}, #{tel}, #{contents}, #{updateDate},#{uprating})
+    VALUES (#{Type}, #{mbti}, #{Username.userName}, #{price}, #{itemName}, #{location}, #{tel}, #{contents}, #{updateDate},
     CASE WHEN #{uprating} IS NOT NULL THEN #{uprating.length()} ELSE 0 END)
 	</insert>
 

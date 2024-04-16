@@ -71,16 +71,14 @@ public  class PostServiceImpl implements PostService {
 
 
 	@Override
-	public void create(PostDTO post)  {
-		postValidationCK(post);
+	public int create(PostDTO post)  {
+		//postValidationCK(post);
 
-		try {
+
 			int result =postDAO.create(post);
 			
 			return result;
-		}catch(Exception e) {
-			throw new InsertException(InsertExceptionEnum.INSERT_SERVER_ERROR);
-		}
+
 		 
 	}
 
