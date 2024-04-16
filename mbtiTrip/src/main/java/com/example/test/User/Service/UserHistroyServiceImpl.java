@@ -58,7 +58,9 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 		}
 		String userName = userDAO.getUserNameByuserID(principal.getName());
 		userPostView.setPostid(PostDTO.getPostID());
+
 		userPostView.setUserName(userName);
+
 		userhistoryDAO.viewCkPO(userPostView);
 		//viewPost에 viewRating 값 증가 
 		userhistoryDAO.viewRatingPO(PostDTO);
