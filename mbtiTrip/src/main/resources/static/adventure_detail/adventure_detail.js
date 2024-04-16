@@ -81,12 +81,27 @@ const getDateDiff = (d1, d2) => {
     return Math.abs(diffDate / (1000 * 60 * 60 * 24)); // 밀리세컨 * 초 * 분 * 시 = 일
 };
 
-/*function addCart(){
+function addCart(){
+	let formData = new FormData();
+	const itemID = document.querySelector('.container').dataset.value;
+	const StartDate = new date(document.querySelector('#start').value);
+	const endtDate = new date(document.querySelector('#end').value);
+	formData.set("itemID",itemID);
+	formData.set("StartDate",StartDate);
+	formData.set("endDate",endDate);
 	fetch("/adventure/input",{
 		method:"POST",
 		headers:{
 			"Content-Type":"multipart/form-data"
 		},
 		body:formData
-	})
-}*/
+	}).then(response=>{
+		if(response==='true'){
+			alert("장바구니에 담았습니다.")
+		}else{
+			alert("등록에 실패하였습니다.")
+		}
+	}).catch(err=>{
+		alert("등록에 실패하였습니다.")
+	});
+}

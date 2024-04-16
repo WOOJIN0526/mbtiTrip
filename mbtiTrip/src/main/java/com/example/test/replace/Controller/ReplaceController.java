@@ -106,7 +106,7 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
 	
 	//게시글 읽기 화면
 	@RequestMapping(value = "/replace/detail/{itemId}", method = RequestMethod.GET)
-	public String read(Model model,@PathVariable Integer itemId, Principal principal) throws Exception{
+	public String read(Model model,@PathVariable("itemId") Integer itemId, Principal principal) throws Exception{
 
 	ItemDTO item = rpService.getPost(itemId, principal);
 			
@@ -118,16 +118,10 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
 	model.addAttribute("userName", userName);
 	}
 
-	UserDTO writerName = item.getUsername();
-	if( writerName.equals(writerName)){
-		model.addAttribute("set", true); // 작성자일 경우만 수정, 삭제 노출
-	}
-
-
 	model.addAttribute("item", item);
 			
 
-	return "replace_detail";
+	return "adventure_detail";
 	}
 
 	@PreAuthorize("isAuthenticated()")

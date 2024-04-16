@@ -91,23 +91,25 @@ public class ReplaceServiceImpl implements ReplaceService{
 			throw new ItemException(ItemExceptionEnum.ITEM_NOT_FOUND);
 		}
 		ItemDTO replace = this.itemDAO.findById(itemId);
-		      	
+		    	
 		replace.setView(replace.getView()+1);        	
-    	this.itemDAO.create(replace);
+    	this.itemDAO.update(replace);
+    	
+		int itemID = replace.getItemID();
+        List<String> url = itemDAO.getUrl(itemID); // 아이템의 이미지 URL을 가져옵니다.
+        
+        // 등록된 이미지가 없을 경우 "0"을 추가합니다.
+        if (url.isEmpty()) {
+            url.add("0");
+        }
+        
+        // 리스트를 배열로 변환하여 아이템에 이미지 URL 배열을 설정합니다.
+        String[] imageUrlArray = url.toArray(new String[0]);
+        System.out.println(imageUrlArray.toString()+"HERE!!!");
+        replace.setImgeUrl(imageUrlArray);
     	userHistoryService.userViewItem(replace, principal);
-        	return replace;	        	
-	}
+        return replace;
 
-	@Override
-	public void modify(ItemDTO post) throws Exception {
-		ItemException.validationItem(post);
-		try {
-			itemDAO.update(post);
-		} 
-		catch(Exception e) {
-			throw new UpdateException(UpdateExceptionEnum.UPDATE_FAIL_SERVER);
-		}
-		
 	}
 
 	@Override

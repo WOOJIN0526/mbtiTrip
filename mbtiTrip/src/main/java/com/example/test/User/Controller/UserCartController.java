@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.test.Adventure.DTO.AdventureDTO;
@@ -75,7 +76,8 @@ public class UserCartController {
 	
 	
 	@RequestMapping(value="/adventure/input" , method=RequestMethod.POST)
-	public boolean inserItem(@RequestBody ItemDTO itemDTO,
+	@ResponseBody
+	public boolean inserItem(ItemDTO itemDTO,
 								@RequestBody UserCartDTO userCartDTO
 								,Principal principal
 								,ModelAndView mav) throws Exception{

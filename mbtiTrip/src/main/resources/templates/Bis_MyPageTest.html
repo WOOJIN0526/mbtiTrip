@@ -1,6 +1,6 @@
 <style></style>
 <div>
-	<div th:object ="${user}">
+	<div >
 		<img class="userImg" th:if="${user!= null}" th:src="${user['userImg']}" alt="프로필 이미지"></img>
 		<img class="userImg" th:unless="${user!= null}" alt="프로필 이미지"></img>
 		<h2 th:text="${user['userName']}"></h2>
@@ -10,27 +10,31 @@
 			<li th:text="${user['mail']}"></li>
 		</ul>
 	</div>
-	<div th:object="${userItems}">
-		<ul th:each="userItem : ${userItems}">
-			<li  th:text="${userItem['itemId']}"></li>
-			<li th:text="${userItem['itemName']}"></li>
-			<li th:text="${userItem['location']}"></li>
-			<li th:text="${userItem['contents']}"></li>
-			<li th:text="${userItem['ratingAvg']}"></li>
-			<li th:text="${userItem['viewRating']}"></li>
-		</ul>
+	<div th:if="${userItems}!=null">
+		<div th:object="${userItems}">
+				<ul th:each="userItem : ${userItems}">
+					<li  th:text="${userItem['itemId']}"></li>
+					<li th:text="${userItem['itemName']}"></li>
+					<li th:text="${userItem['location']}"></li>
+					<li th:text="${userItem['contents']}"></li>
+					<li th:text="${userItem['ratingAvg']}"></li>
+					<li th:text="${userItem['viewRating']}"></li>
+				</ul>
+			</div>
 	</div>
 	
 	<h1>내 숙소 예약 정보</h1>
-	<div th:object="${userReservation}">
-		<ul th:each="Info : ${userReservation}">
-			<li th:text="${Info['itemName']}"></li>
-			<li th:text="${Info['userName']}"></li>
-			<li th:text="${Info['startDate']}"></li>
-			<li th:text="${Info['endDate']}"></li>
-			<li th:text="${Info['phone']}"></li>
-			<li th:text="${Info['mail']}"></li>
-		</ul>
+	<div th:if="${userReservation}!=null">
+		<div th:object="${userReservation}">
+				<ul th:each="Info : ${userReservation}">
+					<li th:text="${Info['itemName']}"></li>
+					<li th:text="${Info['userName']}"></li>
+					<li th:text="${Info['startDate']}"></li>
+					<li th:text="${Info['endDate']}"></li>
+					<li th:text="${Info['phone']}"></li>
+					<li th:text="${Info['mail']}"></li>
+				</ul>
+			</div>
 	</div>
 	
 </div>
