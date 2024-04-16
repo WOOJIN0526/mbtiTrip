@@ -103,6 +103,12 @@ public class UserDAO {
 		return myItem;
 	}
 	
+	/**/
+	public String getUserNameByuserID(String userId) {
+		String userName = this.sqlSessiontemplate.selectOne("getUserNamebyuserId", userId);
+		return userName;
+	}
+	
 	
 	public boolean idCk(UserDTO userdto) {
 		boolean ck = false;

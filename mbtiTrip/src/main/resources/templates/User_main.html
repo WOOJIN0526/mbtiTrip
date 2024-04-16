@@ -372,23 +372,23 @@
 
         </section>
         <section>
-            <div class="sec__title">숙소 추천11</div>
+            <div class="sec__title">숙소 추천</div>
 
-            <div class="home__box">
-                <div class="home">
+            <div class="home__box" th:object="${UserUXs}">
+                <div class="home" th:each="ux : ${UserUXs}">
                     <div class="home__img1"></div>
                     <div class="home__info">
-                        <div class="info1">
+                        <div class="info1" th:text="${ux['replaceLocation']}">
                             전남/고흥
                         </div>
-                        <div class="info2">
+                        <div class="info2" th:text="${ux['replaceName']}">
                             Naro Ocean Hills
                         </div>
                         <div class="info3"></div>
                     </div>
                 </div>
 
-                <div class="home">
+                <!-- <div class="home">
                     <div class="home__img2"></div>
                     <div class="home__info">
                         <div class="info1">
@@ -479,7 +479,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
     </main>
 

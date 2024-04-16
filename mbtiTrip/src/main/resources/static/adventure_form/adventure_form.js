@@ -132,7 +132,7 @@ function submitForm() {
     for (let key of formData.keys()) {
 	console.log(key, ":", formData.get(key));
 	}
-	fetch("/replace/create",{
+	fetch("/adventure/create",{
 		method:"POST",
 		headers:{
 			/*"Content-Type":"multipart/form-data"*/
