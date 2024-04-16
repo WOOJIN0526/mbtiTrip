@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.test.Adventure.DTO.AdventureDTO;
@@ -17,6 +18,8 @@ import com.example.test.User.DTO.QnADTO;
 import com.example.test.User.DTO.UserHistoryDTO;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.replace.DTO.ReplaceDTO;
+import com.example.testExcepion.Utile.UserNotFoundExcepiton;
+import com.example.testExcepion.Utile.UtileExceptionCode;
 import com.example.testExcepion.updated.UpdateException;
 import com.example.testExcepion.updated.UpdateExceptionEnum;
 
@@ -36,18 +39,23 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 	// 사용자의 userView에 조회한 ITem 정보 삽입
 	public void userViewItem(ItemDTO itemDTO, Principal principal) {
 		UserHistoryDTO userItemView = new UserHistoryDTO();
+		if(principal == null) {
+			throw new UserNotFoundExcepiton(UtileExceptionCode.USER_NOT_FOUND_EXCEPTION);
+		}
+		
 		userItemView.setItemId(itemDTO.getItemID());
 		userItemView.setUserName(principal.getName());
 		userhistoryDAO.viewCkItem(userItemView);
 		//viewItem에 viewRating 값 증가 
-		System.out.println("123");
 		userhistoryDAO.viewRatingIT(itemDTO);
-		System.out.println("999");
 	}
 	
 	// 사용자의 userView에 조회한 Post 정보 삽입
 	public void userViewPost(PostDTO PostDTO, Principal principal) {
 		UserHistoryDTO userPostView = new UserHistoryDTO();
+		if(principal.getName() == null) {
+			throw new UserNotFoundExcepiton(UtileExceptionCode.USER_NOT_FOUND_EXCEPTION);
+		}
 		userPostView.setPostid(PostDTO.getPostID());
 		userPostView.setUserName(principal.getName());
 		userhistoryDAO.viewCkPO(userPostView);
@@ -100,6 +108,9 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 	/*user가 작성한 QnA*/
 	@Override
 	public List<HashMap<String, Object>> selectUserQnA(Principal principal) {
+		if(principal.getName() == null) {
+			throw new UserNotFoundExcepiton(UtileExceptionCode.USER_NOT_FOUND_EXCEPTION);
+		}
 		String userName = principal.getName();
 		List<HashMap<String, Object>> userQnA = userhistoryDAO.userCreateQnA(userName);
 		return userQnA;

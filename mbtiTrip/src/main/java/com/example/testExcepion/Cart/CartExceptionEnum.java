@@ -10,7 +10,8 @@ import lombok.Getter;
 public enum CartExceptionEnum implements ExceptionCode {
 	CART_NOTFOUND_ITEM(HttpStatus.NOT_FOUND, "CART_001", "존재하지 않는 정보입니다."),
 	CART_STARTDATE_MISMATCH(HttpStatus.BAD_REQUEST, "CART_002", "시작일이 이미 지났습니다."),
-	CART_ENDdDATE_MISMATCH(HttpStatus.BAD_REQUEST, "CART_003", "종료일이 이미 지났습니다."),
+	CART_ENDDATE_MISMATCH(HttpStatus.BAD_REQUEST, "CART_003", "종료일이 이미 지났습니다."),
+	CART_ENDDATE_MISMATCH2(HttpStatus.BAD_REQUEST, "CART_011", "종료일이 시작일보다 빠릅니다."),
 	CART_NOTFOUND_USER(HttpStatus.BAD_REQUEST, "CART_004", "사용자 정보를 찾을 수 없습니다."),
 	CART_STARTDATE_NULL(HttpStatus.NOT_FOUND, "CART_005", "시작일이 없습니다. "),
 	CART_ENDDATE_NULL(HttpStatus.NOT_FOUND, "CART_006", "종료일이 없습니다"),
