@@ -7,48 +7,69 @@
     <title>Document</title>
     <script src="https://kit.fontawesome.com/664a7b3827.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/static/history/history.css">
-    <link rel="stylesheet" th:href="@{history/history.css}">
+    <link rel="stylesheet" th:href="@{/history/history.css}">
 </head>
 
 <body>
-    <div class="main" th:object="${reservation}">
-        <section>
-            <div class="side">
-                <aside class="side_bar">
-                    <ul>
-                        <li>
-                            <a href="">마이페이지</a>
-                        </li>
-                        <li>
-                            <a href="">예약 내역</a>
-                        </li>
-                        <li>
-                            <a href="">고객문의</a>
-                        </li>
-                        <li>
-                            <a href="">게시판</a>
-                        </li>
-                    </ul>
-                </aside>
-            </div>
-        </section>
-        <section class="privacy_change">
-            <div class="guide">
-                <h1>안녕하세요 ***님</h1>
-            </div>
-
-        </section>
-        <section class="my_history">
-            <div class="information">
-                <div class="replace_reservation">
-                    <h1>나의 숙소 예약내역</h1>
-                    <form action="">
-                        <input type="text" id="serch" placeholder="내 예약 찾기">
-                        <input type="button" value="검색">
-                    </form>
+	<div class="main" th:object="${reservation}">   
+	       <section class="except">    
+	           <div class="side">
+	               <aside class="side_bar">
+	                   <ul>
+	                       <li>
+	                           <a href="">마이페이지</a>
+	                       </li>
+	                       <li>
+	                           <a href="">예약 내역</a>
+	                       </li>
+	                       <li>
+	                           <a href="">고객문의</a>
+	                       </li>
+	                       <li>
+	                           <a href="">게시판</a>
+	                       </li>
+	                   </ul>
+	               </aside>
+	           </div>
+	           <div class="guide">
+	               <h1>안녕하세요 ***님</h1>
+	           </div>
+	
+	       </section>
+	       <section class="my_history">
+	           <div class="information">
+	               <div class="replace_reservation">
+	                   <h1>나의 예약내역</h1>
+	                   <form action="">
+	                       <input type="text" id="serch" placeholder="내 예약 찾기">
+	                       <input type="button" value="검색">
+	                   </form>
 					<div th:object="${reservation}">
-						<table th:each="pay : ${reservation}">
-							<p> 장소 이름</p><span th:text="${pay['itemName']}"></span>
+						<table class="reservation_information" >
+							<tr>
+	                            <th>장소 이름</th>
+	                            <th>주인쟝</th>
+	                            <th>장소</th>
+	                            <th>추천 타입</th>
+	                            <th>출발일</th>
+	                            <th>도착일</th>
+								<th>결제 여부</th>
+								<th>전화번호</th>
+								<th>가격</th>
+	                        </tr>
+							<tr th:each="pay : ${reservation}">
+								<td th:text="${pay['itemName']}"></td>
+								<td th:text="${pay['admin']}"></td>
+								<td th:text="${pay['location']}"></td>
+								<td th:text="${pay['mbti']}"></td>
+								<td th:text="${pay['startDate']}"></td>
+								<td th:text="${pay['endDate']}"></td>
+								<td th:text="${pay['payments']}? 'finish': 'pay' "></td>
+								<td th:text="${pay['tel']}"></td>
+								<td th:text="${pay['price']}"></td>
+								
+							</tr>
+							<!--<p> 장소 이름</p><span th:text="${pay['itemName']}"></span>
 							<sapn>&nbsp;</sapn>
 							<p> 주인쟝</p><span th:text="${pay['admin']}"></span>
 							<sapn>&nbsp;</sapn>
@@ -65,190 +86,145 @@
 							<p> 전화번호</p><span th:text="${pay['tel']}"></span>
 							<sapn>&nbsp;</sapn>
 							<p> 가격</p><span th:text="${pay['price']}"></span>
-							<sapn>&nbsp;</sapn>
+							<sapn>&nbsp;</sapn>-->
 						</table>
 					
 					</div>
-                    <div class="">
-                        <ul class="page">
-                            <li class="page-item">
-                                <a class="page-link" href="#">이전</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">4</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">5</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">다음</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                
-                    <div class="">
-                        <ul class="page">
-                            <li class="page-item">
-                                <a class="page-link" href="#">이전</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">4</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">5</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">다음</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="post_reservation" th:object="${userPosts}">
-                    <h1>글작성 내역</h1>
-                    <form action="">
-                        <input type="text" id="serch" placeholder="작성 글 찾기">
-                        <input type="button" value="검색">
-                    </form>
-                    <table class="post_information">
-                        <tr>
-                            <th>작성일자</th>
-                            <th>제목</th>
-                            <th>작성 카테고리</th>
-                            <th>조회수</th>
-                            <th>추천수</th>
-                            <th></th>
-                        </tr>
-                        <tr th:each="userPo :    ${userPosts}">
-                            <td th:text="${userPo['updateDate']}">2016.03.25</td>
-                            <td th:text="${userPo['title']}">작성ㅇㅎ</td>
-                           
-                            <td th:text="${userPo['views']}">235</td>
-                            <td th:text="${userPo['suggestion']}">0</td>
-                            <td>
-                                <button>삭제</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2011.03.25</td>
-                            <td>ㄴㅇㄴㅇ</td>
-                            <td>여행지 리뷰</td>
-                            <td>546</td>
-                            <td>0</td>
-                            <td>
-                                <button>삭제</button>
-                            </td>
-                        </tr>
-
-                        <section>
-                            <tr>
-                                <td>5315</td>
-                                <td>게시판에서</td>
-                                <td>게시판</td>
-                                <td>2455</td>
-                                <td>8</td>
-                                <td>
-                                    <button>삭제</button>
-                                </td>
-                            </tr>
-                        </section>
-                    </table>
-                    <div class="">
-                        <ul class="page">
-                            <li class="page-item">
-                                <a class="page-link" href="#">이전</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">4</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">5</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">다음</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="qna_reservation" th:object="${userPosts}">
-                    <h1>문의 내역</h1>
-                    <form action="">
-                        <input type="text" id="serch" placeholder="작성 글 찾기">
-                        <input type="button" value="검색">
-                    </form>
-                    <table class="qna_information">
-                        <tr>
-                            <th>아이디</th>
-                            <th>작성일자</th>
-                            <th>제목</th>
-                            <th>작성 카테고리</th>
-                            <th>답변 상태</th>
-                        </tr>
-                        <tr th:each="qna :   ${userQnAs}">
-                            <td th:text="${userPo['PostCateGoryID']}"></td>
-                            <td th:text="${qna['updateDate']}"></td>
-                            <td th:text="${qna['Qname']}"></td>
-                            <td th:text="${qna['contents']}"></td>
-                            <td th:text="${qna['Answer']}"></td>
-                        </tr>
-                    </table>
-                    <div class="">
-                        <ul class="page">
-                            <li class="page-item">
-                                <a class="page-link" href="#">이전</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">4</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">5</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">다음</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
+	                   <div class="">
+	                       <ul class="page">
+	                           <li class="page-item">
+	                               <a class="page-link" href="#">이전</a>
+	                           </li>
+	                           <li class="page-item">
+	                               <a class="page-link" href="#">1</a>
+	                           </li>
+	                           <li class="page-item">
+	                               <a class="page-link" href="#">2</a>
+	                           </li>
+	                           <li class="page-item">
+	                               <a class="page-link" href="#">3</a>
+	                           </li>
+	                           <li class="page-item">
+	                               <a class="page-link" href="#">4</a>
+	                           </li>
+	                           <li class="page-item">
+	                               <a class="page-link" href="#">5</a>
+	                           </li>
+	                           <li class="page-item">
+	                               <a class="page-link" href="#">다음</a>
+	                           </li>
+	                       </ul>
+	                   </div>
+	               </div>
+	               
+	               </div>
+	               <div class="post_reservation" th:object="${userPosts}">
+	                   <h1>글작성 내역</h1>
+	                   <form action="">
+	                       <input type="text" id="serch" placeholder="작성 글 찾기">
+	                       <input type="button" value="검색">
+	                   </form>
+	                   <table class="post_information">
+	                       <tr>
+	                           <th>작성일자</th>
+	                           <th>제목</th>
+	                           <th>작성 카테고리</th>
+	                           <th>조회수</th>
+	                           <th>추천수</th>
+	                           <th></th>
+	                       </tr>
+	                       <tr th:each="userPo :    ${userPosts}">
+	                           <td th:text="${userPo['updateDate']}"></td>
+	                           <td th:text="${userPo['title']}"></td>
+	                          
+	                           <td th:text="${userPo['views']}"></td>
+	                           <td th:text="${userPo['suggestion']}"></td>
+	                           <td></td>
+	                           <td>
+	                               <button>삭제</button>
+	                           </td>
+	                       </tr>
+	                      		          
+	                   </table>
+	                   <div class="">
+	                       <ul class="page">
+	                           <li class="page-item">
+	                               <a class="page-link" href="#">이전</a>
+	                           </li>
+	                           <li class="page-item">
+	                               <a class="page-link" href="#">1</a>
+	                           </li>
+	                           <li class="page-item">
+	                               <a class="page-link" href="#">2</a>
+	                           </li>
+	                           <li class="page-item">
+	                               <a class="page-link" href="#">3</a>
+	                           </li>
+	                           <li class="page-item">
+	                               <a class="page-link" href="#">4</a>
+	                           </li>
+	                           <li class="page-item">
+	                               <a class="page-link" href="#">5</a>
+	                           </li>
+	                           <li class="page-item">
+	                               <a class="page-link" href="#">다음</a>
+	                           </li>
+	                       </ul>
+	                   </div>
+	               </div>
+	
+	               <div class="qna_reservation" th:object="${userPosts}">
+	                   <h1>문의 내역</h1>
+	                   <form action="">
+	                       <input type="text" id="serch" placeholder="작성 글 찾기">
+	                       <input type="button" value="검색">
+	                   </form>
+	                   <table class="qna_information">
+	                       <tr>
+	                           <th>아이디</th>
+	                           <th>작성일자</th>
+	                           <th>제목</th>
+	                           <th>작성 카테고리</th>
+	                           <th>답변 상태</th>
+	                       </tr>
+	                       <tr th:each="qna :   ${userQnAs}">
+	                           <td th:text="${qna['QID']}"></td>
+	                           <td th:text="${qna['updateDate']}"></td>
+	                           <td th:text="${qna['Qname']}"></td>
+	                           <td th:text="${qna['contents']}"></td>
+	                           <td th:text="${qna['Answer']}"></td>
+	                       </tr>
+   	                  
+	                   </table>
+					   <div class="">
+   	                       <ul class="page">
+   	                           <li class="page-item">
+   	                               <a class="page-link" href="#">이전</a>
+   	                           </li>
+   	                           <li class="page-item">
+   	                               <a class="page-link" href="#">1</a>
+   	                           </li>
+   	                           <li class="page-item">
+   	                               <a class="page-link" href="#">2</a>
+   	                           </li>
+   	                           <li class="page-item">
+   	                               <a class="page-link" href="#">3</a>
+   	                           </li>
+   	                           <li class="page-item">
+   	                               <a class="page-link" href="#">4</a>
+   	                           </li>
+   	                           <li class="page-item">
+   	                               <a class="page-link" href="#">5</a>
+   	                           </li>
+   	                           <li class="page-item">
+   	                               <a class="page-link" href="#">다음</a>
+   	                           </li>
+   	                       </ul>
+   	                   </div>
+	               </div>
+	           </div>
+	       </section>
+	   </div>
 
 </body>
 
