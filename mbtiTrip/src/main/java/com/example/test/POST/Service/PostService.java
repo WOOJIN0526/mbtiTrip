@@ -13,6 +13,9 @@ import com.example.test.paging.Page;
 
 public interface PostService {
 
+		// 게시글 목록 조회
+		public List<PostDTO> list() throws Exception;
+	
 		//게시글 목록 조회
 		public List<PostDTO> list(Page page) throws Exception;
 

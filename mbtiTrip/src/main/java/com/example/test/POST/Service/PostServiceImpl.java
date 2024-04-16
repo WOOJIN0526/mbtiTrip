@@ -51,9 +51,17 @@ public  class PostServiceImpl implements PostService {
 
 	
 	@Override
-	public List<PostDTO> list(Page page) throws Exception {
+	public List<PostDTO> list() throws Exception {
 		// TODO Auto-generated method stub
 		return postDAO.list();
+	}
+
+
+
+	@Override
+	public List<PostDTO> list(Page page) throws Exception {
+		// TODO Auto-generated method stub
+		return postDAO.listWithPage(page);
 	}
 
 

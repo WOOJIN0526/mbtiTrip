@@ -112,11 +112,11 @@
     
     <select id="searchByPage" resultType="int">
        <![CDATA[
-		SELECT @rownum := @rownum+1 AS row_no, I.*
+		SELECT @rownum := @rownum+1 AS itemID, I.*
 			FROM (
    					 SELECT @rownum := :startRowIndex
 					) AS tmp
-			INNER JOIN Item I ON PostID > 0
+			INNER JOIN Item I ON itemID > 0
 			WHERE 
     			    itemName LIKE CONCAT('%', :keyword, '%')
     			OR contents LIKE CONCAT('%', :keyword, '%')
@@ -124,9 +124,23 @@
 			ORDER BY 
     				updateDate DESC,
     				
-			LIMIT :startRowIndex, :rowsPerPage
+			LIMIT :startRowIndex OFFSET :startRowIndex
        ]]>
     </select>
+    
+    <select id="listWithPage" parameterType="hashMap" resultType="hashMap">
+		<![CDATA[
+			SELECT (@rownum := @rownum + 1) AS itemID, I.*
+			FROM (
+    				SELECT @rownum := #{startRowIndex}
+   					 FROM dual
+				) tmp
+			JOIN Item I
+			ORDER BY updateDate DESC
+			LIMIT #{rowsPerPage} OFFSET #{startRowIndex}	
+		]]>
+	</select>
+	
 	<insert id="createImg">
 	insert into IMG(itemID,url)
 	value(#{itemID},#{currentURL})

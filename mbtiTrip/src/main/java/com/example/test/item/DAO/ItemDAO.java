@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.example.test.GCSDTO.GCSDTO;
-
+import com.example.test.POST.DTO.PostDTO;
 import com.example.test.User.Service.UserHistoryService;
 import com.example.test.item.DTO.ItemDTO;
 
@@ -84,7 +84,7 @@ public class ItemDAO {
 		return this.sqlSessiontemplate.selectOne("item.getTotalByKeyword", keyword);
 	}
 	
-	public Integer getTotal() {
+	public Integer totalCount() {
 		// TODO Auto-generated method stub
 		return this.sqlSessiontemplate.selectOne("item.getTotalFull");
 	}
@@ -116,5 +116,8 @@ public class ItemDAO {
 		return this.sqlSessiontemplate.selectOne("item.searchByPage", page);
 	}
 
-
+	public List<ItemDTO> listWithPage(Page page) {
+		// TODO Auto-generated method stub
+		return this.sqlSessiontemplate.selectList("item.listWithPage", page);
+	}
 }

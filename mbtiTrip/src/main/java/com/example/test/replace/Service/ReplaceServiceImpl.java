@@ -139,7 +139,7 @@ public class ReplaceServiceImpl implements ReplaceService{
 	@Override
 	public Integer totalCount() throws Exception {
 		// TODO Auto-generated method stub
-		return itemDAO.getTotal();
+		return itemDAO.totalCount();
 	}
 
 	@Override

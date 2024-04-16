@@ -37,6 +37,8 @@ public class AdventureServiceImpl implements AdventureService{
 	UserHistoryService userHistoryService;
 	
 	
+
+
 	@Override
 	public List<ItemDTO> list(Page page) throws Exception {
 	    // 아이템 목록을 가져옵니다.
@@ -156,7 +158,7 @@ public class AdventureServiceImpl implements AdventureService{
 	@Override
 	public Integer totalCount() throws Exception {
 		// TODO Auto-generated method stub
-		return itemDAO.getTotal();
+		return itemDAO.totalCount();
 	}
 
 	@Override
