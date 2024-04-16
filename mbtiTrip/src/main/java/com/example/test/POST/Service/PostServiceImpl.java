@@ -146,12 +146,14 @@ public  class PostServiceImpl implements PostService {
 	}
 
     @Override
-	public List<PostDTO> findPostByCategoryID(Long postCategoryID) {
+	public List<PostDTO> findPostByCategoryID(PostDTO postDTO) {
 	// 게시글 목록 조회
-	List<PostDTO> post = postDAO.findByPostCategoryID(postCategoryID);
-//	if(post.isEmpty()) {
-//		throw new PostException(PostExceptionEnum.POST_NOT_FOUND);
-//	}
+
+	List<PostDTO> post = postDAO.findByPostCategoryID(postDTO);
+	if(post.isEmpty()) {
+		throw new PostException(PostExceptionEnum.POST_NOT_FOUND);
+	}
+
 	return post;
 	        
 	}

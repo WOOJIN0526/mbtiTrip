@@ -83,9 +83,9 @@ public class PostDAO {
 		return this.sqlSessiontemplate.selectOne("post.totalCount");
 	}
 
-	public List<PostDTO> findByPostCategoryID(Long postCategoryID) {
+	public List<PostDTO> findByPostCategoryID(PostDTO postDTO) {
 		// TODO Auto-generated method stub
-		return this.sqlSessiontemplate.selectList("post.findByPostCategoryId", postCategoryID);
+		return this.sqlSessiontemplate.selectList("post.findByPostCategoryId", postDTO);
 	}
 
 	public void replyCreate(AnswerDTO reply) {

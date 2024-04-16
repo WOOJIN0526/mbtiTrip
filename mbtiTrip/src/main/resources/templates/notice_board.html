@@ -39,16 +39,14 @@
 	            <th>작성자</th>
 	            <th>제목</th>
 	            <th>날짜</th>
-	            <th>조회수</th>
-	            <th>추천수</th>
+	            <th>조회수</th>            
 	        </tr>
-	        <tr th:each="post, iterStat : ${postList}">
+	        <tr th:each="post, iterStat : ${list}">
 	            <td th:text="${iterStat.index + 1}"></td>
-	            <td th:text="${post.author}"></td>
+	            <td th:text="${post.userName}"></td>
 	            <td th:text="${post.title}"></td>
-	            <td th:text="${post.date}"></td>
+	          <!--  <td th:text="${post.date}"></td>-->
 	            <td th:text="${post.views}"></td>
-	            <td th:text="${post.likes}"></td>
 	        </tr>
 	    </table>
 			<!--페이징 시작-->			
