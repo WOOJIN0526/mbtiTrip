@@ -139,7 +139,7 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
 
     
     //@PostMapping("/create")
-	@RequestMapping(value ="/replace/creat", method = RequestMethod.POST)
+	@RequestMapping(value ="/replace/create", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<String> create(ItemDTO itemdto,Principal principal) throws Exception{
     	itemdto.setType(ItemType.replace);
