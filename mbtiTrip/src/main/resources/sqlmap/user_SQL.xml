@@ -39,6 +39,15 @@
 		WHERE userId = #{userId}  
 	]]>
 	</select>
+	
+		<select id="getUserNamebyuserId" resultType="com.example.test.User.DTO.UserDTO">
+	 <![CDATA[
+		SELECT userName
+		FROM User
+		WHERE UserId = #{userId}  
+	]]>
+	</select>
+	
 	<select id="getMyItem" resultType="hashMap">
 	 <![CDATA[	
 		select i.itemId, i.Type, i.price, i.itemName, i.location, i.contents, i.ratingAvg, i.view

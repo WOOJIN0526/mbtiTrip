@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
@@ -52,6 +53,8 @@ public class Security_Config  {
 
 	private UserDetailsService userDetailsService; //?
 	private CustomLoginService CustomloginService; 
+	private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+	private CustomAccessDeniedHandler customAccessDeniedHandelr;
 	
 	
 	public Security_Config(CustomLoginService loginService) {
@@ -114,7 +117,10 @@ public class Security_Config  {
     			.maxSessionsPreventsLogin(false) //새로운 요청 거부 
     			.expiredSessionStrategy(new customSessionExpiredStrategy())	
     			) ;
-    	http.exceptionHandling((ex) -> ex.accessDeniedPage("/login_A"));
+    	http.exceptionHandling()
+        .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+        .accessDeniedHandler(new CustomAccessDeniedHandler())
+    	;
     					
 //    		    .usernameParameter("userId")
 //    		    .passwordParameter("password")
@@ -208,6 +214,11 @@ public class Security_Config  {
         auth.userDetailsService(CustomloginService).passwordEncoder(passwordEncoder());
     }
 //	
+	@Bean
+	public AccessDeniedHandler accessDeniedHandler() {
+		return this.customAccessDeniedHandelr;
+	}
+	
     @Bean
     RememberMeServices rememberMeServices(UserDetailsService userDetailsService) {
     	RememberMeTokenAlgorithm encodingAlgorithm = RememberMeTokenAlgorithm.SHA256;

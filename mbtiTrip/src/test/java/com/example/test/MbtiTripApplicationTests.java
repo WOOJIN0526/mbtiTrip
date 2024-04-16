@@ -22,6 +22,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.example.test.Adventure.DTO.AdventureDTO;
@@ -109,18 +110,13 @@ class MbtiTripApplicationTests {
 		Authentication auths = SecurityContextHolder.getContext().getAuthentication();
 		log.info("{}", auths);
 		String userAuth = null;
-		userAuth = User_Role.bis
-				.getValue();
+		userAuth = User_Role.bis.getValue();
 		log.info("split 전 ==> {} ", userAuth);
-		if(userAuth.contains("USER")) {
-			userAuth = "user";
+		
+		switch(userAuth) {
+		case "ROLE_USER" : log.info("user확인");break;
+		case "ROLE_BIS" : log.info("bis확인"); break;
 		}
-		else if(userAuth.contains("BIS")){
-			userAuth="bis";
-			
-		}
-		log.info("split 후==> {}", userAuth);
-		String url = String.format("/%s/main", userAuth);
 		
 		
 //		if(userCartDTO.getItemId() == null) {
