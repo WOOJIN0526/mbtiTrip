@@ -68,7 +68,7 @@ public class GlobalExceptionHandler {
     
     @ExceptionHandler(CartException.class)
     protected ResponseEntity<ExceptionResponse> CartExceptionHandler(CartException ex){
-    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+	    	headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
     	log.error("[CartHandler] ex", ex);
     	ExceptionResponse er = new ExceptionResponse(ex.getCartExceptionEnum());
     	return ResponseEntity.status(er.getStatus()).body(er);

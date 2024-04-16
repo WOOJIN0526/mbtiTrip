@@ -111,33 +111,34 @@
 
 <section>
    <div> 사용자가 최근에 조회한 게시물</div>
-   <div th:each="userViewType : ${userViewInfo}">
-      <div>cut</div>
-       <div th:switch="${userViewType[0].class.simpleName}">
-           <p th:case="'ItemDTO'">
-               <span th:each="userView : ${userViewType}">
-                   <!-- ItemDTO의 필드에 접근하여 출력 -->
-                   <span th:text="${userView.itemID}"></span>
-                   <span th:text="${userView.itemName}"></span>
-               <span th:text="${userView.location}"></span>
-               <span th:text="${userView.contents}"></span>
-               <span th:text="${userView.price}"></span>
-               <!-- 필요한 경우 다른 필드도 추가 -->
-               <h1> zzz</h1>   
-            </span>
-            
-           </p>
-           <p th:case="'PostDTO'">
-               <span th:each="userView : ${userViewType}">
-                   <!-- PostDTO의 필드에 접근하여 출력 -->
-                   <span th:text="${userView.postID}"></span>
-                   <span th:text="${userView.title}"></span>
-               <span th:text="${userView.content}"></span>
-               <span th:text="${userView.updateDate}"></span>
-                   <!-- 필요한 경우 다른 필드도 추가 -->
-               </span>
-           </p>
-       </div>
+	   <div th:each="userViewType : ${userViewInfo}">
+	      <div>cut</div>
+	       <div th:switch="${userViewType[0].class.simpleName}">
+	           <p th:case="'ItemDTO'">
+	               <span th:each="userView : ${userViewType}">
+	                   <!-- ItemDTO의 필드에 접근하여 출력 -->
+	                   <span th:text="${userView.itemID}"></span>
+	                   <span th:text="${userView.itemName}"></span>
+	               <span th:text="${userView.location}"></span>
+	               <span th:text="${userView.contents}"></span>
+	               <span th:text="${userView.price}"></span>
+	               <!-- 필요한 경우 다른 필드도 추가 -->
+	               <h1> zzz</h1>   
+	            </span>
+	            
+	           </p>
+	           <p th:case="'PostDTO'">
+	               <span th:each="userView : ${userViewType}">
+	                   <!-- PostDTO의 필드에 접근하여 출력 -->
+	                   <span th:text="${userView.postID}"></span>
+	                   <span th:text="${userView.title}"></span>
+	               <span th:text="${userView.content}"></span>
+	               <span th:text="${userView.updateDate}"></span>
+	                   <!-- 필요한 경우 다른 필드도 추가 -->
+	               </span>
+	           </p>
+	       </div>
+	
    </div>
    
 </section>
@@ -160,6 +161,7 @@
 
 <section>
    <div> 사용자가 최근에 조회한 게시물</div>
+   <div th:text="${viewErrorMessage}"></div>
    <div th:each="userViewType : ${userViewInfo}">
       <div>cut</div>
        <div th:switch="${userViewType[0].class.simpleName}">
@@ -195,7 +197,7 @@
 			            <div class="review">123</div>
 			            <!--UX TEST -->
 			<h1>사용자 맞춤형 루틴 정보</h1>
-            
+            <div th:text="${UxMessage}"></div>
 			<form th:object="${UserUXs}">
 			   <div th:each="ux : ${UserUXs}">
 			      <span th:text="${ux['Replace_name']}"></span><span>   &nbsp;</span>
@@ -207,6 +209,7 @@
 			   </div>   
 			</form>
 
+<div th:text="${UxReMessage}"></div>
 <section th:object="${userUxRe}">
    <div th:each="re: ${userUxRe}">
       <span th:text="${re['Replace_name']}"></span><span>   &nbsp;</span>
@@ -218,6 +221,7 @@
    <br>
 </div>
 
+<div th:text="${UxAdMessage}"></div>
 <section th:object = "${userUxadv}">
    <div th:each = "adv : ${userUxadv}">
       <span th:text="${adv['adventureName']}"></span><span>&nbsp;</span>

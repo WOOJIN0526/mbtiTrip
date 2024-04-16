@@ -41,7 +41,7 @@ public class CustomLoginService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws LoginException {
 		//여기서 username = userId
-		try {
+		
 		log.info("LoginService, loadUserByUsername =="+ username);
 		Optional<UserDTO> userInfo = Optional.of(userDao.getByUserId(username)); 
 		log.info("optinal Test  ==== {}", userInfo.get());
@@ -53,22 +53,18 @@ public class CustomLoginService implements UserDetailsService{
 		if(user.isLoked()) {
 			throw new AuthenticationCredentialsNotFoundException("정지된 사용자입니다. 관리자에게 문의하세요");
 		}
-		else {
-			List<GrantedAuthority> auth = new ArrayList<>();
-						
-			if(user.getUserrole().equals(User_Role.user.getValue())) {
-				log.info("authorize User");
-				auth.add(new SimpleGrantedAuthority(User_Role.user.getValue()));	
-						}
-			else if(user.getUserrole().equals(User_Role.bis.getValue())) {
-				auth.add(new SimpleGrantedAuthority(User_Role.bis.getValue()));
-						}
-			else if(user.getUserrole().equals(User_Role.admin.getValue())) {
-				auth.add(new SimpleGrantedAuthority(User_Role.admin.getValue()));
-			}
-			UserDetails userIN  =new User(user.getUserId(), user.getPassword(), auth);
-			log.info("userIN {}", userIN);
-			return userIN;
+		
+		List<GrantedAuthority> auth = new ArrayList<>();
+		try {			
+		if(user.getUserrole().equals(User_Role.user.getValue())) {
+			log.info("authorize User");
+			auth.add(new SimpleGrantedAuthority(User_Role.user.getValue()));	
+					}
+		else if(user.getUserrole().equals(User_Role.bis.getValue())) {
+			auth.add(new SimpleGrantedAuthority(User_Role.bis.getValue()));
+					}
+		else if(user.getUserrole().equals(User_Role.admin.getValue())) {
+			auth.add(new SimpleGrantedAuthority(User_Role.admin.getValue()));
 		}
 		
 		}catch (NullPointerException e) {
@@ -84,7 +80,9 @@ public class CustomLoginService implements UserDetailsService{
 			log.info("tryCatch {}", e.getClass());
 			e.printStackTrace();
 		}		
-	return null;
+		UserDetails userIN  =new User(user.getUserId(), user.getPassword(), auth);
+		log.info("userIN {}", userIN);
+		return userIN;
 			
 	}
 
