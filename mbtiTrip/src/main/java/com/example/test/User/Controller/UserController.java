@@ -300,7 +300,9 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/mypage/update/ck", method = RequestMethod.POST)
 	@ResponseBody
+
 	public ResponseEntity<String> update(UserDTO userdto,
+
 								Principal principal, ModelAndView mav) {
 		log.info("message POST ONE ={}", userdto.toString());
 		try {
