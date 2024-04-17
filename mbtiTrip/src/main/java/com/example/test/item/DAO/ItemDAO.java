@@ -1,5 +1,6 @@
 package com.example.test.item.DAO;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -22,10 +23,12 @@ import lombok.extern.log4j.Log4j2;
 public class ItemDAO {
 
 	@Autowired
-	SqlSessionTemplate sqlSessiontemplate;
+	private SqlSessionTemplate sqlSessiontemplate;
 	
 	@Autowired
-	UserHistoryService userHistoryService;
+	private UserHistoryService userHistoryService;
+	
+	private List<String> likedUser = new ArrayList<>();
 	
 	public List<ItemDTO> searchLocation(String location){
 		//List<ItemDTO> result = this.sqlSessiontemplate.selectList("itemByLocation", location);
@@ -118,11 +121,33 @@ public class ItemDAO {
 	}
 
 	
-
 	public List<ItemDTO> search(Page page) {
 		// TODO Auto-generated method stub
 		return this.sqlSessiontemplate.selectOne("item.searchByPage", page);
 	}
 
+
+	public List<ItemDTO> listWithPage(Page page) {
+		// TODO Auto-generated method stub
+		return this.sqlSessiontemplate.selectList("item.listWithPage", page);
+	}
+	
+	
+	public int itemLike(Integer itemId,String usrerName) {
+		// TODO Auto-generated method stub
+		int result = 0;
+		if(likedUser.contains(usrerName)) {
+			/*throw ~~~ 이미 좋아요 누른 아이템 입니다. */
+		}
+		else {
+			result = this.sqlSessiontemplate.update("item.likedUser", itemId);
+			if(result != 0) {
+				likedUser.add(usrerName);
+			}
+		}
+		/*아직 sql 구현 안함 */
+		
+		return result;
+	}
 
 }

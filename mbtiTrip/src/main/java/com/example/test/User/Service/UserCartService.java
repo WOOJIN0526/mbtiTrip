@@ -11,7 +11,7 @@ import com.example.test.replace.DTO.ReplaceDTO;
 
 public interface UserCartService {
 
-	public boolean insertItem(UserCartDTO userCartDTO,  ItemDTO ItemDTO, Principal principal)throws Exception;
+	public boolean insertItem(UserCartDTO userCartDTO, Principal principal)throws Exception;
 
 	//예약 전 내역
 	public List<HashMap<String, Object>>  detail(UserCartDTO usercartdto ,Principal principal);

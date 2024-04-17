@@ -143,4 +143,13 @@
 		select url from IMG
 		where itemID=#{itemID}
 	</select>
+	
+		<update id="likedUser">
+	<![CDATA[
+			Update Item 
+			set
+			uprating =uprating+1
+			where itemID=#{itemId}
+		]]>
+	</update>
 </mapper>

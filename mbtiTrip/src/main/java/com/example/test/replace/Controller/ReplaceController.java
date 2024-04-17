@@ -4,6 +4,7 @@ import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -206,12 +207,19 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
     
     //추천
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/replace/suggestion/{id}")
-    public String Suggestion(Principal principal, @PathVariable("id") Integer itemID) throws Exception {
-        ItemDTO itemDto = this.rpService.getPost(itemID, principal);
-        UserDTO user = this.userService.getUser(principal.getName());
-        this.rpService.suggestion(itemDto, user);
-        return String.format("redirect:/replace/detail/%s", itemID);
+    @GetMapping("/suggestion/{id}")
+    @ResponseBody
+    public ResponseEntity<String> suggestion(Principal principal, @PathVariable("id") Integer itemID) {
+        try {
+            int result = rpService.suggestion(itemID, principal);
+            if (result != 0) {
+                return ResponseEntity.ok().body("성공하였습니다.");
+            } else {
+                return ResponseEntity.badRequest().body("실패하였습니다.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버에서 오류가 발생했습니다.");
+        }
     }	
 	
 }

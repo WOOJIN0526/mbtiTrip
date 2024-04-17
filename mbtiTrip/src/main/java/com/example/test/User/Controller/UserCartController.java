@@ -56,13 +56,17 @@ public class UserCartController {
 	
 
 	@RequestMapping(value="/replace/input" , method=RequestMethod.POST)
-	public ResponseEntity<?> insertReplace(@RequestBody ItemDTO itemDTO,
-								@RequestBody UserCartDTO userCartDTO
-								,Principal principal
-								,ModelAndView mav){
+	@ResponseBody
+	public ResponseEntity<?> insertReplace(UserCartDTO userCartDTO,Principal principal,ModelAndView mav){
+		
 		try {
 			//장바구니에 item 넣기 
-			boolean ck = userCartservice.insertItem(userCartDTO, itemDTO, principal);
+			boolean ck = userCartservice.insertItem(userCartDTO, principal);
+			System.out.println(ck);
+			if(ck==true) {
+				return  ResponseEntity.status(HttpStatus.OK).body("정보가 정상적으로 저장됬습니다.");
+			}
+			
 		
 		} catch (NullPointerException e) {
 			return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 정보를 찾을 수 없습니다.");
@@ -75,16 +79,16 @@ public class UserCartController {
 	
 	
 	
-	@RequestMapping(value="/adventure/input" , method=RequestMethod.POST)
-	@ResponseBody
-	public boolean inserItem(ItemDTO itemDTO,
-								@RequestBody UserCartDTO userCartDTO
-								,Principal principal
-								,ModelAndView mav) throws Exception{
-		boolean ck = false;
-			 ck = userCartservice.insertItem(userCartDTO, itemDTO, principal);
-		return ck;
-	}
+//	@RequestMapping(value="/adventure/input" , method=RequestMethod.POST)
+//	@ResponseBody
+//	public boolean inserItem(ItemDTO itemDTO,
+//								@RequestBody UserCartDTO userCartDTO
+//								,Principal principal
+//								,ModelAndView mav) throws Exception{
+//		boolean ck = false;
+//			 ck = userCartservice.insertItem(userCartDTO, itemDTO, principal);
+//		return ck;
+//	}
 	
 	@RequestMapping(value="item/delte", method=RequestMethod.POST)
 	public ResponseEntity<?> deleteItem(@RequestBody Integer itemId,

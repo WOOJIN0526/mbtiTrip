@@ -56,6 +56,7 @@ isLoggedIn().then(response => {
     } else {
         // 서버에서 반환된 응답을 JSON 형식으로 파싱하여 사용
         console.log(response);
+        document.querySelector('.userName').textContent=response.username;
         return response.userImg;
         
     }

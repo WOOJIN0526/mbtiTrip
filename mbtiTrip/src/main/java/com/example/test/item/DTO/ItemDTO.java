@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Set;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.test.User.DTO.AdminDTO;
@@ -37,12 +38,12 @@ public class ItemDTO {
 	private Integer view;
 	
 	private double ratingAvg = 0;
-	
+	 @DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime updateDate;
-	
+	 @DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime modifyDate;
 	
-	private Set<UserDTO> uprating; //추천수 
+	private Integer uprating; //추천수 
 
 	private MultipartFile[] file;
 	

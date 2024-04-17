@@ -202,15 +202,15 @@ public class PostController {
         return "redirect:/";
     }
     
-    //추천
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/suggestion/{id}")
-    public String Suggestion(Principal principal, @PathVariable("id") Integer postID) throws Exception {
-        PostDTO postDto = this.postService.getPost(postID);
-        UserDTO UserDto = this.userService.getUser(principal.getName());
-        this.postService.suggestion(postDto, UserDto);
-        return String.format("redirect:/post/detail/%s", postID);
-    }
+//    //추천
+//    @PreAuthorize("isAuthenticated()")
+//    @GetMapping("/suggestion/{id}")
+//    public String Suggestion(Principal principal, @PathVariable("id") Integer postID) throws Exception {
+//        PostDTO postDto = this.postService.getPost(postID);
+//        UserDTO UserDto = this.userService.getUser(principal.getName());
+//        this.postService.suggestion(postDto, UserDto);
+//        return String.format("redirect:/post/detail/%s", postID);
+//    }
     
     //댓글 등록
     @PreAuthorize("isAuthenticated() and hasRole('ROLE_USER')")
