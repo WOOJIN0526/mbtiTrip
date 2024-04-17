@@ -88,6 +88,14 @@ public class UserDAO {
 		
 		return result;
 	}
+	public UserDTO getByUserName(String name) {
+		log.info("userID  ==> {}", name);
+		log.info(sqlSessiontemplate.getClass());
+		UserDTO result = this.sqlSessiontemplate.selectOne("user.getUsername", name);
+		log.info("userDTO  ==> {}", result);
+		
+		return result;
+	}
 
 	public UserDTO findByUsername(String name) {
 		// TODO Auto-generated method stub 

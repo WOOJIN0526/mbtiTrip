@@ -243,12 +243,13 @@ public class UserController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/searchLocation", method=RequestMethod.POST)
-	public ModelAndView searchLocation(@RequestBody String location, ModelAndView mav) {
+	@RequestMapping(value = "/searchLocation", method=RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	public ModelAndView searchLocation(@RequestParam("location") String location, ModelAndView mav) {
+		System.out.println("지역"+location);
 		List<ItemDTO> result = userService.serchLocation(location);
 		
-		mav.addObject("item",result);
-		mav.setViewName("어디로 보내요?");
+		mav.addObject("list",result);
+		mav.setViewName("itemList");
 		return mav;
 	}
 	
@@ -366,14 +367,17 @@ public class UserController {
 		
 	}
 	
-	@PreAuthorize("isAuthenticated() and  hasRole('ROLE_USER')")
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping("/check-login")
-    public ResponseEntity<Void> loginCheck(Principal principal) {
+    public ResponseEntity<UserDTO> loginCheck(Principal principal) {
         if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }else {
+        	UserDTO userDTO = userService.getUser(principal.getName());
+        	// 로그인된 사용자에 대한 처리 추가
+            return ResponseEntity.ok(userDTO); // 로그인된 사용자의 경우 OK 상태 반환
         }
-        // 로그인된 사용자에 대한 처리 추가
-        return ResponseEntity.ok().build(); // 로그인된 사용자의 경우 OK 상태 반환
+        
     }
 	
 	

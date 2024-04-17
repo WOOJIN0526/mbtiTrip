@@ -28,7 +28,7 @@ public interface UserService {
 
 	public int BisUpdate(UserDTO userdto);
 
-	public Integer findByUID(String userName);
+	public Integer findByUID(Principal principal);
 
 	public UserDTO getUser(String id);
 
@@ -45,6 +45,8 @@ public interface UserService {
 
 	List<HashMap<String, Object>> bisListput(List<HashMap<String, Object>> itemList,
 			List<HashMap<String, Object>> viewList);
+
+	public UserDTO getUserByUserName(String userName);
 
 	
 }

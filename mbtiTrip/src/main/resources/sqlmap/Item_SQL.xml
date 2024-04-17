@@ -39,10 +39,10 @@
 		where mbti =#{mbti} and location Like #{location}
 	</select>
 	
-	<select id="locationSerch" resultType="hashMap">
+	<select id="locationSerch" resultType="com.example.test.item.DTO.ItemDTO">
 	select * 
 	from Item 
-	where location like #{location}%;
+	where location like CONCAT(#{location}, '%');
 	</select>
 	
 	<delete id="deleteItem">

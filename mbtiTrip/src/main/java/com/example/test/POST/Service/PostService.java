@@ -7,7 +7,7 @@ import com.example.test.POST.DTO.AnswerDTO;
 import com.example.test.POST.DTO.PostDTO;
 
 import com.example.test.User.DTO.UserDTO;
-
+import com.example.test.item.DTO.ItemDTO;
 import com.example.test.paging.Page;
 
 
@@ -57,6 +57,8 @@ public interface PostService {
 
 		//댓글 삭제
 		public void replyRemove(Integer answerId) throws Exception;
+		//리뷰된 아이템 불러오기
+		public ItemDTO getItem(Integer itemID);
 		
 		
 }

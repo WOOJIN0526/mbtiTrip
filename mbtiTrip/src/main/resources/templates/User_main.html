@@ -13,6 +13,7 @@
 	<link rel="stylesheet" th:href="@{/common/common.css}">
 	<link rel="stylesheet" th:href="@{/sakuraJS/sakura.min.css}">
     <link rel="stylesheet" th:href="@{/main/main.css}">
+    <link rel="stylesheet" th:href="@{/main/slide.css}">
 	<script th:src="@{/sakuraJS/sakura.min.js}"></script>
 </head>
 
@@ -21,6 +22,7 @@
         <header class="mainHeader">
             <section class="mainHeaderSec">
                 <div class="search__box">
+					<form method="post" action="/searchLocation" id="searchForm">
                     <div class="search__title">
                         자기 성향에 맞는 숙소를 예약하세요
                         <br/>
@@ -33,10 +35,15 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <input class="search__input" type="text" placeholder=" 모든 위치">
+                                <input class="search__input" type="text" placeholder="시 단위로 입력해주세요" 	autocomplete="off" name="location">
                             </td>
                         </tr>
                         <tr>
+                            <td colspan="2">
+                                <div class="autocomplete"></div>
+                            </td>
+                        </tr>
+                        <!--<tr>
                             <td class="search__sub__title">체크인</td>
                             <td class="search__sub__title">체크아웃
                             </td>
@@ -59,11 +66,12 @@
                                     <option>3명</option>
                                 </select>
                             </td>
-                        </tr>
+                        </tr>-->
                     </table>
                     <div class="search__button">
                         <button>검색</button>
                     </div>
+					</form>
                 </div>
 
             </section>
@@ -477,13 +485,14 @@
                         </div>
                         <div class="info3"></div>
                     </div>
-                </div>
+                </div>	
             </div>
         </section> -->
 
     </main>
 
-    <script th:src="@{/main/main.js}"></script>
+    <script th:src="@{/main/slide.js}"></script>
+    <script type="module" th:src="@{/main/main.js}"></script>
 </section>
 </body>
 

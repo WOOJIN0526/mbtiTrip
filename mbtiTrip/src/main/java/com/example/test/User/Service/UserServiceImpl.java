@@ -110,7 +110,8 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public Integer findByUID(String userName) {
+	public Integer findByUID(Principal principal) {
+		String userName = userDao.getUserNameByuserID(principal.getName());
 		Integer UID = userDao.getUID(userName);
 		return UID;
 	}
@@ -120,10 +121,14 @@ public class UserServiceImpl implements UserService{
 		UserDTO siteUser = this.userDao.getByUserId(id);
 		return siteUser;
 	}
-
+	@Override
+	public UserDTO getUserByUserName(String name) {
+		UserDTO siteUser = this.userDao.getByUserName(name);
+		return siteUser;
+	}
+	
 	public Integer princeUID(Principal principal) {
-		String userName = userDao.getUserNameByuserID(principal.getName());
-		Integer UID = findByUID(userName);
+		Integer UID = findByUID(principal);
 		return UID;
 	}
 
