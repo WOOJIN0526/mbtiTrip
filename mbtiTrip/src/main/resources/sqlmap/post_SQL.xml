@@ -14,9 +14,9 @@
 	
 	<select id="list" resultType="hashMap">
 	<![CDATA[	
-		SELECT *
+		SELECT PostID, PostCateGoryID, userName, title, Content, views, UpdateDate, modifyDate, writer
 		FROM Post
-		WHERE PostID > 0
+		WHERE PostID ={postID}
 		ORDER BY updateDate DESC
 		LIMIT #{startRowIndex}, #{rowsPerPage} 
 		]]>
