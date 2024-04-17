@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.test.GCSDTO.GCSDTO;
 import com.example.test.GCSService.GCSService;
 import com.example.test.POST.Service.DataNotFoundException;
+import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DAO.UserHistoryDAO;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.Service.UserHistoryService;
@@ -48,7 +49,8 @@ public class ReplaceServiceImpl implements ReplaceService{
 	GCSService gcsService;
 	@Autowired
 	UserHistoryService userHistoryService;
-	
+	@Autowired
+	UserDAO userDAO;
 	
 	@Override
 	public List<ItemDTO> list(Page page) throws Exception {
@@ -139,13 +141,13 @@ public class ReplaceServiceImpl implements ReplaceService{
 	}
 
 	@Override
-	public void suggestion(ItemDTO item, UserDTO user) {
-		if(user.getUID() == null) {
+	public int suggestion(Integer itemID, Principal principal) {
+		if(principal == null) {
 			throw new ItemException(ItemExceptionEnum.ITEM_USER_NOT_FOUND);
 		}
-		item.getUprating().add(user);
-        
-        this.itemDAO.create(item);
+		String uerName = userDAO.getUserNameByuserID(principal.getName());
+		int result = itemDAO.itemLike(itemID, uerName);
+		return result;
 	}
 
 
@@ -169,6 +171,13 @@ public class ReplaceServiceImpl implements ReplaceService{
 	public void modify(ItemDTO post) throws Exception {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	@Override
+	public List<String> getUrls(int itemID) {
+		List<String> urls =itemDAO.getUrl(itemID);
+		return  urls;
 	}
 
 
