@@ -2,13 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper  namespace="postReview">
 
-	<select id="list" resultType="hashMap">
-	<![CDATA[	
-		SELECT *
-		FROM postReview
-		WHERE postReviewID > 0
-		ORDER BY updateDate DESC
-		]]>
+	<select id="getListPage" parameterType="com.example.test.paging.PaginationVo" resultType="com.example.test.POST.DTO.PostReviewDTO">
+    <![CDATA[SELECT * 
+    		 FROM postReview 
+   			 ORDER BY updateDate DESC 
+    		 LIMIT #{rowCount} OFFSET #{offset}
+    ]]>
+	</select>
+	
+	<!-- 게시물 총 개수 구하기 -->
+	<select id="getCount" resultType="int">
+    <![CDATA[
+    SELECT count(*) as listCnt
+    FROM postReview
+    ]]>
 	</select>	
 
 
@@ -17,9 +24,9 @@
 		keyProperty="UID">  
 	    <![CDATA[
 	    insert into postReview
-	    (postReviewId, itemID, category, title, content, suggestion, views, updateDate, modifyDate, writer, ratingAvg) 
+	    (postReviewID, itemID, CategoryID, title, content, suggestion, views, updateDate, modifyDate, writer, ratingAvg) 
 	    values
-	    (#{postReviewID}, #{ItemID}, #{CategoryID}, #{title}, #{content}, #{suggestion}, #{views}, #{UpdateDate}, #{modifyDate}, #{writer}, #{rating})
+	    (#{postReviewId}, #{itemID}, #{category}, #{title}, #{content}, #{suggestion}, #{views}, #{updateDate}, #{modifyDate}, #{writer}, #{rating})
 	]]>
 	</insert>
 
@@ -35,7 +42,7 @@
 	<![CDATA[
 			Update postReview 
 			set
-			itemID=#{ItemID},category=#{categoryID},title=#{title},content=#{content}}
+			itemID=#{itemID},categoryID=#{category},title=#{title},content=#{content}}
 			where itemID = #{ItemID}
 		]]>
 	</update>
@@ -43,48 +50,13 @@
 	<delete id="delete">
 	<![CDATA[
 		delete from postReview 
-		where writer = #{writer} and itemID = #{ItemID}	
+		where writer = #{writer} and itemID = #{itemID}	
 	]]>
 	</delete>
 
-	<select id="searchByKeyword" resultType="hashmap">
-		<![CDATA[
-		SELECT *
-		FROM postReview
-		WHERE postReviewID > 0
-		  AND ( 
-		  		  title LIKE CONCAT('%', #{keyword}, '%')
-		  	   OR content LIKE CONCAT('%', #{keyword}, '%')
-		  	   OR writer LIKE CONCAT('%', #{keyword}, '%')
-		  	  )
-		ORDER BY updateDate DESC
-		  ]]>      
-	</select>
 	
-	<select id="searchByPage" resultType="hashmap">
-		<![CDATA[
-			SELECT @rownum := @rownum+1 AS row_no, P.*
-			FROM (
-   					 SELECT @rownum := :startRowIndex
-					) AS tmp
-			INNER JOIN postReview P ON postReviewID > 0
-			WHERE 
-    			    title LIKE CONCAT('%', :keyword, '%')
-    			OR Content LIKE CONCAT('%', :keyword, '%')
-    			OR writer LIKE CONCAT('%', :keyword, '%')
-			ORDER BY 
-    				updateDate DESC,
-    				
-			LIMIT :startRowIndex, :rowsPerPage
-		]]>
-	</select>
 	
-	<select id="totalCount" resultType="int">
-		<![CDATA[
-		SELECT COUNT(*) as totalCount
-		FROM postReview
-		]]>
-	</select>
+	
 	
 	<select id="findByPostCategoryId" resultType="hashmap">
 	 <![CDATA[
@@ -96,8 +68,8 @@
 	
 	<insert id="replyCreate" >
 	<![CDATA[
-		INSERT INTO PostReviewAnswer ( postReviewId, content, writer )
-					VALUES ( #{postReviewID}, #{content}, #{writer} )
+		INSERT INTO PostReviewAnswer ( postReviewID, content, writer )
+					VALUES ( #{postReviewId}, #{content}, #{writer} )
 	]]>				
 	</insert>	
 	
@@ -105,7 +77,7 @@
 	<![CDATA[
 		SELECT * 
 		FROM PostReviewAnswer
-		WHERE postReviewId = #{postReviewID}
+		WHERE postReviewID = #{postReviewId}
 		ORDER BY updateDate DESC
 	]]>				 
 	</select>
@@ -115,14 +87,14 @@
 		UPDATE PostReviewAnswer
 		SET   content = #{content}
 		     ,writer = #{writer}
-		WHERE answerId = #{answerID}
+		WHERE answerID = #{answerId}
 		]]>	
 	</update>
 	
 	<delete id="replyDelete" parameterType="Int">
 	<![CDATA[
 		DELETE FROM PostReviewAnswer
-		WHERE answerId = #{answerID}
+		WHERE answerID = #{answerId}
 	]]>		
 	</delete>
 	
@@ -130,7 +102,7 @@
        <![CDATA[
 		select avg(rating)
 		from postReview 
-		where itemId = #{itemID}
+		where itemID = #{itemId}
        ]]>
     </select>
     
@@ -139,7 +111,7 @@
 			Update Item 
 			set
 			ratingAvg=#{ratingAvg}
-			where itemId = #{itemID}
+			where itemID = #{itemId}
 		]]>
 	</update>
 </mapper>

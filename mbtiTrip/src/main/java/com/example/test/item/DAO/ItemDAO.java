@@ -124,8 +124,5 @@ public class ItemDAO {
 		return this.sqlSessiontemplate.selectOne("item.searchByPage", page);
 	}
 
-	public List<ItemDTO> listWithPage(Page page) {
-		// TODO Auto-generated method stub
-		return this.sqlSessiontemplate.selectList("item.listWithPage", page);
-	}
+
 }
