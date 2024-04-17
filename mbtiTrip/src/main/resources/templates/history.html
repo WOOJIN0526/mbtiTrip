@@ -37,57 +37,57 @@
 	
 	       </section>
 	       <section class="my_history">
-	           <div class="information">
-	               <div class="replace_reservation">
-	                   <h1>나의 예약내역</h1>
-	                   <form action="">
-	                       <input type="text" id="serch" placeholder="내 예약 찾기">
-	                       <input type="button" value="검색">
-	                   </form>
-					<div th:object="${reservation}">
-						<table class="reservation_information" >
-							<tr>
-	                            <th>장소 이름</th>
-	                            <th>주인쟝</th>
-	                            <th>장소</th>
-	                            <th>추천 타입</th>
-	                            <th>출발일</th>
-	                            <th>도착일</th>
-								<th>결제 여부</th>
-								<th>전화번호</th>
-								<th>가격</th>
-	                        </tr>
-							<tr th:each="pay : ${reservation}">
-								<td th:text="${pay['itemName']}"></td>
-								<td th:text="${pay['admin']}"></td>
-								<td th:text="${pay['location']}"></td>
-								<td th:text="${pay['mbti']}"></td>
-								<td th:text="${pay['startDate']}"></td>
-								<td th:text="${pay['endDate']}"></td>
-								<td th:text="${pay['payments']}? 'finish': 'pay' "></td>
-								<td th:text="${pay['tel']}"></td>
-								<td th:text="${pay['price']}"></td>
-								
-							</tr>
-							<!--<p> 장소 이름</p><span th:text="${pay['itemName']}"></span>
-							<sapn>&nbsp;</sapn>
-							<p> 주인쟝</p><span th:text="${pay['admin']}"></span>
-							<sapn>&nbsp;</sapn>
-							<p> 장소</p><span th:text="${pay['location']}"></span>
-							<sapn>&nbsp;</sapn>
-							<p> 추천 타입</p><span th:text="${pay['mbti']}"></span>
-							<sapn>&nbsp;</sapn>
-							<p> 출발일</p><span th:text="${pay['startDate']}"></span>
-							<sapn>&nbsp;</sapn>
-							<p> 도착일</p><span th:text="${pay['endDate']}"></span>
-							<sapn>&nbsp;</sapn>
-							<p> 결제 여부 </p><span th:text="${pay['payments']}? 'finish': 'pay' "></span>
-							<sapn>&nbsp;</sapn>
-							<p> 전화번호</p><span th:text="${pay['tel']}"></span>
-							<sapn>&nbsp;</sapn>
-							<p> 가격</p><span th:text="${pay['price']}"></span>
-							<sapn>&nbsp;</sapn>-->
-						</table>
+	           
+               <div>
+                   <h1>나의 예약내역</h1>
+                   <form action="">
+                       <input type="text" id="serch" placeholder="내 예약 찾기">
+                       <input type="button" value="검색">
+                   </form>
+					<div th:object="${reservation}"  class="reservation">
+					<table class="reservation_information" >
+						<tr>
+                            <th>장소 이름</th>
+                            <th>주인쟝</th>
+                            <th>장소</th>
+                            <th>추천 타입</th>
+                            <th>출발일</th>
+                            <th>도착일</th>
+							<th>결제 여부</th>
+							<th>전화번호</th>
+							<th>가격</th>
+                        </tr>
+						<tr th:each="pay : ${reservation}">
+							<td th:text="${pay['itemName']}"></td>
+							<td th:text="${pay['admin']}"></td>
+							<td th:text="${pay['location']}"></td>
+							<td th:text="${pay['mbti']}"></td>
+							<td th:text="${pay['startDate']}"></td>
+							<td th:text="${pay['endDate']}"></td>
+							<td th:text="${pay['payments']}? 'finish': 'pay' "></td>
+							<td th:text="${pay['tel']}"></td>
+							<td th:text="${pay['price']}"></td>
+							
+						</tr>
+						<!--<p> 장소 이름</p><span th:text="${pay['itemName']}"></span>
+						<sapn>&nbsp;</sapn>
+						<p> 주인쟝</p><span th:text="${pay['admin']}"></span>
+						<sapn>&nbsp;</sapn>
+						<p> 장소</p><span th:text="${pay['location']}"></span>
+						<sapn>&nbsp;</sapn>
+						<p> 추천 타입</p><span th:text="${pay['mbti']}"></span>
+						<sapn>&nbsp;</sapn>
+						<p> 출발일</p><span th:text="${pay['startDate']}"></span>
+						<sapn>&nbsp;</sapn>
+						<p> 도착일</p><span th:text="${pay['endDate']}"></span>
+						<sapn>&nbsp;</sapn>
+						<p> 결제 여부 </p><span th:text="${pay['payments']}? 'finish': 'pay' "></span>
+						<sapn>&nbsp;</sapn>
+						<p> 전화번호</p><span th:text="${pay['tel']}"></span>
+						<sapn>&nbsp;</sapn>
+						<p> 가격</p><span th:text="${pay['price']}"></span>
+						<sapn>&nbsp;</sapn>-->
+					</table>
 					
 					</div>
 	                   <div class="">
@@ -117,7 +117,7 @@
 	                   </div>
 	               </div>
 	               
-	               </div>
+	               
 	               <div class="post_reservation" th:object="${userPosts}">
 	                   <h1>글작성 내역</h1>
 	                   <form action="">

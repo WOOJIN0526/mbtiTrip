@@ -69,14 +69,9 @@ a{
     align-items: center;
 
 }
-.information{
-    
-    
-    margin: 30px;
-    
-}
 
-.replace_reservation{
+
+.reservation{
     width: 55rem;
     display: flex;
     flex-direction: column;
