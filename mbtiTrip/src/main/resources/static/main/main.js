@@ -105,4 +105,4 @@ document.getElementById('searchForm').addEventListener('keypress', function(even
     event.preventDefault(); // 엔터 키의 기본 동작인 폼 서브밋을 막음
   }
 });
-/*<th:block th:text="${#strings.substring(replaceDTO.content, 0, 5)}" />*/
+
