@@ -11,11 +11,9 @@ import com.example.test.paging.Page;
 
 public interface AdventureService {
 
-	
 	//게시글 목록 조회
 	public List<ItemDTO> list(Page page) throws Exception;
 
-	
 	//게시글 쓰기
 	public void create(ItemDTO post) throws Exception;
 

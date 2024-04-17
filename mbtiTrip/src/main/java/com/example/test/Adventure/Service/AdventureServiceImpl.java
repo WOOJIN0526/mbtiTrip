@@ -37,7 +37,7 @@ public class AdventureServiceImpl implements AdventureService{
 	UserHistoryService userHistoryService;
 	
 	
-
+	
 
 	@Override
 	public List<ItemDTO> list(Page page) throws Exception {

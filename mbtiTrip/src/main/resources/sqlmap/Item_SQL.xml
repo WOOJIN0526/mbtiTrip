@@ -14,9 +14,10 @@
 		where Type ="replace"
 	</select>
 	
-	<select id="adventure" resultType ="com.example.test.item.DTO.ItemDTO">
+	<select id="adventure"  resultType ="com.example.test.item.DTO.ItemDTO">
 		select * from Item
 		where Type ="adventure"
+		
 	</select>
 	
 	<select id="myItem" resultType = "hashMap">
@@ -132,18 +133,7 @@
        ]]>
     </select>
     
-    <select id="listWithPage" parameterType="hashMap" resultType="hashMap">
-		<![CDATA[
-			SELECT (@rownum := @rownum + 1) AS itemID, I.*
-			FROM (
-    				SELECT @rownum := #{startRowIndex}
-   					 FROM dual
-				) tmp
-			JOIN Item I
-			ORDER BY updateDate DESC
-			LIMIT #{rowsPerPage} OFFSET #{startRowIndex}	
-		]]>
-	</select>
+    
 	
 	<insert id="createImg">
 	insert into IMG(itemID,url)

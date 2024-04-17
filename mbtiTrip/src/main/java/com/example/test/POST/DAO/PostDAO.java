@@ -6,6 +6,7 @@ package com.example.test.POST.DAO;
 
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,7 @@ import com.example.test.POST.DTO.PostDTO;
 import com.example.test.User.Service.UserHistoryService;
 import com.example.test.paging.Criteria;
 import com.example.test.paging.Page;
+import com.example.test.paging.PaginationVo;
 
 
 
@@ -43,10 +45,7 @@ public class PostDAO {
 		return result;
 	}
 
-	public List<PostDTO> list(Page page) {
-		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectList("post.list", page);
-	}
+
 
 	public int create(PostDTO post) {
 		System.out.println(post.toString());
@@ -86,10 +85,10 @@ public class PostDAO {
 		return this.sqlSessiontemplate.selectOne("post.totalCount");
 	}
 
-	public List<PostDTO> findByPostCategoryID(PostDTO postDTO) {
-		// TODO Auto-generated method stub
-		return this.sqlSessiontemplate.selectList("post.findByPostCategoryId", postDTO);
-	}
+//	public List<PostDTO> findByPostCategoryID(PostDTO postDTO) {
+//		// TODO Auto-generated method stub
+//		return this.sqlSessiontemplate.selectList("post.findByPostCategoryId", postDTO);
+//	}
 
 	public void replyCreate(AnswerDTO reply) {
 		// TODO Auto-generated method stub
@@ -116,11 +115,23 @@ public class PostDAO {
 		return ck;
 	}
 
-	public List<PostDTO> listWithPage(Page page) {
+
+
+	public List<PostDTO> getListPage(PaginationVo pagination) {
 		// TODO Auto-generated method stub
-		return this.sqlSessiontemplate.selectList("post.listWithPage", page);
+		return this.sqlSessiontemplate.selectList("post.getListPage", pagination);
+	}
+
+	public int getCount() {
+		// TODO Auto-generated method stub
+		return this.sqlSessiontemplate.selectOne("post.getCount");
 	}
 	
+	public List<HashMap<String, Object>> searchKeyword(String keyword){
+		
+		
+		return this.sqlSessiontemplate.selectList("keyword",keyword);
+	}
 
 
 

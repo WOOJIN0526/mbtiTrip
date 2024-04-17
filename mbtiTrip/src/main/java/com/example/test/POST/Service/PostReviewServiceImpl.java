@@ -15,6 +15,7 @@ import com.example.test.POST.DTO.Post_CategoryDTO;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.paging.Criteria;
 import com.example.test.paging.Page;
+import com.example.test.paging.PaginationVo;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,12 +30,20 @@ public class PostReviewServiceImpl implements PostReviewService{
 
 	
 	
+
+
+
 	@Override
-	public List<PostReviewDTO> list(Page page) throws Exception {
+	public List<PostReviewDTO> getListPage(PaginationVo pagination) {
 		// TODO Auto-generated method stub
-		return this.prDAO.list(page);
+		return this.prDAO.getListPage(pagination);
 	}
 
+	@Override
+	public int getCount() {
+		// TODO Auto-generated method stub
+		return this.prDAO.getCount();
+	}
 
 	@Override
 	public void create(PostReviewDTO post) throws Exception {
@@ -78,25 +87,6 @@ public class PostReviewServiceImpl implements PostReviewService{
 	}
 
 
-	@Override
-	public List<PostReviewDTO> search(String keyword) {
-		// TODO Auto-generated method stub
-		return this.prDAO.search(keyword);
-	}
-
-
-	@Override
-	public List<PostReviewDTO> search(Page page) throws Exception {
-		// TODO Auto-generated method stub
-		return this.prDAO.search(page);
-	}
-
-
-	@Override
-	public Integer totalCount() throws Exception {
-		// TODO Auto-generated method stub
-		return this.prDAO.totalCount();
-	}
 
 	
 	@Override

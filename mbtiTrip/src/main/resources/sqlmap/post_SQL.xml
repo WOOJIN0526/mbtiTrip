@@ -12,25 +12,23 @@
 	]]>
 	</insert>
 	
-	<select id="list" resultType="hashMap">
-	<![CDATA[	
-		SELECT PostID, PostCateGoryID, userName, title, Content, views, UpdateDate, modifyDate, writer
-		FROM Post
-		WHERE PostID ={postID}
-		ORDER BY updateDate DESC
-		LIMIT #{startRowIndex}, #{rowsPerPage} 
-		]]>
-	</select>	        
-	
-	<select id="listWithPage" parameterType="hashMap" resultType="hashMap">
-		<![CDATA[
-		SELECT *
-		FROM Post
-		WHERE PostID > 0
-		ORDER BY updateDate DESC
-		LIMIT #{rowsPerPage} OFFSET #{startRowIndex}		
-		]]>
+	<select id="getListPage" parameterType="com.example.test.paging.PaginationVo" resultType="com.example.test.POST.DTO.PostDTO">
+    <![CDATA[SELECT * 
+    		 FROM Post 
+   			 ORDER BY updateDate DESC 
+    		 LIMIT #{rowCount} OFFSET #{offset}
+    ]]>
 	</select>
+	
+	<!-- 게시물 총 개수 구하기 -->
+	<select id="getCount" resultType="int">
+    <![CDATA[
+    SELECT count(*) as listCnt
+    FROM Post
+    ]]>
+	</select>
+	
+	
 	
 	<insert id="create" useGeneratedKeys="true" keyProperty="postID">
 		<![CDATA[
@@ -65,52 +63,17 @@
 		]]>
 	</delete>
 	
-	<select id="searchByKeyword" resultType="hashmap">
-		<![CDATA[
-		SELECT *
-		FROM Post
-		WHERE PostID > 0
-		  AND ( 
-		  		  title LIKE CONCAT('%', #{keyword}, '%')
-		  	   OR Content LIKE CONCAT('%', #{keyword}, '%')
-		  	   OR writer LIKE CONCAT('%', #{keyword}, '%')
-		  	  )
-		ORDER BY updateDate DESC
-		  ]]>      
-	</select>
+
 	
-	<select id="searchByPage" resultType="hashmap">
-		<![CDATA[
-			SELECT @rownum := @rownum+1 AS PostId, P.*
-			FROM (
-   					 SELECT @rownum := :startRowIndex
-					) AS tmp
-			INNER JOIN Post P ON PostID > 0
-			WHERE 
-    			    title LIKE CONCAT('%', :keyword, '%')
-    			OR Content LIKE CONCAT('%', :keyword, '%')
-    			OR writer LIKE CONCAT('%', :keyword, '%')
-			ORDER BY 
-    				updateDate DESC
-    				
-			LIMIT #{startRowIndex}, #{rowsPerPage}
-		]]>
-	</select>
 	
-	<select id="totalCount" resultType="int">
-		<![CDATA[
-		SELECT COUNT(*) 
-		FROM Post
-		]]>
-	</select>
-	
+	<!-- 
 	<select id="findByPostCategoryId" resultType="com.example.test.POST.DTO.PostDTO">
 	 <![CDATA[
-		SELECT *
+		SELECT PostCateGoryID
 		FROM Post
 		WHERE PostCateGoryID = #{postCategoryID}
 	]]>
-	</select>
+	</select> -->
 	
 	<insert id="replyCreate" >
 	<![CDATA[
@@ -127,6 +90,14 @@
 		ORDER BY updateDate DESC
 	]]>				 
 	</select>
+
+	<select id="keyword" resultType="hashMap">
+	select * 
+	from Post
+	where userName like #{keyword} or Content LIke  #{keyword}  or title like #{keyword} 
+
+	</select>
+
 
 	<update id="replyUpdate" >
 	<![CDATA[
