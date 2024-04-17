@@ -32,7 +32,7 @@
 		            <p class="info-item">View: <span th:text="${item.view}"></span></p>
 <!--		            <p class="info-item">추천: <span th:text="${#sets.size(item.uprating)}"></span></p>-->
 		        </div>
-				
+				<div><a th:href="@{/post/review={itemID}/create(itemID=${item.itemID})}"><button>리뷰작성</button></a></div>
 		    </div>
 			<script th:src="@{/adventure_detail/adventure_detail.js}"></script>
 		</div>

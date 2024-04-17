@@ -18,6 +18,7 @@
 <section layout:fragment="content" class="adminBody">
 	<section class="flexCon">
 		<!--adminmyPage-->
+
 			<div class="flexCon column">
 				<!--admin 정보-->
 				<div class="infoCon">
@@ -31,7 +32,7 @@
 						<div class="colorBarX"></div>
 				</div>
 				
-				<span>현재 접속자수 </span>	<div th:text="${liveUser}"></div>
+				
 				<div class="infoCon">
 					<!--mbti 정보-->
 					<h1>mbti 정보</h1>
@@ -48,30 +49,39 @@
 			<!--사용자 분포 정보-->
 			<div class="infoCon radio">
 				<div class="info">
+					<div>
+						<h1>사용자 분포 정보</h1>
+						<table class="infoTable">
+							<tr>
+								<td class="tableHead all">전체사용자 :</td>
+								<td th:text="${AllUserCnt['ALLCnt']}" id="userCtn"></td>	
+								
+							</tr>
+							<tr>
+								<td class="tableHead bis">업체사용자 :</td>
+								<td th:text="${AllUserCnt['BisCnt']}" id="bisCtn"></td>
+								</tr>
+							<tr>
+								<td class="tableHead normal">일반사용자 :</td>
+								<td th:text="${AllUserCnt['userCnt']}" id="normalCtn"></td>
+							</tr>
+						</table>
+					</div>
 					
-					<h1>사용자 분포 정보</h1>
-					<table class="infoTable">
-						<tr>
-							<td class="tableHead all">전체사용자 :</td>
-							<td th:text="${AllUserCnt['ALLCnt']}" id="userCtn"></td>	
-							
-						</tr>
-						<tr>
-							<td class="tableHead bis">업체사용자 :</td>
-							<td th:text="${AllUserCnt['BisCnt']}" id="bisCtn"></td>
-						</tr>
-						<tr>
-							<td class="tableHead normal">일반사용자 :</td>
-							<td th:text="${AllUserCnt['userCnt']}" id="normalCtn"></td>
-						</tr>
-					</table>
+					<div class="infoCon">
+						<span>현재 접속자수 </span>	
+						<div th:text="${liveUser}" id="liveUser"></div>
+					</div>
 				</div>
 				<div class="colorBarY"></div>
 				<div class="display">
 					<canvas id="radioDisplay"></canvas>
 				</div>
+
 			</div>
+			
 	</section>
+	
 	<!--mbti 정보 차트-->
 	<section class="flexCon mbtiChartCon">
 		<div class="infoCon">

@@ -41,7 +41,9 @@ label{
 	background-color: var(--main-color);
 }
 .info{
-	display: inline-block;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	padding :1rem 1rem 0 0;
 }
 .infoTable tr {
@@ -52,7 +54,7 @@ label{
 .tableHead{
 	padding: 0.5rem;
 }
-.tableHead.all::before,.tableHead.bis::before,.tableHead.normal::before{
+.tableHead.all::before,.tableHead.bis::before,.tableHead.normal::before,#liveUser::before{
 	margin-right: 1rem;
 	content: '●';
 	color:seagreen;
