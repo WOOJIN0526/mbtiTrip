@@ -6,6 +6,7 @@ package com.example.test.POST.Service;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -22,6 +23,7 @@ import com.example.test.User.Service.UserHistoryService;
 import com.example.test.item.DAO.ItemDAO;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.paging.Page;
+import com.example.test.paging.PaginationVo;
 import com.example.testExcepion.Insert.InsertException;
 import com.example.testExcepion.Insert.InsertExceptionEnum;
 import com.example.testExcepion.Post.PostException;
@@ -58,19 +60,20 @@ public  class PostServiceImpl implements PostService {
 
 	
 	@Override
-	public List<PostDTO> list() throws Exception {
+	public List<PostDTO> getListPage(PaginationVo pagination) {
 		// TODO Auto-generated method stub
-		return postDAO.list();
+		return this.postDAO.getListPage(pagination);
 	}
+
 
 
 
 	@Override
-
-	public List<PostDTO> list(Page page) throws Exception {
+	public int getCount() {
 		// TODO Auto-generated method stub
-		return postDAO.listWithPage(page);
+		return this.postDAO.getCount();
 	}
+
 
 
 
@@ -89,7 +92,7 @@ public  class PostServiceImpl implements PostService {
 	@Override
 	public PostDTO getPost(Integer postId,Principal principal) throws Exception {
 		PostDTO post = this.postDAO.findById(postId);
-		        	
+		System.out.println(post.toString());      	
     	post.setViews(post.getViews()+1);        	
     	this.postDAO.update(post);
     	userHistoryService.userViewPost(post, principal);
@@ -125,28 +128,6 @@ public  class PostServiceImpl implements PostService {
 
 
 	@Override
-	public List<PostDTO> search(String keyword) {
-		List<PostDTO> postLi = postDAO.search(keyword);
-		if(postLi.isEmpty()) {
-			throw new PostException(PostExceptionEnum.POST_NOT_FOUND);
-		}
-		return postLi;
-	}
-
-
-
-	@Override
-	public List<PostDTO> search(Page page) throws Exception {
-		List<PostDTO> postLi = postDAO.search(page);
-		if(postLi.isEmpty()) {
-			throw new PostException(PostExceptionEnum.POST_NOT_FOUND);
-		}
-		return postLi;
-	}
-
-
-
-	@Override
 	public Integer totalCount() throws Exception {
 		// TODO Auto-generated method stub
 		return postDAO.totalCount();
@@ -160,18 +141,18 @@ public  class PostServiceImpl implements PostService {
         this.postDAO.create(postDto);
 	}
 
-    @Override
-	public List<PostDTO> findPostByCategoryID(PostDTO postDTO) {
-	// 게시글 목록 조회
-
-	List<PostDTO> post = postDAO.findByPostCategoryID(postDTO);
-	if(post.isEmpty()) {
-		throw new PostException(PostExceptionEnum.POST_NOT_FOUND);
-	}
-
-	return post;
-	        
-	}
+//    @Override
+//	public List<PostDTO> findPostByCategoryID(PostDTO postDTO) {
+//	// 게시글 목록 조회
+//
+//	List<PostDTO> post = postDAO.findByPostCategoryID(postDTO);
+//	if(post.isEmpty()) {
+//		throw new PostException(PostExceptionEnum.POST_NOT_FOUND);
+//	}
+//
+//	return post;
+//	        
+//	}
 
 
 
@@ -279,6 +260,18 @@ public  class PostServiceImpl implements PostService {
 	public ItemDTO getItem(Integer itemID) {
 		ItemDTO item = itemDao.findById(itemID);
 		return item;
+	}
+
+
+
+
+	@Override
+	public List<HashMap<String, Object>> search(String keyword) {
+		// TODO Auto-generated method stub
+		String keywordSet = "%";
+		keywordSet += keyword+keywordSet;
+
+		return postDAO.searchKeyword(keywordSet);
 	}
 
 

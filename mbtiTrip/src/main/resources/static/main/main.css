@@ -150,8 +150,7 @@ mark {
 
 }
 
-.home__img1 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/11/6baf9f05-633e-4fe4-b3a8-cf443520f7522.jpg");
+.home__img {
     height: 250px;
     background-size: 100% 100%;
 }
@@ -202,6 +201,10 @@ mark {
     margin: 5px 0;
     font-size: 13px;
     color:gray;
+    width: 97px;
+    white-space: nowrap;
+    overflow: hidden;
+
 }
 
 .info2 {
@@ -236,7 +239,7 @@ mark {
     width:1092px;
     margin:0 auto;
 }
-content h3 {
+.content h3 {
     text-align: center;
     margin-bottom: 15px;
     font-size:26px;
@@ -279,10 +282,6 @@ content h3 {
 .con1 .intro .text:hover{
     text-decoration: none;
 }
-
-
-
-
 
 /*추가 내용*/
 .con2 {
@@ -456,7 +455,7 @@ content h3 {
 
 .con3_wrap{
     width:1100px;
-    margin:5rem 10rem 5rem 12rem;
+    margin:5rem 12rem 5rem 12rem;
     color: black;
 }
 
@@ -483,7 +482,7 @@ content h3 {
 
 }
 .trip_img2{
-    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/2ebfc9f2-9ee9-4c39-af15-cacd25839799대구1.jpg);
+    /* background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/2ebfc9f2-9ee9-4c39-af15-cacd25839799대구1.jpg); */
     width: 259px;
      height: 160px;
      background-position:10%;
@@ -491,7 +490,7 @@ content h3 {
     background-repeat: no-repeat;
 }                  
 .trip_img3{
-    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/04aa876d-68b4-4951-9ab2-e6a8d287bd1a함평.jpg);
+    /* background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/04aa876d-68b4-4951-9ab2-e6a8d287bd1a함평.jpg); */
     width: 259px;
     height: 160px;
     background-position:10%;
@@ -500,7 +499,7 @@ content h3 {
    background-position:0% 10%;
 }
 .trip_img4{
-    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/227faf34-d402-4f63-9cee-cfd66e54a86b경주.jpg);
+    /* background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/227faf34-d402-4f63-9cee-cfd66e54a86b경주.jpg); */
     width: 259px;
     height: 160px;
     background-size: cover;
@@ -508,7 +507,7 @@ content h3 {
     background-position:0% 10%;
 }
 .trip_img5{
-    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/82f8cfbd-9b8b-4802-a896-3dabeabd5b23광주.jpg);
+    /* background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/82f8cfbd-9b8b-4802-a896-3dabeabd5b23광주.jpg); */
     width: 259px;
     height: 160px;
     background-size: cover;
@@ -523,7 +522,6 @@ content h3 {
     background-repeat: no-repeat;
     background-position: 0% 50%;
 }
-
 
 
 .con3 li:last-child{

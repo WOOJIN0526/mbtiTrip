@@ -49,54 +49,29 @@
 //	
 //	//게시글 목록 화면
 //	@RequestMapping(value = "/post/review/list", method = RequestMethod.GET)
-//	public String list(Model model, Page page) throws Exception{
+//	public String list(Model model, @RequestParam(value = "page", defaultValue = "1") final int page ,@PathVariable("category") String category) throws Exception{
+//		PostReviewDTO postReviewDTO = new PostReviewDTO();
+//	  if(category.equals("noticeBoard")) {
+//	        postReviewDTO.setPostCategoryID(1);
+//	  } else if(category.equals("review")) {
+//	        postReviewDTO.setPostCategoryID(2);
+//	  }
+//	
+//	  PaginationVo pagination = new PaginationVo(this.postService.getCount(), page);// 모든 게시글 개수 구하기
+//	  
+//	  List<PostDTO> list = this.postService.getListPage(pagination);
+//			
+//	  		model.addAttribute("list", list);
+//	  		model.addAttribute("pageVo", pagination);
+//	  		
+//			//model.addAttribute("list", postService.findPostByCategoryID(postDTO));
+//			model.addAttribute("page", page);
+//			model.addAttribute("type", category);
+//			
+//			return "Review_Main";
 //
-//	Integer totalCount = null;
-//	Integer rowPerPage = null;
-//	Integer pageCount = null;
-//	Integer pageNum = page.getPageNum();
-//	String keyword = page.getKeyword();
-//
-//		// 조회된 전체 게시글 수
-//		if( page.getTotalCount() == 0 )
-//		totalCount =prService.totalCount();
-//				
-//		else 
-//		totalCount = page.getTotalCount();
-//
-//		//페이지 당 노출 게시글 수
-//		if( page.getRowsPerPage() == 0 )
-//			rowPerPage = 10;
-//				
-//		else 
-//			rowPerPage = page.getRowsPerPage();
-//
-//		//노출 페이지수
-//		if(page.getPageCount() == 0)
-//			pageCount = 10;
-//		else
-//			pageCount = page.getPageCount();
-//
-//		if(page.getPageNum() == 0){
-//			page = new Page(1, rowPerPage, totalCount, pageCount); 
-//		} else{
-//				page = new Page(pageNum, rowPerPage, totalCount, pageCount);
-//			}
-//				
-//		if(keyword == null || keyword == ""){
-//			page.setKeyword("");
-//			model.addAttribute("list", prService.list(page));
-//			} else {
-//					page.setKeyword(keyword);
-//					model.addAttribute("list", prService.search(page));
-//				}
-//		
-//				model.addAttribute("list", prService.findPostByCategoryID(2L));
-//				model.addAttribute("page", page);
-//				
-//				return "Review_Main";
-//
-//		}
+//	}
+
 //		
 //
 //		

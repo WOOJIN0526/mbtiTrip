@@ -15,6 +15,7 @@ import com.example.test.Adventure.DTO.AdventureDTO;
 import com.example.test.User.DAO.UserCartDAO;
 import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DTO.UserCartDTO;
+import com.example.test.item.DAO.ItemDAO;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.replace.DTO.ReplaceDTO;
 
@@ -39,10 +40,12 @@ public class UserCartServiceImpl implements UserCartService{
 	
 	@Autowired
 	UserDAO userDAO;
+	@Autowired
+	ItemDAO itemDao;
+	
 	
 	@Override
-	public boolean insertItem(UserCartDTO userCartDTO,  ItemDTO ItemDTO, 
-									Principal principal) throws CartException{
+	public boolean insertItem(UserCartDTO userCartDTO, Principal principal) throws CartException{
 		//4.3 test끝 	
 		//URL  = /replace/cart Post
 		int result = 0;
@@ -53,7 +56,6 @@ public class UserCartServiceImpl implements UserCartService{
 		}
 		CartValidationCK(userCartDTO);
 		userCartDTO.setUserName(userDAO.getUserNameByuserID(principal.getName()));
-		userCartDTO.setItemId(ItemDTO.getItemID());
 		userCartDTO.setPayments(false);
 		log.info("message {}", userCartDTO.toString());
 		result = userCartDAO.insertItem(userCartDTO);	
@@ -75,6 +77,16 @@ public class UserCartServiceImpl implements UserCartService{
 		String userName = userDAO.getUserNameByuserID(principal.getName());
 		usercartdto.setUserName(userName);
 		List<HashMap<String, Object>> userCart = this.userCartDAO.detail(usercartdto);
+		for(HashMap<String, Object> item :userCart) {
+			int itemID = (Integer) item.get("itemId");
+			 List<String> url = itemDao.getUrl(itemID);
+			 //등록된 이미지가 없을 경우
+			 if(url.isEmpty()) {
+				 url.add("0");
+			 }
+			 String[] ImgeUrl = url.toArray(new String[0]); // 리스트를 배열로 변환
+		     item.put("ImgeUrl", ImgeUrl); // 아이템에 이미지 URL 배열 추가
+		}
 		usercartdto.setFinalPrice(sumPrice(userCart));
 		return userCart;
 	}

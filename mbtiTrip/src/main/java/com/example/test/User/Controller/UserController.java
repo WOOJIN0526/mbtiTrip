@@ -41,10 +41,12 @@ import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.DTO.User_Role;
 import com.example.test.User.Service.CustomLoginService;
 import com.example.test.User.Service.QnAService;
+import com.example.test.User.Service.UXService;
 import com.example.test.User.Service.UserHistoryService;
 import com.example.test.User.Service.UserHistoryService;
 import com.example.test.User.Service.UserService;
 import com.example.test.User.Service.UserServiceImpl;
+import com.example.test.item.DAO.ItemDAO;
 import com.example.test.item.DTO.ItemDTO;
 
 import groovy.transform.ToString;
@@ -70,6 +72,8 @@ public class UserController {
 	@Autowired
 	private UserDAO userDAO;
 	
+	@Autowired
+	private UXService uxService;
 
 	private BCryptPasswordEncoder bcrypasswordEncoder = new BCryptPasswordEncoder(); 
 	
@@ -123,21 +127,25 @@ public class UserController {
 		String userName = userDAO.getUserNameByuserID(principal.getName());
 		
 		//UserUXS => 사용자의 활동 기록을 탐색하고, 그에 맞는 여행 루틴 추천 
-		List<HashMap<String, Object>> UserUXs = userHistoryService.uxRutin(userName);
+		
+		List<HashMap<String, Object>> UserUXsBefore = userHistoryService.uxRutin(userName);
+		List<HashMap<String, Object>> UserUXs = uxService.insertUrls(UserUXsBefore);
 		if(UserUXs.get(0).isEmpty() || UserUXs.size() <3) {
 			log.info("사용자 정보가 충분하지 않다");
 			mav.addObject("UxMessage", "사용자 정보가 충분하지 않습니다.");
 		}
 		
 		//UserUXS => 사용자의 활동 기록을 탐색하고, 그에 맞는 숙소 정보 추천 
-		List<HashMap<String, Object>> userUxRe = userHistoryService.uxReplace(userName);
+		List<HashMap<String, Object>> userUxReBefore = userHistoryService.uxReplace(userName);
+		List<HashMap<String, Object>> userUxRe = uxService.insertUrls(userUxReBefore);
 		if(userUxRe.get(0).isEmpty() || UserUXs.size() <3) {
 			
 			mav.addObject("UxReMessage", "사용자 정보가 충분하지 않습니다.");
 		}
 		
 		//UserUXS => 사용자의 활동 기록을 탐색하고, 그에 맞는 여행지 정보 추천 
-		List<HashMap<String, Object>> userUxAD = userHistoryService.uxAdventure(userName);
+		List<HashMap<String, Object>> userUxADBefore = userHistoryService.uxAdventure(userName);
+		List<HashMap<String, Object>> userUxAD = uxService.insertUrls(userUxADBefore);
 		if(userUxAD.get(0).isEmpty() || UserUXs.size() <3) {
 		
 			mav.addObject("UxAdMessage", "사용자 정보가 충분하지 않습니다.");
@@ -154,6 +162,7 @@ public class UserController {
 		else {
 			mav.addObject("userViewInfo",userViewInfo);
 		}
+		log.info("userUxAD 조회 결과  {}", userUxAD);
 		mav.addObject("UserUXs",UserUXs);
 		mav.addObject("userUxRe",userUxRe);
 		mav.addObject("userUxadv",userUxAD);
