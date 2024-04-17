@@ -46,11 +46,9 @@ label{
 	justify-content: space-between;
 	padding :1rem 1rem 0 0;
 }
-.infoTable tr {
-	
-
-    }
-
+.a{
+    margin: 5rem;
+}
 .tableHead{
 	padding: 0.5rem;
 }

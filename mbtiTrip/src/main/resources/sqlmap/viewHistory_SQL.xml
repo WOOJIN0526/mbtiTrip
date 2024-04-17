@@ -170,6 +170,7 @@
 		    mb.mbti AS mbti, 
 		    a.itemName,
 		    a.location,
+		    a.contents,
 		    a.price,
 		    a.ratingAvg
 			from Item a

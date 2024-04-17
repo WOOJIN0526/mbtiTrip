@@ -1,79 +1,115 @@
 <!DOCTYPE html>
-<html lang="en"
-	xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  **xmlns:sec="http://www.thymeleaf.org/extras/spring-security"**
-   layout:decorate="~{layout.html}">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>마이페이지</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link th:href="@{/mypage/myPage.css}" rel="stylesheet" />
-</head>
-<body>
-    <section layout:fragment="content" class="mypageBody">
-		
-		    <div class="menuNode">
-		        <ul>
-		            <li class="node"><a th:href="@{/user/mypage/update}">개인정보 수정</a></li>
-		            <li class="node"><a href="#">위시 리스트</a></li>
-		        </ul>
-		    </div>
-		<div class="container">
-			
-		    <div class="myProfile">
-				<div class="menu">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon-menu" onclick="toggleSVG()">
-						<path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
-					</svg>
-				</div>
-				<img class="userImg" th:if="${user!= null}" th:src="${user['userImg']}" alt="프로필 이미지"></img>
-				<img class="userImg" th:unless="${user!= null}" alt="프로필 이미지"></img>
-		        <h2 th:text="${user['userName']}"></h2>
-		       
-		    </div>
-		    
-		    <div class="section">
-		        <h3>내 정보</h3>
-		        <div class="info-grid">
-		            <ul>
-		                <li >이름</li>
-		                <li>전화번호</li>
-		                <li>이메일</li>
-		                <li>MBTI</li>
-		            </ul>
-		            <ul>
-						<li th:text="${user['userName']}"></li>    
-						<li th:text="${user['phone']}"></li>
-						<li th:text="${user['mail']}"></li>
-						<li th:text="${user['mbti']}"></li>
-		            </ul>
-		        </div>
-		    </div>
-			<section>
-				<div>
-					<h1> 내가 작성한 게시글</h1>
-					<ul th:each="post : ${userPosts}">
-						<li th:text="${post['title']}"></li>
-						<li th:text="${post['updateDate']}"></li>
-					</ul>
-				</div>
-				<div>
-					<h1> 내가 작성한 QnA</h1>
-					<ul th:each="qna : ${userQnA}">
-						<li th:text="${qna['Qname']}"></li>
-						<li th:text="${qna['contents']}"></li>
-						<li th:text="${qna['updateDate']}"></li>
-						<li th:text="${qna[Answer]}"></li>
-					</ul>
-				</div>		
-				
-			</section>
-		</div>
-			<script type="text/javascript" th:src="@{/mypage/mypage.js}"></script>
-	</section>
-  
+<html
+    lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    **xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    **="**"
+    layout:decorate="~{layout.html}">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>마이페이지</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link th:href="@{/mypage/myPage.css}" rel="stylesheet"/>
+    </head>
+    <body>
+        <section layout:fragment="content" class="mypageBody">
 
-</body>
+            <div class="menuNode">
+                <ul>
+                    <li class="node">
+                        <a th:href="@{/user/mypage/update}">개인정보 수정</a>
+                    </li>
+                    <li class="node">
+                        <a href="#">위시 리스트</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="container">
+
+                <div class="myProfile">
+                    <div class="menu">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewbox="0 0 512 512"
+                            class="icon-menu"
+                            onclick="toggleSVG()">
+                            <path
+                                d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+                        </svg>
+                    </div>
+                    <img
+                        class="userImg"
+                        th:if="${user!= null}"
+                        th:src="${user['userImg']}"
+                        alt="프로필 이미지"></img>
+                    <img class="userImg" th:unless="${user!= null}" alt="프로필 이미지"></img>
+                    <h2 class="mytext" th:text="${user['userName']}"></h2>
+
+                </div>
+
+                <div class="section">
+                    <h3>내 정보</h3>
+                    <div class="info-grid">
+                        <ul>
+                            <li >이름</li>
+                            <li>전화번호</li>
+                            <li>이메일</li>
+                            <li>MBTI</li>
+                        </ul>
+                        <ul>
+                            <li th:text="${user['userName']}"></li>
+                            <li th:text="${user['phone']}"></li>
+                            <li th:text="${user['mail']}"></li>
+                            <li th:text="${user['mbti']}"></li>
+                        </ul>
+                    </div>
+                </div>
+				
+                <section class="info-grid2">
+                    <div>
+                        <h1 >내가 작성한 게시글</h1>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>제목</th>
+                                    <th>작성일</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="post : ${userPosts}">
+                                    <td th:text="${post['title']}"></td>
+                                    <td th:text="${post['updateDate']}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="a">
+                        <h1>내가 작성한 QnA</h1>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Qname</th>
+                                    <th>contents</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="qna : ${userQnA}">
+                                    <td th:text="${qna['Qname']}"></td>
+                                    <td th:text="${qna['contents']}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </section>
+            </div>
+            <script type="text/javascript" th:src="@{/mypage/mypage.js}"></script>
+        </section>
+
+    </body>
 </html>

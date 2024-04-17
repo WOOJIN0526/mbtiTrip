@@ -154,6 +154,7 @@ public class UserController {
 		else {
 			mav.addObject("userViewInfo",userViewInfo);
 		}
+		log.info("userUxAD 조회 결과  {}", userUxAD);
 		mav.addObject("UserUXs",UserUXs);
 		mav.addObject("userUxRe",userUxRe);
 		mav.addObject("userUxadv",userUxAD);

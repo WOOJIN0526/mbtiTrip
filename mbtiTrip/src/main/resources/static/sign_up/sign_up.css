@@ -13,12 +13,13 @@
     width: 95% 95%;
     height: 100vh;
     /* background:url(masaaki-komori-_SbeCWYjwCQ-unsplash.jpg); */
-    background-color: #FFD8E4;
+    background-image: url();
     text-align: center;
     background-repeat:no-repeat;
     background-position: top center;
     background-size: cover;
     display: flex;
+    opacity: 95%;
 }
 
 #url{
