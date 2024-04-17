@@ -28,7 +28,8 @@ public class ItemDAO {
 	UserHistoryService userHistoryService;
 	
 	public List<ItemDTO> searchLocation(String location){
-		List<ItemDTO> result = this.sqlSessiontemplate.selectList("itemByLocation", location);
+		//List<ItemDTO> result = this.sqlSessiontemplate.selectList("itemByLocation", location);
+		List<ItemDTO> result = this.sqlSessiontemplate.selectList("item.locationSerch", location);
 		return result;
 	}
 	

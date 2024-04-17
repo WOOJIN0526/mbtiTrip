@@ -19,6 +19,8 @@ import com.example.test.POST.DTO.AnswerDTO;
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.Service.UserHistoryService;
+import com.example.test.item.DAO.ItemDAO;
+import com.example.test.item.DTO.ItemDTO;
 import com.example.test.paging.Page;
 import com.example.testExcepion.Insert.InsertException;
 import com.example.testExcepion.Insert.InsertExceptionEnum;
@@ -43,6 +45,8 @@ public  class PostServiceImpl implements PostService {
 	
 	@Autowired
 	AnswerDAO answerDAO;
+	@Autowired
+	ItemDAO itemDao;
 	
 	@Autowired
 	UserHistoryService userHistoryService;
@@ -151,7 +155,7 @@ public  class PostServiceImpl implements PostService {
 	//추천
 	@Override
 	public void suggestion(PostDTO postDto, UserDTO userDto) {
-		postDto.getSuggestion().add(userDto);
+		//postDto.getSuggestion().add(userDto);
         
         this.postDAO.create(postDto);
 	}
@@ -267,6 +271,14 @@ public  class PostServiceImpl implements PostService {
 			check = 3;
 		}
 		return check;
+	}
+
+
+
+	@Override
+	public ItemDTO getItem(Integer itemID) {
+		ItemDTO item = itemDao.findById(itemID);
+		return item;
 	}
 
 

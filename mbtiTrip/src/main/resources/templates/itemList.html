@@ -29,6 +29,7 @@
 	    </div>
 		
 <!--페이징 시작-->
+<div th:if="${page!=null}">
 	<div th:object="${page}" class="paging">
 							
 		<a th:href="|list?pageNum=*{firstPage}&totalCount=*{totalCount}&rowsPerPage=*{rowsPerPage}&pageCount=*{pageCount}&keyword=*{keyword}|" class="first">[처음]</a>
@@ -50,6 +51,7 @@
 			<a th:href="|list?pageNum=*{lastPage}&totalCount=*{totalCount}&rowsPerPage=*{rowsPerPage}&pageCount=*{pageCount}&keyword=*{keyword}|" class="last">[끝]</a>
 							
 	</div>
+</div>
 <!--페이징 종료-->
 		
 		<!-- 페이지 번호 표시 -->

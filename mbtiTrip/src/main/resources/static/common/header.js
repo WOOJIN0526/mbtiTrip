@@ -1,11 +1,3 @@
-if(sessionStorage.getItem("Img")!=null){
-	document.querySelector('.userImg').src=sessionStorage.getItem("Img");
-}
-	
-document.querySelector('#logout').addEventListener('click',function(){
-	sessionStorage.clear();	
-	});
-
 
 
 function toggleSVG() {

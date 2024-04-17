@@ -66,16 +66,19 @@ public class PostController {
 	
 	@Autowired
 	UserHistoryService userHistoryService;
-	
+
 	@Autowired
 	UserDAO userDao;
 	
 	//게시글 목록 화면
-	@RequestMapping(value = "/post/noticeBoard/list", method = RequestMethod.GET)
-	public String list(Model model, Page page) throws Exception{
-	
-	PostDTO postDTO =new PostDTO();
-	postDTO.setPostCategoryID(2);
+	@RequestMapping(value = "/post/{category}/list", method = RequestMethod.GET)
+	public String list(Model model, Page page, @PathVariable("category") String category) throws Exception{
+	PostDTO postDTO = new PostDTO();
+	  if(category.equals("noticeBoard")) {
+	        postDTO.setPostCategoryID(2);
+	  } else if(category.equals("review")) {
+	        postDTO.setPostCategoryID(1);
+	  }
 	Integer totalCount = null;
 	Integer rowPerPage = null;
 	Integer pageCount = null;
@@ -119,9 +122,10 @@ public class PostController {
 				page.setKeyword(keyword);
 				model.addAttribute("list", postService.search(page));
 			}
-	
+			
 			model.addAttribute("list", postService.findPostByCategoryID(postDTO));
 			model.addAttribute("page", page);
+			model.addAttribute("type", category);
 			
 			return "notice_Board";
 
@@ -130,36 +134,46 @@ public class PostController {
 
 	
 	//게시글 읽기 화면
-	@RequestMapping(value = "/post/noticeBoard/detail/{postID}", method = RequestMethod.GET)
-	public String read(Model model,@PathVariable("postID") Integer postID, Principal principal) throws Exception{
+	@RequestMapping(value = "/post/{category}/detail/{postID}", method = RequestMethod.GET)
+	public String read(Model model,@PathVariable("postID") Integer postID, Principal principal, @PathVariable("category") String category) throws Exception{
 
 		PostDTO post = postService.getPost(postID,principal);
-		UserDTO user = userService.getUser(post.getUserName());
+		if(category.equals("review")) {
+			Integer itemID = post.getItemID();
+			ItemDTO item = postService.getItem(itemID);
+			model.addAttribute("item",item);
+		}
+		String userName =post.getUserName();
+		UserDTO user = userService.getUserByUserName(post.getUserName());
 		model.addAttribute("user", user);
 		model.addAttribute("post", post);
-			
+		
 
 		return "post_detail";
 	}
 
 	@PreAuthorize("isAuthenticated() and hasRole('ROLE_USER')")
-    @RequestMapping(value = "/post/noticeBoard/create", method = RequestMethod.GET)
-    public String Create(Model model, PostDTO post, Principal user) throws Exception{
+    @RequestMapping(value = "/post/{category}/create", method = RequestMethod.GET)
+    public String Create(Model model, PostDTO post, Principal user, @PathVariable("category") String category) throws Exception{
+		PostDTO postDTO = new PostDTO();
+		int value=0;
+	      if(category.equals("noticeBoard")) {
+	            value =2;
+	      } else if(category.contains("review")) {
+	            value =1;
+	            int itemID = Integer.parseInt(category.replaceAll("[^0-9]", ""));
+	            model.addAttribute("itemID",itemID);
+	      }
+    	model.addAttribute("type",value);
     	
-    	String userName = "";
-    	if(user !=null){
-    		userName = user.getName();
-    		model.addAttribute("userName", userName);
-    	}
-    	model.addAttribute("categoryList", postCategoryService.getList());
         return "write_form";
     }
     
     
     //@PostMapping("/noticeBoard/create")
-	@RequestMapping(value ="/post/noticeBoard/create", method = RequestMethod.POST)
+	@RequestMapping(value ="/post/{category}/create", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> boardCreate(PostDTO dto,Principal principal) throws Exception {
+    public ResponseEntity<String> boardCreate(PostDTO dto,Principal principal, @PathVariable("category") String category) throws Exception {
     	// DB에 연결할 후속작업 메서드 부탁드립니다.
 		
     	String userName =userDao.getUserNameByuserID(principal.getName());
