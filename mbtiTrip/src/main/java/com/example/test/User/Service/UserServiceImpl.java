@@ -120,7 +120,12 @@ public class UserServiceImpl implements UserService{
 		UserDTO siteUser = this.userDao.getByUserId(id);
 		return siteUser;
 	}
-
+	@Override
+	public UserDTO getUserByUserName(String name) {
+		UserDTO siteUser = this.userDao.getByUserName(name);
+		return siteUser;
+	}
+	
 	public Integer princeUID(Principal principal) {
 		String userName = userDao.getUserNameByuserID(principal.getName());
 		Integer UID = findByUID(userName);

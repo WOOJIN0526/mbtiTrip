@@ -46,5 +46,7 @@ public interface UserService {
 	List<HashMap<String, Object>> bisListput(List<HashMap<String, Object>> itemList,
 			List<HashMap<String, Object>> viewList);
 
+	public UserDTO getUserByUserName(String userName);
+
 	
 }
