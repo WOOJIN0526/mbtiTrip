@@ -28,7 +28,7 @@ public interface UserService {
 
 	public int BisUpdate(UserDTO userdto);
 
-	public Integer findByUID(String userName);
+	public Integer findByUID(Principal principal);
 
 	public UserDTO getUser(String id);
 

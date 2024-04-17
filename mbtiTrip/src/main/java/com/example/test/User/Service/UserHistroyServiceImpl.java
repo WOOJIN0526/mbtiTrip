@@ -39,15 +39,15 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 	// 사용자의 userView에 조회한 ITem 정보 삽입
 	public void userViewItem(ItemDTO itemDTO, Principal principal) {
 		UserHistoryDTO userItemView = new UserHistoryDTO();
-		if(principal == null) {
-			throw new UserNotFoundExcepiton(UtileExceptionCode.USER_NOT_FOUND_EXCEPTION);
+		if(principal != null) {
+			String userName = userDAO.getUserNameByuserID(principal.getName());
+			userItemView.setItemId(itemDTO.getItemID());
+			userItemView.setUserName(userName);
+			userhistoryDAO.viewCkItem(userItemView);
+			//viewItem에 viewRating 값 증가 
+			userhistoryDAO.viewRatingIT(itemDTO);
 		}
-		String userName = userDAO.getUserNameByuserID(principal.getName());
-		userItemView.setItemId(itemDTO.getItemID());
-		userItemView.setUserName(userName);
-		userhistoryDAO.viewCkItem(userItemView);
-		//viewItem에 viewRating 값 증가 
-		userhistoryDAO.viewRatingIT(itemDTO);
+		
 	}
 	
 	// 사용자의 userView에 조회한 Post 정보 삽입
