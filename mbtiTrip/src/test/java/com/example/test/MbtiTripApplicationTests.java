@@ -98,18 +98,29 @@ class MbtiTripApplicationTests {
 	@Autowired
 	ItemDAO itemDAO;
 	
+	@Autowired
+	PostDAO postDAO;
+	
 	@Test
 	void contextLoads() {
-		String location = "광주";
-		location += '%';
-		log.info("location => {}",location);
-		List<ItemDTO> result = itemDAO.searchLocation(location);
-		for(ItemDTO re : result) {
-			log.info("location search ==>{}", re);
-		}
+//		String location = "광주";
+//		location += '%';
+//		log.info("location => {}",location);
+//		List<ItemDTO> result = itemDAO.searchLocation(location);
+//		for(ItemDTO re : result) {
+//			log.info("location search ==>{}", re);
+//		}
 		
+		String keywordSet = "%";
+		String keyword = "user"; //param으로 받을 키워 
+		keywordSet += keyword+keywordSet;
 		
-		
+		log.info("keywordSEt ==> {}", keywordSet);
+		List<HashMap<String, Object>> result = postDAO.searchKeyword(keywordSet); //return 
+//		for(HashMap<String,Object> re : result) {
+//			log.info("result ==> {}", re);
+//		}
+
 		
 		
 //		UserDTO user = new UserDTO();

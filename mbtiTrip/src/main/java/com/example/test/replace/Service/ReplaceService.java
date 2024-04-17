@@ -36,13 +36,14 @@ public interface ReplaceService {
 		//전체 게시글 수
 		public Integer totalCount() throws Exception;
 
-		//추천
-		public void suggestion(ItemDTO item, UserDTO user) throws Exception;
-	 
-	 
 
+	 
+	 
+	public List<String> getUrls(int itemID);
 
 	public int createImg(ItemDTO itemdto);
+
+	public int suggestion(Integer itemID, Principal principal)throws Exception;
 
 
 	 

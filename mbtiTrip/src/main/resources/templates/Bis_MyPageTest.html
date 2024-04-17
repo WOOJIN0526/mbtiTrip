@@ -1,40 +1,86 @@
-<style></style>
-<div>
-	<div >
-		<img class="userImg" th:if="${user!= null}" th:src="${user['userImg']}" alt="프로필 이미지"></img>
-		<img class="userImg" th:unless="${user!= null}" alt="프로필 이미지"></img>
-		<h2 th:text="${user['userName']}"></h2>
-		<ul>
-			<li th:text="${user['userName']}"></li>    
-			<li th:text="${user['phone']}"></li>
-			<li th:text="${user['mail']}"></li>
-		</ul>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout.html}">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>사업자 관리 페이지</title>
+    <link rel="stylesheet" th:href="@{/common/common.css}"/>
+    <link rel="stylesheet" th:href="@{/mypage/bis_mypage.css}"/>
+</head>
+
+<body>
+<section layout:fragment="content">
+	<div class="pageBody">
+		<section class="pageCon">
+			<div class="userInfo">
+						<div class="imgBoxC">
+							<img class="userImg" th:if="${user!= null}" th:src="${user['userImg']}" alt="프로필 이미지"></img>
+							<img class="userImg" th:unless="${user!= null}" alt="프로필 이미지"></img>
+						</div>
+						<div class="name"><h2 th:text="${user['userName']}"></h2></div>
+						<table>
+							<tr>
+								<th>전화번호</th>
+								<td th:text="${user['phone']}"></td>
+								
+							</tr>
+							<tr>
+								<th>메일</th>
+								<td th:text="${user['mail']}"></td>
+							</tr>
+						</table>
+					</div>
+					<div th:if="${userItems}!=null">
+						<div th:object="${userItems}" class="itemInfo">
+								<table>
+									<tr>
+										<th>등록번호</th>
+										<th>상호명</th>
+										<th>주소지</th>
+										<th>평균평점</th>
+										<th>조회수</th>
+									</tr>
+									<tr th:each="userItem : ${userItems}">
+										<td  th:text="${userItem['itemId']}"></td>
+										<td th:text="${userItem['itemName']}"></td>
+										<td th:text="${userItem['location']}"></td>
+										<td th:text="${userItem['ratingAvg']}"></td>
+										<td th:text="${userItem['viewRating']}"></td>
+									</tr>
+								</table>
+							</div>
+					</div>
+					
+					<div class="reservTitle"><h1>내 숙소 예약 정보</h1></div>
+					<div th:if="${userReservation}!=null">
+						<div th:object="${userReservation}" class="reserInfo">
+							<table>
+								<tr>
+									<th>상호명</th>
+									<th>유저이름</th>
+									<th>시작일</th>
+									<th>종료일</th>
+									<th>전화번호</th>
+									<th>메일</th>
+								</tr>
+								<tr th:each="Info : ${userReservation}">
+									<td th:text="${Info['itemName']}"></td>
+									<td th:text="${Info['userName']}"></td>
+									<td th:text="${Info['startDate']}"></td>
+									<td th:text="${Info['endDate']}"></td>
+									<td th:text="${Info['phone']}"></td>
+									<td th:text="${Info['mail']}"></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+		</section>
 	</div>
-	<div th:if="${userItems}!=null">
-		<div th:object="${userItems}">
-				<ul th:each="userItem : ${userItems}">
-					<li  th:text="${userItem['itemId']}"></li>
-					<li th:text="${userItem['itemName']}"></li>
-					<li th:text="${userItem['location']}"></li>
-					<li th:text="${userItem['contents']}"></li>
-					<li th:text="${userItem['ratingAvg']}"></li>
-					<li th:text="${userItem['viewRating']}"></li>
-				</ul>
-			</div>
-	</div>
-	
-	<h1>내 숙소 예약 정보</h1>
-	<div th:if="${userReservation}!=null">
-		<div th:object="${userReservation}">
-				<ul th:each="Info : ${userReservation}">
-					<li th:text="${Info['itemName']}"></li>
-					<li th:text="${Info['userName']}"></li>
-					<li th:text="${Info['startDate']}"></li>
-					<li th:text="${Info['endDate']}"></li>
-					<li th:text="${Info['phone']}"></li>
-					<li th:text="${Info['mail']}"></li>
-				</ul>
-			</div>
-	</div>
-	
-</div>
+</section>
+</body>
+</html>

@@ -1,0 +1,51 @@
+.pageBody{
+	padding: 10rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.pageCon{
+	border: 1px solid black;
+}
+.userInfo,.itemInfo,.reserInfo,.reservTitle{
+	width: 80vw;
+
+	padding: 2rem;
+	display: flex;
+	gap: 2rem;
+}
+.reservTitle{
+	padding: 0 0 0 2rem;
+}
+.userInfo{
+	gap: 0;
+}
+.name{
+	display: flex;	
+	align-items: center;
+	justify-content: center;
+	width: 15%;
+
+}
+.imgBoxC{
+	
+	display: flex;	
+	align-items: center;
+	justify-content: center;
+	width: 50px; height: 50px;
+}
+.userImg{
+	width: 100%; max-height: 50px;
+}
+table{
+	width: 100%;
+	border: 1px solid var(--gray);
+}
+table th{
+	background-color: var(--gray);
+}
+table td{
+	text-align: center;
+	border: 1px solid var(--gray);
+}

@@ -1,3 +1,4 @@
+
 document.querySelectorAll('.img_box').forEach((item,index)=>{
 	if(index!=0){
 		item.style.display='none';
@@ -84,24 +85,44 @@ const getDateDiff = (d1, d2) => {
 function addCart(){
 	let formData = new FormData();
 	const itemID = document.querySelector('.container').dataset.value;
-	const StartDate = new date(document.querySelector('#start').value);
-	const endtDate = new date(document.querySelector('#end').value);
-	formData.set("itemID",itemID);
+	console.log(document.querySelector('#start').value);
+	let StartDate =document.querySelector('#start').value;
+	console.log(StartDate);
+	let endDate =document.querySelector('#end').value;
+	formData.set("itemId",itemID);
 	formData.set("StartDate",StartDate);
 	formData.set("endDate",endDate);
-	fetch("/adventure/input",{
+	fetch("/mypage/cart/replace/input",{
 		method:"POST",
 		headers:{
-			"Content-Type":"multipart/form-data"
+/*			"Content-Type":"application/json"*/
 		},
 		body:formData
-	}).then(response=>{
-		if(response==='true'){
-			alert("장바구니에 담았습니다.")
+	}).then(response => {
+	    if (response.ok) {
+	        return response.text();
+	    } else {
+	        throw new Error(response.statusText);
+	    }
+	})
+	.then(data => {
+	   	alert(data);
+	})
+	.catch(err => {
+	    console.error(err);
+	});
+}
+function uprating(){
+	const uprating = document.querySelector('#uprating').textContent;
+	const id = document.querySelector('.container').dataset.value;
+	fetch(`/suggestion/${id}`).then(response=>{
+		if(response.ok){
+			location.reload(true);
 		}else{
-			alert("등록에 실패하였습니다.")
+			alert("이미 추천을 눌렀습니다.");
 		}
 	}).catch(err=>{
-		alert("등록에 실패하였습니다.")
+		alert("이미 추천을 눌렀습니다.")
+		console.err(err.message);
 	});
 }

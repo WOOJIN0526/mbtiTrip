@@ -14,7 +14,7 @@
 
 	<select id="detail" resultType="hashMap">
 	<![CDATA[
-		select uc.startDate, uc.endDate, uc.payments , i.itemName, i.userName as admin, i.price, i.location, i.tel, mb.mbti 
+		select uc.startDate, uc.endDate, uc.payments , i.itemName, i.userName as admin, i.price, i.location, i.tel, mb.mbti ,i.itemId
 		from userCart uc
 		join Item i
 		on uc.itemId = i.itemId

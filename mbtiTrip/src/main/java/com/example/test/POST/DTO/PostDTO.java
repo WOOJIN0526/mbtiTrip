@@ -57,6 +57,7 @@ public class PostDTO {
                 ", content='" + content + '\'' +
                 ", userName='" + userName + '\'' +
                 ", itemID='" + itemID + '\'' +
+                ", views='" + views + '\'' +
                 '}';
     }
 }

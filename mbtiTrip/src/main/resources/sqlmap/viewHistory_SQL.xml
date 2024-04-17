@@ -153,7 +153,8 @@
 	    a.location as replaceLocation, b.location as adventureLocation, 
 	    a.tel as replaceTel , b.tel as adventureTel ,
 	    a.contents as replaceContents, b.contents as adventureContents, 
-	    a.ratingAvg as replaceRating, b.ratingAvg as adventureRatring
+	    a.ratingAvg as replaceRating, b.ratingAvg as adventureRatring,
+	    a.itemID
 		from Item a
 		inner join Item b 
 		on a.mbti = b.mbti 
@@ -172,7 +173,8 @@
 		    a.location,
 		    a.contents,
 		    a.price,
-		    a.ratingAvg
+		    a.ratingAvg,
+		    a.itemID
 			from Item a
 			join MBTi mb on a.mbti = mb.mbtiId
 			where a.Type = "adventure" and mb.mbti = #{mbti}
@@ -187,7 +189,8 @@
 		    a.itemName,
 		    a.location,
 		    a.price,
-		    a.ratingAvg
+		    a.ratingAvg,
+		    a.itemID
 			from Item a
 			join MBTi mb on a.mbti = mb.mbtiId
 			where a.Type = "replace" and mb.mbti = #{mbti};

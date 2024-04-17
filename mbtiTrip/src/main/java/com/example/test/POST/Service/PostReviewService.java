@@ -6,11 +6,14 @@ import com.example.test.POST.DTO.AnswerDTO;
 import com.example.test.POST.DTO.PostReviewDTO;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.paging.Page;
+import com.example.test.paging.PaginationVo;
 
 public interface PostReviewService {
 
-	//게시글 목록 조회
-	public List<PostReviewDTO> list(Page page) throws Exception;
+	public List<PostReviewDTO> getListPage(final PaginationVo pagination);
+
+	//페이징을 위한 전체 데이터 개수 파악
+	public int getCount();
 
 	//게시글 쓰기
 	public void create(PostReviewDTO post) throws Exception;
@@ -24,13 +27,6 @@ public interface PostReviewService {
 	//게시글 삭제
 	public void remove(Integer postId) throws Exception;
 
-	//게시글 검색
-	public List<PostReviewDTO> search(String keyword);
-			
-	public List<PostReviewDTO> search(Page page) throws Exception;
-
-	//전체 게시글 수
-	public Integer totalCount() throws Exception;
 
 	//추천
 	public void suggestion(PostReviewDTO post, UserDTO user) throws Exception;

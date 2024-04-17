@@ -11,6 +11,7 @@ import com.example.test.POST.DTO.AnswerDTO;
 import com.example.test.POST.DTO.PostReviewDTO;
 import com.example.test.paging.Criteria;
 import com.example.test.paging.Page;
+import com.example.test.paging.PaginationVo;
 
 @Repository
 public class PostReviewDAO {
@@ -18,10 +19,7 @@ public class PostReviewDAO {
 	@Autowired
 	SqlSessionTemplate sqlSessiontemplate;
 	
-	public List<PostReviewDTO> list(Page page) {
-		// TODO Auto-generated method stub
-		return this.sqlSessiontemplate.selectList("postReview.list", page);
-	}
+
 
 	
 	public void create(PostReviewDTO post) {
@@ -49,21 +47,7 @@ public class PostReviewDAO {
 	}
 
 
-	public List<PostReviewDTO> search(String keyword) {
-		// TODO Auto-generated method stub
-		return this.sqlSessiontemplate.selectList("postReview.searchByKeyword", keyword);
-	}
 
-
-	public List<PostReviewDTO> search(Page page) {
-		// TODO Auto-generated method stub
-		return this.sqlSessiontemplate.selectList("postReview.searchWithPage", page);
-	}
-
-	public Integer totalCount() {
-		// TODO Auto-generated method stub
-		return this.sqlSessiontemplate.selectOne("postReview.totalCount");
-	}
 
 
 	public List<PostReviewDTO> findByPostCategoryID(Long postCategoryID) {
@@ -106,6 +90,18 @@ public class PostReviewDAO {
 	public void updateRating(PostReviewDTO pr) {
 		// TODO Auto-generated method stub
 		sqlSessiontemplate.update("postReview.updateRating", pr);
+	}
+
+
+	public List<PostReviewDTO> getListPage(PaginationVo pagination) {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectList("postReview.getListPage", pagination);
+	}
+
+
+	public int getCount() {
+		// TODO Auto-generated method stub
+		return sqlSessiontemplate.selectOne("postReview.getCount");
 	}
 
 

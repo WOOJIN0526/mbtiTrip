@@ -199,21 +199,21 @@ class Slide {
       }
     });
 
-    // 기본적으로 슬라이드 루프 시작하기
-    let loopInterval = setInterval(() => {
-      nextMove();
-    }, 3000);
-
-    // 슬라이드에 마우스가 올라간 경우 루프 멈추기
-    slide.addEventListener("mouseover", () => {
-      clearInterval(loopInterval);
-    });
-
-    // 슬라이드에서 마우스가 나온 경우 루프 재시작하기
-    slide.addEventListener("mouseout", () => {
-      loopInterval = setInterval(() => {
-        nextMove();
-      }, 3000);
-    });
+	// 기본적으로 슬라이드 루프 시작하기
+	let loopInterval = setInterval(() => {
+	  nextMove();
+	}, 3000);
+	
+	// 슬라이드에 마우스가 올라간 경우 루프 멈추기
+	slide.addEventListener("mouseover", () => {
+	  clearInterval(loopInterval);
+	});
+	
+	// 슬라이드에서 마우스가 나온 경우 루프 재시작하기
+	slide.addEventListener("mouseout", () => {
+	  loopInterval = setInterval(() => {
+	    nextMove();
+	  }, 3000);
+	});
   }
 }

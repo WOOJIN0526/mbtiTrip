@@ -30,9 +30,13 @@
 		            <p class="info-item">Tel: <span th:text="${item.tel}"></span></p>
 		            <p class="info-item">Contents: <span th:text="${item.contents}"></span></p>
 		            <p class="info-item">View: <span th:text="${item.view}"></span></p>
-<!--		            <p class="info-item">추천: <span th:text="${#sets.size(item.uprating)}"></span></p>-->
+		            <p class="info-item">추천: <span th:text="${item.uprating}"id="uprating"></span></p>
+					
 		        </div>
-				<div><a th:href="@{/post/review={itemID}/create(itemID=${item.itemID})}"><button>리뷰작성</button></a></div>
+				<div class="btnCon">
+					<div><a th:href="@{/post/review={itemID}/create(itemID=${item.itemID})}"><button>리뷰작성</button></a></div>
+					<div><button onclick="uprating()">추천</button></div>
+				</div>
 		    </div>
 			<script th:src="@{/adventure_detail/adventure_detail.js}"></script>
 		</div>
@@ -47,7 +51,9 @@
 			<p class="info-item">Price: <span th:text="${item.price}" class="price" th:data-value="${item.price}"></span></p>
 			
 		    <button onclick="addCart()">Add Cart</button>
+			
 		</section>
+		
 	</section>
 
 </body>
