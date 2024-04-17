@@ -228,5 +228,3 @@ slide.addEventListener("mouseout", () => {
     nextMove();
   }, 3000);
 });
-
-<th:block th:text="${#strings.substring(replaceDTO.content, 0, 5)}" />
