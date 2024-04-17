@@ -8,6 +8,9 @@
     <title>Document</title>
 	<link rel="stylesheet" th:href="@{/common/common.css}">
    <link rel="stylesheet" th:href="@{/common/header.css}">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
    
 </head>
 <body>
@@ -66,7 +69,7 @@
    
 
         <div  class="HheaderCon">
-            <a th:href="@{/user/main}" sec:authorize="hasAuthority('ROLE_USER')"><div class="Htitle">Trip to track</div></a>
+            <a th:href="@{/user/main}" sec:authorize="hasAuthority('ROLE_USER')"><div class="Htitle"></div></a>
             <a th:href="@{/bis/main}" sec:authorize="hasAuthority('ROLE_ADMIN')"><div class="Htitle">Trip to track</div></a>
             <a th:href="@{/bis/main}" sec:authorize="hasAuthority('ROLE_BIS')"><div class="Htitle">Trip to track</div></a>
             
