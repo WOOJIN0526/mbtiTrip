@@ -43,6 +43,7 @@ import com.example.test.User.Service.QnAServiceImpl;
 import com.example.test.User.Service.UserCartService;
 import com.example.test.User.Service.UserService;
 import com.example.test.item.ItemType;
+import com.example.test.item.DAO.ItemDAO;
 import com.example.test.item.DTO.ItemDTO;
 import com.example.test.replace.DTO.ReplaceDTO;
 import com.example.testExcepion.Cart.CartException;
@@ -94,30 +95,45 @@ class MbtiTripApplicationTests {
 	@Autowired
 	QnADAO qnaDao;
 	
+	@Autowired
+	ItemDAO itemDAO;
+	
 	@Test
 	void contextLoads() {
-		UserDTO user = new UserDTO();
-		user.setUserId("testUser#66226");
-		user.setUserName("faust");
-		user.setPassword("testse1ts");
-	
-		userCartDTO.setItemId(1);
-		userCartDTO.setStartDate(LocalDate.now().plusDays(2));
-		userCartDTO.setEndDate(LocalDate.now().plusDays(1));
-
-
-		
-		Authentication auths = SecurityContextHolder.getContext().getAuthentication();
-		log.info("{}", auths);
-		String userAuth = null;
-		userAuth = User_Role.bis.getValue();
-		log.info("split 전 ==> {} ", userAuth);
-		
-		switch(userAuth) {
-		case "ROLE_USER" : log.info("user확인");break;
-		case "ROLE_BIS" : log.info("bis확인"); break;
+		String location = "광주";
+		location += '%';
+		log.info("location => {}",location);
+		List<ItemDTO> result = itemDAO.searchLocation(location);
+		for(ItemDTO re : result) {
+			log.info("location search ==>{}", re);
 		}
 		
+		
+		
+		
+		
+//		UserDTO user = new UserDTO();
+//		user.setUserId("testUser#66226");
+//		user.setUserName("faust");
+//		user.setPassword("testse1ts");
+//	
+//		userCartDTO.setItemId(1);
+//		userCartDTO.setStartDate(LocalDate.now().plusDays(2));
+//		userCartDTO.setEndDate(LocalDate.now().plusDays(1));
+//
+//
+//		
+//		Authentication auths = SecurityContextHolder.getContext().getAuthentication();
+//		log.info("{}", auths);
+//		String userAuth = null;
+//		userAuth = User_Role.bis.getValue();
+//		log.info("split 전 ==> {} ", userAuth);
+//		
+//		switch(userAuth) {
+//		case "ROLE_USER" : log.info("user확인");break;
+//		case "ROLE_BIS" : log.info("bis확인"); break;
+//		}
+//		
 		
 //		if(userCartDTO.getItemId() == null) {
 //			throw new CartException(CartExceptionEnum.CART_NOTFOUND_ITEM);

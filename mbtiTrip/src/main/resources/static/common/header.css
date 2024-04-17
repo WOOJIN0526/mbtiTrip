@@ -64,9 +64,11 @@ body{
   /* padding: 0rem 1vw 0rem 1vw; */
   display: flex;
   justify-content: space-between;
-  width: 15rem;
-  height: 3rem;
- 
+
+  width: 20rem;
+  height: 4rem;
+
+
 }
 
 .profileBox {

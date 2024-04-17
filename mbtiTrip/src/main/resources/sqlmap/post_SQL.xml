@@ -6,32 +6,29 @@
 		keyProperty="UID">  
 	    <![CDATA[
 	    insert into Post
-	    (postID,postCategoryID,userName,title,content,writer) 
+	    (PostID,PostCateGoryID,userName,title,Content,writer) 
 	    values
-	    (#{PostId},#{PostCateGoryID},#{userName},#{title},#{Content}, #{writer})
+	    (#{postID},#{postCategoryID},#{userName},#{title},#{content}, #{writer})
 	]]>
 	</insert>
 	
 	<select id="list" resultType="hashMap">
 	<![CDATA[	
-		SELECT *
+		SELECT PostID, PostCateGoryID, userName, title, Content, views, UpdateDate, modifyDate, writer
 		FROM Post
-		WHERE PostId > 0
+		WHERE PostID ={postID}
 		ORDER BY updateDate DESC
+		LIMIT #{startRowIndex}, #{rowsPerPage} 
 		]]>
 	</select>	        
 	
 	<select id="listWithPage" parameterType="hashMap" resultType="hashMap">
 		<![CDATA[
-			SELECT @rownum := @rownum+1 PostId, p.*
-			FROM ( 
-					SELECT @rownum := #{startRowIndex} 
-					FROM dual
-				 ) tmp
-				 ,Post p
-			ORDER BY updateDate DESC
-			        
-			LIMIT #{startRowIndex}, #{rowsPerPage}			
+		SELECT *
+		FROM Post
+		WHERE PostID > 0
+		ORDER BY updateDate DESC
+		LIMIT #{rowsPerPage} OFFSET #{startRowIndex}		
 		]]>
 	</select>
 	
@@ -64,7 +61,7 @@
 		<![CDATA[
 		DELETE
 		FROM Post
-		WHERE postID = #{PostID}
+		WHERE PostID = #{postID}
 		]]>
 	</delete>
 	
@@ -94,9 +91,9 @@
     			OR Content LIKE CONCAT('%', :keyword, '%')
     			OR writer LIKE CONCAT('%', :keyword, '%')
 			ORDER BY 
-    				updateDate DESC,
+    				updateDate DESC
     				
-			LIMIT :startRowIndex OFFSET :startRowIndex
+			LIMIT #{startRowIndex}, #{rowsPerPage}
 		]]>
 	</select>
 	
@@ -117,8 +114,8 @@
 	
 	<insert id="replyCreate" >
 	<![CDATA[
-		INSERT INTO PostAnswer ( postId, content, writer )
-					VALUES ( #{postID}, #{content}, #{writer} )
+		INSERT INTO PostAnswer ( postID, content, writer )
+					VALUES ( #{postId}, #{content}, #{writer} )
 	]]>				
 	</insert>	
 	
@@ -126,7 +123,7 @@
 	<![CDATA[
 		SELECT * 
 		FROM PostAnswer
-		WHERE postId = #{postID}
+		WHERE postID = #{postId}
 		ORDER BY updateDate DESC
 	]]>				 
 	</select>
@@ -136,14 +133,14 @@
 		UPDATE PostAnswer
 		SET   content = #{content}
 		     ,writer = #{writer}
-		WHERE answerId = #{answerID}
+		WHERE answerID = #{answerId}
 		]]>	
 	</update>
 	
 	<delete id="replyDelete" parameterType="Int">
 	<![CDATA[
 		DELETE FROM PostAnswer
-		WHERE answerId = #{answerID}
+		WHERE answerID = #{answerId}
 	]]>		
 	</delete>
 	

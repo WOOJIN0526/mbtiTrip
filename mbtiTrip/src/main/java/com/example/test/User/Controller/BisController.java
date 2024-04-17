@@ -31,7 +31,6 @@ import lombok.extern.log4j.Log4j2;
 @RequestMapping("/bis")
 @Log4j2
 public class BisController {
-
 	
 	@Autowired
 	private UserService userService;
@@ -90,6 +89,7 @@ public class BisController {
 //		mav.setViewName("Bis_main");
 //		return mav;
 //	}
+	
 	@RequestMapping(value = "/login/success")
 	public String UserSuccess() {
 		return "redirect:/bis/main";
@@ -100,7 +100,7 @@ public class BisController {
 	public ModelAndView main(Principal principal,
 							ModelAndView mav) {
 		log.info("main 접속 중 ");
-		Integer UID = userService.findByUID(principal.getName());
+		Integer UID = userService.findByUID(principal);
 		Map<String, Object> bis = userService.getInfo(UID);
 		log.info("userMain info = {} ", bis);
 		List<HashMap<String, Object>> userItems = userService.getMyItem(principal);
@@ -117,7 +117,7 @@ public class BisController {
 	@PreAuthorize("hasRole('ROLE_BIS') or hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public ModelAndView mypageBis(Principal principal, UserDTO userdto, ModelAndView mav){
-		Integer userUID = userService.findByUID(principal.getName());
+		Integer userUID = userService.findByUID(principal);
 		Map<String, Object> user = userService.getInfo(userUID);
 		List<HashMap<String, Object>> userItems = userService.getMyItem(principal);
 		List<HashMap<String, Object>> viewRating = userHistoryservice.viewRating(principal);
@@ -146,10 +146,9 @@ public class BisController {
 //	}
 	
 	
-	
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/mypage/update", method = RequestMethod.GET)
 	public ModelAndView update_ck(Principal principal, ModelAndView mav){
-		log.info("cheak");
 		mav.addObject("userName", principal.getName());
 		mav.setViewName("user_update_ck");
 		return mav;
@@ -172,6 +171,7 @@ public class BisController {
 		return mav;
 	} 
 	
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/mypage/update/ck", method = RequestMethod.GET)
 	public ModelAndView Bisupdate(Principal principal, UserDTO userdto, ModelAndView mav){
 		Integer UID = userService.princeUID(principal);		

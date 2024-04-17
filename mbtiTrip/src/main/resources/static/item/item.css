@@ -19,6 +19,7 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     flex: 1 1 300px; 
+    margin:2rem;
 }
 .Img{
 	min-width: 700px;

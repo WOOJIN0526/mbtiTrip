@@ -19,6 +19,7 @@ import com.example.test.User.DAO.UserCartDAO;
 import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.item.DAO.ItemDAO;
+import com.example.test.item.DTO.ItemDTO;
 import com.example.testExcepion.SignUP.SignUpException;
 import com.example.testExcepion.SignUP.SignUpExceptionEunm;
 import com.example.testExcepion.login.LoginException;
@@ -74,6 +75,7 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public  Map<String, Object> login(UserDTO userdto) {
+		//login validationCK
 		return userDao.login(userdto);
 	}
 
@@ -103,32 +105,36 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public Map<String, Object> getInfo(Integer uID) {
-		return userDao.getInfo(uID);
+		 Map<String, Object> userInfo= userDao.getInfo(uID);
+		 return userInfo;
 	}
 	
 	@Override
-	public Integer findByUID(String userName) {
+	public Integer findByUID(Principal principal) {
+		String userName = userDao.getUserNameByuserID(principal.getName());
 		Integer UID = userDao.getUID(userName);
 		return UID;
 	}
 
 	@Override
 	public UserDTO getUser(String id) {
-		if(id == null) {
-			
-		}
 		UserDTO siteUser = this.userDao.getByUserId(id);
 		return siteUser;
 	}
-
+	@Override
+	public UserDTO getUserByUserName(String name) {
+		UserDTO siteUser = this.userDao.getByUserName(name);
+		return siteUser;
+	}
+	
 	public Integer princeUID(Principal principal) {
-		String userName = principal.getName();
-		Integer UID = findByUID(userName);
+		Integer UID = findByUID(principal);
 		return UID;
 	}
 
 	public boolean passwordCK(Principal principal, String inputPw) {
-		String target = getUser(principal.getName()).getPassword();
+		String userName = userDao.getUserNameByuserID(principal.getName());
+		String target = getUser(userName).getPassword();
 		boolean ck = bcrypasswordEncoder.matches(inputPw, target);
 		return ck;
 	}
@@ -137,7 +143,7 @@ public class UserServiceImpl implements UserService{
 	/*이 아래 bis 관련 기능 */
 	@Override
 	public List<HashMap<String, Object>> getMyItem(Principal principal) {
-		String userName = principal.getName();
+		String userName = userDao.getUserNameByuserID(principal.getName());
 		//userName ="testUser4";
 		List<HashMap<String, Object>> myItem = userDao.getMyItem(userName);
 		// item들을 불러올떄 itemID값을 통해 등록된 item의 imgURl을 가져와넣는 작업
@@ -219,6 +225,12 @@ public class UserServiceImpl implements UserService{
 		//vaild가 true면 특수문자가 없다는 겨 
 		// 그니까 특수문자가 없을 땐 그냥 지나치도록, 반대값 리턴, == true = 특수문자 존재 
 		return !vaild;
+	}
+
+	@Override
+	public List<ItemDTO> serchLocation(String location) {
+		List<ItemDTO> result = itemDao.searchLocation(location);
+		return result;
 	}
 
 	

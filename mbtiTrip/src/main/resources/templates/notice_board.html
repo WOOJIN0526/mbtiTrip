@@ -16,8 +16,9 @@
    <section layout:fragment="content" class="noticeBody">
     <div class="notice">
 
-    <h1>게시판</h1>
-
+    <h1 th:if="${type.equals('noticeBoard')}">게시판</h1>
+    <h1 th:if="${type.equals('review')}">리뷰</h1>
+	
     <h6></h6>
 
     <form action="">
@@ -44,7 +45,7 @@
 	        <tr th:each="post, iterStat : ${list}">
 	            <td th:text="${iterStat.index + 1}"></td>
 	            <td th:text="${post.userName}"></td>
-	            <td><a th:href="@{'/post/noticeBoard/detail/'+${post.postID}}" th:text="${post.title}"></a></td>
+	            <td><a th:href="@{'/post/'+${type}+'/detail/'+${post.postID}}" th:text="${post.title}"></a></td>
 	          	<td th:text="${post.updateDate}"></td>
 	            <td th:text="${post.views}"></td>
 	        </tr>
@@ -73,23 +74,7 @@
 		</div>
 			<!--페이징 종료-->
 			
-			<script>
-					
-					$(document).ready(function() {
-						var pageNum = "[[${page.pageNum}]]";
-						var rowsPerPage = "[[${page.rowsPerPage}]]";
-						var totalCount = "[[${page.totalCount}]]";
-						var keyword = "[[${page.keyword}]]";
-						var pageCount = "[[${page.pageCount}]]";
-						var keyword = "[[${page.keyword}]]";
-						
-						
-						
-						
-						
-					});
-					
-			</script>			
+			
 			
 <!--   <div class="page">
     <a href="">이전</a>
@@ -98,7 +83,7 @@
     <a href="">3</a>
     <a href="">다음</a>
    </div>-->
-   <span class="write_button">
+   <span class="write_button" th:if="${type.equals('noticeBoard')}">
     <a th:href="@{/post/noticeBoard/create}"><input type="button" class="write" value="글쓰기"></a>
    </span>
 </div>

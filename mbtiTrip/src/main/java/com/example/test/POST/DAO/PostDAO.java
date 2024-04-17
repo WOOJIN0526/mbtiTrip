@@ -43,9 +43,9 @@ public class PostDAO {
 		return result;
 	}
 
-	public List<PostDTO> list() {
+	public List<PostDTO> list(Page page) {
 		// TODO Auto-generated method stub
-		return sqlSessiontemplate.selectList("post.list");
+		return sqlSessiontemplate.selectList("post.list", page);
 	}
 
 	public int create(PostDTO post) {

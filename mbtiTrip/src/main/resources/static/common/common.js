@@ -37,7 +37,7 @@ function isLoggedIn() {
         fetch('/check-login')
             .then(response => {
                 if (response.ok) {
-                    resolve(true); // 로그인되어 있음
+                    resolve(response.json()); // JSON 형식으로 응답 파싱하여 반환
                 } else {
                     resolve(false); // 로그인되어 있지 않음
                 }
@@ -48,20 +48,19 @@ function isLoggedIn() {
             });
     });
 }
-isLoggedIn().then(response=>{
-	if(response===true){
-		//console.log(document.querySelector('.userImg'));
-	/**
-	 * 현재 사용자 이미지의 소스를 sessionStorage에 저장합니다.
-	 * @param {string} ImgClass - 사용자 이미지를 나타내는 CSS 클래스 이름
-	 */
-	console.dir(document.querySelector('.userImg'));
-	sessionStorage.setItem("Img",document.querySelector('.userImg').src);
 
-	console.log("로그인된 사용자입니다.");
-	
-
-	}else{
-		console.log("로그인되지 않은 사용자 입니다.")
+isLoggedIn().then(response => {
+    if (response === false) {
+        console.log("로그인되지 않은 사용자 입니다.")
+        return null;
+    } else {
+        // 서버에서 반환된 응답을 JSON 형식으로 파싱하여 사용
+        console.log(response);
+        return response.userImg;
+        
+    }
+}).then(imgUrl=>{
+	if(imgUrl!==null){
+		document.querySelector('.userImg').src=imgUrl;
 	}
-})
+});

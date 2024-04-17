@@ -118,7 +118,7 @@ public class AdventureController {
 		return "adventure_detail";
 	}
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated() and hasRole('ROLE_BIS')")
     @RequestMapping(value = "/adventure/create", method = RequestMethod.GET)
     public String Create(Model model, ItemDTO item, Principal user) throws Exception{
     	
@@ -151,7 +151,7 @@ public class AdventureController {
     }
     
    
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated() and hasRole('ROLE_BIS')")
     @RequestMapping(value = "/adventure/modify", method = RequestMethod.GET)
     public String Modify(Model model, Integer itemId, Principal user, Principal princiapl) throws Exception{
         ItemDTO item = this.adService.getPost(itemId);
@@ -167,7 +167,7 @@ public class AdventureController {
     }
     
     //수정
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated() and hasRole('ROLE_BIS')")
     @PostMapping("/adventure/modify/")
     public String Modify(Model model, BindingResult bindingResult, Principal principal, 
     		@PathVariable("id") ItemDTO item) throws Exception {
@@ -188,11 +188,13 @@ public class AdventureController {
     }
     
     //삭제
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated() and hasRole('ROLE_BIS')")
     @RequestMapping(value = "/adventure/remove", method = RequestMethod.POST)
     public String Delete(Principal principal, @PathVariable("id") Integer itemID) throws Exception {
         ItemDTO itemDto = this.adService.getPost(itemID);
         
+        
+        //여기 사용자 이름이랑 맞는지 CK 필요, userDAO에서 getuserNamebyuserID였나 사용해주세요 
         if (!itemDto.getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }

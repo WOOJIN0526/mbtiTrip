@@ -52,7 +52,7 @@ public class AdminController {
 	public ModelAndView UserSuccess(ModelAndView mav, 
 								Principal princ) {
 		String userName = princ.getName();
-		Integer userUID = userService.findByUID(userName);
+		Integer userUID = userService.findByUID(princ);
 		Map<String, Object> user = userService.getInfo(userUID);
 		log.info("UserLoginSuccess = UserINFo= {}", user);
 		
@@ -65,7 +65,7 @@ public class AdminController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/mypage", method = RequestMethod.GET)
 	public ModelAndView mypageadmin(Principal principal, UserDTO userdto, ModelAndView mav){
-		Integer userUID = userService.findByUID(principal.getName());
+		Integer userUID = userService.findByUID(principal);
 		Map<String, Object> admin = userService.getInfo(userUID);
 		//사이트 관리 페이지에 필요한 정보들 들어갈 예정 
 		//전체 mbti 분포도 

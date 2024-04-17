@@ -73,7 +73,8 @@ public class UserHistoryDAO {
 	/* UX를 위한 DB 정제, 사용자가 가장 많이 조회한 MBTI type*/
 	public List<HashMap<String, Object>> uxMbti(String userName){
 		log.info("UserName --->{}", userName);
-		return this.sqlsessiontemplate.selectList("view.userLikeMbti", userName);
+		List<HashMap<String, Object>> mbti =this.sqlsessiontemplate.selectList("view.userLikeMbti", userName);
+		return mbti;
 	}
 	
 	/*이하 위 기능을 활용하여 각각 ALL, adventure, replace 정보 추천 최대 4개 */
@@ -124,7 +125,6 @@ public class UserHistoryDAO {
 	
 	
 	public List<HashMap<String, Object>>  getRatingItem(String userName) {
-		userName ="testUser4";
 		List<HashMap<String, Object>> rating =this.sqlsessiontemplate.selectList("view.returnRatingItem", userName);
 		return rating;
 	}

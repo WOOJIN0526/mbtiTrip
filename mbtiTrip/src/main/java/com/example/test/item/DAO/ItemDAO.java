@@ -1,5 +1,6 @@
 package com.example.test.item.DAO;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,13 @@ public class ItemDAO {
 	
 	@Autowired
 	UserHistoryService userHistoryService;
+	
+	public List<ItemDTO> searchLocation(String location){
+		//List<ItemDTO> result = this.sqlSessiontemplate.selectList("itemByLocation", location);
+		List<ItemDTO> result = this.sqlSessiontemplate.selectList("item.locationSerch", location);
+		return result;
+	}
+	
 	
 	public int create(ItemDTO itemdto){
 		 int result = this.sqlSessiontemplate.insert("item.create", itemdto);

@@ -35,6 +35,7 @@ import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.DTO.Post_CategoryDTO;
 import com.example.test.POST.Service.PostService;
 import com.example.test.POST.Service.Post_CategoryService;
+import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.Service.UserHistoryService;
 import com.example.test.User.Service.UserService;
@@ -65,13 +66,19 @@ public class PostController {
 	
 	@Autowired
 	UserHistoryService userHistoryService;
+
+	@Autowired
+	UserDAO userDao;
 	
 	//게시글 목록 화면
-	@RequestMapping(value = "/post/noticeBoard/list", method = RequestMethod.GET)
-	public String list(Model model, Page page) throws Exception{
-	
-	PostDTO postDTO =new PostDTO();
-	postDTO.setPostCategoryID(2);
+	@RequestMapping(value = "/post/{category}/list", method = RequestMethod.GET)
+	public String list(Model model, Page page, @PathVariable("category") String category) throws Exception{
+	PostDTO postDTO = new PostDTO();
+	  if(category.equals("noticeBoard")) {
+	        postDTO.setPostCategoryID(2);
+	  } else if(category.equals("review")) {
+	        postDTO.setPostCategoryID(1);
+	  }
 	Integer totalCount = null;
 	Integer rowPerPage = null;
 	Integer pageCount = null;
@@ -115,9 +122,10 @@ public class PostController {
 				page.setKeyword(keyword);
 				model.addAttribute("list", postService.search(page));
 			}
-	
+			
 			model.addAttribute("list", postService.findPostByCategoryID(postDTO));
 			model.addAttribute("page", page);
+			model.addAttribute("type", category);
 			
 			return "notice_Board";
 
@@ -126,39 +134,49 @@ public class PostController {
 
 	
 	//게시글 읽기 화면
-	@RequestMapping(value = "/post/noticeBoard/detail/{postID}", method = RequestMethod.GET)
-	public String read(Model model,@PathVariable("postID") Integer postID, Principal principal) throws Exception{
+	@RequestMapping(value = "/post/{category}/detail/{postID}", method = RequestMethod.GET)
+	public String read(Model model,@PathVariable("postID") Integer postID, Principal principal, @PathVariable("category") String category) throws Exception{
 
 		PostDTO post = postService.getPost(postID,principal);
-		UserDTO user = userService.getUser(post.getUserName());
+		if(category.equals("review")) {
+			Integer itemID = post.getItemID();
+			ItemDTO item = postService.getItem(itemID);
+			model.addAttribute("item",item);
+		}
+		String userName =post.getUserName();
+		UserDTO user = userService.getUserByUserName(post.getUserName());
 		model.addAttribute("user", user);
 		model.addAttribute("post", post);
-			
+		
 
 		return "post_detail";
 	}
 
-	@PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "/post/noticeBoard/create", method = RequestMethod.GET)
-    public String Create(Model model, PostDTO post, Principal user) throws Exception{
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_USER')")
+    @RequestMapping(value = "/post/{category}/create", method = RequestMethod.GET)
+    public String Create(Model model, PostDTO post, Principal user, @PathVariable("category") String category) throws Exception{
+		PostDTO postDTO = new PostDTO();
+		int value=0;
+	      if(category.equals("noticeBoard")) {
+	            value =2;
+	      } else if(category.contains("review")) {
+	            value =1;
+	            int itemID = Integer.parseInt(category.replaceAll("[^0-9]", ""));
+	            model.addAttribute("itemID",itemID);
+	      }
+    	model.addAttribute("type",value);
     	
-    	String userName = "";
-    	if(user !=null){
-    		userName = user.getName();
-    		model.addAttribute("userName", userName);
-    	}
-    	model.addAttribute("categoryList", postCategoryService.getList());
         return "write_form";
     }
     
     
     //@PostMapping("/noticeBoard/create")
-	@RequestMapping(value ="/post/noticeBoard/create", method = RequestMethod.POST)
+	@RequestMapping(value ="/post/{category}/create", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> boardCreate(PostDTO dto,Principal principal) throws Exception {
+    public ResponseEntity<String> boardCreate(PostDTO dto,Principal principal, @PathVariable("category") String category) throws Exception {
     	// DB에 연결할 후속작업 메서드 부탁드립니다.
-    	
-    	String userName =principal.getName();
+		
+    	String userName =userDao.getUserNameByuserID(principal.getName());
     	dto.setUserName(userName);
     	dto.setUpdateDate(LocalDateTime.now());
     	System.out.println(dto.toString());
@@ -173,7 +191,7 @@ public class PostController {
     }
 
     
-    @PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_USER')")
     @RequestMapping(value = "/post/noticeBoard/modify", method = RequestMethod.GET)
     public String postModify(Model model, @PathVariable("id") Integer postID, Principal user) throws Exception {
     	String userName = "";
@@ -193,7 +211,7 @@ public class PostController {
     }
     
     //수정
-    @PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_USER')")
     @PostMapping("/post/noticeBoard/modify/")
     public String postModify(Model model, BindingResult bindingResult, Principal principal, @PathVariable("id") PostDTO post) throws Exception {
         if (bindingResult.hasErrors()) {
@@ -209,7 +227,7 @@ public class PostController {
     }
     
     //삭제
-    @PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_USER')")
     @RequestMapping(value = "/post/noticeBoard/remove", method = RequestMethod.POST)
     public String postDelete(Principal principal, @PathVariable("id") Integer postID) throws Exception {
         PostDTO postDto = this.postService.getPost(postID);
@@ -231,6 +249,7 @@ public class PostController {
     }
     
     //댓글 등록
+    @PreAuthorize("isAuthenticated() and hasRole('ROLE_USER')")
     @RequestMapping(value = "/post/noticeBoard/replyRegister", method = RequestMethod.GET)
     public String replyRegister(Model model, AnswerDTO reply, Principal user) throws Exception{
 
@@ -252,6 +271,7 @@ public class PostController {
     }
 
     //댓글 수정
+    @PreAuthorize("isAuthenticated() and hasRole('ROLE_USER')")
     @RequestMapping(value = "replyModify", method = RequestMethod.GET)
     public String replyModify(Model model, AnswerDTO reply, Principal user) throws Exception{
 
@@ -273,6 +293,7 @@ public class PostController {
     }
 
     //댓글 삭제
+    @PreAuthorize("isAuthenticated() and hasRole('ROLE_USER')")
     @RequestMapping(value = "replyRemove", method = RequestMethod.GET)
     public String replyRemove(Model model, AnswerDTO reply, Principal user) throws Exception{
 
