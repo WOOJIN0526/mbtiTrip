@@ -7,7 +7,7 @@
 .mainHeader {
    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_11.jpg");
 	padding-top: 5rem;
-    height: 880px;
+    height: 1050px;
     background-size: 100% 100%;
 }
 
@@ -39,11 +39,12 @@ nav {
 
 .search__box {
     /* width: 430px; */
+    
     display: inline-block;
     padding: 20px 30px;
     background-color: white;
     position: relative  ;
-    top: 10px;
+    top: 30px;
     left: 50px;
     border-radius: 50px;
     margin-top: 3rem;
@@ -52,6 +53,7 @@ nav {
 }
 
 .search__title {
+    margin: 1em 0 1rem 0;
     font-family: 'NanumSquareNeo';
     padding: 10px 0;
     font-size: 30px;

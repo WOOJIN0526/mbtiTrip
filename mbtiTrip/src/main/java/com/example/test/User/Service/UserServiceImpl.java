@@ -133,7 +133,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	public boolean passwordCK(Principal principal, String inputPw) {
-		String userName = userDao.getUserNameByuserID(principal.getName());
+//		String userName = userDao.getUserNameByuserID(principal.getName());
+		String userName = principal.getName();
 		String target = getUser(userName).getPassword();
 		boolean ck = bcrypasswordEncoder.matches(inputPw, target);
 		return ck;
