@@ -1,9 +1,14 @@
-
+// 메인으로 보여줄 사진 하나만 놔두고 none
 document.querySelectorAll('.img_box').forEach((item,index)=>{
 	if(index!=0){
 		item.style.display='none';
 	}
 });
+/**
+ * 메인에서 보여주는 사진을 교체하는 함수입니다.
+ * 하단의 축소된 사진을 클릭하여 data-value에 저장된 값을 통홰 처리합니다.
+ * @param {HTMLElement} target - 이미지를 변경할 대상 요소
+ */
 function changeImg(target){
 	const value=target.dataset.value;
 	document.querySelectorAll('.img_box').forEach((item,index)=>{

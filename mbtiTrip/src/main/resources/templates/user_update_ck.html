@@ -13,13 +13,41 @@
 <link th:href="@{/mypage/myPageChecker.css}" rel="stylesheet" />
 </head>
 <body>
-    <section layout:fragment="content" class="myPageChecker">
-		<h1> ㅋㅋㅋ검문 있겠슴둥 ㅋㅋㅋ</h1>
-		<form th:action="@{/user/mypage/update}" method="POST">
+    <section layout:fragment="content" class="ckBody">
+		<div class="myPageChecker">
+		<h1> 비밀번호 확인</h1>
+		<form>
 		<div th:text="${userName}" id="currentName"></div>
-		<input type="password" name="password" placeholder="비밀번호 확인">
-		<button type="submit">비밀번호 확인</button>
+		<input id="pw" type="password" name="password" placeholder="비밀번호 확인">
+		<button type="button"onclick="send()">비밀번호 확인</button>
 		</form>
+		</div>
+		<script>	
+			function send() {
+			    console.log();
+			    const password = document.querySelector('#pw').value;
+			    fetch('/user/mypage/update', {
+			        method: 'POST',
+			        headers: {
+			            'Content-Type': 'text/plain' // 문자열 형식으로 전송할 것임을 명시
+			        },
+			        body: password // 비밀번호를 직접 문자열로 설정
+			    })
+			    .then(response => {
+					if(response.ok){
+						window.location.href="/user/mypage/update/ck"
+					}
+			        return response.text();
+			    })
+			    .then(data => {
+			        alert(data);
+			    })
+			    .catch(err => {
+			        console.err(err);
+			    });
+			}
+
+		</script>
 	</section>
 </body>
 </html>
