@@ -10,7 +10,7 @@ import com.example.test.paging.PaginationVo;
 
 public interface PostReviewService {
 
-	public List<PostReviewDTO> getListPage(final PaginationVo pagination);
+	public List<PostReviewDTO> getListPage(final Page page);
 
 	//페이징을 위한 전체 데이터 개수 파악
 	public int getCount();
@@ -49,4 +49,7 @@ public interface PostReviewService {
 	
 	//평점
 	public void setRating(int itemID);
+	
+	// [검색어][페이지] 게시글 검색
+	public List<PostReviewDTO> search(Page page) throws Exception;
 }

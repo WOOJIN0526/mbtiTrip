@@ -1,40 +1,21 @@
 //package com.example.test.POST.Controller;
 //
-//import java.security.Principal;
+//import java.util.List;
 //
 //import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.security.access.prepost.PreAuthorize;
 //import org.springframework.stereotype.Controller;
 //import org.springframework.ui.Model;
-//import org.springframework.validation.BindingResult;
-//import org.springframework.web.bind.annotation.GetMapping;
 //import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RequestMethod;
-//import org.springframework.web.bind.annotation.ResponseBody;
-//import org.springframework.web.server.ResponseStatusException;
-//import org.springframework.web.servlet.ModelAndView;
 //
-//import com.example.test.POST.AnswerForm;
-//import com.example.test.POST.PostForm;
-//import com.example.test.POST.DTO.AnswerDTO;
 //import com.example.test.POST.DTO.PostDTO;
 //import com.example.test.POST.DTO.PostReviewDTO;
-//import com.example.test.POST.DTO.Post_CategoryDTO;
 //import com.example.test.POST.Service.PostReviewService;
 //import com.example.test.POST.Service.Post_CategoryService;
-//import com.example.test.User.DTO.UserDTO;
 //import com.example.test.User.Service.UserService;
-//import com.example.test.paging.Criteria;
 //import com.example.test.paging.Page;
-//import com.example.test.paging.PageDTO;
-//
-//import jakarta.validation.Valid;
-//
-//
+
 //@Controller
 //public class PostReviewController {
 //
@@ -49,28 +30,61 @@
 //	
 //	//게시글 목록 화면
 //	@RequestMapping(value = "/post/review/list", method = RequestMethod.GET)
-//	public String list(Model model, @RequestParam(value = "page", defaultValue = "1") final int page ,@PathVariable("category") String category) throws Exception{
-//		PostReviewDTO postReviewDTO = new PostReviewDTO();
-//	  if(category.equals("noticeBoard")) {
-//	        postReviewDTO.setPostCategoryID(1);
-//	  } else if(category.equals("review")) {
-//	        postReviewDTO.setPostCategoryID(2);
-//	  }
-//	
-//	  PaginationVo pagination = new PaginationVo(this.postService.getCount(), page);// 모든 게시글 개수 구하기
-//	  
-//	  List<PostDTO> list = this.postService.getListPage(pagination);
-//			
-//	  		model.addAttribute("list", list);
-//	  		model.addAttribute("pageVo", pagination);
-//	  		
-//			//model.addAttribute("list", postService.findPostByCategoryID(postDTO));
-//			model.addAttribute("page", page);
-//			model.addAttribute("type", category);
-//			
-//			return "Review_Main";
+//	public String list( Model model, Page page, @PathVariable("category") String category) throws Exception{
+//	PostReviewDTO postReviewDTO = new PostReviewDTO();
 //
+//	  if(category.equals("review")) {
+//		postReviewDTO.setPostCategoryID(1);
 //	}
+//		
+//	Integer totalCount = null;
+//	Integer rowPerPage = null;
+//	Integer pageCount = null;
+//	Integer pageNum = page.getPageNum();
+//	String keyword = page.getKeyword();
+//
+//	// 조회된 전체 게시글 수
+//	if( page.getTotalCount() == 0 )
+//	totalCount =prService.getCount();
+//			
+//	else 
+//	totalCount = page.getTotalCount();
+//
+//	//페이지 당 노출 게시글 수
+//	if( page.getRowsPerPage() == 0 )
+//	rowPerPage = 10;
+//			
+//	else 
+//	rowPerPage = page.getRowsPerPage();
+//
+//	//노출 페이지수
+//	if(page.getPageCount() == 0)
+//	pageCount = 10;
+//	else
+//	pageCount = page.getPageCount();
+//
+//	if(page.getPageNum() == 0){
+//	page = new Page(1, rowPerPage, totalCount, pageCount); 
+//	} else{
+//	page = new Page(pageNum, rowPerPage, totalCount, pageCount);
+//	}
+//			
+//	if(keyword == null || keyword == ""){
+//		page.setKeyword("");
+//	List<PostReviewDTO> list = prService.getListPage(page);
+//		model.addAttribute("list", list);
+//	} else {
+//		page.setKeyword(keyword);
+//		model.addAttribute("list", prService.search(page));
+//	}
+//		  		
+//				//model.addAttribute("list", postService.findPostByCategoryID(postDTO));
+//				model.addAttribute("page", page);
+//				model.addAttribute("type", category);
+//				
+//				return "notice_Board";
+//
+//		}
 
 //		
 //
