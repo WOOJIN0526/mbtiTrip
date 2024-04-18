@@ -49,15 +49,14 @@ public class AdminController {
 //	}
 	
 	@RequestMapping(value = "admin/login/success")
-	public ModelAndView UserSuccess(ModelAndView mav, 
+	public ModelAndView adminSuccess(ModelAndView mav, 
 								Principal princ) {
 		String userName = princ.getName();
 		Integer userUID = userService.findByUID(princ);
 		Map<String, Object> user = userService.getInfo(userUID);
 		log.info("UserLoginSuccess = UserINFo= {}", user);
-		
 		mav.addObject("user", user);
-		mav.setViewName(String.format("redirect:/"));
+		mav.setViewName(String.format("redirect:/admin/mypage"));
 		return mav;
 	}
 	

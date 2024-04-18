@@ -152,19 +152,25 @@ public class UserServiceImpl implements UserService{
 		// item들을 불러올떄 itemID값을 통해 등록된 item의 imgURl을 가져와넣는 작업
 		List<String> urlList = new ArrayList<>();
 		for(HashMap<String, Object> item :myItem) {
+			
 			int itemID = (Integer) item.get("itemId");
 			 List<String> url = itemDao.getUrl(itemID);
 			 //등록된 이미지가 없을 경우
+			
 			 if(url.isEmpty()) {
+				
 				 url.add("0");
 			 }
+			 
 			 String[] ImgeUrl = url.toArray(new String[0]); // 리스트를 배열로 변환
-		     item.put("ImgeUrl", ImgeUrl); // 아이템에 이미지 URL 배열 추가
+		     
+			 item.put("ImgeUrl", ImgeUrl); // 아이템에 이미지 URL 배열 추가
 		}
 		return myItem;
 	}
 	
-
+	
+	//Bis의 itmeList에 총 조회수 삽입
 	@Override
 	public List<HashMap<String,Object>> bisListput(List<HashMap<String,Object>> itemList, List<HashMap<String,Object>> viewList){
 		for(HashMap<String,Object> item : itemList) {
@@ -230,6 +236,7 @@ public class UserServiceImpl implements UserService{
 		return !vaild;
 	}
 
+	//지역 검색 기능
 	@Override
 	public List<ItemDTO> serchLocation(String location) {
 		List<ItemDTO> result = itemDao.searchLocation(location);
