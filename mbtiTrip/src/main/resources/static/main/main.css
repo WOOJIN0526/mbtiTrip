@@ -155,10 +155,12 @@ mark {
 }
 
 .home__img {
-    height: 250px;
+    width: 250px;
     background-size: 100% 100%;
 }
-
+.home__img img{
+	max-width: 100%; width: auto;
+}
 .home__img2 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/11/3c3d7909-98e6-4b98-b87c-42cc5bdf2961한옥.jpg");
     height: 250px;
