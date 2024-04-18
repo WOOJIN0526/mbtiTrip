@@ -121,6 +121,8 @@ public class PostDAO {
 		// TODO Auto-generated method stub
 		return this.sqlSessiontemplate.selectList("post.getListPage", pagination);
 	}
+	
+	
 
 	public int getCount() {
 		// TODO Auto-generated method stub
