@@ -16,7 +16,7 @@ class Slide {
   constructor(object) {
     // 슬라이드 전체 크기(width 구하기)
     const slide = document.querySelector(object.slideCon);
-    let slideWidth = slide.clientWidth + 99;
+    let slideWidth = slide.clientWidth ;
 
     // 버튼 엘리먼트 선택하기
     const prevBtn = document.querySelector(object.prvBtn);
