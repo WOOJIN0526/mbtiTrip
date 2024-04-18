@@ -19,12 +19,19 @@ import lombok.extern.log4j.Log4j2;
 @WebListener
 public class SessionUserCnt implements HttpSessionListener{
 	
+	/**
+	 * @author Shinsungjin 
+	 * 현재 이용 중인 사용자수를 구현하기 위한 session 설정 구현파일입니다.
+	 * */
+	
 	public static int cnt;
 	
 	public int getCnt() {
 		return this.cnt;
 	}
 
+	
+	//사용자가 session에 등록 되면 session 이용자수를 증가시킵니다.
 	@Bean
 	@Override
 	public void sessionCreated(HttpSessionEvent evt) {
@@ -33,10 +40,11 @@ public class SessionUserCnt implements HttpSessionListener{
 		log.info("SessionCreated => {} , totalAcccses =>{}", session, cnt);
 	}
 
+	//사용자가 session에 빠져나가면 session 이용자수를 감소시킵니다.
 	@Bean
 	@Override
 	public void sessionDestroyed(HttpSessionEvent evt) {
-		cnt = (cnt > 0) ? cnt-- : 0; 
+		cnt = (cnt > 0) ? cnt-- : 0;  //cnt가 0일 경우는 0으로 초기화 합니다.
 		HttpSession session = evt.getSession();
 		log.info("SessionDestroyed => {}, totalacces =>{}", session, cnt);
 	}

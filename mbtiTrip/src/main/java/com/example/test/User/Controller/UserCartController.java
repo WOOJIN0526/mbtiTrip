@@ -25,6 +25,11 @@ import com.example.test.replace.DTO.ReplaceDTO;
 import lombok.extern.log4j.Log4j2;
 
 
+/*
+ * @USE 
+ * 사용자의 장바구니 기능 일괄
+ * */
+
 @Controller
 @RequestMapping("/mypage/cart")
 @Log4j2
@@ -33,9 +38,13 @@ public class UserCartController {
 	@Autowired
 	UserCartService userCartservice;
 	
+	/*장바구니 페이지 로딩*/
 	@RequestMapping(value = "",  method =RequestMethod.GET)
 	public ModelAndView detail_Cart(Principal principal, UserCartDTO usercartDTO, ModelAndView mav) {		
+		//user정보 조회
 		List<HashMap<String, Object>> userCart = userCartservice.detail(usercartDTO, principal);
+		
+		//usercart내 가격 합치기
 		Integer sumPrice = userCartservice.sumPrice(userCart);
 		log.info("message userCarts  => {}", userCart);
 		mav.addObject("sumPrice", sumPrice);
@@ -45,6 +54,8 @@ public class UserCartController {
 		return mav;
 	}
 	
+	
+	/* Toss Api 결제시 해당 method로 정보 전달 시 결제 완료*/
 	@RequestMapping(value = "/pay", method =RequestMethod.GET)
 	public ModelAndView detail_Pay(Principal principal, UserCartDTO usercartDTO, ModelAndView mav) {
 		List<HashMap<String, Object>> userCart = userCartservice.detail_Pay(usercartDTO, principal);
@@ -55,10 +66,10 @@ public class UserCartController {
 	}
 	
 
+	/*숙소 정보 삽입*/
 	@RequestMapping(value="/replace/input" , method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<?> insertReplace(UserCartDTO userCartDTO,Principal principal,ModelAndView mav){
-		
 		try {
 			//장바구니에 item 넣기 
 			boolean ck = userCartservice.insertItem(userCartDTO, principal);
@@ -66,8 +77,6 @@ public class UserCartController {
 			if(ck==true) {
 				return  ResponseEntity.status(HttpStatus.OK).body("정보가 정상적으로 저장됬습니다.");
 			}
-			
-		
 		} catch (NullPointerException e) {
 			return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 정보를 찾을 수 없습니다.");
 		}
@@ -90,6 +99,11 @@ public class UserCartController {
 //		return ck;
 //	}
 	
+	
+	/*
+	 * 삭제 기능, 
+	 * 일정이 부족하여 View 연결 안됌
+	 * */
 	@RequestMapping(value="item/delte", method=RequestMethod.POST)
 	public ResponseEntity<?> deleteItem(@RequestBody Integer itemId,
 								Principal principal) {

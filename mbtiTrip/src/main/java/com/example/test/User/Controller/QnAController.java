@@ -42,9 +42,13 @@ public class QnAController {
 	@Autowired 
 	QnAService qnaService;
 	
+	/*QnA 페이지 로딩*/
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView QAndA(ModelAndView mav, QnADTO qna) {
 		log.info("message QnA  main");
+		/* 권한 식별후, 권한에 맞춘 QnAList Loding
+		 * 자세한 동작 과정은 QnAService Imple에서 후술 
+		 * */
 		List<QnADTO> list = qnaService.getList(qna);
 		log.info("{}", list.toString());
 		mav.addObject("qnaList", list);

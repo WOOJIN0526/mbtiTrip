@@ -50,8 +50,13 @@ import lombok.extern.log4j.Log4j2;
 @Configuration
 @RequiredArgsConstructor
 public class Security_Config  {
+	/**
+	 * @author Shin-SungJin 
+	 *  security 설정 파일입니다.
+	 * */
+	
 
-	private UserDetailsService userDetailsService; //?
+	private UserDetailsService userDetailsService; 
 	private CustomLoginService CustomloginService; 
 	private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 	private CustomAccessDeniedHandler customAccessDeniedHandelr;
@@ -78,48 +83,55 @@ public class Security_Config  {
 
 	@Bean
     protected SecurityFilterChain webSecurityFilterChain(HttpSecurity http) throws Exception {
-        http
+        http // 해당 URL에 대한 권한을 열어둡니다.
        .authorizeHttpRequests((authorizeHttpRequests)-> authorizeHttpRequests
                 	 .requestMatchers("/login_A", "/**", "/user/signup", "/bis/signup")
                 	 .permitAll());
+        //아래에 포함 되어 있는 URL은 인증이필요한 URL 입니다.
        http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
     		   .requestMatchers("/").anonymous()
     		   .requestMatchers("/user/**", "bis/**", "/admin/**").hasRole("ADMIN")
     		   .requestMatchers("bis/**", "/user/**").hasAnyRole("BIS")
     		   .requestMatchers("/user/**").hasAnyRole("USER")
-    		   
     		   )
+       //로그인에 대한 설정을 진행합니다
     	.formLogin((formLogin) -> formLogin
-    			.loginPage("/login_A")
-    			.successHandler(new CustomSuccessHandler())
-    			.failureHandler(new CustomLoginFailhandelr())
-    			.failureUrl("/login_A")
+    			.loginPage("/login_A") //기본 URL 설정
+    			.successHandler(new CustomSuccessHandler()) //로그인 성공시 진행 될 process
+    			.failureHandler(new CustomLoginFailhandelr()) //로그인 실패시 진행 될 process
+    			.failureUrl("/login_A") //로그인 실패시 이동할 경로 
     			)
     			;
+       //자동 로그인에 대한 설정입니다.
     	http.rememberMe((remember) -> remember
-    			.key("userName")
-    			.rememberMeParameter("remember-me")
-    			.tokenValiditySeconds(86400)
+    			.key("userName")  //자동로그인 Key값
+    			.rememberMeParameter("remember-me") // loginPage에서 check 박스 value입니다.
+    			.tokenValiditySeconds(86400) //자동 로그인 token의 유효시간 입니다 (초)
     			.userDetailsService(userDetailsService)
-    			.alwaysRemember(false)
+    			.alwaysRemember(false) //자동로그인을 항시 켜둘지 설정합니다., -> false - > cKBox가 활성화 되어야 실행 
     			)
     			;
+    	
+    	//로그 아웃에 대한 설정입니다
     	http.logout((logout)-> logout
-    			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-    			.logoutSuccessUrl("/")
-    			.deleteCookies("JSESSIONID")
-    			.clearAuthentication(true)
+    			.logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //logOut 경로 설정
+    			.logoutSuccessUrl("/")    //성공시 이동 경로
+    			.deleteCookies("JSESSIONID") // JesssionID를 삭제합니다.
+    			.clearAuthentication(true)  //권한도 삭제합니다.
     			);
     	
+    	//Session관리를 설정합니다. 
     	http.sessionManagement((SessionManagement) ->SessionManagement
     			.sessionFixation().changeSessionId()
-    			.maximumSessions(1)
+    			.maximumSessions(1)  //동시에 접속할 수 있는 사용자 수를 컨트롤 합니다. 
     			.maxSessionsPreventsLogin(false) //새로운 요청 거부 
-    			.expiredSessionStrategy(new customSessionExpiredStrategy())	
+    			.expiredSessionStrategy(new customSessionExpiredStrategy())	//현재 customSession과 설정 충돌이 의심되오나, 일정 부족으로 인해 하지 못했습니다. 
     			) ;
+    	
+    	//웹 상에서 일어나는 Exception에 대한 설정입니다.
     	http.exceptionHandling()
-        .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
-        .accessDeniedHandler(new CustomAccessDeniedHandler())
+        .authenticationEntryPoint(new CustomAuthenticationEntryPoint()) //인증되지 않은 상태의 FobidenEx
+        .accessDeniedHandler(new CustomAccessDeniedHandler()) //인증 된 사용자의 FobidenEx
     	;
     					
 //    		    .usernameParameter("userId")
@@ -201,10 +213,9 @@ public class Security_Config  {
 //                .deleteCookies("JSESSIONID")
 //                .permitAll());
         
+    	//csrf허용에 대한 설정입니다. 
         http.csrf((csrf)->csrf.ignoringRequestMatchers("/**").csrfTokenRepository((CookieCsrfTokenRepository.withHttpOnlyFalse())));
 
-	
-        //defalutURL 수정 or 삭제 필요 테스트 이후 진행 작업자: 신성진 
         return http.build();
 
     }
@@ -213,16 +224,20 @@ public class Security_Config  {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(CustomloginService).passwordEncoder(passwordEncoder());
     }
+	
 //	
 	@Bean
 	public AccessDeniedHandler accessDeniedHandler() {
 		return this.customAccessDeniedHandelr;
 	}
 	
+	
+	//rememberMe 관련 설정
     @Bean
     RememberMeServices rememberMeServices(UserDetailsService userDetailsService) {
     	RememberMeTokenAlgorithm encodingAlgorithm = RememberMeTokenAlgorithm.SHA256;
     	TokenBasedRememberMeServices rememberMe = new TokenBasedRememberMeServices("key", userDetailsService, encodingAlgorithm);
+    	//MD5 방식의 rememberMeToken을 밝급합니다.
     	rememberMe.setMatchingAlgorithm(RememberMeTokenAlgorithm.MD5);
     	return rememberMe;
     }

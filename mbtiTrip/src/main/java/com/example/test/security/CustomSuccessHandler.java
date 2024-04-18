@@ -33,7 +33,14 @@ import lombok.extern.log4j.Log4j2;
 @Component
 @Log4j2
 public class CustomSuccessHandler implements AuthenticationSuccessHandler {
-
+	
+	/**
+	 * @author Shinsungjin 
+	 * 로그인이 성공 했을 때 처리 될 Handelr입니다. 
+	
+	 * */
+	
+	
 	@Autowired
 	private  UserService userService;
 	
@@ -46,13 +53,20 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 				Authentication authentication) throws IOException, ServletException {
 			try {	
 				log.info("로그인 성공시 접속자의 권한 확인이 가능한지 에 대한  log {}", authentication.getAuthorities());
+				
+				//세션 정보를 호출 합니다.
 				HttpSession session = request.getSession();
+				//세션이 유지 될 최대 시간을 지정합니다. 
 				session.setMaxInactiveInterval(60*60);
+				//세션에 사용자의 권한 정보를 등록합니다.
 				session.setAttribute("userrole", authentication.getAuthorities());
 			
+				//로그인 된 사용자의 권한 정보를 가져옵니다. 
+				// 권한은 userDTO의 User_Role의 Enum 타입으로 관리됩니다.
 				Collection<? extends GrantedAuthority> role = authentication.getAuthorities();
 				//세션 정보 잘 저장 됨 
 				log.info("role 정보{}", role.toString());
+				//사용자의 권한 정보에 맞춰, 각각의 login-Proccess를 실행하고, 각각의 main으로 redirecet 합니다. 
 				switch (role.toString()) {
 				case "[ROLE_USER]" : 
 					response.sendRedirect("user/login/success");

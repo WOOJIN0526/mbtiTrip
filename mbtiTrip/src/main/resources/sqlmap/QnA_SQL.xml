@@ -22,6 +22,12 @@
 		join QAnswer a
 		on q.QID = a.QID
 	</select>
+	
+	<select id="getAdminList" resultType="hashMap">
+		select QID, QName as title, userName, contents, updateDate
+		from QnA 
+	</select>
+	
 
 	<select id="getDetail" resultType="hashMap">
 		select q.QID, q.QName as title, q.userName, q.contents, q.updateDate,
@@ -31,6 +37,8 @@
 		on q.QID = a.QID
 		where QID = #{qID}
 	</select>
+	
+
 
 	<select id="getMyQnA" resultType="hashmap">
 		select q.QName as title, q.userName, q.contents, q.updateDate,

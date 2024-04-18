@@ -34,6 +34,11 @@ import lombok.extern.log4j.Log4j2;
 @Service 
 public class UserServiceImpl implements UserService{
 
+	/**
+	 * @autor 신성진
+	 * */
+	
+	
 	@Autowired
 	private GCSService gcsService;
 	
@@ -46,12 +51,18 @@ public class UserServiceImpl implements UserService{
 	private ItemDAO itemDao;
 	
 	
+	
+	//SignUp한 사용자를 등록합니다. 
 	@Override
 	public int createUser(UserDTO userDTO) throws SignUpException{
+		//signUP validtionCk
 		vaildationUser(userDTO);
+		//사용자가 입력한 password 를 인코딩해 저장합니다
 		String userPassword = userDTO.getPassword();
 		String encodePassword = bcrypasswordEncoder.encode(userPassword);
 		userDTO.setPassword(encodePassword);
+		
+		//insert 쿼리 구문의 결과에 따라 예외처리 진행
 		int result = this.userDao.insert(userDTO);
 		if(result == 0) {
 			throw new SignUpException(SignUpExceptionEunm.SIGN_INTERNAL_ERROR);
@@ -59,7 +70,7 @@ public class UserServiceImpl implements UserService{
 		return result;
 	
 	}
-	
+	//위와 상동
 	@Override
 	public int createBis(UserDTO userdto) {
 		vaildationUser(userdto);
@@ -73,12 +84,15 @@ public class UserServiceImpl implements UserService{
 		return result;
 	}
 	
+	/** @deprecated security 도입으로 인해 더이상 사용하지 않습니다.
+ 	 * */
 	@Override
 	public  Map<String, Object> login(UserDTO userdto) {
 		//login validationCK
 		return userDao.login(userdto);
 	}
 
+	//사용자 정보 업데이트 method입니다. 
 	@Override
 	public int userUpdate(UserDTO userdto, Principal principal) {
 		if(principal.getName() == null) {
@@ -87,6 +101,8 @@ public class UserServiceImpl implements UserService{
 		Integer UID = princeUID(principal);
 		userdto.setUID(UID);
 		userdto.setPassword(bcrypasswordEncoder.encode(userdto.getPassword()));
+		
+		//update 결과에 따라 반환합니다. 
 		int result =userDao.userUpdate(userdto);
 		if(result == 0) {
 			throw new UpdateException(UpdateExceptionEnum.UPDATE_FAIL_SERVER);
@@ -94,6 +110,7 @@ public class UserServiceImpl implements UserService{
 		return result;
 	}
 	
+	//상동
 	@Override
 	public int BisUpdate(UserDTO userdto) {
 		int result =userDao.BisUpdate(userdto);
@@ -103,12 +120,18 @@ public class UserServiceImpl implements UserService{
 		return result;
 	}
 
+	//사용자의 종합적인 정보를 불러 오는 method 입니다. 
 	@Override
 	public Map<String, Object> getInfo(Integer uID) {
 		 Map<String, Object> userInfo= userDao.getInfo(uID);
 		 return userInfo;
 	}
 	
+	//사용자의 principal 객체를 활요해 사용자의 이름을 불러오고, userName을 통해 UID를 불러오는 Method입니다. 
+	// Get Info와 기능을 합칠 수 있었겠지만, 일정이 촉박하여, 새로운 method를 만들고 도입하는 형식으로 진행했습니다. 
+	// userName 또한 pk로 되어있기에 크게 상관없을 것 같다고 판단하였습니다. 
+
+	//기존 security 도입 전, @pathvaliable 를 사용할 때 주로 사용 되었습니다.
 	@Override
 	public Integer findByUID(Principal principal) {
 		String userName = userDao.getUserNameByuserID(principal.getName());
@@ -116,22 +139,29 @@ public class UserServiceImpl implements UserService{
 		return UID;
 	}
 
+	
+	//사용자 ID를 기준으로 정보를 로딩 합니다. 
+	// 마찬가지로 Security 도입전 많이 활용하였지만, 현재 활용성이 떨어지는 method입니다.
 	@Override
 	public UserDTO getUser(String id) {
 		UserDTO siteUser = this.userDao.getByUserId(id);
 		return siteUser;
 	}
+	
+	//사용자의 name을 기반으로 사용자 정보 전체를 로딩합니다.
 	@Override
 	public UserDTO getUserByUserName(String name) {
 		UserDTO siteUser = this.userDao.getByUserName(name);
 		return siteUser;
 	}
 	
+	//Principal를 통해 UID를 불러옵니다.
 	public Integer princeUID(Principal principal) {
 		Integer UID = findByUID(principal);
 		return UID;
 	}
 
+	//Password검사를 진행하는 method입니다.
 	public boolean passwordCK(Principal principal, String inputPw) {
 
 //		String userName = userDao.getUserNameByuserID(principal.getName());
@@ -170,7 +200,7 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	
-	//Bis의 itmeList에 총 조회수 삽입
+	//Bis의 itmeList에 총 조회수 삽입하는 method입니다.
 	@Override
 	public List<HashMap<String,Object>> bisListput(List<HashMap<String,Object>> itemList, List<HashMap<String,Object>> viewList){
 		for(HashMap<String,Object> item : itemList) {
@@ -190,6 +220,7 @@ public class UserServiceImpl implements UserService{
 		return itemList;
 	}
 
+	//사용자에 대한 validation 검사를 진행하는 method입니다.
 	private void vaildationUser(UserDTO userDTO) throws SignUpException{
 		if(userDTO.getUserId() == null) {
 			throw new SignUpException(SignUpExceptionEunm.SIGN_ID_NULL);

@@ -57,6 +57,11 @@ import lombok.extern.log4j.Log4j2;
 @Controller
 public class UserController {
 
+	/**
+	 * @author Shin Sung Jin 
+	 * User와 관련된 전반적인 기능을 담당하는 Controller입니다.  
+	 * */
+	
 	@Autowired
 	private UserService userService; 
 	
@@ -89,13 +94,15 @@ public class UserController {
 //	}
 	
 	
+	/*Guest Main Page*/
 	@RequestMapping(value ="/" , method = RequestMethod.GET)
 	public ModelAndView main(ModelAndView mv) {
-		/*권한 동작 확인 Test*/
-		/* 작업자 신성진
-		 * guest메인에 들어온 사용자가 권한을 가지고 있거나, 이전에 이용하던 세션 정보가 남아있는 경우 
-		 * 각 권한에 맞는 main으로 redirect
-		 * */
+		
+		/** @autor 신성진
+		 * guest메인에 들어온 사용자가 권한을 가지고 있거나, RememberMe 기능을 이용하거나
+		 * 이전에 이용하던 세션 정보가 남아있는 경우 
+		 * 각 권한에 맞는 main으로 redirect시킵니다. 
+		 */
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if(auth!= null && auth.isAuthenticated()) {
 			log.info("RememberMe User =>{}", auth);
@@ -106,13 +113,14 @@ public class UserController {
 				case "ROLE_ANONYMOUS": 	mv.setViewName("main"); break;
 				}
 			}
-		}
-//		log.info("guest auth ==>{}", auth);
-//		
-		
+		}	
 		return mv;
 	}
 	
+	
+	/** @autor 신성진
+	 *  일반 사용자 Main 페이지입니다. 다양한 UX 관련한 기능을 지원합니다. 
+	 */
 	@PreAuthorize("isAuthenticated() and  hasRole('ROLE_USER')")
 	@RequestMapping(value = "/user/main", method = RequestMethod.GET)
 	public ModelAndView main(Principal principal,
@@ -123,13 +131,14 @@ public class UserController {
 		Integer UID = userService.princeUID(principal);
 		Map<String, Object> user = userService.getInfo(UID);
 		
-		//UX 기능을 위한 userName 선언ㄴ
+		//UX 기능을 위한 userName 선언
 		String userName = userDAO.getUserNameByuserID(principal.getName());
 		
 		//UserUXS => 사용자의 활동 기록을 탐색하고, 그에 맞는 여행 루틴 추천 
-		
 		List<HashMap<String, Object>> UserUXsBefore = userHistoryService.uxRutin(userName);
 		List<HashMap<String, Object>> UserUXs = uxService.insertUrls(UserUXsBefore);
+		
+		//사용자 정보가 충분하지 않을때, 정보를 제공하는 것보단, 조금 더 활동을 쌓길 권장합니다. 
 		if(UserUXs.get(0).isEmpty() || UserUXs.size() <3) {
 			log.info("사용자 정보가 충분하지 않다");
 			mav.addObject("UxMessage", "사용자 정보가 충분하지 않습니다.");
@@ -162,6 +171,7 @@ public class UserController {
 		else {
 			mav.addObject("userViewInfo",userViewInfo);
 		}
+		
 		log.info("userUxAD 조회 결과  {}", userUxAD);
 		mav.addObject("UserUXs",UserUXs);
 		mav.addObject("userUxRe",userUxRe);
@@ -201,11 +211,15 @@ public class UserController {
 //	}
 	
 
+	/** 회원가입시, 일반사용자인지, 비즈니스 사용자인지 선택이 가능합니다. 
+	 * */
 	@RequestMapping(value = "/signup", method=RequestMethod.GET)
 	public String signUpSelect() {
 		return "sign_up_select";
 	}
 	
+	/** 일반 사용자 회원가입 페이지입니다. 
+	 * */
 	@RequestMapping(value = "/user/signup", method = RequestMethod.GET)
 	public ModelAndView signUpUser(HttpServletRequest request) {
 	    ModelAndView mav = new ModelAndView();
@@ -232,7 +246,7 @@ public class UserController {
 		return mav;
 	}  
 
-	
+	/*security에 사용될 기본 로그인 페이지 경로입니다. */
 	@RequestMapping(value = "/login_A", method=RequestMethod.GET)
 	public ModelAndView login() {
 		ModelAndView mav = new ModelAndView();
@@ -240,21 +254,21 @@ public class UserController {
 		return mav;
 	}
 	
+	/*User login proccess 입니다. */
 	@RequestMapping(value = "user/login/success")
 	public ModelAndView UserSuccess(ModelAndView mav, 
 								Principal princ) {
 		Integer userUID = userService.princeUID(princ);
 		Map<String, Object> user = userService.getInfo(userUID);
 		log.info("UserLoginSuccess = UserINFo= {}", user);
-		System.out.println(user.get("userImg"));
 		mav.addObject("user", user);
 		mav.setViewName("redirect:/user/main");
 		return mav;
 	}
 
+	/*userMain에서 제공하는 지역 기반 Item 검색 기능입니다.*/
 	@RequestMapping(value = "/searchLocation", method=RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public ModelAndView searchLocation(@RequestParam("location") String location, ModelAndView mav) {
-		System.out.println("지역"+location);
 		List<ItemDTO> result = userService.serchLocation(location);
 		mav.addObject("list",result);
 		mav.setViewName("itemList");
@@ -284,13 +298,19 @@ public class UserController {
 //		return mav;
 //	}
 	
+	/*UserMypage입니다. */
 	@PreAuthorize("isAuthenticated() and  hasRole('ROLE_USER')")
 	@RequestMapping(value = "/user/mypage", method = RequestMethod.GET)
 	public ModelAndView mypageUser(Principal principal, UserDTO userdto, ModelAndView mav){
+		// 사용자 정보 조회
 		Integer UID = userService.princeUID(principal);
 		Map<String, Object> user = userService.getInfo(UID);
+		
+		//사용자가 작성한 Post 정보 조회
 		List<HashMap<String, Object>> userPost =userHistoryService.selectUserPost(principal);
 		log.info("userPost ===>{}", userPost);
+		
+		//사용자가 작성한 QnA 정보 조회
 		List<HashMap<String, Object>> userQnA = userHistoryService.selectUserQnA(principal);
 		log.info("userQnA ===>{}", userQnA);
 		mav.addObject("user", user);
@@ -301,6 +321,7 @@ public class UserController {
 	}
 
 	
+	//사용자가 자신의 정보를 수정하기 전 password 검증을 받게 합니다.
 	@PreAuthorize("isAuthenticated() and  hasRole('ROLE_USER')")
 	@RequestMapping(value = "/user/mypage/update", method = RequestMethod.GET)
 	public ModelAndView update_ck(Principal principal, ModelAndView mav){
@@ -315,7 +336,6 @@ public class UserController {
 	public ModelAndView update_ck(@RequestParam("password") String password,    
 								Principal principal, ModelAndView mav) throws Exception{
 		log.info("message ={}", principal.getName());
-		
 		boolean passwordCheck = userService.passwordCK(principal, password);
 		if(passwordCheck) {
 			log.info("message 인증성공");
@@ -329,12 +349,10 @@ public class UserController {
 	} 
 	
 
+	// password 검증이 된 사용자가 자신의 정보를 수정할 수 있습니다. 
 	@PreAuthorize("isAuthenticated() and  hasRole('ROLE_USER')")
 	@RequestMapping(value = "/user/mypage/update/ck", method = RequestMethod.GET)
 	public ModelAndView update(Principal principal, UserDTO userdto, ModelAndView mav){
-//		String Uid = userdto.getUID();
-//		mav.addObject(userdto);
-// 0321 최우진 유저데이터가 들어가야 될거같아서 주석하고 밑으로 바꿔봄
 		Integer UID = userService.princeUID(principal);		
 		Map<String, Object> map = userService.getInfo(UID);
 		mav.addObject("map", map);
@@ -347,7 +365,6 @@ public class UserController {
 	@RequestMapping(value = "/user/mypage/update/ck", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> update(UserDTO userdto,
-
 								Principal principal, ModelAndView mav) {
 		log.info("message POST ONE ={}", userdto.toString());
 		try {
@@ -375,6 +392,10 @@ public class UserController {
 		
 	}
 	
+	
+	/**
+	 * 로그인 테스트를 위한 url입니다. 추후 기능 고도화시 필요할 것 같아 남겨둡니다.
+	 * */
 	@PreAuthorize("isAuthenticated()")
 	@RequestMapping("/check-login")
     public ResponseEntity<UserDTO> loginCheck(Principal principal) {

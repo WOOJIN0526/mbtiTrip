@@ -38,9 +38,13 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @ControllerAdvice
 public class GlobalExceptionHandler {
-
+	/**
+	 * @author ShinSungjin 
+	 * 서비스 전역에서 일어나는 다양한 Exception을 하나의 클래스에서 관리합니다.
+	 * 각각의 customException은 해당 기능에 따라 일어날 수 있는 예외 상황을 미리 정의해둔 Enum 객체를 사용합니다. 
+	 * */
    
-    HttpHeaders headers;
+    private HttpHeaders headers;
     
     @ExceptionHandler(SignUpException.class)
     protected ResponseEntity<ExceptionResponse> SignUPExceptionHandler(SignUpException ex){
