@@ -49,6 +49,14 @@
                                     <td colspan="2">
                                         <div class="autocomplete"></div>
                                     </td>
+                                </tr>
+                                <!--<tr> <td class="search__sub__title">체크인</td> <td
+                                class="search__sub__title">체크아웃 </td> </tr> <tr> <td><input
+                                class="search__input" type="date"/></td> <td><input class="search__input"
+                                type="date"/></td> </tr> <tr> <td colspan="2" class="search__sub__title"> 인원
+                                </td> </tr> <tr> <td colspan="2"> <select class="search__input">
+                                    <option>인원</option> <option>1명</option> <option>2명</option> <option>3명</option>
+                                </select> </td> </tr>-->
                             </table>
                             <div class="search__button">
                                 <button>검색</button>
@@ -63,22 +71,18 @@
             <section>
                 <div class="slide slide_wrap">
                     <div class="slide_item item1"></div>
-                    <div class="slide_item item2">2</div>
-                    <div class="slide_item item3">3</div>
-                    <div class="slide_item item4">4</div>
-                    <div class="slide_item item5">5</div>
+                    <div class="slide_item item2"></div>
+                    <div class="slide_item item3"></div>
+                    <div class="slide_item item4"></div>
+                    <div class="slide_item item5"></div>
                     <div class="slide_prev_button slide_button">◀</div>
                     <div class="slide_next_button slide_button">▶</div>
                     <ul class="slide_pagination"></ul>
                 </section>
 
-                <!-- 광고 배너 -->
-                <section>
-                    <div class="ad1"></div>
-                </section>
 
                 <section class="con3" th:object = "${userUxadv}">
-                    <div class="con3_wrap" th:each = "adv : ${userUxadv}" >
+                    <div class="con3_wrap"  >
                         <h3>어디로 갈까?</h3>
 
                         <div class="trip">
@@ -100,72 +104,18 @@
                                     </a>
 
                                 </li>
-                                <li>
+                                <li th:each = "adv : ${userUxadv}">
                                     <a href="#">
                                         <div class="trip_img2">
                                             <img
                                             class=""
-                                            src=""
+                                            th:src="${adv['ImgeUrl'][0]}"
                                             alt="로딩실패"
                                             />
                                         </div>
-                                        <div class="trip_inform">
+                                        <div class="trip_inform adv">
                                             <p class="title"  th:text="${adv['itemName']}">대구 이월드</p>
-                                            <p >이월드 블라썸 피크닉은 벚꽃을 시작으로 튤립까지 이어지는 다채로운 꽃들로..</p>
-
-                                        </div>
-                                    </a>
-
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="trip_img3">
-                                            <img
-                                            class=""
-                                            src=""
-                                            alt="로딩실패"
-                                            />
-                                        </div>
-                                        <div class="trip_inform">
-                                            <p class="title">함평 나비축제</p>
-                                            <p>
-                                                세계 각국의 나비와 곤충 표본 450종 9,000여 마리를 구경하고..</p>
-
-                                        </div>
-                                    </a>
-
-                                </li>
-                            </ul>
-                            <ul class="trip2">
-                                <li>
-                                    <a href="#">
-                                        <div class="trip_img4">
-                                            <img
-                                            class=""
-                                            src=""
-                                            alt="로딩실패"
-                                            />
-                                        </div>
-                                        <div class="trip_inform">
-                                            <p class="title">역사의 도시 경주</p>
-                                            <p>역사와 문화제와 미래가 공존하는 도시 경주...</p>
-
-                                        </div>
-                                    </a>
-
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="trip_img5">
-                                            <img
-                                            class=""
-                                            src=""
-                                            alt="로딩실패"
-                                            />
-                                        </div>
-                                        <div class="trip_inform">
-                                            <p class="title">예술여행의 도시 광주</p>
-                                            <p>민주화의 성지이자 식도락의 천국이라고 알려진 도시를..</p>
+                                            <p th:text="${adv['contents']}" class="advInfo">이월드 블라썸 피크닉은 벚꽃을 시작으로 튤립까지 이어지는 다채로운 꽃들로..</p>
 
                                         </div>
                                     </a>
@@ -194,6 +144,11 @@
                     </div>
 
                 </section>
+                                <!-- 광고 배너 -->
+                <section>
+                    <div class="ad1"></div>
+                </section>
+
                 <section>
                     <div class="sec__title">숙소 추천</div>
 

@@ -139,7 +139,6 @@ body{
 .profileItems{
   display: flex;
   border-top: 1px solid black;
-  
   padding: 1rem 2rem;
 }
 #topless{
@@ -162,13 +161,13 @@ body{
   color: black;
 }
 .Htitle {
-  background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/17/1bb0a754-cf06-485d-a64b-d3bed6b74533대지2.png);
-  width: 340px;
+  background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/18/4f06c1cc-4888-4353-9a7d-ebe01f0ca25d2-3.png);
+  width: 240px;
   height: 65px;
   position: relative;
-  margin: 0rem 20rem 2em 2rem;
+  margin: 0rem 30rem 2em 2rem;
   text-align: center;
-  background-size: cover;
+  background-size: contain;
 }
 .tab {
   color: #000000;

@@ -110,8 +110,8 @@ document.querySelectorAll('.home').forEach((dom,index)=>{
     dom.remove();
   }
 });
-document.querySelectorAll('.trip').forEach((dom,index)=>{
-  if(index>0  ){
-    dom.remove();
-  }
-});
+// document.querySelectorAll('.trip').forEach((dom,index)=>{
+//   if(index>0  ){
+//     dom.remove();
+//   }
+// });
