@@ -200,7 +200,7 @@
                     <div class="home__box" th:object="${UserUXs}">
                         <div class="home" th:each="ux : ${UserUXs}">
                             <div class="home__img">
-                                <img class="" src="" alt="로딩실패"/>
+                                <img class="" th:src="${ux['ImgeUrl'][0]}" alt="로딩실패"/>
                             </div>
 
                             <div class="home__info">
