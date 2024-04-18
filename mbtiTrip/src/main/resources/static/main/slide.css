@@ -1,3 +1,4 @@
+
 .slide {
 	border:1px solid black;
     /* layout */
@@ -74,15 +75,20 @@
   .slide_item.item1 {
     background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/17/95c75e4a-8dd7-4639-bb23-7f733e6502c3CK_ti375a40807_l.jpg);
     background-size: cover;
+    background-position: 50%;
   }
   .slide_item.item2 {
-    background-image: url();
+    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/18/da0a9111-a3f9-466c-8744-26f7c0ae6e65CK_ti302a21208_l.jpg);
+  	background-size: cover;
   }
   .slide_item.item3 {
-    background-image: url();
+    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/18/b7d1ce10-6007-4cbd-b4cc-6c51abe3c1b8CK_ti375a19401_a.jpg);
+  	background-size: cover;
   }
   .slide_item.item4 {
-    background-image: url();
+    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/18/87eae4fd-d9c0-446b-ae5a-9e933028cf62CK_ti302a17002_b.jpg);
+	background-size: cover;
+	background-position: 50%;
   }
   .slide_item.item5 {
     background-image: url();

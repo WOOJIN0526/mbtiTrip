@@ -135,10 +135,12 @@ mark {
     margin: 20px 0;
     background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_10.png");
     height: 380px;
-    width: 1400p;
+    width: 1400px;
     background-size: 100% 100%;
     display: flex;
     border-radius: 20px;
+    text-align: center;
+    margin: 2rem 0 0 8.5rem;
  
 }
 
@@ -153,10 +155,12 @@ mark {
 }
 
 .home__img {
-    height: 250px;
+    width: 250px;
     background-size: 100% 100%;
 }
-
+.home__img img{
+	max-width: 100%; width: auto;
+}
 .home__img2 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/11/3c3d7909-98e6-4b98-b87c-42cc5bdf2961한옥.jpg");
     height: 250px;
@@ -457,7 +461,7 @@ mark {
 
 .con3_wrap{
     width:1100px;
-    margin:5rem 12rem 5rem 12rem;
+    margin:5rem 0rem 5rem 15rem;
     color: black;
 }
 
@@ -490,6 +494,9 @@ mark {
      background-position:10%;
     background-size: cover;
     background-repeat: no-repeat;
+}
+.trip_img2 img{
+	width: 100%;
 }                  
 .trip_img3{
     /* background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/04aa876d-68b4-4951-9ab2-e6a8d287bd1a함평.jpg); */
@@ -529,15 +536,21 @@ mark {
 .con3 li:last-child{
     margin-right:0px;
 }
-
+.trip1{
+	width: 1200px;
+	display: flex;
+	flex-wrap: wrap;
+}
 .trip1:after{
     display:block;
     clear:both;
     content:'';
 }
 .trip1 li{
+	
     float:left;
     height:310px;
+    width: fit-content;
 }
 
 .trip1 li:nth-child(1){
@@ -602,6 +615,12 @@ mark {
     padding-top:20px;
     padding-right:10px;
     padding-left:10px;
+    width: 539px;
+    
+}
+.trip_inform.adv{
+width: 259px;
+    
 }
 .trip_inform .title{
     font-weight: bold;
@@ -622,3 +641,7 @@ mark {
 ul{
      list-style:none;
  }
+.advInfo{
+	height: 40px;
+	overflow: hidden;
+}

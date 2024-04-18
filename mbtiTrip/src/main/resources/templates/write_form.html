@@ -27,7 +27,8 @@
     <input type="text" name="title" id="title"  placeholder="제목을 입력하세요" required>
     <textarea id="content" name="content"></textarea>
     <button type="submit" id="btnRegister" class="submitBtn">작성</button>
-	<button type="submit" id="btnList" class="btn btn_list">목록</button>
+	<button type="submit" id="btnList" class="btn btn_list"><a th:href="@{/post/noticeBoard/list}">목록</a></button>
+	
   </form>
 </div>
 <script type="module" th:src="@{/write/write_form.js}">
