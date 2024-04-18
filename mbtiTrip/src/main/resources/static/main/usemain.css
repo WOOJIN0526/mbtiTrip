@@ -161,12 +161,6 @@ mark {
 .home__img img{
 	max-width: 100%; width: auto;
 }
-.home__img1 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/18/23cd8108-ea06-4e74-9d09-bbf9812470b8r.jpg");
-    height: 250px;
-    background-size: 100% 100%;
-}
-
 .home__img2 {
     background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/11/3c3d7909-98e6-4b98-b87c-42cc5bdf2961한옥.jpg");
     height: 250px;
@@ -494,7 +488,7 @@ mark {
 
 }
 .trip_img2{
-    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/2ebfc9f2-9ee9-4c39-af15-cacd25839799대구1.jpg);
+    /* background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/2ebfc9f2-9ee9-4c39-af15-cacd25839799대구1.jpg); */
     width: 259px;
      height: 160px;
      background-position:10%;
@@ -505,7 +499,7 @@ mark {
 	width: 100%;
 }                  
 .trip_img3{
-    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/04aa876d-68b4-4951-9ab2-e6a8d287bd1a함평.jpg);
+    /* background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/04aa876d-68b4-4951-9ab2-e6a8d287bd1a함평.jpg); */
     width: 259px;
     height: 160px;
     background-position:10%;
@@ -514,7 +508,7 @@ mark {
    background-position:0% 10%;
 }
 .trip_img4{
-    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/227faf34-d402-4f63-9cee-cfd66e54a86b경주.jpg);
+    /* background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/227faf34-d402-4f63-9cee-cfd66e54a86b경주.jpg); */
     width: 259px;
     height: 160px;
     background-size: cover;
@@ -522,7 +516,7 @@ mark {
     background-position:0% 10%;
 }
 .trip_img5{
-    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/82f8cfbd-9b8b-4802-a896-3dabeabd5b23광주.jpg);
+    /* background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/82f8cfbd-9b8b-4802-a896-3dabeabd5b23광주.jpg); */
     width: 259px;
     height: 160px;
     background-size: cover;
@@ -621,7 +615,7 @@ mark {
     padding-top:20px;
     padding-right:10px;
     padding-left:10px;
-    width: 100%;
+    width: 539px;
     
 }
 .trip_inform.adv{
@@ -659,7 +653,4 @@ ul{
 }
 .tab{
     color: #e0e5f6;
-}
-.HheaderCon{
-    float: right;
 }

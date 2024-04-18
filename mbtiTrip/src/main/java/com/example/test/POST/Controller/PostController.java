@@ -33,6 +33,7 @@ import com.example.test.POST.DTO.AnswerDTO;
 import com.example.test.POST.DTO.PostDTO;
 
 import com.example.test.POST.DTO.Post_CategoryDTO;
+import com.example.test.POST.Service.PostReviewService;
 import com.example.test.POST.Service.PostService;
 import com.example.test.POST.Service.Post_CategoryService;
 import com.example.test.User.DAO.UserDAO;
@@ -58,6 +59,7 @@ public class PostController {
 	@Autowired
 	PostService postService;
 	
+	
 	@Autowired
 	UserService userService;
 	
@@ -71,29 +73,63 @@ public class PostController {
 	UserDAO userDao;
 	
 	//게시글 목록 화면
-	@RequestMapping(value = "/post/{category}/list", method = RequestMethod.GET)
-	public String list( Model model, @RequestParam(value = "page", defaultValue = "1") final int page , @PathVariable("category") String category) throws Exception{
-	PostDTO postDTO = new PostDTO();
-	  if(category.equals("noticeBoard")) {
-	        postDTO.setPostCategoryID(2);
-	  } else if(category.equals("review")) {
-	        postDTO.setPostCategoryID(1);
-	  }
-	
-	  PaginationVo pagination = new PaginationVo(this.postService.getCount(), page);// 모든 게시글 개수 구하기
-	  
-	  List<PostDTO> list = this.postService.getListPage(pagination);
-			
-	  		model.addAttribute("list", list);
-	  		model.addAttribute("pageVo", pagination);
-	  		
-			//model.addAttribute("list", postService.findPostByCategoryID(postDTO));
-			model.addAttribute("page", page);
-			model.addAttribute("type", category);
-			
-			return "notice_Board";
+		@RequestMapping(value = "/post/{category}/list", method = RequestMethod.GET)
+		public String list( Model model, Page page, @PathVariable("category") String category) throws Exception{
+		PostDTO postDTO = new PostDTO();
+		  if(category.equals("noticeBoard")) {
+		        postDTO.setPostCategoryID(2);
+		  } else if(category.equals("review")) {
+		        postDTO.setPostCategoryID(1);
+		  }
+		
+		  	Integer totalCount = null;
+			Integer rowPerPage = null;
+			Integer pageCount = null;
+			Integer pageNum = page.getPageNum();
+			String keyword = page.getKeyword();
 
-	}
+			// 조회된 전체 게시글 수
+			if( page.getTotalCount() == 0 )
+				totalCount =postService.totalCount();
+			
+			 else 
+			    totalCount = page.getTotalCount();
+
+			//페이지 당 노출 게시글 수
+			if( page.getRowsPerPage() == 0 )
+				rowPerPage = 10;
+			
+			else 
+				rowPerPage = page.getRowsPerPage();
+
+			//노출 페이지수
+			if(page.getPageCount() == 0)
+				pageCount = 10;
+			else
+				pageCount = page.getPageCount();
+
+			if(page.getPageNum() == 0){
+				page = new Page(1, rowPerPage, totalCount, pageCount); 
+			} else{
+				page = new Page(pageNum, rowPerPage, totalCount, pageCount);
+			}
+			
+			if(keyword == null || keyword == ""){
+				page.setKeyword("");
+				List<PostDTO> list = postService.getListPage(page);
+				model.addAttribute("list", list);
+			} else {
+				page.setKeyword(keyword);
+				model.addAttribute("list", postService.search(page));
+			}
+		  		
+				//model.addAttribute("list", postService.findPostByCategoryID(postDTO));
+				model.addAttribute("page", page);
+				model.addAttribute("type", category);
+				
+				return "notice_Board";
+
+		}
 	
 
 	

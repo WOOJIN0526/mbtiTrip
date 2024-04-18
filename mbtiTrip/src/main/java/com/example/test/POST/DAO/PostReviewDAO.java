@@ -93,7 +93,7 @@ public class PostReviewDAO {
 	}
 
 
-	public List<PostReviewDTO> getListPage(PaginationVo pagination) {
+	public List<PostReviewDTO> getListPage(Page pagination) {
 		// TODO Auto-generated method stub
 		return sqlSessiontemplate.selectList("postReview.getListPage", pagination);
 	}
@@ -102,6 +102,12 @@ public class PostReviewDAO {
 	public int getCount() {
 		// TODO Auto-generated method stub
 		return sqlSessiontemplate.selectOne("postReview.getCount");
+	}
+
+
+	public List<PostReviewDTO> search(Page page) {
+		// TODO Auto-generated method stub
+		return this.sqlSessiontemplate.selectList("postReview.search", page);
 	}
 
 

@@ -34,7 +34,7 @@ public class PostReviewServiceImpl implements PostReviewService{
 
 
 	@Override
-	public List<PostReviewDTO> getListPage(PaginationVo pagination) {
+	public List<PostReviewDTO> getListPage(Page pagination) {
 		// TODO Auto-generated method stub
 		return this.prDAO.getListPage(pagination);
 	}
@@ -151,5 +151,12 @@ public class PostReviewServiceImpl implements PostReviewService{
 				
 	prDAO.updateRating(pr);
 	}
+
+	@Override
+	public List<PostReviewDTO> search(Page page) throws Exception {
+		// TODO Auto-generated method stub
+		return this.prDAO.search(page);
+	}
+	
 	
 }

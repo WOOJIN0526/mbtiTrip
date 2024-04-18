@@ -53,28 +53,7 @@
 		</div>
     </header>
 
- 	<main class="mainCon">
-
-		<div class="reviewInfo">
-			<table>
-				<tr>
-					<th>#</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>조회수</th>
-					<th>추천수</th>
-				</tr>
-				<tr th:eact="review,index :${reviews}" th:if="${ reviews!=null}">
-					<td th:text="${index.index}"></td>
-					<td th:text="${review.title}"></td>
-					<td th:text="${reivew.writer}"></td>
-					<td th:text="${review.views}"></td>
-					<td th:text="${review.suggestion.length}"></td>		
-				</tr>
-			</table>
-		</div>
-		           
-    </main>
+ 	
 	<script th:src="@{/main/bisMain.js}"></script>
 </section>
 </body>

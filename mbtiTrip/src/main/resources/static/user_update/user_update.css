@@ -10,6 +10,9 @@ body {
     padding: 0;
     background-color: #f4f4f4;
 }
+.updateBody{
+	padding:7rem;
+}
 .container {
     max-width: 600px;
     margin: 50px auto;
