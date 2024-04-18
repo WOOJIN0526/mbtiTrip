@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Tac+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans+KR&display=swap');
 *{
 	padding: 0;
 	margin:0;
@@ -10,13 +11,13 @@ body{
 	overflow-x: hidden
 }
 .HheaderCon{
-	/* width: 100%; */
+	width: 100%;  
     display: flex;
-   	gap: 1rem;
+   	gap: 0.2rem;
     /* padding: 1rem 2rem; */
 	position: absolute;
 	flex-direction: row;
-	justify-content: right;
+	justify-content: space-between;
 	z-index: 100;
   margin: 1rem 0;
   
@@ -28,7 +29,7 @@ body{
 	color:var(--secondary-color);
 }
 .top-bar {
-  background: white;
+  background: black;
   /* padding: 3rem 1.5rem 3rem 3rem; */
   display: flex;
   flex-direction: row;
@@ -64,16 +65,17 @@ body{
 .userBox {
   margin-top: 10px;
   border-radius:5rem;
-  border: 1px solid white; 
-   padding: 0rem 1vw 0rem 1vw; 
+  /* border: 1px solid white;  */
   display: flex;
   justify-content: space-between;
-  width: 20rem;
+  width:fit-content;
   height: 4rem;
+  padding: 0 1rem 0;
 
 }
 
 .profileBox {
+  width: fit-content;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -94,20 +96,23 @@ body{
   color: black;
   text-align: left;
   font-family: "IBM Plex Sans KR", sans-serif;
-  font-size: 1.5rem;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.2rem;
   line-height: 2.25rem;
   font-weight: 500;
   position: relative;
-  width: 8.0625rem;
+  width: fit-content;
   height: 2.1875rem; 
   text-overflow: ellipsis;
   overflow: hidden;
+  margin: 0 0.5rem 0.7rem 0 ;
 }
 .icon-menu {
   transition: transform 0.5s ease;
   z-index: 999999999999;
-  height: 65%;
-  margin-top: 0.7rem;
+  height: 40%;
+  margin-top: 1.1rem;
 }
 
 .profile{
@@ -119,7 +124,7 @@ body{
   flex-direction: column;
   width: 20rem;
   transition: transform 0.5s ease-in-out;
-  border: 0.0525rem solid lightgray;
+  border: 0.0525rem solid black;
   border-radius: 1rem;
   overflow: hidden;
   background-color: var(--white);
@@ -150,6 +155,9 @@ body{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  font-family: "IBM Plex Sans KR", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 .profileItems a>p,.profileItems a>i{
   font-size: 1.3rem;
@@ -165,21 +173,26 @@ body{
   width: 240px;
   height: 65px;
   position: relative;
-  margin: 0rem 30rem 2em 2rem;
+  margin: 0rem 15rem 2em 2rem;
   text-align: center;
   background-size: contain;
 }
 .tab {
-  color: #000000;
-  font-family: "IBM Plex Sans KR", sans-serif;
+  color: black;
   font-size: 1rem;
   /* line-height: 1.5rem; */
-  font-weight: 3rem;
   display: flex;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   position: relative;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 500;
+  font-style: normal;
+  font-family: "IBM Plex Sans KR", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  
 }
 .tab > .cDropdownC {
     position: absolute;
@@ -209,4 +222,7 @@ body{
 }
 .cDropdownC>li{
 	margin:0.5rem;
+}
+.HeaderR{
+  display: flex;
 }
