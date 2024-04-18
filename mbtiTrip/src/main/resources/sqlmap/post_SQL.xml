@@ -20,6 +20,8 @@
     ]]>
 	</select>
 	
+	
+	
 	<!-- 게시물 총 개수 구하기 -->
 	<select id="getCount" resultType="int">
     <![CDATA[

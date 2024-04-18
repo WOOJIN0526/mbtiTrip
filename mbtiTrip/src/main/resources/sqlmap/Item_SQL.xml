@@ -9,15 +9,18 @@
 	</insert>
 
 
-	<select id="replaceList" resultType="com.example.test.item.DTO.ItemDTO">
+	<select id="replaceList" parameterType="com.example.test.paging.Page" resultType="com.example.test.item.DTO.ItemDTO">
 		select * from Item
 		where Type ="replace"
+		ORDER BY updateDate DESC 
+    	LIMIT  #{startRowIndex}, #{rowsPerPage}
 	</select>
 	
-	<select id="adventure"  resultType ="com.example.test.item.DTO.ItemDTO">
+	<select id="adventure" parameterType="com.example.test.paging.Page" resultType ="com.example.test.item.DTO.ItemDTO">
 		select * from Item
 		where Type ="adventure"
-		
+		ORDER BY updateDate DESC 
+    	LIMIT  #{startRowIndex}, #{rowsPerPage}
 	</select>
 	
 	<select id="myItem" resultType = "hashMap">
@@ -72,7 +75,7 @@
        <![CDATA[
 		select COUNT(*)
 		from Item 
-		where itemId = #{itemID}
+		
        ]]>
     </select>
     

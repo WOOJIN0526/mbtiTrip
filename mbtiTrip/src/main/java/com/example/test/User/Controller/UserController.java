@@ -256,7 +256,6 @@ public class UserController {
 	public ModelAndView searchLocation(@RequestParam("location") String location, ModelAndView mav) {
 		System.out.println("지역"+location);
 		List<ItemDTO> result = userService.serchLocation(location);
-		
 		mav.addObject("list",result);
 		mav.setViewName("itemList");
 		return mav;
