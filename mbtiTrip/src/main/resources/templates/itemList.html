@@ -29,7 +29,32 @@
 	    </div>
 		
 <!--페이징 시작-->
-
+			<!--<div id="pagination">
+				
+			    <span th:if="${pageVo.startPage > 1}">
+			        <a th:href="|list?page=*{startPage}&totalCount=*{totalCount}&rowCount=*{rowCount}&pageCount=*{pageCount}|" th:text="'처음&emsp;'"></a>
+			    </span>
+			
+				
+			    <span th:if="${pageVo.isPrev == true}">
+			    	<a th:href="|list?page=*{isPrev}&totalCount=*{totalCount}&rowsPerPage=*{rowsPerPage}&pageCount=*{pageCount}|" th:text="'이전'"></a>
+			    </span>
+			
+			    
+			    <span th:each="pageNum : ${#numbers.sequence(pageVo.startPage, pageVo.endPage)}">
+			        <a class="div2" th:href="|list?page=${pageNum}&totalCount=*{totalCount}&rowsPerPage=*{rowsPerPage}&pageCount=*{pageCount}|" th:text="|&emsp;${pageNum}&emsp;|"></a>
+			    </span>
+				
+			    
+			    <span th:if="${pageVo.isNext == true}">
+				<a th:href="|list?page=*{isNext}&totalCount=*{totalCount}&rowsPerPage=*{rowsPerPage}&pageCount=*{pageCount}}" th:text="'다음'"></a>
+			    </span>
+				
+			    
+			    <span th:if="${pageVo.endPage < pageVo.totalPageCount}">
+				<a th:href="|list?page=*{endPage}&totalCount=*{totalCount}&rowsPerPage=*{rowsPerPage}&pageCount=*{pageCount}|" th:text="|&emsp;끝|"></a>
+			    </span>
+			</div>			-->
 <!--페이징 종료-->
 		
 		<!-- 페이지 번호 표시 -->
