@@ -60,11 +60,9 @@
  *  @param {*} target 클릭한 요소
  */  
 function writeReple(target){
-	console.log(target.id);
 	const QID =target.id;
 	const parent = target.parentNode;
 	if (parent.lastElementChild.classList!="repleArea") {
-    	console.log(parent);
 		let repleArea = document.createElement('textArea');
 		repleArea.classList.add("repleArea");
 		parent.append(repleArea);
@@ -81,7 +79,6 @@ function writeReple(target){
  */
 function submitReple(QID) {
     const reple = document.querySelector('.repleArea').value;
-    console.log(reple);
     const url = "/QnA/admin";
 
     let formData = new FormData();

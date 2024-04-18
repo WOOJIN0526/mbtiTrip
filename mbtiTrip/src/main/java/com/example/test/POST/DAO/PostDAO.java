@@ -117,9 +117,9 @@ public class PostDAO {
 
 
 
-	public List<PostDTO> getListPage(PaginationVo pagination) {
+	public List<PostDTO> getListPage(Page page) {
 		// TODO Auto-generated method stub
-		return this.sqlSessiontemplate.selectList("post.getListPage", pagination);
+		return this.sqlSessiontemplate.selectList("post.getListPage", page);
 	}
 	
 	
@@ -129,11 +129,7 @@ public class PostDAO {
 		return this.sqlSessiontemplate.selectOne("post.getCount");
 	}
 	
-	public List<HashMap<String, Object>> searchKeyword(String keyword){
-		
-		
-		return this.sqlSessiontemplate.selectList("keyword",keyword);
-	}
+
 
 
 

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -254,7 +255,6 @@ public class UserController {
 
 	@RequestMapping(value = "/searchLocation", method=RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public ModelAndView searchLocation(@RequestParam("location") String location, ModelAndView mav) {
-		System.out.println("지역"+location);
 		List<ItemDTO> result = userService.serchLocation(location);
 		mav.addObject("list",result);
 		mav.setViewName("itemList");
@@ -311,11 +311,11 @@ public class UserController {
 	}
 	
 	@PreAuthorize("isAuthenticated() and  hasRole('ROLE_USER')")
-	@RequestMapping(value = "/user/mypage/update", method = RequestMethod.POST) 
-	public ModelAndView update_ck(@RequestParam("password") String password,    
+	@RequestMapping(value = "/user/mypage/update", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<String> update_ck(@RequestBody String password,    
 								Principal principal, ModelAndView mav) throws Exception{
 		log.info("message ={}", principal.getName());
-		
 		boolean passwordCheck = userService.passwordCK(principal, password);
 		if(passwordCheck) {
 			log.info("message 인증성공");
@@ -323,9 +323,10 @@ public class UserController {
 			mav.setViewName("redirect:/user/mypage/update/ck");	
 		}
 		else {
-			throw new Exception("비밀번호가 일치 하지 않습니다.");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("비밀번호가 일치하지 않습니다.");
+			//throw new Exception("비밀번호가 일치 하지 않습니다.");
 		}
-		return mav;
+		return ResponseEntity.ok("비밀번호가 일치합니다.");
 	} 
 	
 

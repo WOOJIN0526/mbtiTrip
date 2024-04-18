@@ -1,5 +1,4 @@
 let currentUrl;
-console.log(currentUrl);
 /**
  * 입력된 파일을 가져와서 이미지를 업로드하고, 업로드된 이미지를 표시합니다.
  * @param {object} input - 파일 입력(input[type=file]) 객체

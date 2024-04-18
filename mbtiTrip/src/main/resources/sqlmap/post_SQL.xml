@@ -12,11 +12,12 @@
 	]]>
 	</insert>
 	
-	<select id="getListPage" parameterType="com.example.test.paging.PaginationVo" resultType="com.example.test.POST.DTO.PostDTO">
-    <![CDATA[SELECT * 
+	<select id="getListPage" parameterType="com.example.test.paging.Page" resultType="com.example.test.POST.DTO.PostDTO">
+    <![CDATA[
+    		 SELECT * 
     		 FROM Post 
    			 ORDER BY updateDate DESC 
-    		 LIMIT #{rowCount} OFFSET #{offset}
+    		 LIMIT  #{startRowIndex}, #{rowsPerPage}
     ]]>
 	</select>
 	
@@ -24,6 +25,14 @@
 	
 	<!-- 게시물 총 개수 구하기 -->
 	<select id="getCount" resultType="int">
+    <![CDATA[
+    SELECT count(*) as listCnt
+    FROM Post
+    ]]>
+	</select>
+	
+	<!-- 게시물 총 개수 구하기 -->
+	<select id="totalCount" resultType="int">
     <![CDATA[
     SELECT count(*) as listCnt
     FROM Post
@@ -93,11 +102,11 @@
 	]]>				 
 	</select>
 
-	<select id="keyword" resultType="hashMap">
+	<select id="searchByPage" resultType="com.example.test.POST.DTO.PostDTO">
 	select * 
 	from Post
-	where userName like #{keyword} or Content LIke  #{keyword}  or title like #{keyword} 
-
+	where userName like CONCAT('%', #{keyword}, '%') or Content LIke  CONCAT('%', #{keyword}, '%')  or title like CONCAT('%', #{keyword}, '%') 
+	order by updateDate DESC
 	</select>
 
 

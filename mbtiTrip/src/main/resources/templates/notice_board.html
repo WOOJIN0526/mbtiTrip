@@ -24,13 +24,13 @@
     <form action="">
 		<!--검색기능 구현시 ajax로 받아와야할거 같음-->
         <span>검색</span>
-        <select>
+      <!--  <select>
             <option value="subject" name="제목">제목</option>
             <option value="writer" name ="작성자">작성자</option>
             <option value="text" name ="본문">본문</option>
-        </select>
-		<input type="text" name="keyword" th:value="${pageVo.keyword}" />
-        <input type="button" value="검색">
+        </select>			-->
+		<input type="text" name="keyword" th:value="${page.keyword}" />
+        <input type="submit" value="검색">
     </form>
    
 
@@ -52,32 +52,27 @@
 	    </table>
 		
 			<!--페이징 시작-->			
-			<div id="pagination">
-				<!-- 맨 처음 페이지로 이동하는 버튼 -->
-			    <span th:if="${pageVo.startPage > 1}">
-			        <a th:href="@{'/post/noticeBoard/list?page=1'}" th:text="'처음&emsp;'"></a>
-			    </span>
-			
-				<!-- 이전 블록으로 이동하는 버튼 -->
-			    <span th:if="${pageVo.isPrev == true}">
-			    	<a th:href="@{'/post/noticeBoard/list?page='+${pageVo.startPage - 1}}" th:text="'이전'"></a>
-			    </span>
-			
-			    <!-- 시퀀스 보여주는 값을 변경. -->
-			    <span th:each="pageNum : ${#numbers.sequence(pageVo.startPage, pageVo.endPage)}">
-			        <a class="div2" th:href="@{'/post/noticeBoard/list?page='+${pageNum}}" th:text="|&emsp;${pageNum}&emsp;|"></a>
-			    </span>
-				
-			    <!-- 다음 블록으로 이동하는 버튼 -->
-			    <span th:if="${pageVo.isNext == true}">
-				<a th:href="@{'/post/noticeBoard/list?page='+|${pageVo.endPage + 1}|}" th:text="'다음'"></a>
-			    </span>
-				
-			    <!-- 맨 뒷 페이지로 이동하는 버튼 -->
-			    <span th:if="${pageVo.endPage < pageVo.totalPageCount}">
-				<a th:href="@{'/post/noticeBoard/list?page='+${pageVo.totalPageCount}}" th:text="|&emsp;끝|"></a>
-			    </span>
-			</div>
+			<div th:object="${page}" class="paging">
+								
+									<a th:href="|list?pageNum=*{firstPage}&totalCount=*{totalCount}&rowsPerPage=*{rowsPerPage}&pageCount=*{pageCount}&keyword=*{keyword}|" class="first">[처음]</a>
+									<th:block th:if="${page.prev > 0 }">
+										<a th:href="|list?pageNum=*{prev}&totalCount=*{totalCount}&rowsPerPage=*{rowsPerPage}&pageCount=*{pageCount}&keyword=*{keyword}|" class="prev">[이전]</a>
+									</th:block>
+									<th:block th:each="no : ${#numbers.sequence(page.startPage, page.endPage)}">
+										<th:block th:if="${no == page.pageNum}">
+											<a th:href="|list?pageNum=${no}&totalCount=*{totalCount}&rowsPerPage=*{rowsPerPage}&pageCount=*{pageCount}&keyword=*{keyword}|" title="" th:text="${no}" class="on"></a>
+										</th:block>
+										<th:block th:unless="${no == page.pageNum}">
+											<a th:href="|list?pageNum=${no}&totalCount=*{totalCount}&rowsPerPage=*{rowsPerPage}&pageCount=*{pageCount}&keyword=*{keyword}|" title="" th:text="${no}"></a>
+										</th:block>
+											
+									</th:block>
+									<th:block th:if="${page.next <= page.lastPage }">
+										<a th:href="|list?pageNum=*{next}&totalCount=*{totalCount}&rowsPerPage=*{rowsPerPage}&pageCount=*{pageCount}&keyword=*{keyword}|" class="next">[다음]</a>
+									</th:block>
+									<a th:href="|list?pageNum=*{lastPage}&totalCount=*{totalCount}&rowsPerPage=*{rowsPerPage}&pageCount=*{pageCount}&keyword=*{keyword}|" class="last">[끝]</a>
+								
+									</div>
 			<!--페이징 종료-->
 			
 			

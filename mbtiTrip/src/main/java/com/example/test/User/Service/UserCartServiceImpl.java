@@ -121,7 +121,7 @@ public class UserCartServiceImpl implements UserCartService{
 		if(!ck) {
 			throw new CartException(CartExceptionEnum.PAYMENTS_FAIL);
 		}
-		//ck가 false일 때 예오ㅓㅣ처리
+		//ck가 false일 때 예외처리
 		return ck;
 	}
 
@@ -129,7 +129,7 @@ public class UserCartServiceImpl implements UserCartService{
 	public boolean updatePaymentFalse(Principal prince)throws CartException {
 		String userName =userDAO.getUserNameByuserID(prince.getName());
 		boolean ck = (userCartDAO.updatePaymentFalse(userName) == 1) ? true : false;
-		//ck가 false일 때 예오ㅓㅣ처리
+		//ck가 false일 때 예외처리
 		if(!ck) {
 			throw new CartException(CartExceptionEnum.PAYMENTS_DROPFAIL);
 		}
@@ -163,16 +163,16 @@ public class UserCartServiceImpl implements UserCartService{
 	@Override
 	public List<HashMap<String, Object>> reservationInfo(Principal principal) {
 		String adminName = userDAO.getUserNameByuserID(principal.getName());
+		//예약 된 사용자 조회
 		List<HashMap<String, Object>> userReservationInfo 
 					= userCartDAO.reservationInfo(adminName);
+		
 		return userReservationInfo;
 	}
 
 	
-	//Exception 에러가 발생했을 떄, 처리할 method가 있으면 좋을 듯 
-	// alter를  띄울 수 있는 method 필요 
 
-
+	//validationCk
 	private void CartValidationCK(UserCartDTO userCart) {
 		if(userCart.getItemId() == null) {
 			throw new CartException(CartExceptionEnum.CART_NOTFOUND_ITEM);
