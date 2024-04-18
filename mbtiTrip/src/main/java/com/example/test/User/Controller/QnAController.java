@@ -53,7 +53,7 @@ public class QnAController {
 		return mav;
 	} 
 	
-	@PreAuthorize("isAuthenticated() and  hasRole('ROLE_USER') and hasRole('ROLE_BIS')")
+	@PreAuthorize("isAuthenticated() and  (hasRole('ROLE_USER') or hasRole('ROLE_BIS'))")
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView createQAndA(Principal principal, ModelAndView mav) {
 		log.info("create GEt ={}", principal.getName());
