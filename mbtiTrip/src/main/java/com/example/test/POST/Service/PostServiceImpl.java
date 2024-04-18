@@ -60,9 +60,9 @@ public  class PostServiceImpl implements PostService {
 
 	
 	@Override
-	public List<PostDTO> getListPage(PaginationVo pagination) {
+	public List<PostDTO> getListPage(Page page) {
 		// TODO Auto-generated method stub
-		return this.postDAO.getListPage(pagination);
+		return this.postDAO.getListPage(page);
 	}
 
 
@@ -266,13 +266,15 @@ public  class PostServiceImpl implements PostService {
 
 
 	@Override
-	public List<HashMap<String, Object>> search(String keyword) {
+	public List<PostDTO> search(Page page) throws Exception {
 		// TODO Auto-generated method stub
-		String keywordSet = "%";
-		keywordSet += keyword+keywordSet;
-
-		return postDAO.searchKeyword(keywordSet);
+		return this.postDAO.search(page);
 	}
+
+
+
+
+
 
 
 
