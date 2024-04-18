@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+   xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   **xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+   **="**"
+   layout:decorate="~{layout.html}">
+	
 
 <head>
     <meta charset="UTF-8">
@@ -11,22 +17,23 @@
 </head>
 
 <body>
+<section layout:fragment="content" class="myhistoryBody">
 	<div class="main" th:object="${reservation}">   
-	       <section class="except">    
+	       <!--<section class="except">    
 	           <div class="side">
 	               <aside class="side_bar">
 	                   <ul>
 	                       <li>
-	                           <a href="">마이페이지</a>
+	                           <a th:href="@{/user/mypage}">마이페이지</a>
 	                       </li>
 	                       <li>
-	                           <a href="">예약 내역</a>
+	                           <a th:href="@{/mypage/cart}">내 주문</a>
 	                       </li>
 	                       <li>
-	                           <a href="">고객문의</a>
+	                           <a th:href="@{/QnA}">고객문의</a>
 	                       </li>
 	                       <li>
-	                           <a href="">게시판</a>
+	                           <a th:href="@{/post/noticeBoard/list}">게시판</a>
 	                       </li>
 	                   </ul>
 	               </aside>
@@ -35,15 +42,15 @@
 	               <h1>안녕하세요 ***님</h1>
 	           </div>
 	
-	       </section>
+	       </section>-->
 	       <section class="my_history">
 	           
                <div>
                    <h1>나의 예약내역</h1>
-                   <form action="">
-                       <input type="text" id="serch" placeholder="내 예약 찾기">
+				   <!--<form action="">
+                       <input type="text" id="serch" placeholder="작성 글 찾기">
                        <input type="button" value="검색">
-                   </form>
+                   </form>-->
 					<div th:object="${reservation}"  class="reservation">
 					<table class="reservation_information" >
 						<tr>
@@ -120,18 +127,17 @@
 	               
 	               <div class="post_reservation" th:object="${userPosts}">
 	                   <h1>글작성 내역</h1>
-	                   <form action="">
+	                   <!--<form action="">
 	                       <input type="text" id="serch" placeholder="작성 글 찾기">
 	                       <input type="button" value="검색">
-	                   </form>
+	                   </form>-->
 	                   <table class="post_information">
 	                       <tr>
 	                           <th>작성일자</th>
 	                           <th>제목</th>
 	                           <th>작성 카테고리</th>
 	                           <th>조회수</th>
-	                           <th>추천수</th>
-	                           <th></th>
+	                           <th>추천수</th>	                      
 	                       </tr>
 	                       <tr th:each="userPo :    ${userPosts}">
 	                           <td th:text="${userPo['updateDate']}"></td>
@@ -139,10 +145,7 @@
 	                          
 	                           <td th:text="${userPo['views']}"></td>
 	                           <td th:text="${userPo['suggestion']}"></td>
-	                           <td></td>
-	                           <td>
-	                               <button>삭제</button>
-	                           </td>
+	                           <td></td>	                           
 	                       </tr>
 	                      		          
 	                   </table>
@@ -175,10 +178,10 @@
 	
 	               <div class="qna_reservation" th:object="${userPosts}">
 	                   <h1>문의 내역</h1>
-	                   <form action="">
-	                       <input type="text" id="serch" placeholder="작성 글 찾기">
-	                       <input type="button" value="검색">
-	                   </form>
+					   <!--<form action="">
+   	                       <input type="text" id="serch" placeholder="작성 글 찾기">
+   	                       <input type="button" value="검색">
+   	                   </form>-->
 	                   <table class="qna_information">
 	                       <tr>
 	                           <th>아이디</th>
@@ -225,7 +228,7 @@
 	           </div>
 	       </section>
 	   </div>
-
+	  </section>
 </body>
 
 </html>
