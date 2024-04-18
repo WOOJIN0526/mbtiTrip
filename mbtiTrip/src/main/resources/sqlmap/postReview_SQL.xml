@@ -4,7 +4,8 @@
 
 	<select id="getListPage" parameterType="com.example.test.paging.PaginationVo" resultType="com.example.test.POST.DTO.PostReviewDTO">
     <![CDATA[SELECT * 
-    		 FROM postReview 
+    		 FROM Post 
+    		 WHERE PostCateGoryID = 1 
    			 ORDER BY updateDate DESC 
     		 LIMIT #{rowCount} OFFSET #{offset}
     ]]>

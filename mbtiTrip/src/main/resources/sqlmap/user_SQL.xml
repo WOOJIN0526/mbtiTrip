@@ -113,7 +113,7 @@
 	<![CDATA[
 			Update User 
 			set
-			userName = #{userName},
+			
 			mbti = #{mbti},
 			password = #{password},
 			phone = #{phone},

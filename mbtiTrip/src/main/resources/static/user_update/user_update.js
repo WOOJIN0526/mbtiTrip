@@ -75,7 +75,7 @@ function loadImg(input) {
 				}).then(response=>{
 					if (response.ok) {
 						console.log("ok");
-						alert(response);
+						alert(response.text());
 			        location.href="/user/mypage";
 			    } else {
 			        alert("등록에 실패하였습니다.");
