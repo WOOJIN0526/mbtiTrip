@@ -29,8 +29,8 @@
 	        <!-- 삭제 버튼 -->
 	        <div class="detail">
 	            <div class="optionbtn">
-	                <button class="cart_list_optionbtn">선택 상품 삭제</button>
-	                <button class="cart_list_optionbtn">전체 상품 삭제</button>
+	                <button id="cart_list_item" onclick="delete_item()">선택 상품 삭제</button>
+	                <button id="cart_list_all" 	onclick="delete_all()">전체 상품 삭제</button>
 	            </div>
 	            <!-- 숙소 정보 -->
 	            <table class="cart_list">
@@ -50,7 +50,7 @@
 						ImgeUrl
 	                    <tbody th:each="pay : ${userCarts}">
 	                        <tr class="cart_list_detail">
-	                            <td><input type="checkbox" th:name="${pay['itemId']}"></td>
+	                            <td><input type="checkbox" name="checkbox" th:value="${pay['itemId']}"></td>
 	                            <td >
 	                                <img th:src="${pay['ImgeUrl'][0]}" alt=""> 
 	                            </td>
