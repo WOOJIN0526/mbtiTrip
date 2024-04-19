@@ -146,13 +146,13 @@ public class ReplaceController { //파일첨부쪽 로직, 게시물등록자(ad
     	itemdto.setType(ItemType.replace);
     	//itemDTO에 userName이 UserDTO 타입이여서 이렇게 작성함
     	String userId = principal.getName();
-    	System.out.println(userId);
+    	
     	UserDTO userDTO = userService.getUser(userId);
-    	System.out.println(userDTO.toString());
+    	
     	itemdto.setUsername(userDTO);
     	this.rpService.create(itemdto);
     	int resultImg = rpService.createImg(itemdto);
-    	System.out.println(resultImg);
+    	
 //    	System.out.println(itemdto.toString());
 //    	for(MultipartFile file : itemdto.getFile()) {
 //    		System.out.println(file.getOriginalFilename());
