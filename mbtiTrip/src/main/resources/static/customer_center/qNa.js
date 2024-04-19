@@ -40,43 +40,30 @@ document.querySelector('.btn-submit').addEventListener('click',function(){
 	const url ='/QnA/create';
 	const method ='post';
 	const conType ='JSON';
-/*	sendAjaxRequest(url,method,jsonData,conType).then((responseText) => {
-        if(responseText === 'true'){
-			console.log(responseText);
-            alert("등록되었습니다.");
-            window.location.href = "/QnA/"; 
-           
-        }else{
-            alert("등록에실패했습니다.");
-        }
-        
-    }).catch((error) => {
-        alert(error.message);
-    });*/
    const option = {
-  method: 'POST',
-  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json; charset=utf-8'
-  },
-  body:jsonData
-};
+	  method: 'POST',
+	  headers: {
+	    'Accept': 'application/json',
+	    'Content-Type': 'application/json; charset=utf-8'
+	  },
+	  body:jsonData
+	};
 
-fetch(url, option)
-  .then(response => response.text())
-  .then(responseText => {
-    if (responseText === 'true') {
-      console.log(responseText);
-      alert("등록되었습니다.");
-      window.location.href = "/QnA";
-    } else {
-      alert("등록에 실패했습니다.");
-    }
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    alert("등록에 실패했습니다.");
-  });
+	fetch(url, option)
+	  .then(response => response.text())
+	  .then(responseText => {
+	    if (responseText === 'true') {
+	      console.log(responseText);
+	      alert("등록되었습니다.");
+	      window.location.href = "/QnA";
+	    } else {
+	      alert("등록에 실패했습니다.");
+	    }
+	  })
+	  .catch(error => {
+	    console.error('Error:', error);
+	    alert("등록에 실패했습니다.");
+	  });
 
     
     

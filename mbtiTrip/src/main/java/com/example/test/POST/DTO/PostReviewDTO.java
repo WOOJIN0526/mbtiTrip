@@ -17,6 +17,8 @@ public class PostReviewDTO {
 	
 	private Integer itemID;
 	
+	private Integer postCategoryID;
+	
 	private Post_CategoryDTO category;
 	
 	private String title;
@@ -37,10 +39,13 @@ public class PostReviewDTO {
 
 	@Override
 	public String toString() {
-		return "PostReviewDTO [itemID=" + itemID + ", category=" + category + ", title=" + title + ", content="
-				+ content + ", updateDate=" + updateDate + ", modifyDate=" + modifyDate + ", writer=" + writer
-				+ ", views=" + views + ", suggestion=" + suggestion + "]";
+		return "PostReviewDTO [postReviewId=" + postReviewId + ", itemID=" + itemID + ", postCategoryID="
+				+ postCategoryID + ", category=" + category + ", title=" + title + ", content=" + content
+				+ ", updateDate=" + updateDate + ", modifyDate=" + modifyDate + ", writer=" + writer + ", views="
+				+ views + ", ratingAvg=" + ratingAvg + ", suggestion=" + suggestion + "]";
 	}
+
+	
 
 	
 

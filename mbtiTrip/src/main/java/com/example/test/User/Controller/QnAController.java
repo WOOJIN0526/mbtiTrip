@@ -39,7 +39,7 @@ public class QnAController {
 	@Autowired
 	UserService userService; 
 	
-	@Autowired
+	@Autowired 
 	QnAService qnaService;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)

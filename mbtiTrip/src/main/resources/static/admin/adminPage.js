@@ -34,7 +34,7 @@ function colorArr(selector){
 	}
 	return arr
 }
-
+// 차트 생성
 const radioDis = new Chart(document.querySelector('#radioDisplay').getContext('2d'), {
     type: 'doughnut',
     data: {
@@ -46,6 +46,7 @@ const radioDis = new Chart(document.querySelector('#radioDisplay').getContext('2
         }]
     }
 });
+// 차트 생성
 const mbtiDis = new Chart(document.querySelector('#mbtiChart').getContext('2d'),{
 	type:'bar',
 	data:{

@@ -30,7 +30,6 @@ if (element !== null) {
 
 	    // editor내부의 값을 가져옵니다
 		const content = CKEcontent.getData();
-		console.log(content);
 	    const formData = new FormData(document.querySelector('#Form'));
 	    let postType;
 	    //formData에 값을 등록합니다
@@ -41,19 +40,12 @@ if (element !== null) {
 			const itemID =element.dataset.value;
 			formData.set("itemID",itemID);
 		}
-		console.log("==================");
-	    // FormData에 있는 값을 확인합니다.
-	    for (const [key, value] of formData.entries()) {
-	        console.log(key, value);
-	    }
 	    if(formData.get('postCategoryID')==='1'){
 			
 			var url ="/post/review/create";
-			console.log(url);
 			postType='review';
 		}else{
 			var url="/post/noticeBoard/create";
-			console.log(url);
 			postType='noticeBoard';
 		}
 		

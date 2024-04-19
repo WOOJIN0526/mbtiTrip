@@ -15,6 +15,7 @@
         <link rel="stylesheet" th:href="@{/common/common.css}">
         <link rel="stylesheet" th:href="@{/sakuraJS/sakura.min.css}">
         <link rel="stylesheet" th:href="@{/main/main.css}">
+        <link rel="stylesheet" th:href="@{/main/slide.css}">
         <script th:src="@{/sakuraJS/sakura.min.js}"></script>
         <link
             href="https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo.css"
@@ -26,276 +27,49 @@
             <header class="mainHeader">
                 <section class="mainHeaderSec">
                     <div class="search__box">
-                        <div class="search__title">
-                            자기 성향에 맞는 숙소를 예약하세요
-                            <br/>
-                            즐길거리를 예약하세요.
-                        </div>
+                        <form method="post" action="/searchLocation" id="searchForm">
+                            <div class="search__title">
+                                자기 성향에 맞는 숙소를 예약하세요
+                                <br/>
+                                즐길거리를 예약하세요.
+                            </div>
 
-                        <table>
-                            <tr>
-                                <td colspan="2" class="search__sub__title">여행지</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <input class="search__input" type="text" placeholder=" 모든 위치">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="search__sub__title">체크인</td>
-                                <td class="search__sub__title">체크아웃
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input class="search__input" type="date"/></td>
-                                <td><input class="search__input" type="date"/></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="search__sub__title">
-                                    인원
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <select class="search__input">
-                                        <option>인원</option>
-                                        <option>1명</option>
-                                        <option>2명</option>
-                                        <option>3명</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        </table>
-                        <div class="search__button">
-                            <button>검색</button>
-                        </div>
+                            <table>
+                                <tr>
+                                    <td colspan="2" class="search__sub__title">여행지</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <input
+                                            class="search__input"
+                                            type="text"
+                                            placeholder="시 단위로 입력해주세요"
+                                            autocomplete="off"
+                                            name="location">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <div class="autocomplete"></div>
+                                    </td>
+                                </tr>
+ 
+                            </table>
+                            <div class="search__button">
+                                <button>검색</button>
+                            </div>
+                        </form>
                     </div>
 
                 </section>
             </header>
-
-            <!-- 사용자 추천 기능 들어갈곳 -->
-            <!-- <section>
-                <div class="slide slide_wrap">
-                    <div class="slide_item item1">1</div>
-                    <div class="slide_item item2">2</div>
-                    <div class="slide_item item3">3</div>
-                    <div class="slide_item item4">4</div>
-                    <div class="slide_item item5">5</div>
-                    <div class="slide_prev_button slide_button">◀</div>
-                    <div class="slide_next_button slide_button">▶</div>
-                    <ul class="slide_pagination"></ul>
-                </section> -->
-
-                <!-- <section>
-                    <section class="con2">
-                        <div class="con2_wrap">
-
-                            <h3>인기 여행리뷰
-                            </h3>
-                            <p class="center">
-                                다른 여행자들의 일정을 참고해 나만의 여행을 계획해보세요!
-                            </p>
-
-                            <div class="plan_wrap">
-                                <ul>
-                                    <li class="plan">
-
-                                        <div class="item">
-                                            <a href="#">
-                                                <div class="plan_image">
-                                                    <img src="images/plan01.jpg">
-                                                    <div class="txt">
-                                                        <span class="date">2018-02-21</span>
-                                                        <span class="days">7DAYS</span>
-                                                        <p class="title">
-                                                            여행제목 작성하기
-                                                        </p>
-                                                    </div>
-                                           
-                                                </div>
-                                                <div class="plan_inform">
-
-                                                    <ul class="icon">
-                                                        <li>25</li>
-                                                        <li>587</li>
-                                                        <li>6</li>
-                                                    </ul>
-                                                    <p class="theme">친구와 함께</p>
-                                                    <p class="place">발리</p>
-                                                    <p class="user">
-                                                        작성자
-                                                    </p>
-                                                </div>
-                                            </a>
-
-                                        </div>
-
-                                        <div class="item">
-                                            <a href="#">
-                                                <div class="plan_image">
-                                                    <img src="images/plan04.jpg">
-                                                    <div class="txt">
-                                                        <span class="date">2018-02-21</span>
-                                                        <span class="days">7DAYS</span>
-                                                        <p class="title">여행제목 작성하기
-                                                        </p>
-                                                    </div>
-                                      
-                                                </div>
-                                                <div class="plan_inform">
-
-                                                    <ul class="icon">
-                                                        <li>25</li>
-                                                        <li>587</li>
-                                                        <li>6</li>
-                                                    </ul>
-                                                    <p class="theme">친구와 함께</p>
-                                                    <p class="place">발리</p>
-                                                    <p class="user">작성자</p>
-                                                </div>
-                                            </a>
-
-                                        </div>
-
-                                    </li>
-                                    <li class="plan">
-
-                                        <div class="item">
-
-                                            <a href="#">
-                                                <div class="plan_image">
-                                                    <img src="images/plan02.jpg">
-                                                    <div class="txt">
-                                                        <span class="date">2024-04-01</span>
-                                                        <span class="days">7DAYS</span>
-                                                        <p class="title">
-                                                            여행제목 작성하기
-                                                        </p>
-                                                    </div>
-                                               
-                                                </div>
-                                                <div class="plan_inform">
-
-                                                    <ul class="icon">
-                                                        <li>25</li>
-                                                        <li>587</li>
-                                                        <li>6</li>
-                                                    </ul>
-                                                    <p class="theme">
-                                                        친구와 함께
-                                                    </p>
-                                                    <p class="place">발리</p>
-                                                    <p class="user">작성자</p>
-                                                </div>
-                                            </a>
-
-                                        </div>
-
-                                        <div class="item">
-
-                                            <a href="#">
-                                                <div class="plan_image">
-                                                    <img src="images/plan05.jpg">
-                                                    <div class="txt">
-                                                        <span class="date">2018-02-21</span>
-                                                        <span class="days">7DAYS</span>
-                                                        <p class="title">여행제목 작성하기
-                                                        </p>
-                                                    </div>
-                                               
-                                                </div>
-                                                <div class="plan_inform">
-
-                                                    <ul class="icon">
-                                                        <li>25</li>
-                                                        <li>587</li>
-                                                        <li>6</li>
-                                                    </ul>
-                                                    <p class="theme">친구와 함께</p>
-                                                    <p class="place">발리</p>
-                                                    <p class="user">작성자</p>
-                                                </div>
-                                            </a>
-
-                                        </div>
-
-                                    </li>
-                                    <li class="plan">
-
-                                        <div class="item">
-
-                                            <a href="#">
-                                                <div class="plan_image">
-                                                    <img src="images/plan03.jpg">
-                                                    <div class="txt">
-                                                        <span class="date">2018-02-21</span>
-                                                        <span class="days">7DAYS</span>
-                                                        <p class="title">여행제목 작성하기</p>
-                                                    </div>
-                                              
-                                                </div>
-                                                <div class="plan_inform">
-
-                                                    <ul class="icon">
-                                                        <li>25
-                                                        </li>
-                                                        <li>587</li>
-                                                        <li>6</li>
-                                                    </ul>
-                                                    <p class="theme">친구와 함께
-                                                    </p>
-                                                    <p class="place">발리</p>
-                                                    <p class="user">
-                                                        작성자
-                                                    </p>
-                                                </div>
-                                            </a>
-
-                                        </div>
-
-                                        <div class="item">
-
-                                            <a href="#">
-                                                <div class="plan_image">
-                                                    <img src="images/plan06.jpg">
-                                                    <div class="txt">
-                                                        <span class="date">2018-02-21</span>
-                                                        <span class="days">7DAYS</span>
-                                                        <p class="title">여행제목 작성하기</p>
-                                                    </div>
-                                            
-                                                </div>
-                                                <div class="plan_inform">
-
-                                                    <ul class="icon">
-                                                        <li>25</li>
-                                                        <li>587</li>
-                                                        <li>6</li>
-                                                    </ul>
-                                                    <p class="theme">친구와 함께</p>
-                                                    <p class="place">발리</p>
-                                                    <p class="user">작성자</p>
-                                                </div>
-                                            </a>
-
-                                        </div>
-
-                                    </li>
-
-                                </ul>
-
-                            </div>
-                        </div>
-                    </div>
-                </section> -->
                 <section>
                     <div class="slide slide_wrap">
-                        <div class="slide_item item1">1</div>
-                        <div class="slide_item item2">2</div>
-                        <div class="slide_item item3">3</div>
-                        <div class="slide_item item4">4</div>
-                        <div class="slide_item item5">5</div>
+                        <div class="slide_item item1"></div>
+                        <div class="slide_item item2"></div>
+                        <div class="slide_item item3"></div>
+                        <div class="slide_item item4"></div>
+                        <div class="slide_item item5"></div>
                         <div class="slide_prev_button slide_button">◀</div>
                         <div class="slide_next_button slide_button">▶</div>
                         <ul class="slide_pagination"></ul>

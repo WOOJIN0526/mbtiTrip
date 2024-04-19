@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	**xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	**="**"
+	layout:decorate="~{layout.html}">>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,59 +12,61 @@
 <link rel="stylesheet" th:href="@{/user_update/user_update.css}">
 </head>
 <body>
-
-<div class="container">
-    <h2>개인정보 수정</h2>
-	<div class="profileImgCon">
-		<div class="selectedImgView"></div>
-		<input type="file" id="profileImg" name="profileImg" onchange="loadImg(this)">
+<section 	layout:fragment="content" class="updateBody">
+	<div class="container">
+	    <h2>개인정보 수정</h2>
+		<div class="profileImgCon">
+			<div class="selectedImgView"></div>
+			<input type="file" id="profileImg" name="profileImg" onchange="loadImg(this)">
+		</div>
+	    <form id="Form">
+			
+			
+	<!--        <div class="form-group">
+	            <label for="name">이름:</label>
+	            <input type="text" id="userName" name="userName"  th:value="${map['userName']}">
+	        </div>-->
+	        <div class="form-group">
+	            <label for="name">비밀번호:</label>
+	            <input type="text" id="password" name="password" th:value="${map['password']}" required>
+	        </div>
+	        <div class="form-group">
+				<select class="select" id="mbti" name="mbti" th:value = "${map['mbti']}">
+				   <option>당신의 MBTI는?</option>
+				   <option value="1">ISTJ</option>
+				   <option value="2">ISFJ</option>
+				   <option value="3">INFJ</option>
+				   <option value="4">INTJ</option>
+				   <option value="5">ISTP</option>
+				   <option value="6">ISFP</option>
+				   <option value="7">INFP</option>
+				   <option value="8">INTP</option>
+				   <option value="9">ESTP</option>
+				   <option value="10">ESFP</option>
+				   <option value="11">ENTP</option>
+				   <option value="12">ENFP</option>
+				   <option value="13">ESTJ</option>
+				   <option value="14">ESFJ</option>
+				   <option value="15">ENFJ</option>
+				   <option value="16">ENTJ</option>
+				</select>
+	        </div>
+	        <div class="form-group">
+	            <label for="email">이메일:</label>
+	            <input type="text" id="mail" name="mail" th:value="${map['mail']}" required>
+	        </div>
+	        <div class="form-group">
+	            <label for="email">전화번호:</label>
+	            <input type="text" id="phone" name="phone" th:value="${map['phone']}" required>
+	        </div>
+	        <div class="form-group">
+	            <input type="submit" value="저장">
+	        </div>
+	    </form>
+		<script th:src="@{/user_update/user_update.js}"></script>
 	</div>
-    <form id="Form">
-		
-		
-<!--        <div class="form-group">
-            <label for="name">이름:</label>
-            <input type="text" id="userName" name="userName"  th:value="${map['userName']}">
-        </div>-->
-        <div class="form-group">
-            <label for="name">비밀번호:</label>
-            <input type="text" id="password" name="password" th:value="${map['password']}" required>
-        </div>
-        <div class="form-group">
-			<select class="select" id="mbti" name="mbti" th:value = "${map['mbti']}">
-			   <option>당신의 MBTI는?</option>
-			   <option value="1">ISTJ</option>
-			   <option value="2">ISFJ</option>
-			   <option value="3">INFJ</option>
-			   <option value="4">INTJ</option>
-			   <option value="5">ISTP</option>
-			   <option value="6">ISFP</option>
-			   <option value="7">INFP</option>
-			   <option value="8">INTP</option>
-			   <option value="9">ESTP</option>
-			   <option value="10">ESFP</option>
-			   <option value="11">ENTP</option>
-			   <option value="12">ENFP</option>
-			   <option value="13">ESTJ</option>
-			   <option value="14">ESFJ</option>
-			   <option value="15">ENFJ</option>
-			   <option value="16">ENTJ</option>
-			</select>
-        </div>
-        <div class="form-group">
-            <label for="email">이메일:</label>
-            <input type="text" id="mail" name="mail" th:value="${map['mail']}" required>
-        </div>
-        <div class="form-group">
-            <label for="email">전화번호:</label>
-            <input type="text" id="phone" name="phone" th:value="${map['phone']}" required>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="저장">
-        </div>
-    </form>
-	<script th:src="@{/user_update/user_update.js}"></script>
-</div>
+</section>
+
 
 </body>
 </html>

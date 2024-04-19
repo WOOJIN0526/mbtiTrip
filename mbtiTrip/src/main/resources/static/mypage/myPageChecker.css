@@ -31,7 +31,7 @@
 }
 
 /* Button styles */
-.myPageChecker button[type="submit"] {
+.myPageChecker button[type="button"] {
     padding: 10px 20px;
     background-color: #007bff;
     color: #fff;
@@ -42,4 +42,7 @@
 
 .myPageChecker button[type="submit"]:hover {
     background-color: #0056b3;
+}
+.ckBody{
+	padding-top: 10rem
 }

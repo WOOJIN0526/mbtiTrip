@@ -54,25 +54,10 @@
 		</div>
 <!--페이징 종료-->
 		
-		<!-- 페이지 번호 표시 -->
-<!--		<div th:if="${page.totalPages > 1}">
-		    <ul class="pagination">
-		        <li th:if="${page.hasPrevious()}">
-		            <a th:href="@{${'/?pageNum=' + (page.pageNum - 1) + '&keyword=' + page.keyword}}">Previous</a>
-		        </li>
-		        <li th:each="pageNumber : ${#numbers.sequence(1, page.totalPages)}" th:class="${pageNumber == page.pageNum ? 'active' : ''}">
-		            <a th:href="@{${'/?pageNum=' + pageNumber + '&keyword=' + page.keyword}}" th:text="${pageNumber}">1</a>
-		        </li>
-		        <li th:if="${page.hasNext()}">
-		            <a th:href="@{${'/?pageNum=' + (page.pageNum + 1) + '&keyword=' + page.keyword}}">Next</a>
-		        </li>
-		    </ul>
-		</div>-->
+
 	</section>
 			
-	<script>
-		
-	</script>
+
 			
 			
 </body>
