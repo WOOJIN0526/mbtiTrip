@@ -30,7 +30,7 @@
   
     /* size */
     width: 100%;
-    height: 500px;
+    height: 600px;
     /* flex item의 flex-shrink는 기본값이 1이므로 컨테이너 크기에 맞게 줄어드는데, 슬라이드를 구현할 것이므로 줄어들지 않도록 0을 준다. */
     flex-shrink: 0;
     margin:  4rem 0 0rem 0;
@@ -73,27 +73,27 @@
   
   /* 각 슬라이드가 변경되는 것을 시각적으로 확인하기 쉽도록 각 슬라이드별 색상 적용 */
   .slide_item.item1 {
-    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/17/95c75e4a-8dd7-4639-bb23-7f733e6502c3CK_ti375a40807_l.jpg);
+    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/18/10d5b8aa-66fd-4c5d-bb43-68892a3f4e39KakaoTalk_20240418_230205298_04.jpg);
     background-size: cover;
     background-position: 50%;
   }
   .slide_item.item2 {
-    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/18/da0a9111-a3f9-466c-8744-26f7c0ae6e65CK_ti302a21208_l.jpg);
+    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/18/2913fcad-2f1b-4e37-a96a-7ec1987b1914KakaoTalk_20240418_230205298_03.jpg);
   	background-size: cover;
     background-position: 10%;
   }
   .slide_item.item3 {
-    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/18/b7d1ce10-6007-4cbd-b4cc-6c51abe3c1b8CK_ti375a19401_a.jpg);
+    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/18/539225df-80a7-472a-b93a-29a618bf5e32KakaoTalk_20240418_230205298_02.jpg);
   	background-size: cover;
     background-position: 30%;
   }
   .slide_item.item4 {
-    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/18/87eae4fd-d9c0-446b-ae5a-9e933028cf62CK_ti302a17002_b.jpg);
+    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/18/00cd7ad1-8a79-4ef5-a255-689c10411596KakaoTalk_20240418_230205298_01.jpg);
 	background-size: cover;
 	background-position: 50%;
   }
   .slide_item.item5 {
-    background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/18/27c8ed72-c0f4-40f2-a98a-1991b040f63aCK_cb046031823_e.jpg");
+    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/18/2218b263-fecf-4069-b9f9-663a226ce8f7KakaoTalk_20240418_230205298.jpg);
   background-size: cover;
   background-position: 50%;;
   }

@@ -1,0 +1,665 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.mainHeader {
+   background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/18/8dade762-838e-42fa-8d19-d6b789f578723.jpg");
+	padding-top: 5rem;
+    height: 800px;
+    background-size: 100% 100%;
+}
+
+nav {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    padding: 20px 20px;
+}
+
+.logo {
+    color: white;
+    font-size: 35px;
+    font-weight: 800;
+}
+
+.menu ul{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    grid-gap: 30px;
+    list-style-type: none;
+}
+
+.menu ul a {
+    text-decoration: none;
+    color: white;
+    font-weight: 800;
+}
+
+.search__box {
+    /* width: 430px; */
+    
+    display: inline-block;
+    padding: 20px 30px;
+    background-color: white;
+    position: relative  ;
+    top: 30px;
+    left: 50px;
+    border-radius: 50px;
+    margin-top: 3rem;
+    box-shadow: 0 2px 2px 0 rgb(214, 214, 214);
+  
+}
+
+.search__title {
+    margin: 1em 0 1rem 0;
+    font-family: 'NanumSquareNeo';
+    padding: 10px 0;
+    font-size: 30px;
+    font-weight: 800;
+    color:rgb(75, 74, 74);
+}
+
+table {
+    width: 100%;
+}
+
+.autocomplete > div.active {
+  background: #e0e5f6;
+  color: #000;
+}
+
+.autocomplete > div {
+  background: #f1f3f499;
+  padding: .2rem .6rem;
+}
+mark {
+  background: #febf0090;
+}
+.search__sub__title {
+    padding: 10px 0;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.search__input {
+    height: 45px;
+    width: 100%;
+    color: black;
+    font-size: 15px;
+    border: 1px solid rgb(230, 227, 227);
+}
+
+.search__button {
+    display: grid;
+    justify-content: end;
+    padding: 20px 0;
+}
+
+.search__button button{
+    background-color: #FF5A5F;
+    color:white;
+    width: 70px;
+    height: 45px;
+    font-size: 15px;
+    font-weight: 700; /*굵기*/
+    border-radius: 6px;
+    border: 0;
+    cursor: pointer;
+}
+
+
+  
+
+
+  
+
+.mainCon {  
+    margin: 30px 30px
+}
+.sec__title{
+    /* font-family: ; */
+    font-weight: 400px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.sec__title2 {
+    font-size: 25px;
+    font-weight: 800;
+    color:rgb(68, 66, 66);
+}
+
+.ad1 {
+    margin: 20px 0;
+    background-image: url("https://storage.googleapis.com/kdt3th_project/main/KakaoTalk_20240408_095112921_10.png");
+    height: 380px;
+    width: 1400px;
+    background-size: 100% 100%;
+    display: flex;
+    border-radius: 20px;
+    text-align: center;
+    margin: 2rem 0 3rem 3.5rem;
+ 
+}
+
+
+.home__box {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+    margin: 5rem 9rem 5rem 9rem;
+
+
+}
+
+.home__img {
+    width: 250px;
+    background-size: 100% 100%;
+}
+.home__img img{
+	max-width: 100%; width: auto;
+}
+.home__img1 {
+    background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/18/23cd8108-ea06-4e74-9d09-bbf9812470b8r.jpg");
+    height: 250px;
+    background-size: 100% 100%;
+}
+
+.home__img2 {
+    background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/11/3c3d7909-98e6-4b98-b87c-42cc5bdf2961한옥.jpg");
+    height: 250px;
+    background-size: 100% 100%;
+}
+
+.home__img3 {
+    background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/11/1346ebd6-658f-47fb-8aa9-5977aebb4eac경북.jpg");
+    height: 250px;
+    background-size: 100% 100%;
+}
+
+.home__img4 {
+    background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/11/f6c5e8c8-558b-47d9-a368-916f1816a8d5경남.jpg");
+    height: 250px;
+    background-size: 100% 100%;
+}
+
+.home__img5 {
+    background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/11/14c36164-8611-4b72-9a2a-623294f53c50료칸.jpg");
+    height: 250px;
+    background-size: 100% 100%;
+}
+
+.home__img6 {
+    background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/11/18f4fc23-69fd-4257-b2a2-fd00e017d1ef모노섬.jpg");
+    height: 250px;
+    background-size: 100% 100%;
+}
+
+.home__img7 {
+    background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/11/3c8a9a24-f3e7-4206-b1f0-74314e857ac9포항.jpg");
+    height: 250px;
+    background-size: 100% 100%;
+}
+
+.home__img8 {
+    background-image: url("https://storage.googleapis.com/kdt3th_project/2024/04/11/626c91a9-a1b8-4079-856c-02da1d2b9a3c경기.jpg");
+    height: 250px;
+    background-size: 100% 100%;
+}
+
+.info1 {
+    margin: 5px 0;
+    font-size: 13px;
+    color:gray;
+    width: 97px;
+    white-space: nowrap;
+    overflow: hidden;
+
+}
+
+.info2 {
+    font-size: 18px;
+    font-weight: 600;
+    color:rgb(61, 60, 60); 
+}
+
+/* .star {
+    font-size: 12px;
+    color:rgb(30, 119, 115);
+    font-weight: 800;
+} */
+
+.count, .type {
+    font-size: 12px;
+}
+
+
+.review{
+    height: 14.5625rem;
+    border: 1px solid black;
+}
+
+
+.con1 {
+    margin-top:70px;
+    margin-bottom:70px;
+}
+
+.con1 .con1_wrap{
+    width:1092px;
+    margin:0 auto;
+}
+.content h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size:26px;
+    color:#333;
+}
+
+
+.con1 .intro:after{
+    display:block;
+    clear:both;
+    content:'';
+}
+
+.con1 .intro .item{
+    float:left;
+    width:348px;
+    margin-bottom:25px;
+}
+
+.con1 .intro .item:nth-child(2){
+    margin-right:24px;
+    margin-left:24px;
+}
+
+.con1 .intro .item h4{
+    text-align:center;
+    margin-top:20px;
+    margin-bottom:20px;
+    font-weight: bold;
+
+}
+
+.con1 .intro .text{
+    text-align: center;
+    text-decoration: underline;
+    color:#f49600;
+    
+}
+
+.con1 .intro .text:hover{
+    text-decoration: none;
+}
+
+/*추가 내용*/
+.con2 {
+    
+    background-color: white;
+    padding-top:70px;
+    padding-bottom:70px;  
+}
+
+.con2 .con2_wrap{
+    width:1092px;
+    margin:0 auto;
+}
+
+.con2 .plan_wrap{
+    margin-top:20px;
+}
+
+.con2 .plan_wrap ul:after{
+    content:'';
+    display:block;
+    clear:both;
+}
+.con2 .plan_wrap ul .plan{
+    float:left;
+    margin-right: 25px;
+}
+
+.con2 .plan_wrap .plan:last-child{
+    margin-right:0px;
+}
+
+
+.con2 .plan .item{
+    margin-bottom:35px;
+    width:346px;
+    height: 295px;
+
+}
+
+
+.con2 .plan_wrap .plan .item img{
+    width:100%;
+    height: 100%;
+    transition: all 2s;
+}
+
+.con2 .item img:hover{
+    transform:scale(1.2)
+    
+}
+
+.con2 .plan .item .plan_image{
+    position:relative;
+    height:200px;
+    overflow: hidden;
+}
+
+.con2 .plan .item .plan_image .txt{
+    position:absolute;
+    bottom:0px;
+    left:0;
+    padding-left:15px;
+    width:100%;
+    box-sizing: border-box;
+    padding-bottom:5px;
+    padding-top:5px;
+    background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1))
+    /* 
+    background 그라데이션으로 주기
+    
+        background-image : linear-gradient()
+        radial-gradient
+
+         그라데이션 색상은 ,로 구분을 해 주면 그만큼 다 들어가짐
+         색상 앞에 deg단위 혹은 to left와 같은 키워드를 사용해서 백그라운드 방향을 지정해줄 수 있음
+
+
+
+    */
+}
+
+.txt .days{
+    color:#999;
+}
+
+.txt .title{
+    color:white;
+}
+
+
+.con2 .plan .item .plan_inform{
+    background-color:white;
+    border: 1px solid #ddd;
+    padding-right:10px;
+    padding-left:15px;
+    padding-top:15px;
+    padding-bottom:10px;
+    font-size: 14px;
+}
+
+.con2 .plan .item .plan_inform:after{
+    display:block;
+    content:'';
+    clear:both;
+}
+
+.con2 .plan .item .plan_inform .icon{
+    float:right;
+}
+
+.con2 .plan .item .plan_inform .icon:after{
+    content:'';
+    display:block;
+    clear:both;
+
+}
+
+.plan_inform p{
+    margin-bottom:5px;
+}
+
+.con2 .plan .item .plan_inform .icon li{
+    float:left;
+    background-position-y: center;
+    margin-left: 5px;
+    
+}
+
+.icon li:nth-child(1){
+    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/11/b9a4ad76-d92a-4fcb-8eaa-2da9cbc42737icon_spot.png);
+    background-repeat: no-repeat;
+    padding-left:15px;
+    
+}
+
+.icon li:nth-child(2){
+    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/11/f498b698-fe3f-48de-b2c8-79366820c977icon_view.png);
+    background-repeat: no-repeat;
+    padding-left:20px;
+    
+}
+
+.icon li:nth-child(3){
+    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/11/ae54047c-6485-427b-87ce-7b7ecee8f7d4icon_user.png);
+    background-repeat: no-repeat;
+    padding-left:15px;
+    
+}
+
+.con2 .plan .item .plan_inform .user{
+    padding-left:20px;
+    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/11/dc9a965c-512e-4297-bb91-88fa47b3913eicon_view.png);
+    background-repeat: no-repeat;
+    background-position-y: center; 
+}
+
+.all{
+    width:345px;
+    padding-top:10px;
+    padding-bottom:10px;
+    border: 1px solid #ddd;
+    text-align:center;
+    margin:0 auto;
+    background-color:white;
+    font-size:14px;
+    color:#666;
+}
+
+/*con2*/
+
+.con3_wrap{
+    width:1100px;
+    margin:5rem 0rem 5rem 15rem;
+    color: black;
+}
+
+.con3 li{
+    margin-right:15px;
+    margin-bottom:15px;
+    border:1px solid #ddd;
+    
+    box-sizing: border-box;
+}
+.con3 .trip{
+    margin-top:40px;
+}
+.con3 .trip_img{
+   position: relative;
+}
+.trip_img1{
+    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/25fe711c-ad84-42af-93d6-fcbc2fbdc50dKakaoTalk_20240415_110607635_09.jpg);
+    width: 539px;
+     height: 200px;
+     background-position:10%;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+}
+.trip_img2{
+    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/2ebfc9f2-9ee9-4c39-af15-cacd25839799대구1.jpg);
+    width: 259px;
+     height: 160px;
+     background-position:10%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.trip_img2 img{
+	width: 100%;
+}                  
+.trip_img3{
+    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/04aa876d-68b4-4951-9ab2-e6a8d287bd1a함평.jpg);
+    width: 259px;
+    height: 160px;
+    background-position:10%;
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-position:0% 10%;
+}
+.trip_img4{
+    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/227faf34-d402-4f63-9cee-cfd66e54a86b경주.jpg);
+    width: 259px;
+    height: 160px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position:0% 10%;
+}
+.trip_img5{
+    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/82f8cfbd-9b8b-4802-a896-3dabeabd5b23광주.jpg);
+    width: 259px;
+    height: 160px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position:0% 25%;
+}
+.trip_img6{
+    background-image: url(https://storage.googleapis.com/kdt3th_project/2024/04/15/05820606-5563-48f7-8c36-d66ef9c364fa부산.png);
+    width: 538px;
+    height: 159px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0% 50%;
+}
+
+
+.con3 li:last-child{
+    margin-right:0px;
+}
+.trip1{
+	width: 1200px;
+	display: flex;
+	flex-wrap: wrap;
+}
+.trip1:after{
+    display:block;
+    clear:both;
+    content:'';
+}
+.trip1 li{
+	
+    float:left;
+    height:310px;
+    width: fit-content;
+}
+
+.trip1 li:nth-child(1){
+    width:540px;
+}
+
+.trip1 li:nth-child(2){
+    width:260px;
+}
+
+.trip1 li:nth-child(3){
+    width:260px;
+}
+
+.trip1 .trip_img img{
+    width:100%;
+    height:160px;
+}
+/*trip1*/
+.trip2:after{
+    display:block;
+    clear:both;
+    content:'';
+}
+.trip2 li{
+    float:left;
+    height:310px;
+}
+
+.trip2 li:nth-child(1){
+    width:260px;
+}
+
+.trip2 li:nth-child(2){
+    width:260px;
+}
+
+.trip2 li:nth-child(3){
+    width:540px;
+}
+
+.trip2 .trip_img img{
+    width:100%;
+    height:160px;
+}
+
+.trip_img{
+    overflow:hidden;
+}
+
+.trip_img img{
+    transition:all 1s;
+}
+
+.trip_img img:hover{
+    transform:scale(1.2)
+}
+
+
+.trip_inform{
+    text-align:center;
+    padding-top:20px;
+    padding-right:10px;
+    padding-left:10px;
+    width: 100%;
+    
+}
+.trip_inform.adv{
+width: 259px;
+    
+}
+.trip_inform .title{
+    font-weight: bold;
+    margin-bottom:20px;
+}
+
+.trip_inform p:last-child{
+    font-size:14px;
+}
+
+
+
+/*con3*/
+
+.title1{
+    font-size: 10px;
+}
+ul{
+     list-style:none;
+ }
+.advInfo{
+	height: 40px;
+	overflow: hidden;
+}
+.home{
+    border: 1px solid lavender;
+}
+.home__info{
+    padding: 0.5rem;
+}
+.tab{
+    color: #e0e5f6;
+}
+.HheaderCon{
+    float: right;
+}
