@@ -37,7 +37,7 @@ public interface AdventureService {
 	public Integer totalCount() throws Exception;
 
 	//추천
-	public void suggestion(ItemDTO item, UserDTO user) throws Exception;
+	public int suggestion(Integer itemID, Principal principal) throws Exception;
 
 
 	

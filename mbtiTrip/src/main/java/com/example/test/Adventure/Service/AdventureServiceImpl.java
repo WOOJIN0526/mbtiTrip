@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.test.POST.DTO.PostDTO;
 import com.example.test.POST.Service.DataNotFoundException;
+import com.example.test.User.DAO.UserDAO;
 import com.example.test.User.DTO.AdminDTO;
 import com.example.test.User.DTO.UserDTO;
 import com.example.test.User.Service.UserHistoryService;
@@ -36,7 +37,8 @@ public class AdventureServiceImpl implements AdventureService{
 	@Autowired
 	UserHistoryService userHistoryService;
 	
-	
+	@Autowired
+	UserDAO userDAO;
 	
 
 	@Override
@@ -162,10 +164,13 @@ public class AdventureServiceImpl implements AdventureService{
 	}
 
 	@Override
-	public void suggestion(ItemDTO item, UserDTO user) {
-		item.getUprating().add(user);
-        
-        this.itemDAO.update(item);
+	public int suggestion(Integer itemID, Principal principal) {
+		if(principal == null) {
+			throw new ItemException(ItemExceptionEnum.ITEM_USER_NOT_FOUND);
+		}
+		String uerName = userDAO.getUserNameByuserID(principal.getName());
+		int result = itemDAO.itemLike(itemID, uerName);
+		return result;
 	}
 
 

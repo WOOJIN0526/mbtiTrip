@@ -205,11 +205,18 @@ public class AdventureController {
     //추천
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/adventure/suggestion/{id}")
-    public String Suggestion(Principal principal, @PathVariable("id") Integer itemID) throws Exception {
-        ItemDTO itemDto = this.adService.getPost(itemID);
-        UserDTO user = this.userService.getUser(principal.getName());
-        this.adService.suggestion(itemDto, user);
-        return String.format("redirect:/adventure/detail/%s", itemID);
+    @ResponseBody
+    public ResponseEntity<String> suggestion(Principal principal, @PathVariable("id") Integer itemID) {
+        try {
+            int result = adService.suggestion(itemID, principal);
+            if (result != 0) {
+                return ResponseEntity.ok().body("성공하였습니다.");
+            } else {
+                return ResponseEntity.badRequest().body("실패하였습니다.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버에서 오류가 발생했습니다.");
+        }
     }	
     
 
