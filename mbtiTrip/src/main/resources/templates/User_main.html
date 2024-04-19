@@ -55,7 +55,7 @@
                                 class="search__input" type="date"/></td> <td><input class="search__input"
                                 type="date"/></td> </tr> <tr> <td colspan="2" class="search__sub__title"> 인원
                                 </td> </tr> <tr> <td colspan="2"> <select class="search__input">
-                                    <option>인원</option> <option>1명</option> <option>2명</option> <option>3명</option>
+                                <option>인원</option> <option>1명</option> <option>2명</option> <option>3명</option>
                                 </select> </td> </tr>-->
                             </table>
                             <div class="search__button">
@@ -68,6 +68,59 @@
             </header>
 
             <!-- 사용자 추천 기능 들어갈곳 -->
+
+            <section class="con3" th:object="${userUxadv}">
+                <div class="con3_wrap">
+                    <h3>어디로 갈까?</h3>
+
+                    <div class="trip">
+                        <ul class="trip1">
+                            <li>
+                                <a href="#">
+                                    <div class="trip_img1">
+                                        <img class="" src="" alt=""/>
+                                    </div>
+                                    <div class="trip_inform">
+                                        <p>대한민국의 여행지</p>
+                                        <p>
+                                            어디를 가서 무엇을 봐야할지 도저히 감이 잡히지 않는다면, 필수 스팟을 중심으로 둘러보자.</p>
+
+                                    </div>
+                                </a>
+
+                            </li>
+                            <li th:each="adv : ${userUxadv}">
+                                <a href="#">
+                                    <div class="trip_img2">
+                                        <img class="" th:src="${adv['ImgeUrl'][0]}" alt="로딩실패"/>
+                                    </div>
+                                    <div class="trip_inform adv">
+                                        <p class="title" th:text="${adv['itemName']}">대구 이월드</p>
+                                        <p th:text="${adv['contents']}" class="advInfo">이월드 블라썸 피크닉은 벚꽃을 시작으로 튤립까지 이어지는 다채로운 꽃들로..</p>
+
+                                    </div>
+                                </a>
+
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="trip_img6">
+                                        <img class="" src="" alt=""/>
+                                    </div>
+                                    <div class="trip_inform">
+                                        <p class="title">멋과 맛이 가득한 부산으로 오이소~</p>
+                                        <p>넘실거리는 파도와 그 위를 아찔하게 달리는 서퍼들, 그리고 정감 넘치는 음식까지. 부산만큼 볼거리, 먹거리, 체험거리를 두룬 갖춘 대규모
+                                            관광지가 또 있을까.</p>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </section>
             <section>
                 <div class="slide slide_wrap">
                     <div class="slide_item item1"></div>
@@ -79,75 +132,7 @@
                     <div class="slide_next_button slide_button">▶</div>
                     <ul class="slide_pagination"></ul>
                 </section>
-
-
-                <section class="con3" th:object = "${userUxadv}">
-                    <div class="con3_wrap"  >
-                        <h3>어디로 갈까?</h3>
-
-                        <div class="trip">
-                            <ul class="trip1">
-                                <li>
-                                    <a href="#">
-                                        <div class="trip_img1">
-                                            <img
-                                            class=""
-                                            src=""
-                                            alt=""
-                                            />
-                                        </div>
-                                        <div class="trip_inform">
-                                            <p class=>대한민국의 여행지</p>
-                                            <p> 어디를 가서 무엇을 봐야할지 도저히 감이 잡히지 않는다면, 필수 스팟을 중심으로 둘러보자.</p>
-
-                                        </div>
-                                    </a>
-
-                                </li>
-                                <li th:each = "adv : ${userUxadv}">
-                                    <a href="#">
-                                        <div class="trip_img2">
-                                            <img
-                                            class=""
-                                            th:src="${adv['ImgeUrl'][0]}"
-                                            alt="로딩실패"
-                                            />
-                                        </div>
-                                        <div class="trip_inform adv">
-                                            <p class="title"  th:text="${adv['itemName']}">대구 이월드</p>
-                                            <p th:text="${adv['contents']}" class="advInfo">이월드 블라썸 피크닉은 벚꽃을 시작으로 튤립까지 이어지는 다채로운 꽃들로..</p>
-
-                                        </div>
-                                    </a>
-
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="trip_img6">
-                                            <img
-                                            class=""
-                                            src=""
-                                            alt=""
-                                            />
-                                        </div>
-                                        <div class="trip_inform">
-                                            <p class="title">멋과 맛이 가득한 부산으로 오이소~</p>
-                                            <p>넘실거리는 파도와 그 위를 아찔하게 달리는 서퍼들, 그리고 정감 넘치는 음식까지. 부산만큼 볼거리, 먹거리, 체험거리를 두룬 갖춘 대규모
-                                                관광지가 또 있을까.</p>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-
-                        </div>
-
-                    </div>
-
-                </section>
-                                <!-- 광고 배너 -->
-                <section>
-                    <div class="ad1"></div>
-                </section>
+                <!-- 광고 배너 -->
 
                 <section>
                     <div class="sec__title">숙소 추천</div>
@@ -168,12 +153,17 @@
                                 <div class="info3"></div>
                             </div>
                         </div>
+                        <!-- <section>
+                            <div class="ad1"></div>
+                        </section> -->
 
                     </main>
 
                     <script th:src="@{/main/slide.js}"></script>
                     <script type="module" th:src="@{/main/main.js}"></script>
+
                 </section>
+
             </body>
 
         </html>
