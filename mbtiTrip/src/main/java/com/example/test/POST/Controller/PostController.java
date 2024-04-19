@@ -178,7 +178,7 @@ public class PostController {
     	String userName =userDao.getUserNameByuserID(principal.getName());
     	dto.setUserName(userName);
     	dto.setUpdateDate(LocalDateTime.now());
-    	System.out.println(dto.toString());
+    	
     	int result =postService.create(dto);
     	if(result==1) {
     		return ResponseEntity.ok("등록하였습니다.");

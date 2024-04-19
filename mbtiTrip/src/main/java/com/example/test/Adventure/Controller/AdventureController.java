@@ -137,15 +137,15 @@ public class AdventureController {
     @ResponseBody
     public ResponseEntity<String> create(ItemDTO itemdto,Principal princiapl) throws Exception{
     	itemdto.setType(ItemType.adventure);
-    	System.out.println(itemdto.toString());
+    	
     	String userId = princiapl.getName();
-    	System.out.println(userId);
+    	
     	UserDTO userDTO = userService.getUser(userId);
-    	System.out.println(userDTO.toString());
+    	
     	itemdto.setUsername(userDTO);
     	this.rpService.create(itemdto);
     	int resultImg = rpService.createImg(itemdto);
-    	System.out.println(resultImg);
+    	
     	
     	return ResponseEntity.ok().body("Success message");
     }
