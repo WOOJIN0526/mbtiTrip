@@ -16,6 +16,9 @@ import lombok.extern.log4j.Log4j2;
 @Component
 public class customSessionExpiredStrategy implements SessionInformationExpiredStrategy{
 
+	/** 중복로그인 방지를 위한 클래스입니다.
+	 * */
+	
 	@Override
 	public void onExpiredSessionDetected(SessionInformationExpiredEvent event) throws IOException, ServletException {
 		HttpServletRequest request = event.getRequest();

@@ -13,6 +13,12 @@ import com.example.test.item.ItemType;
 
 import lombok.Getter;
 import lombok.Setter;
+/**
+ * @author Shin_SungJin 
+ * Adventure와 replace 통합 DTO입니다.
+ * 
+ * */
+
 
 @Getter @Setter
 public class ItemDTO {

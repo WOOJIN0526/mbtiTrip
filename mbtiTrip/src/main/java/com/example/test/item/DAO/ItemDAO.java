@@ -21,7 +21,14 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @Repository
 public class ItemDAO {
-
+	/**@version 1.0
+	 * @author Shin_SungJin 
+	 * Adventure와 replace 통합 DAO입니다.
+	 * 
+	 * */
+	
+	
+	
 	@Autowired
 	private SqlSessionTemplate sqlSessiontemplate;
 	

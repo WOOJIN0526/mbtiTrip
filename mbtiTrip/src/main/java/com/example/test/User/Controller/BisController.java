@@ -51,6 +51,7 @@ public class BisController {
 //		return mav;
 //		@RequestMapping(value = "/signup/bis", method=RequestMethod.GET)
 	
+	/*Bis 회원가입*/
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public ModelAndView signUpBis(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
@@ -65,7 +66,7 @@ public class BisController {
 	public boolean singupUserBis(@RequestBody UserDTO userdto
 			 					) {
 		log.info("Bunm ===>{}", userdto.getBisNum());
-		//ModelAndView mav = new ModelAndView();     // 아직 비번 암 복호화 안됌 ㅋㅌ
+		//ModelAndView mav = new ModelAndView();    
 		log.info("BisDTO get  ==>{}", userdto);
 		userdto.setUserrole(User_Role.bis.getValue());
 		log.info("userDTO BIS  SignUP ===>", userdto);
@@ -90,23 +91,29 @@ public class BisController {
 //		return mav;
 //	}
 	
+	/*bis 로그인 성공 프로세스*/
 	@RequestMapping(value = "/login/success")
 	public String UserSuccess() {
 		return "redirect:/bis/main";
 	}
+	
 	
 	@PreAuthorize("hasRole('ROLE_BIS') or hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public ModelAndView main(Principal principal,
 							ModelAndView mav) {
 		log.info("main 접속 중 ");
+		/*bis 정보 찾기*/
 		Integer UID = userService.findByUID(principal);
 		Map<String, Object> bis = userService.getInfo(UID);
 		log.info("userMain info = {} ", bis);
+		
+		/*bis User가 등록한 Item 과 , 조회수 찾기*/
 		List<HashMap<String, Object>> userItems = userService.getMyItem(principal);
 		List<HashMap<String, Object>> viewRating = userHistoryservice.viewRating(principal);
-		userService.bisListput(userItems, viewRating);
 		
+		/*bis Item에 조회수 삽입*/
+		userService.bisListput(userItems, viewRating);
 		
 		mav.addObject("user", bis);
 		mav.addObject("userItems", userItems);
@@ -114,14 +121,18 @@ public class BisController {
 		return mav;
 	}
 	
+	
 	@PreAuthorize("hasRole('ROLE_BIS') or hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public ModelAndView mypageBis(Principal principal, UserDTO userdto, ModelAndView mav){
+		/*bis 정보 조회*/
 		Integer userUID = userService.findByUID(principal);
 		Map<String, Object> user = userService.getInfo(userUID);
 		List<HashMap<String, Object>> userItems = userService.getMyItem(principal);
 		List<HashMap<String, Object>> viewRating = userHistoryservice.viewRating(principal);
 		userService.bisListput(userItems, viewRating);
+		
+		/*User 예약 현황 불러오기 */
 		List<HashMap<String, Object>> userReservation = 
 				userCartService.reservationInfo(principal);
 		log.info("BisController UserReservation INfo => {}", userReservation);

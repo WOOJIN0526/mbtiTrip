@@ -22,6 +22,8 @@ import lombok.extern.log4j.Log4j2;
 @Repository
 public class UserHistoryDAO {
 
+	/** @author 신ㅅ어진*/
+	
 	@Autowired
 	SqlSessionTemplate sqlsessiontemplate;
 	
@@ -47,25 +49,28 @@ public class UserHistoryDAO {
 	//사용자가 조회한 놀거리 정보 -> limit 통해서 최근 5개 건만
 	public List<ItemDTO> viewReturnAD(String userName) {
 		log.info("HIStoryDAO => {}", userName);
-		return this.sqlsessiontemplate.selectList("view.ReturnAD", userName);
+		
+		List<ItemDTO> result= this.sqlsessiontemplate.selectList("view.ReturnAD", userName);
+		return result;
 	}
 	
 	//사용자가 조회한 게시글 정보 -> limit 통해서 최근 5개 건만
 	public List<PostDTO> viewReturnPO(String userName) {
 		log.info("HIStoryDAO => {}", userName);
-		return this.sqlsessiontemplate.selectList("view.ReturnPO", userName);
+		List<PostDTO> result= this.sqlsessiontemplate.selectList("view.ReturnPO", userName);
+		return result;
 	}
 
-	
 	//사용자가 작성한 개시물 
 	public List<HashMap<String, Object>> userCreatePost(String userName){
 		log.info("userCreatePostMethod =>>> {}", userName);
-		
-		return this.sqlsessiontemplate.selectList("view.userCreatePost", userName);
+		 List<HashMap<String, Object>> result = this.sqlsessiontemplate.selectList("view.userCreatePost", userName);;
+		return result;
 	}
 	
 	public List<HashMap<String, Object>> userCreateQnA(String userName){
-		return this.sqlsessiontemplate.selectList("view.userCreateQnA", userName);
+		List<HashMap<String, Object>> result = this.sqlsessiontemplate.selectList("view.userCreateQnA", userName);
+		return result;
 	}
 	
 	
@@ -80,16 +85,19 @@ public class UserHistoryDAO {
 	/*이하 위 기능을 활용하여 각각 ALL, adventure, replace 정보 추천 최대 4개 */
 	//아래 메소드는 루트 추천을 위해 각각 replace정보와 adventure 정보를 담고 있음 
 	public List<HashMap<String, Object>> rutinByUx(String mbti){
-		return this.sqlsessiontemplate.selectList("view.rutinALL", mbti);
+		List<HashMap<String, Object>> result =this.sqlsessiontemplate.selectList("view.rutinALL", mbti);
+		return result;
 	}
 
 	public List<HashMap<String, Object>> rutinADByUx(String mbti) {
-		return this.sqlsessiontemplate.selectList("view.rutinAD", mbti);
+		List<HashMap<String, Object>> result =this.sqlsessiontemplate.selectList("view.rutinAD", mbti);
+		return result;
 		
 	}
 	
 	public List<HashMap<String, Object>> rutinREByUx(String mbti) {
-		return this.sqlsessiontemplate.selectList("view.rutinRE", mbti);
+		List<HashMap<String, Object>> result =this.sqlsessiontemplate.selectList("view.rutinRE", mbti);
+		return  result;
 		
 	}
 	public void viewRatingIT(ItemDTO itemDTO) {
@@ -123,7 +131,7 @@ public class UserHistoryDAO {
 	}
 	
 	
-	
+	//아이템의 조회수를 불러옵니다. 
 	public List<HashMap<String, Object>>  getRatingItem(String userName) {
 		List<HashMap<String, Object>> rating =this.sqlsessiontemplate.selectList("view.returnRatingItem", userName);
 		return rating;

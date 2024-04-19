@@ -27,6 +27,11 @@ import lombok.extern.log4j.Log4j2;
 @RequestMapping("user/history")
 public class userHistoryController {
 
+	/**@author 신성진 
+	 * 사용자의 history를 관리하는 controller입니다. 
+	 * 사용자의 UX와 관련도가 높습니다.
+	 * */
+	
 	
 	/* 총 4개의 정보를 전달 해야 함. 
 	 * 예약된 replace
@@ -43,17 +48,23 @@ public class userHistoryController {
 	
 	
 	//4.8 test 신성진 완료 
+	// 사용자 history Page 로딩
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView userHistory(Principal principal, ModelAndView mav,
 									UserCartDTO userCartDTO) {
+		//예약된 정보를 확입합니다. 
 		List<HashMap<String, Object>> reservation =userCartService.detail_Pay(userCartDTO, principal);
 		for(HashMap<String,Object> reserv : reservation) {
 			log.info("userUX rutin   ==>{}", reserv);
 		}
+		
+		//직접 작성한 게시글을 확인합니다.
 		List<HashMap<String, Object>> userPost = userHistoryService.selectUserPost(principal);
 		for(HashMap<String,Object> reserv : userPost) {
 			log.info("userUX rutin   ==>{}", reserv);
 		}
+		
+		//직접 작성한 QnA를 확인합니다.
 		List<HashMap<String, Object>> userQnA = userHistoryService.selectUserQnA(principal);
 		for(HashMap<String,Object> reserv : userQnA) {
 			log.info("userUX rutin   ==>{}", reserv);

@@ -44,22 +44,27 @@ public class UserCartServiceImpl implements UserCartService{
 	ItemDAO itemDao;
 	
 	
+	/*아이템 myCart에 삽입*/
 	@Override
 	public boolean insertItem(UserCartDTO userCartDTO, Principal principal) throws CartException{
 		//4.3 test끝 	
 		//URL  = /replace/cart Post
 		int result = 0;
 		boolean ck;
-		
+		//로그인 된 사용자인지 검사 
 		if(principal.getName() == null) {
 			throw new UserNotFoundExcepiton(UtileExceptionCode.USER_NOT_FOUND_EXCEPTION);
 		}
+		//Cart에 올바르게 정보가 들어오는지 validation검사진행
 		CartValidationCK(userCartDTO);
+		
+		//Cart에 아이템 정보와 , User 정보 세팅
 		userCartDTO.setUserName(userDAO.getUserNameByuserID(principal.getName()));
 		userCartDTO.setPayments(false);
 		log.info("message {}", userCartDTO.toString());
-		result = userCartDAO.insertItem(userCartDTO);	
-			
+		//아이템 삽입
+		result = userCartDAO.insertItem(userCartDTO);
+		//insert 된 결과가 없다면, 예외처리 
 		if(result == 0) {
 			throw new InsertException(InsertExceptionEnum.INSERT_SERVER_ERROR);
 		}
@@ -69,17 +74,20 @@ public class UserCartServiceImpl implements UserCartService{
 		return ck;
 	}
 
-	//수정 필요
 	@Override
 	public List<HashMap<String, Object>> detail(UserCartDTO usercartdto ,Principal principal) {
 		//url = mypage/ myCart
 		//payments get false;
+		
+		//user정보 조회 
 		String userName = userDAO.getUserNameByuserID(principal.getName());
 		usercartdto.setUserName(userName);
+		
+		//user의 결제 되지 않은 장바구니 내역 불러오기 
 		List<HashMap<String, Object>> userCart = this.userCartDAO.detail(usercartdto);
 		for(HashMap<String, Object> item :userCart) {
 			int itemID = (Integer) item.get("itemId");
-			 List<String> url = itemDao.getUrl(itemID);
+			List<String> url = itemDao.getUrl(itemID);
 			 //등록된 이미지가 없을 경우
 			 if(url.isEmpty()) {
 				 url.add("0");
@@ -87,13 +95,12 @@ public class UserCartServiceImpl implements UserCartService{
 			 String[] ImgeUrl = url.toArray(new String[0]); // 리스트를 배열로 변환
 		     item.put("ImgeUrl", ImgeUrl); // 아이템에 이미지 URL 배열 추가
 		}
+		//최종 가격 삽입
 		usercartdto.setFinalPrice(sumPrice(userCart));
 		return userCart;
 	}
 	
 	
-	
-	// 수정 필요
 	@Override
 	public Integer sumPrice(List<HashMap<String, Object>> userCart) {
 		Integer result = 0;
@@ -103,7 +110,9 @@ public class UserCartServiceImpl implements UserCartService{
 		return result;
 	}
 
-	//수정 필요
+	
+	
+	//결제 된 정보 표시 
 	@Override
 	public List<HashMap<String, Object>>  detail_Pay(UserCartDTO usercartdto ,Principal principal) {
 		//url = mypage/ myPayments
@@ -114,6 +123,9 @@ public class UserCartServiceImpl implements UserCartService{
 		return userCart;
 	}
 
+	
+	
+	/*결제가 성공메소드 */
 	@Override
 	public boolean updatePaymentsSuccess(Principal prince) throws CartException {
 		String userName = userDAO.getUserNameByuserID(prince.getName());
@@ -125,6 +137,7 @@ public class UserCartServiceImpl implements UserCartService{
 		return ck;
 	}
 
+	/*결제 취소 메소드 */
 	@Override
 	public boolean updatePaymentFalse(Principal prince)throws CartException {
 		String userName =userDAO.getUserNameByuserID(prince.getName());
@@ -136,6 +149,7 @@ public class UserCartServiceImpl implements UserCartService{
 		return ck;
 	}
 
+	/*장바구니 삭제 */
 	@Override
 	public boolean deleteItem(Principal principal, Integer itemID) {
 		UserCartDTO userCart = new UserCartDTO();
@@ -148,7 +162,7 @@ public class UserCartServiceImpl implements UserCartService{
 		return ck;
 	}
 
-
+	/*장바구니 내역 전체 삭제 */
 	@Override
 	public boolean deleteALL(Principal principal) {
 		UserCartDTO userCart = new UserCartDTO();
@@ -160,6 +174,8 @@ public class UserCartServiceImpl implements UserCartService{
 		return ck;
 	}
 	
+	
+	/*BisMypage에 사용 될 예약 된 정보 불러오기 */
 	@Override
 	public List<HashMap<String, Object>> reservationInfo(Principal principal) {
 		String adminName = userDAO.getUserNameByuserID(principal.getName());

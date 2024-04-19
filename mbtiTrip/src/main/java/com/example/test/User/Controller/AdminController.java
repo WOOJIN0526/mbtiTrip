@@ -48,6 +48,7 @@ public class AdminController {
 //		return mav;
 //	}
 	
+	/*로그인 성공 프로세스 */
 	@RequestMapping(value = "admin/login/success")
 	public ModelAndView adminSuccess(ModelAndView mav, 
 								Principal princ) {

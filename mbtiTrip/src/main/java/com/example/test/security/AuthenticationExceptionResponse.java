@@ -16,6 +16,8 @@ import lombok.NoArgsConstructor;
 @ToString
 public class AuthenticationExceptionResponse {
 
+	//AuthenticaionException을 처리하기 위한 Response Data class 입니다.
+	
 	private HttpStatus status;
 	private String message;
 

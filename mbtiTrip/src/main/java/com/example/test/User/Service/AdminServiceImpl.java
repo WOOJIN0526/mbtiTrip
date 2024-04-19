@@ -45,12 +45,13 @@ public class AdminServiceImpl implements AdminService{
 		boolean unblock = false;
 		int ck = adminDao.userBaned(username);
 		if(ck != 0) {
+			//ck가 0이 아닌 경우 block 성공
 			unblock = true;
 		}
-		
 		return unblock;
 	}
 
+	/*오늘 접속한 사용자수 */
 	@Override
 	public int rating(String userName) {
 		int rating = adminDto.getRating();
@@ -77,18 +78,21 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 
+	/*총 user수 */
 	@Override
 	public Map<String, Integer>  userCnt() {
 		Map<String,Integer> cnt = adminDao.userCount();
 		return cnt;
 	}
 	
+	/*userType 분포도*/
 	@Override
 	public List<HashMap<String, Object>> mbtiCnt() {
 		List<HashMap<String, Object>> mbtiCnt = adminDao.mbtiCnt();
 		return mbtiCnt;
 	}
 
+	/*이하 유저 관리 */
 	@Override
 	public List<HashMap<String, Object>> userList() {
 		List<HashMap<String, Object>> userList = adminDao.userList();
@@ -108,24 +112,7 @@ public class AdminServiceImpl implements AdminService{
 		return liveUser;
 	}
 
-	@Override
-	public int postCnt() {
-	
-		return 0;
-	}
 
-
-	@Override
-	public int replaceCnt() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int adventureCnt() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 
 	

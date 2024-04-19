@@ -16,18 +16,22 @@ public class adminDAO {
 	SqlSessionTemplate sqlSessiontemplate ;
 	
 	public int userBaned(String userName){
-		return this.sqlSessiontemplate.update("admin.userBaned", userName);
+		int result =this.sqlSessiontemplate.update("admin.userBaned", userName);
+		return result;
 	}
 	public int userUnblock(String userName){
-		return this.sqlSessiontemplate.update("admin.userUnBlock", userName);
+		int result =this.sqlSessiontemplate.update("admin.userUnBlock", userName);
+		return result;
 	}
 	
 	public int userReportCnt(String userName) {
-		return this.sqlSessiontemplate.selectOne("admin.userReportCnt", userName);
+		int result =this.sqlSessiontemplate.selectOne("admin.userReportCnt", userName);
+		return result;
 	}
 	
 	public int userReport(String userName) {
-		return this.sqlSessiontemplate.update("admin.report", userName);
+		int result =this.sqlSessiontemplate.update("admin.report", userName);
+		return result;
 	}
 
 	public Map<String, Integer> userCount() {

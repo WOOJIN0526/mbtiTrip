@@ -20,7 +20,10 @@ import lombok.extern.log4j.Log4j2;
 @Component
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint{
 
-		
+	/**@author 신성진
+	 * 인증 받지 않은 사용자의 fobidenException에 대한 예외 처리 핸들러입니다.
+	 * */	
+
 	
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,

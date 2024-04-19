@@ -21,14 +21,15 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @Repository
 public class UserDAO {
-
+ 
+	/** @autor 신성진
+	 * */
 
 	
 	@Autowired
 	SqlSessionTemplate sqlSessiontemplate ;
 	
-
-
+	//Signup에 사용됩니다. 
 	public int insert(UserDTO userDto) {
 		int result = 0 ;
 		try {
@@ -53,6 +54,7 @@ public class UserDAO {
 	};
 
 
+	//update에 사용되는 method입니다.
 	public int userUpdate(UserDTO userdto) {
 		int result = this.sqlSessiontemplate.update("user.updateUser", userdto);
 		return result;
@@ -63,6 +65,7 @@ public class UserDAO {
 		return result;
 	}
 
+	//이하 사용자정보를 호출 기능을 하는  method입니다. 
 	public Map<String, Object> getInfo(Integer uID) {
 		Map<String, Object> map = this.sqlSessiontemplate.selectOne("user.getInfo", uID);
 		return map;
@@ -74,7 +77,9 @@ public class UserDAO {
 	}
 
 
-
+	/** security 도입으로 인해 가용성이 떨어지는 method입니다. 
+	 * @deprecated
+	 * */
 	public Map<String, Object> login(UserDTO userdto) {
 		Map result = this.sqlSessiontemplate.selectOne("user.login", userdto);
 		return result;
@@ -105,6 +110,8 @@ public class UserDAO {
 		return user;
 	}
 
+	
+	//BIS에서 사용되는 나의 Item정보를 불러오는 method입니다. 
 	public List<HashMap<String, Object>> getMyItem(String userName) {
 		log.info("getMyItem userName = > {}" , userName);
 		List<HashMap<String, Object>> myItem = this.sqlSessiontemplate.selectList("user.getMyItem", userName); 
@@ -118,6 +125,7 @@ public class UserDAO {
 	}
 	
 	
+	//ID가 중복성 검사를 위한 method입니다. 
 	public boolean idCk(UserDTO userdto) {
 		boolean ck = false;
 		
@@ -128,6 +136,7 @@ public class UserDAO {
 		return ck;
 	}
 	
+	//nickName 중복을 방지하기 위한 method입니다.
 	public boolean nameCk(UserDTO userdto) {
 		boolean ck = false;
 		int nameCk = this.sqlSessiontemplate.selectOne("user.ckUsername", userdto);
