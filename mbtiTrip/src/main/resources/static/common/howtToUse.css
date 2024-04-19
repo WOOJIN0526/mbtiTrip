@@ -8,6 +8,17 @@
   font-weight: lighter;
   color: #454138;
   padding: 10rem;
+  background: url(https://storage.googleapis.com/kdt3th_project/2024/04/19/9bf22195-00fd-4e03-accc-7ce773a70d14여행.jpg);
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+}
+
+.write{
+  width: 500px;
+  background-color: #EEEFF1;
+  padding: 2rem;
+  border-radius: 0.6rem;
 }
 
 .how.p {
