@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html
+    lang="en"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    **xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    **="**"
+    layout:decorate="~{layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Trip or Trick</title>
+	<link rel="stylesheet" th:href="@{/common/common.css}">
+    <link rel="stylesheet" th:href="@{/common/howtToUse.css}">
+</head>
+<div layout:fragment="content" class="uBody">
+    <header>
+        <h1>Welcome to Trip or Trick!</h1>
+    </header>
+    <section class="how sec">
+        <div class=" how div">
+            <h2 class="how h2">Trip or Trick! 어떻게 사용해야 할까요?</h2>
+            <h2 class="how h2">일반 고객님 이용 방법</h2>
+            <ol class="how ol">
+                <li class="how li">Trip or Trick을 이용하는 방법에 대해 안내해 드립니다. 아래 단계를 따라 주세요:</li>
+                <li class="how li">사이트에서 다양한 게시글과 엄선된 숙소 및 놀거리 정보를 살펴보세요.</li>
+                <li class="how li">자신에게 맞는 숙소와 활동을 찾아보세요.</li>
+                <li class="how li">사용자의 검색 기록과 선호도를 기반으로 한 맞춤형 추천을 즐겨보세요.</li>
+            </ol>
+            <br>
+            <h3>숙소를 등록하려면 당사의 품질 및 독창성 기준을 확인하세요.</h3>
+            <h2>비즈니스 고객님 이용 방법</h2>
+            <ol class="how ol">
+                <li class="how li">당사에 문의하여 당사 플랫폼에 숙소를 등록할 가능성에 대해 논의하세요.</li>
+            </ol>
+            <h2 class="how h2">소개</h2>
+            <p class="how p">
+                Trip or Trick은 여행과 관련된 다양한 정보를 제공하는 플랫폼입니다. 우리의 목표는 사용자들이 여행을 계획하고 즐기는 데 도움을 주는 것입니다.
+            </p>
+            <h2 class="how h2">가치 제안</h2>
+            <p class="how p">
+                우리의 가치 제안은 사용자들이 쉽게 여행 정보를 찾을 수 있도록 하는 것입니다. 우리는 다양한 목적지와 숙소, 관광지 정보를 제공하여 사용자들이 자신의 취향과 요구에 맞는 여행을 계획할 수 있도록 돕습니다.
+            </p>
+            <h2 class="how h2">특징</h2>
+            <ul class="how ul">
+                <li class="how li">다양한 여행 정보와 리뷰 제공</li>
+                <li class="how li">사용자 맞춤형 추천 기능</li>
+                <li class="how li">사용자 친화적 인터페이스</li>
+                <li class="how li">비즈니스 파트너와의 협업 기회</li>
+            </ul>
+        </div>
+    </section>
+</div>
+</html>

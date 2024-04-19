@@ -52,25 +52,14 @@
                         <i class="fa-solid fa-cart-shopping"></i>
                     </a>
                 </div>
-                <div class="profileItems">
-                    <a href="">
-                        <p>커뮤니티</p>
-                        <i class="fa-regular fa-comments"></i>
-                    </a>
-                </div>
+
                 <div class="profileItems">
                     <a th:href="@{/QnA}">
                         <p>고객센터</p>
                         <i class="fa-solid fa-phone"></i>
                     </a>
                 </div>
-                <div class="profileItems">
-                    <a href="">
-                        <p>알림</p>
-                        <i class="fa-regular fa-bell"></i>
-                    </a>
-                    <!-- <i class="fa-solid fa-bell"></i> -->
-                </div>
+
                 <div class="profileItems">
                     <a th:href="@{/logout}" id="logout">
                         <p>로그아웃</p>
@@ -89,11 +78,11 @@
                 <a th:href="@{/bis/main}" sec:authorize="hasAuthority('ROLE_BIS')">
                     <div class="Htitle"></div>
                 </a>
-                <a th:href="@{/}" th:if="${#authentication.principal != null}">
+                <a th:href="@{/}"sec:authorize="!isAuthenticated()">
                     <div class="Htitle"></div>
                 </a>
                 <div class="HeaderR">
-                    <a href="#">
+                    <a th:href="@{/howUse}">
                         <span class="tab">About the Site</span></a>
                     <span class="tab">
                         둘러보기

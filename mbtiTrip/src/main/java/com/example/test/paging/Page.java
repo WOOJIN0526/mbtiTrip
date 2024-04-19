@@ -22,6 +22,7 @@ public class Page {
 	private int startRowIndex;		// 시작 행 index
 	
 	private String keyword;			// 검색어
+	private int PostCateGoryID;			// 검색어
 	
 	public Page() {
 		this(0, 10);

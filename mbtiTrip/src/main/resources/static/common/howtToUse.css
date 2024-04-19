@@ -1,0 +1,38 @@
+.uBody {
+  background-color: #ffffff;
+  -webkit-background-size: 0.3rem 0.3rem;
+  -moz-background-size: 0.3rem 0.3rem;
+  background-size: 0.3rem 0.3rem;
+  font-family: helvetica, sans-serif;
+  letter-spacing: 0.03rem;
+  font-weight: lighter;
+  color: #454138;
+  padding: 10rem;
+}
+
+.how.p {
+  margin: 0 0 1rem 0;
+}
+
+.how.h1 {
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.5rem;
+  text-shadow: 0.3rem 0.3rem 0 #bab5a1;
+}
+.how.h2 {
+  font-weight: lighter;
+  border: solid #454138;
+  border-width: 0.1rem 0;
+  padding: 0.1rem 1rem;
+}
+.how.h3,
+.how.h4,
+.how.h5,
+.how.h6 {
+  font-weight: lighter;
+  letter-spacing: 0.1rem;
+}
+
+
+

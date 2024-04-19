@@ -646,6 +646,7 @@ ul{
 	overflow: hidden;
 }
 .home{
+	width: fit-content;
     border: 1px solid lavender;
 }
 .home__info{
