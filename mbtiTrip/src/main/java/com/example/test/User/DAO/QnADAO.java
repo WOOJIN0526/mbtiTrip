@@ -37,15 +37,21 @@ public class QnADAO {
 	
 	}
 	
+	public List<QnADTO> getAdminList(QnADTO qna) {
+		List<QnADTO> result =this.sqlSessiontemplate.selectList("qna.getAdminList", qna);
+		return result;
+	}
+	
+	
 	public Map<String, Object> getDetail(Integer qID) {
-		// TODO Auto-generated method stub
-		return this.sqlSessiontemplate.selectOne("qna.getDetail", qID);
+		Map<String, Object> result = this.sqlSessiontemplate.selectOne("qna.getDetail", qID);
+		return result;
 	}
 
-	
+
 	public List<HashMap<String, Object>> getMyQnA(String userName) {
-		// TODO Auto-generated method stub
-		return this.sqlSessiontemplate.selectList("qna.getMyQnA", userName);
+		List<HashMap<String, Object>> result = this.sqlSessiontemplate.selectList("qna.getMyQnA", userName);
+		return  result ;
 	}
 
 	

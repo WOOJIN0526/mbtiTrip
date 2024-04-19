@@ -119,6 +119,7 @@ public class PostDAO {
 
 	public List<PostDTO> getListPage(Page page) {
 		// TODO Auto-generated method stub
+		System.out.println(page.getPostCateGoryID()+"here");
 		return this.sqlSessiontemplate.selectList("post.getListPage", page);
 	}
 	

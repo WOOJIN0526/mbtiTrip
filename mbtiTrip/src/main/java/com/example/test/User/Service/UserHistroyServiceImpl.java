@@ -30,11 +30,14 @@ import lombok.extern.log4j.Log4j2;
 @Service
 public class UserHistroyServiceImpl implements UserHistoryService{
 
+	/**@author 신성진*/
+	
 	@Autowired
 	UserHistoryDAO userhistoryDAO;
 	
 	@Autowired
 	UserDAO userDAO;
+	
 	
 	// 사용자의 userView에 조회한 ITem 정보 삽입
 	public void userViewItem(ItemDTO itemDTO, Principal principal) {
@@ -58,9 +61,7 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 		}
 		String userName = userDAO.getUserNameByuserID(principal.getName());
 		userPostView.setPostid(PostDTO.getPostID());
-
 		userPostView.setUserName(userName);
-
 		userhistoryDAO.viewCkPO(userPostView);
 		//viewPost에 viewRating 값 증가 
 		userhistoryDAO.viewRatingPO(PostDTO);
@@ -147,7 +148,7 @@ public class UserHistroyServiceImpl implements UserHistoryService{
 	}
 	
 	
-	/*
+	/**
 	 * 작업자 신성진
 	 * @Param : 유저의 principal 정보 
 	 * @Return : 사용자가 조회한 모든 조건의 결과 

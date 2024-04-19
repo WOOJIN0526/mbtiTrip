@@ -161,6 +161,7 @@ function submitForm() {
 	}).then(response=>{
 		if (response.ok) {
         alert("등록에 성공하였습니다.");
+        window.location.href = `/bis/main`;
     } else {
         alert("등록에 실패하였습니다.");
     }

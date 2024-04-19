@@ -39,3 +39,30 @@
       paymentMethods.updateAmount(amount)
     }
   }
+  
+  /*삭제 */
+ function delete_item(){
+	const checkbox = document.getElementsByName("checkbox");
+	
+	for (var i = 0; i < checkbox.length; i++) {
+        if (checkbox[i].checked) {
+             console.log(checkbox[i].value);
+        }
+    }
+	
+ }
+ 
+ /*전체 삭제*/
+  function delete_all() {
+  const checkbox = document.getElementsByName("checkbox");
+  for (var i = 0; i < checkbox.length; i++) {
+      checkbox[i].checked=true;
+     /* $("#deletALL").submit();*/
+        
+    }
+}
+  
+  
+  
+  
+  

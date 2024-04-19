@@ -16,6 +16,7 @@
     <![CDATA[
     		 SELECT * 
     		 FROM Post 
+    		 WHERE PostCateGoryID = #{PostCateGoryID}
    			 ORDER BY updateDate DESC 
     		 LIMIT  #{startRowIndex}, #{rowsPerPage}
     ]]>

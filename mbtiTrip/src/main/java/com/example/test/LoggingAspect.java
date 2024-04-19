@@ -12,7 +12,10 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
-/*
+/**
+ * @author 신성진
+ * 추후 사용자의 로그 관리를 위한 AOP 클래스입니다.
+ *
 -//참고 사이트 
 -//https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.logging
 -//https://www.egovframe.go.kr/wiki/doku.php?id=egovframework:rte3:fdl:%EC%84%A4%EC%A0%95_%ED%8C%8C%EC%9D%BC%EC%9D%84_%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94_%EB%B0%A9%EB%B2%95
@@ -22,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 -// @Aspect => AOP 선언 어노테이션 
 -// @component =>Spring이 자동으로 클래스의 인스턴스를 생성하고 종속성을 포함하여 각종 lifecycle을 관리해준다. 
 -// 이를 통해 개발자는 오브젝트 생성 및 관리에 대한 걱정보다 비즈니스 로직 자체에 집중할 수 있다고 한다
--//@Slf4j : lombok, logger
+-/ /@Slf4j : lombok, logger
 -
 -// 해당 Aspcet는 example.test 를 주소로 잡고, test 내 모든 파일에 대한 메소드 실행시 AOP 실행 중 
 -// AOp는 component 어노테이션을 통해 bean 객체로 등록을 해놨기에 언제 어디서든 호출 가능 

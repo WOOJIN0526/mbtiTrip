@@ -25,6 +25,11 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class CustomLoginFailhandelr implements AuthenticationFailureHandler  {
 
+	/**@author ShinSungjin
+	 * Security에 사용 될  CustomFailerhander입니다입니다. 
+	 * 로그인이 실패 했을 경우에 실행됩니다.
+	 * */
+	
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException, LoginException {
@@ -32,6 +37,7 @@ public class CustomLoginFailhandelr implements AuthenticationFailureHandler  {
 		
 		String errorMessage;
 		
+		//다양한 로그인 실패에 대한 예외처리를 정합니다.
 		if(exception instanceof BadCredentialsException) {
 			throw new LoginException(LoginExceptionEnum.LOGIN_PASSWORD_MISMATCH);
 		}
@@ -54,7 +60,7 @@ public class CustomLoginFailhandelr implements AuthenticationFailureHandler  {
 		}
 		
 		 /* 한글 인코딩 깨진 문제 방지 */
-
+		
 		log.info("catch FailHandelr {}", errorMessage);
 		response.sendError(response.getStatus(), errorMessage);
 		

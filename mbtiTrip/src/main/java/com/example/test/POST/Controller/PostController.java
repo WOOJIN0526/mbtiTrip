@@ -75,13 +75,7 @@ public class PostController {
 	//게시글 목록 화면
 		@RequestMapping(value = "/post/{category}/list", method = RequestMethod.GET)
 		public String list( Model model, Page page, @PathVariable("category") String category) throws Exception{
-		PostDTO postDTO = new PostDTO();
-		  if(category.equals("noticeBoard")) {
-		        postDTO.setPostCategoryID(2);
-		  } else if(category.equals("review")) {
-		        postDTO.setPostCategoryID(1);
-		  }
-		
+		  
 		  	Integer totalCount = null;
 			Integer rowPerPage = null;
 			Integer pageCount = null;
@@ -113,7 +107,12 @@ public class PostController {
 			} else{
 				page = new Page(pageNum, rowPerPage, totalCount, pageCount);
 			}
-			
+			if(category.equals("noticeBoard")) {
+			        page.setPostCateGoryID(2);
+			        
+			  } else if(category.equals("review")) {
+			        page.setPostCateGoryID(1);
+			  }
 			if(keyword == null || keyword == ""){
 				page.setKeyword("");
 				List<PostDTO> list = postService.getListPage(page);
