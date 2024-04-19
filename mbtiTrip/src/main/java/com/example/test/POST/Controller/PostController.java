@@ -198,7 +198,7 @@ public class PostController {
     		userName = user.getName();
     		model.addAttribute("userName", userName);
     	}
-     	PostDTO post = postService.getPost(postID);
+     	PostDTO post = postService.getPost(postID, user);
     	UserDTO writer = post.getWriter();
     	if( !writer.equals(userName)){
     		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
@@ -229,7 +229,7 @@ public class PostController {
 	@PreAuthorize("isAuthenticated() and hasRole('ROLE_USER')")
     @RequestMapping(value = "/post/noticeBoard/remove", method = RequestMethod.POST)
     public String postDelete(Principal principal, @PathVariable("id") Integer postID) throws Exception {
-        PostDTO postDto = this.postService.getPost(postID);
+        PostDTO postDto = this.postService.getPost(postID, principal);
         if (!postDto.getWriter().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
